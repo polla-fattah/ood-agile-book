@@ -254,3 +254,12 @@ One entry per chapter: what was removed or rewritten, where the evidence went, a
 - Checked: a production build and a development build (127 pages each) and a link crawl of both; a real `hugo server` on another port. See the report to the owner for the numbers.
 - Not changed: the GitHub repository URLs (`github.com/polla-fattah/oop-and-agile`), which name the repository and not the site folder.
 
+
+## Lecture slides: one deck per chapter (14 to 15 October 2026)
+
+- Instruction from the owner: slides for each chapter instead of per teaching week, many slides, no vertical scrolling, same style and fonts, Chapters 1 and 2 split from the week 1 deck, Chapter 15 created.
+- 15 new decks `content/slides/chapter-01.md` to `chapter-15.md`, written from the chapters and companions (not converted from the weekly decks). 1,986 slides in all. Diagrams are inline SVG (`svgkit.py`, `dg_ch01.py` to `dg_ch15.py`, `embed.py`) because Mermaid does not render on deck pages.
+- `content/slides/_index.md` rewritten to list the 15 chapter decks; `content/topics/_index.md`: the 14 "Lecture Slides (Week NN)" links now point to the chapter decks and Chapter 15 has a link.
+- Retired, not deleted: `content/slides/week-01.md` to `week-13.md` moved to `internal_not_for_publishing/retired_week_decks/` (they are also in Git history). `Lecture_Slides_Todo.md` rewritten for the chapter decks; the old version is kept in the same folder.
+- Not changed: `assets/slides/deck.css`, `deck.js`, `layouts/slides/page.html`, the chapters and companions.
+- Checked: a full-site build in a scratch copy (135 pages, no error or warning); every deck measured in the browser at 1280 x 720 (0 overflowing slides, 0 SVG text problems).
