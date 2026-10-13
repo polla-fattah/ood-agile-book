@@ -2,7 +2,7 @@ name: Deploy site to Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "fix/site-address"]
   workflow_dispatch:
 
 permissions:
@@ -41,8 +41,13 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build with Hugo
-        # The address of the site is the baseURL in hugo.yaml (https://polla.dev/ood_agile-book/).
-        run: hugo --minify
+        run: |
+          base_url="${{ steps.pages.outputs.base_url }}"
+          if [ -n "$base_url" ]; then
+            hugo --minify --baseURL "${base_url}/"
+          else
+            hugo --minify
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

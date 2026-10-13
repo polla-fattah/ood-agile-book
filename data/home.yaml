@@ -14,7 +14,7 @@ sections:
 - principles
 - cta
 hero:
-  eyebrow: '<a href="https://github.com/polla-fattah/oop-and-agile" class="td-hero-os-badge" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> <span>Open Source Course & Book</span> <span class="td-hero-os-badge__sep">·</span> <span class="td-hero-os-badge__sub">GitHub</span> <i class="fa-solid fa-arrow-right td-hero-os-badge__arrow"></i></a>'
+  eyebrow: '<a href="https://github.com/polla-fattah/ood-agile-book" class="td-hero-os-badge" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> <span>Open Source Course & Book</span> <span class="td-hero-os-badge__sep">·</span> <span class="td-hero-os-badge__sub">GitHub</span> <i class="fa-solid fa-arrow-right td-hero-os-badge__arrow"></i></a>'
   title: Object Oriented Development and Agile Practices
   title_size: 3rem
   subtitle: Designing, Testing and Evolving Software with AI Assistance
@@ -37,7 +37,7 @@ hero:
     icon: fa-solid fa-code
     style: ghost
   - label: GitHub Repository
-    url: https://github.com/polla-fattah/oop-and-agile
+    url: https://github.com/polla-fattah/ood-agile-book
     icon: fa-brands fa-github
     style: ghost
     external: true
