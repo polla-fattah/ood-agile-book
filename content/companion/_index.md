@@ -23,4 +23,6 @@ Every chapter's companion provides:
 4. **Verification Records & Fault Experiments**: Documented test suite outputs (`mvn verify`), mutation/fault analysis records, and reproducible compiler checks.
 5. **Delta Checkpoints**: Clear listings of new or modified files built on top of preceding chapter checkpoints.
 
-Select a chapter companion from the sidebar or table of contents to view its complete code listings and solutions.
+Select a chapter or appendix companion from the sidebar or table of contents to view its complete code listings and solutions.
+
+> 📘 **Note on Appendices:** Code companions are provided for Appendices A, B, C, and F (which contain runnable listings, diagnostic code, and validation tools). Appendix D (Project Checkpoints and Glossary) and Appendix E (Critical Reading and Project Evidence) are comprehensive non-code reference guides contained directly within the main textbook.

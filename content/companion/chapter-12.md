@@ -6,9 +6,8 @@ description: "Code explanations and solutions for Chapter 12 Companion: Code, Ex
 
 *Measuring Progress, Flow and Technical Health*  
 *OO Development and Agile Practices: Campus Equipment Lending*  
-Version 1.0 • 13 October 2026
 
-This companion supplies a small executable metrics exercise, worked calculations, the required repository-analysis method, a precise change specification and model answers. It follows the revised blueprint's Week 11 route. The application remains at Chapter 11; the Java calculator is a separate teaching tool, not a new lending feature or an analytics service.
+This companion supplies a small executable metrics exercise, worked calculations, the required repository-analysis method, a precise change specification and model answers. It follows the Week 11 syllabus. The application remains at Chapter 11; the Java calculator is a separate teaching tool, not a new lending feature or an analytics service.
 
 The issue history is synthetic. The repository-lab template is blank by design: no real student repository has been inspected for this chapter, and no sample numbers are represented as real results. Complete that part with actual team evidence or an instructor-provided real export.
 

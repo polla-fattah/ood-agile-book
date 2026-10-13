@@ -256,8 +256,6 @@ Useful feedback names the reasoning gap: “You used the staff limit for the stu
 - The orientation example is intentionally smaller than the complete project. It introduces no full reservation storage or date model.
 - The student edition contains no unseen assessment change variant. The staff variation is an introductory worked teaching case.
 - Full TDD belongs in Chapter 7, SOLID in Chapters 5–6, and systematic refactoring in Chapter 11.
-- The chapter refers to later chapters and to Appendices A, B and E as navigation. Those appendices must exist before the book is published; until then, treat the references as open dependencies.
-- The chapter labels its activity as Book project work, keeps the orientation example outside the cumulative codebase, and points to Chapter 15 (Section 15.1) before the AI activity, as Blueprint v0.3 requires.
 - The critical review remains governed by the current module brief. No new AI-use policy or grading rubric is introduced.
 
 ## 4 Use in later chapters

@@ -6,7 +6,6 @@ weight: 120
 
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*  
-Version 1.0 • 13 October 2026
 
 ## Opening problem
 
@@ -208,7 +207,7 @@ The following is a **precise book exercise contract**, chosen for teaching. It i
 
 The full contract and acceptance matrix are in the companion. For this small change, approval is supplied through a local read-only data register, not a new sponsor website. It will be a genuine file-reading boundary in Chapter 13, checked with temporary files as well as controlled test doubles. Training a model, predicting trust and calling a live approval service are outside this exercise.
 
-This data-dependent component is distinct from asking an AI assistant to explain metrics. It gives the running project another concrete contract and failure boundary; it does not claim to repair all earlier omissions in the blueprint's wider AI/data thread.
+This data-dependent component is distinct from asking an AI assistant to explain metrics. It gives the running project another concrete contract and failure boundary; it does not claim to cover every aspect of external AI or data integration.
 
 ### Trace the change through the current design
 

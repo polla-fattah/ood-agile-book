@@ -38,7 +38,7 @@ By the end of this chapter, you should be able to:
 
 **Starting checkpoint:** Chapter 8's Java 17 application, directory adapter and complete Maven test suite. The code-and-solutions file supplies a complete new checkpoint. The original borrowing policies already demonstrate Strategy. A notification publisher is an optional cumulative collaborator. The proposed lifecycle is a separate exercise; it does not replace the running project's reservation or loan rules.
 
-**Reading reminder:** the module descriptor places the individual critical book review in Week 8. Follow the module leader's approved instructions and reading list. See the [Appendix E reading checkpoint](#appendix-e-reading-checkpoint) below; evidence must come from the selected book and verified sources, not an AI summary of an unread text.
+**Reading reminder:** the module descriptor places the individual critical book review in Week 8. Follow the module leader's approved instructions and reading list. See the [Appendix E reading checkpoint](#appendix-e-reading-checkpoint) below and [Appendix E]({{< relref "appendix-e" >}}); evidence must come from the selected book and verified sources, not an AI summary of an unread text.
 
 ## 9.1 Variation in behaviour
 
