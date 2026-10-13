@@ -1,0 +1,32 @@
+from cleanup_lib import *
+M = "Chapter_14_Responding_to_Change_and_Handing_Over.md"
+
+replace_once(M, "The README promises 232 passing tests, and the build says 235.", "The README promises one number of passing tests, and the build reports another.", 14, "Manuscript, opening problem (232 and 235)", evidence=True)
+replace_once(M, "(visitor change, 232 JUnit invocations, version 0.13.1)", "(the visitor change, version 0.13.1)", 14, "Manuscript, entry checkpoint (232 invocations)", evidence=True)
+replace_once(M, "is version 0.14.0 with 235 invocations. Its production code is unchanged.", "is version 0.14.0. Its production code is unchanged.", 14, "Manuscript, entry checkpoint (235 invocations)", evidence=True)
+replace_once(M, "the model answers, the experiments and the verification record.", "the model answers, the experiments and teaching notes.", 14, "Manuscript line 38", evidence=True)
+
+rewrite_line(M, "Start the change in the smallest possible way and see what the tests say.",
+  "Start the change in the smallest possible way and see what the tests say. On the Chapter 11 checkpoint, add `VISITOR` to the category enum and change nothing else. The build fails: more than a quarter of the suite fails (one failure and a long list of errors), and nearly all of them say `Missing policy: VISITOR`. The coordinator requires a policy for every category and says so when it is constructed. The exact figures are in the companion (Section 5.2).",
+  14, "Manuscript 14.1, E1 paragraph (45 of 159 invocations)")
+rewrite_line(M, "Now add the visitor policy to the composition root, `ReservationApplication`, as well.",
+  "Now add the visitor policy to the composition root, `ReservationApplication`, as well. The failures drop to five tests, in exactly the three test files that build their own policy map: `LegacyRegressionTest.chapter06` (through `Chapter06Checks`), `BehaviourStrategyTest` and three tests in `RepositoryBoundaryTest`. Add the policy to those four maps and the whole Chapter 11 suite passes, with no assertion changed.",
+  14, "Manuscript 14.1, E2 paragraph (45 to 5, 159)")
+replace_once(M, "and 73 of its 235 invocations fail, in fourteen test classes.", "and roughly three in ten tests fail, in fourteen test classes.", 14, "Manuscript 14.1, B1 count", evidence=True)
+rewrite_line(M, "Run it against the finished suite (Companion, Section 5.2).",
+  "Run it against the finished suite (Companion, Section 5.2). **Every unit test passes.** What fails is the tests that cross the real boundary: the three end-to-end journeys that use visitors and the integration test that serves a visitor through the real directory. In the journey with the flag off, visitor V1 is confirmed, so the flag is ignored; an unapproved visitor is rejected only because the item is already taken, not because it is unapproved; and a malformed register no longer stops anyone. It is a smaller diff, and it does not implement the requirement.",
+  14, "Manuscript 14.1, E3 paragraph (228 of 232; 203 unit invocations)")
+replace_once(M, "After the rehearsal the full build ran 233 invocations with no failure, the pipeline passed and the handover check passed.", "After the rehearsal the full build had no failure, the pipeline passed and the handover check passed.", 14, "Manuscript 14.3, rehearsal count (233)", evidence=True)
+replace_once(M, "the pipeline passes, stage 2 ran 206 invocations, stage 3 ran 26, stage 4 ran 3, the document itself states those numbers,", "the pipeline passes with the expected number of tests in each stage, the document itself states those numbers,", 14, "Manuscript 14.4, handover-check description (stage counts)", evidence=True)
+replace_once(M, "adding one test made it report `FAIL stage 2 ran 206 invocations`, and renaming", "adding one test made it report that a stage had run a different number of invocations from the one promised, and renaming", 14, "Manuscript 14.4, handover-check experiment (206)", evidence=True)
+replace_once(M, "Following the handover on the machine used for the book, in a fresh folder, found four things before any reader did.", "Following the handover in a fresh folder found four things before any reader did.", 14, "Manuscript 14.4, dry run introduction", evidence=True)
+replace_once(M, "It ran on one operating system with one JDK (24.0.2, compiling for 17) and a local Maven repository", "It ran on one operating system with one JDK and a local Maven repository", 14, "Manuscript 14.4, JDK 24.0.2", evidence=True)
+replace_once(M, "| 235 invocations; the five-stage pipeline;", "| The project's test suite; the five-stage pipeline;", 14, "Manuscript 14.6, evidence index (235)", evidence=True)
+replace_once(M, "“run `mvn verify`; expect 233 tests”", "“run `mvn verify`; expect a stated number of tests”", 14, "Manuscript 14.10 question 6 (233)", evidence=True)
+replace_once(M, "were opened on 13 October 2026; the manuscript was written the same day, Asia/Baghdad.", "were opened on 13 October 2026.", 14, "Manuscript source note", evidence=True)
+log(14, [
+ "Manuscript: removed test counts from prose (R5): the opening problem (`232`/`235`, now `one number ... another`), the entry checkpoint (`232 JUnit invocations`, `235 invocations`), the E1 and E2 experiments on the Chapter 11 checkpoint (`45 of 159`, `from 45 to 5`, `all 159`, now `more than a quarter of the suite`, `drop to five tests`, `the whole Chapter 11 suite passes`), the B1 experiment (`73 of its 235`, now `roughly three in ten tests`), the E3 experiment (`228 of the 232`, `203 unit invocations`, now `Every unit test passes`), the rehearsal (`233 invocations`), the handover-check description (`206`, `26`, `3`) and the evidence index (`235 invocations`). The exact figures stay in the companion (section 5.2).",
+ "Line 38: `the verification record` is now `teaching notes`. Section 14.4: `on the machine used for the book` and `JDK (24.0.2, compiling for 17)` removed. Question 6: `expect 233 tests` now says `expect a stated number of tests`. Source note: `the manuscript was written the same day, Asia/Baghdad` removed.",
+ "Kept: the lessons and the dry-run findings, including the finding that the first version of the `mvn` message was wrong (it is about testing a fix, not about document versions), the contribution fixture (synthetic, labelled), the constructed review, and the sentence about what not to claim. The `230 tests` in the AI-drafted README is part of the constructed fixture and stays.",
+])
+print("chapter 14 manuscript done")
