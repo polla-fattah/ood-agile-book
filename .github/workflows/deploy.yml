@@ -41,14 +41,8 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build with Hugo
-        run: |
-          base_url="${{ steps.pages.base_url }}"
-          if [ -z "$base_url" ]; then
-            base_url="https://polla.dev/frontend-book"
-          fi
-          hugo \
-            --minify \
-            --baseURL "${base_url}/"
+        # The address of the site is the baseURL in hugo.yaml (https://polla.dev/ood_agile-book/).
+        run: hugo --minify
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

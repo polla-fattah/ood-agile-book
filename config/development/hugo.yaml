@@ -1,0 +1,4 @@
+# Used by `hugo server` (the development environment). The published address is in the baseURL of
+# the root hugo.yaml. Locally the site is served at the root, so the pages are at
+# http://localhost:1313/book/chapter-04/ and not under the folder of the published address.
+baseURL: http://localhost:1313/

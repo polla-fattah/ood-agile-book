@@ -37,11 +37,12 @@ This textbook guides postgraduate and advanced students from writing classes to 
   - Chapter 13: Integration, Delivery and Feedback (Milestone 4, Contract Tests, Feature Flags)
   - Chapter 14: Responding to Change and Handing Over
   - Chapter 15: AI as a Software Engineering Assistant
-- **Appendices A–E**
+- **Appendices A–F**
   - Appendix A: Programming Readiness and Notation (UML & Diagnostics)
   - Appendix B: Tools and Reproducible Setup
   - Appendix C: Engineering Templates
   - Appendix D: Checkpoints and Glossary
   - Appendix E: Critical Reading and Project Evidence
+  - Appendix F: Software Engineering for AI and Data Components
 
-> 💡 **Code & Solutions:** Companion implementations, delta checkpoints, and instructor verification records are available under the [Code & Solutions Companion](/companion/).
+> 💡 **Code & Solutions:** Companion implementations, delta checkpoints, and instructor verification records are available under the [Code & Solutions Companion]({{< relref "/companion" >}}).
