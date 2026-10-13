@@ -353,6 +353,34 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 ## Figure 10.1: Permitted Source Dependencies
 
 <!--svg:ch10-layers-->
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 345" role="img" aria-label="Figure 10.1, permitted source dependencies: Bootstrap may refer to Presentation, Application and ports, and Infrastructure adapters. Presentation refers to Application. Application refers to Domain. Infrastructure refers to Application and to Domain. Domain refers to nothing else." style="display:block;width:100%;height:calc(var(--u) * 34.50);margin:0 auto">
+<defs><marker id="ch10-layers-tri" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,1 L15,8 L1,15 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-layers-dia" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-layers-diaf" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#1d588c" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-layers-open" viewBox="0 0 16 16" refX="14" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M2,2 L14,8 L2,14" fill="none" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-layers-arr" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L13,7 L0,13 Z" fill="#1d588c"/></marker></defs>
+<rect x="285.0" y="10.0" width="300.0" height="62.0" rx="8" fill="#0c2238" stroke="#0c2238" stroke-width="2"/>
+<text x="435.0" y="36.2" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#ffffff" text-anchor="middle">Bootstrap</text>
+<text x="435.0" y="57.4" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#ffffff" text-anchor="middle">choose implementations</text>
+<rect x="20.0" y="130.0" width="230.0" height="66.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="135.0" y="169.5" font-size="19" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Presentation</text>
+<rect x="320.0" y="130.0" width="230.0" height="66.0" rx="8" fill="#f6ead9" stroke="#b4762e" stroke-width="2"/>
+<text x="435.0" y="157.9" font-size="18" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Application</text>
+<text x="435.0" y="180.4" font-size="18" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">and ports</text>
+<rect x="620.0" y="130.0" width="230.0" height="66.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="735.0" y="157.9" font-size="18" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Infrastructure</text>
+<text x="735.0" y="180.4" font-size="18" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">adapters</text>
+<rect x="320.0" y="255.0" width="230.0" height="66.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="435.0" y="294.5" font-size="19" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Domain</text>
+<path d="M435.0,72.0 L435.0,130.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<path d="M285.0,41.0 L135.0,41.0 L135.0,130.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<path d="M585.0,41.0 L735.0,41.0 L735.0,130.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<path d="M250.0,163.0 L320.0,163.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<path d="M620.0,163.0 L550.0,163.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<path d="M435.0,196.0 L435.0,255.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<path d="M735.0,196.0 L735.0,288.0 L550.0,288.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<text x="20.0" y="250.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="start" font-style="italic">A missing arrow means the</text>
+<text x="20.0" y="270.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="start" font-style="italic">reference is not permitted:</text>
+<text x="20.0" y="290.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="start" font-style="italic">Domain refers to nothing else.</text>
+</svg>
+</div>
 <!--/svg-->
 
 ---
@@ -383,6 +411,53 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 ## Figure 10.2: One Accepted Reservation at Run Time
 
 <!--svg:ch10-seq-->
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 378" role="img" aria-label="Figure 10.2: one accepted reservation at run time. The console calls the directory service, which calls the coordinator. The coordinator reads a snapshot from the repository, adds the accepted reservation, then calls the notification sender. The result string returns up the chain." style="display:block;width:100%;height:calc(var(--u) * 37.80);margin:0 auto">
+<defs><marker id="ch10-seq-tri" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,1 L15,8 L1,15 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-seq-dia" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-seq-diaf" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#1d588c" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-seq-open" viewBox="0 0 16 16" refX="14" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M2,2 L14,8 L2,14" fill="none" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-seq-arr" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L13,7 L0,13 Z" fill="#1d588c"/></marker></defs>
+<rect x="10.0" y="6.0" width="160.0" height="50.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="90.0" y="26.6" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Reservation</text>
+<text x="90.0" y="46.0" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Console</text>
+<path d="M90.0,56.0 L90.0,370.0" fill="none" stroke="#c3cfdd" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="180.0" y="6.0" width="160.0" height="50.0" rx="8" fill="#0c2238" stroke="#0c2238" stroke-width="2"/>
+<text x="260.0" y="26.6" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#ffffff" text-anchor="middle">Directory</text>
+<text x="260.0" y="46.0" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#ffffff" text-anchor="middle">Service</text>
+<path d="M260.0,56.0 L260.0,370.0" fill="none" stroke="#c3cfdd" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="350.0" y="6.0" width="160.0" height="50.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="430.0" y="26.6" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Reservation</text>
+<text x="430.0" y="46.0" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Coordinator</text>
+<path d="M430.0,56.0 L430.0,370.0" fill="none" stroke="#c3cfdd" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="520.0" y="6.0" width="160.0" height="50.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="600.0" y="26.6" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">In-memory</text>
+<text x="600.0" y="46.0" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Repository</text>
+<path d="M600.0,56.0 L600.0,370.0" fill="none" stroke="#c3cfdd" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="690.0" y="6.0" width="160.0" height="50.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="770.0" y="26.6" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Notification</text>
+<text x="770.0" y="46.0" font-size="15.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">sender impl.</text>
+<path d="M770.0,56.0 L770.0,370.0" fill="none" stroke="#c3cfdd" stroke-width="2" stroke-dasharray="6 6"/>
+<path d="M94.0,88.0 L256.0,88.0" fill="none" stroke="#1d588c" stroke-width="2" marker-end="url(#ch10-seq-arr)"/>
+<text x="175.0" y="81.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">reserve(request)</text>
+<rect x="60.0" y="100.0" width="400.0" height="28.0" rx="5" fill="#f6ead9" stroke="#b4762e" stroke-width="1.6"/>
+<text x="260.0" y="120.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle" font-style="italic">resolve the borrower through the directory port</text>
+<path d="M264.0,148.0 L426.0,148.0" fill="none" stroke="#1d588c" stroke-width="2" marker-end="url(#ch10-seq-arr)"/>
+<text x="345.0" y="141.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">reserve with mapped category</text>
+<path d="M434.0,172.0 L596.0,172.0" fill="none" stroke="#1d588c" stroke-width="2" marker-end="url(#ch10-seq-arr)"/>
+<text x="515.0" y="165.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">findAll() for policy and conflict checks</text>
+<path d="M596.0,196.0 L434.0,196.0" fill="none" stroke="#1d588c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ch10-seq-arr)"/>
+<text x="515.0" y="189.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">snapshot</text>
+<path d="M434.0,220.0 L596.0,220.0" fill="none" stroke="#1d588c" stroke-width="2" marker-end="url(#ch10-seq-arr)"/>
+<text x="515.0" y="213.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">add(accepted reservation)</text>
+<path d="M434.0,244.0 L766.0,244.0" fill="none" stroke="#1d588c" stroke-width="2" marker-end="url(#ch10-seq-arr)"/>
+<text x="600.0" y="237.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">send(confirmed reservation)</text>
+<path d="M766.0,268.0 L434.0,268.0" fill="none" stroke="#1d588c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ch10-seq-arr)"/>
+<text x="600.0" y="261.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">normal return, or NotificationException</text>
+<rect x="220.0" y="280.0" width="420.0" height="28.0" rx="5" fill="#f6ead9" stroke="#b4762e" stroke-width="1.6"/>
+<text x="430.0" y="300.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle" font-style="italic">on failure: keep the reservation, append the suffix</text>
+<path d="M426.0,330.0 L264.0,330.0" fill="none" stroke="#1d588c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ch10-seq-arr)"/>
+<text x="345.0" y="323.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">existing result string</text>
+<path d="M256.0,354.0 L94.0,354.0" fill="none" stroke="#1d588c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ch10-seq-arr)"/>
+<text x="175.0" y="347.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#172a42" text-anchor="middle">result string</text>
+</svg>
+</div>
 <!--/svg-->
 
 ---
@@ -509,6 +584,55 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 ## Instability as a Picture
 
 <!--svg:ch10-instability-->
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 362" role="img" aria-label="Instability I = Ce / (Ca + Ce) of the checkpoint&#x27;s packages: domain 0.00, application.port 0.18, infrastructure.notification 0.30, application 0.31, infrastructure.directory 0.33, infrastructure.persistence 0.50, presentation 0.50, bootstrap 1.00." style="display:block;width:100%;height:calc(var(--u) * 36.20);margin:0 auto">
+<defs><marker id="ch10-instability-tri" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,1 L15,8 L1,15 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-instability-dia" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-instability-diaf" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#1d588c" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-instability-open" viewBox="0 0 16 16" refX="14" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M2,2 L14,8 L2,14" fill="none" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-instability-arr" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L13,7 L0,13 Z" fill="#1d588c"/></marker></defs>
+<text x="285.0" y="26.0" font-size="14.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#46586d" text-anchor="end">package</text>
+<text x="300.0" y="26.0" font-size="14.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#46586d" text-anchor="start">I = 0</text>
+<text x="750.0" y="26.0" font-size="14.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#46586d" text-anchor="end">I = 1</text>
+<text x="860.0" y="26.0" font-size="14.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#46586d" text-anchor="end">Ca / Ce</text>
+<text x="285.0" y="61.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="400" fill="#172a42" text-anchor="end">domain</text>
+<rect x="300.0" y="44.0" width="450.0" height="26.0" rx="4" fill="#f5f7fa" stroke="#c3cfdd" stroke-width="1.4"/>
+<text x="308.0" y="63.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="700" fill="#172a42" text-anchor="start">0.00</text>
+<text x="860.0" y="63.0" font-size="15" font-family="'Plex Mono', monospace" font-weight="400" fill="#46586d" text-anchor="end">16 / 0</text>
+<text x="285.0" y="98.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="400" fill="#172a42" text-anchor="end">application.port</text>
+<rect x="300.0" y="81.0" width="450.0" height="26.0" rx="4" fill="#f5f7fa" stroke="#c3cfdd" stroke-width="1.4"/>
+<rect x="300.0" y="81.0" width="81.0" height="26.0" rx="4" fill="#1d588c" stroke="#1d588c" stroke-width="1.4"/>
+<text x="389.0" y="100.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="700" fill="#172a42" text-anchor="start">0.18</text>
+<text x="860.0" y="100.0" font-size="15" font-family="'Plex Mono', monospace" font-weight="400" fill="#46586d" text-anchor="end">14 / 3</text>
+<text x="285.0" y="135.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="600" fill="#b4762e" text-anchor="end">infrastructure.notification</text>
+<rect x="300.0" y="118.0" width="450.0" height="26.0" rx="4" fill="#f5f7fa" stroke="#c3cfdd" stroke-width="1.4"/>
+<rect x="300.0" y="118.0" width="135.0" height="26.0" rx="4" fill="#b4762e" stroke="#b4762e" stroke-width="1.4"/>
+<text x="443.0" y="137.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="700" fill="#172a42" text-anchor="start">0.30</text>
+<text x="860.0" y="137.0" font-size="15" font-family="'Plex Mono', monospace" font-weight="400" fill="#46586d" text-anchor="end">7 / 3</text>
+<text x="285.0" y="172.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="600" fill="#b4762e" text-anchor="end">application</text>
+<rect x="300.0" y="155.0" width="450.0" height="26.0" rx="4" fill="#f5f7fa" stroke="#c3cfdd" stroke-width="1.4"/>
+<rect x="300.0" y="155.0" width="139.5" height="26.0" rx="4" fill="#b4762e" stroke="#b4762e" stroke-width="1.4"/>
+<text x="447.5" y="174.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="700" fill="#172a42" text-anchor="start">0.31</text>
+<text x="860.0" y="174.0" font-size="15" font-family="'Plex Mono', monospace" font-weight="400" fill="#46586d" text-anchor="end">9 / 4</text>
+<text x="285.0" y="209.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="400" fill="#172a42" text-anchor="end">infrastructure.directory</text>
+<rect x="300.0" y="192.0" width="450.0" height="26.0" rx="4" fill="#f5f7fa" stroke="#c3cfdd" stroke-width="1.4"/>
+<rect x="300.0" y="192.0" width="148.5" height="26.0" rx="4" fill="#1d588c" stroke="#1d588c" stroke-width="1.4"/>
+<text x="456.5" y="211.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="700" fill="#172a42" text-anchor="start">0.33</text>
+<text x="860.0" y="211.0" font-size="15" font-family="'Plex Mono', monospace" font-weight="400" fill="#46586d" text-anchor="end">2 / 1</text>
+<text x="285.0" y="246.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="400" fill="#172a42" text-anchor="end">infrastructure.persistence</text>
+<rect x="300.0" y="229.0" width="450.0" height="26.0" rx="4" fill="#f5f7fa" stroke="#c3cfdd" stroke-width="1.4"/>
+<rect x="300.0" y="229.0" width="225.0" height="26.0" rx="4" fill="#1d588c" stroke="#1d588c" stroke-width="1.4"/>
+<text x="533.0" y="248.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="700" fill="#172a42" text-anchor="start">0.50</text>
+<text x="860.0" y="248.0" font-size="15" font-family="'Plex Mono', monospace" font-weight="400" fill="#46586d" text-anchor="end">1 / 1</text>
+<text x="285.0" y="283.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="400" fill="#172a42" text-anchor="end">presentation</text>
+<rect x="300.0" y="266.0" width="450.0" height="26.0" rx="4" fill="#f5f7fa" stroke="#c3cfdd" stroke-width="1.4"/>
+<rect x="300.0" y="266.0" width="225.0" height="26.0" rx="4" fill="#1d588c" stroke="#1d588c" stroke-width="1.4"/>
+<text x="533.0" y="285.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="700" fill="#172a42" text-anchor="start">0.50</text>
+<text x="860.0" y="285.0" font-size="15" font-family="'Plex Mono', monospace" font-weight="400" fill="#46586d" text-anchor="end">1 / 1</text>
+<text x="285.0" y="320.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="400" fill="#172a42" text-anchor="end">bootstrap</text>
+<rect x="300.0" y="303.0" width="450.0" height="26.0" rx="4" fill="#f5f7fa" stroke="#c3cfdd" stroke-width="1.4"/>
+<rect x="300.0" y="303.0" width="450.0" height="26.0" rx="4" fill="#1d588c" stroke="#1d588c" stroke-width="1.4"/>
+<text x="742.0" y="322.0" font-size="15.5" font-family="'Plex Mono', monospace" font-weight="700" fill="#ffffff" text-anchor="end">1.00</text>
+<text x="860.0" y="322.0" font-size="15" font-family="'Plex Mono', monospace" font-weight="400" fill="#46586d" text-anchor="end">0 / 7</text>
+<text x="435.0" y="354.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="middle" font-style="italic">The orange pair is the one arrow that points to a slightly less stable package.</text>
+</svg>
+</div>
 <!--/svg-->
 
 ---
