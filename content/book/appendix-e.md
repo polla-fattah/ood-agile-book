@@ -104,7 +104,7 @@ The entries below are **constructed to illustrate**. The claim is invented for t
 
 ## E.4 Evidence of individual contribution
 
-The descriptor says that individual contribution on the project is assessed through commits, pull-request reviews and peer evaluation, and that the marks for the final project are moderated by individual contribution. Each of those is an input. None of them is the answer, and this book never ranks people by counts. Chapter 14, Section 14.5 explains why; this section shows how to gather evidence that does the job.
+The descriptor says that individual contribution on the project is assessed through commits, pull-request reviews and peer evaluation, and that the marks for the final project are moderated by individual contribution. Each of those is an input. None of them is the answer, and this book never ranks people by counts. Chapter 14, Section 14.6 explains why; this section shows how to gather evidence that does the job.
 
 ### What each kind of evidence can and cannot show
 
@@ -150,7 +150,7 @@ The descriptor says that teams submit and present the complete system built acro
 
 ### What the submission must show
 
-The descriptor says the submission must show clean object-oriented design, justified use of design patterns and architecture, automated tests with continuous integration, evidence of safe refactoring, and adaptability to the injected change in requirements. Use those five phrases as the headings of an **evidence index** for your own team. For each, name the evidence a reader can open and say what it does not show. Chapter 14, Section 14.6 gives the index for the book's project as a model.
+The descriptor says the submission must show clean object-oriented design, justified use of design patterns and architecture, automated tests with continuous integration, evidence of safe refactoring, and adaptability to the injected change in requirements. Use those five phrases as the headings of an **evidence index** for your own team. For each, name the evidence a reader can open and say what it does not show. Chapter 14, Section 14.7 gives the index for the book's project as a model.
 
 | The submission must show | Evidence to point at | What it may not show |
 |---|---|---|
@@ -173,7 +173,7 @@ A handover is the material that lets someone else set the project up, trust what
 | `docs/ADR-0NN-*.md` | Why is it built this way? | C.5 |
 | `docs/RELEASE-NOTES-*.md` | What changed in this version? | C.11 |
 
-Keep each document true by a check wherever you can: the book's project has a test that fails when a name in the requirements table disappears, and a script that follows the handover in a fresh copy and compares what it finds with what the document promises (Chapter 14, Sections 14.3 and 14.4). A script can check that a name exists; only a reviewer can check that it is the right evidence. Then ask someone outside your team to follow the handover while you watch and say nothing, and write down every place they hesitate.
+Keep each document true by a check wherever you can: the book's project has a test that fails when a name in the requirements table disappears, and a script that follows the handover in a fresh copy and compares what it finds with what the document promises (Chapter 14, Sections 14.4 and 14.5). A script can check that a name exists; only a reviewer can check that it is the right evidence. Then ask someone outside your team to follow the handover while you watch and say nothing, and write down every place they hesitate.
 
 ### A sequence
 
@@ -186,7 +186,7 @@ The descriptor does not prescribe the format or length of the technical report. 
 
 ## E.6 The individual reflection
 
-The descriptor lists an individual reflection among the items submitted with the final project and does not give its length or format. Your assignment brief does. What follows are prompts for thinking, taken from Chapter 14, Section 14.5, and are not a rubric.
+The descriptor lists an individual reflection among the items submitted with the final project and does not give its length or format. Your assignment brief does. What follows are prompts for thinking, taken from Chapter 14, Section 14.6, and are not a rubric.
 
 | Part | Prompts |
 |---|---|
@@ -205,8 +205,8 @@ Notice what is in it: a named artefact, a specific fault and how it was found, w
 
 ## E.7 Sources
 
-1. GitHub Docs, [Why are my contributions not showing up on my profile?](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile). The author email, the default branch and the fork conditions for a commit to count.
-2. GitHub Docs, [Creating a commit with multiple authors](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors). The `Co-authored-by` trailer.
-3. GitHub Docs, [About pull request reviews](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews). A review can be a comment, an approval or a request for changes.
+1. GitHub Docs, [Why are my contributions not showing up on my profile?](https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/troubleshooting-missing-contributions). The author email, the default branch and the fork conditions for a commit to count.
+2. GitHub Docs, [Creating a commit with multiple authors](https://docs.github.com/en/pull-requests/how-tos/commit-changes/creating-a-commit-with-multiple-authors). The `Co-authored-by` trailer.
+3. GitHub Docs, [About pull request reviews](https://docs.github.com/en/pull-requests/reference/pull-request-reviews). A review can be a comment, an approval or a request for changes.
 
 All three were opened on 13 October 2026. The module descriptor is the source for the assessments, deadlines and submission described in E.1, E.4 and E.5. Chapters 1, 9 and 14 are the source for the reading record, the reading checkpoint, the contribution table, the handover documents and the reflection prompts.

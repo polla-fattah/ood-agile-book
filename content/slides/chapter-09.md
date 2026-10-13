@@ -45,7 +45,7 @@ layout: page
   * Six steps; step 6 is on your Team project.
 * **9.11 Review and transfer**
   * A document workflow: draft, approved, published.
-* **Appendix E reading checkpoint**
+* **9.12 Reading checkpoint: the critical book review**
   * The critical book review is due in Week 8.
 * **Summary and next chapter**
   * Chapter 10: application structure and dependency direction.
@@ -1062,8 +1062,8 @@ A document workflow has **draft, approved and published** stages. Review policy 
 
 ---
 
-# Appendix E Reading Checkpoint
-### The critical book review
+# 9.12 Reading Checkpoint: The Critical Book Review
+### Method in Appendix E
 
 ---
 
@@ -1072,17 +1072,7 @@ A document workflow has **draft, approved and published** stages. Review policy 
 * Your **individual critical review** of a book from the approved list is **due in Week 8**.
 * **Appendix E** develops the method: a reading record, questions for each part, prompts for checking sources.
 * The **current assignment brief** is always the authority on length, sources, format and deadline.
-* Read the selected book **directly**, not a summary.
-
----
-
-## Recording Each Point
-
-* A **precise claim** with its chapter and page or stable section.
-* The **example** that supports it, and the **conditions** under which the claim is useful.
-* Then look for a **concrete counterexample or limitation**; verify any external source.
-* Keep three things apart: **what the author claims**, **what you infer**, **what an AI tool suggested**.
-* The brief also asks how the advice applies to **engineering AI-enabled systems**, with further sources.
+* Read the selected book **directly**, not a summary. Keep apart **what the author claims**, **what you infer** and **what an AI tool suggested**.
 
 ---
 

@@ -295,7 +295,7 @@ PatternExamples.simpleExporter(false).export("R1");
 
 ---
 
-## Test, Trade-Off and Non-Use
+## Factory Method: Test, Trade-Off and Non-Use
 
 * Tests exercise both concrete jobs and an **instrumented creator** whose hook returns a distinctive exporter: the inherited workflow uses the chosen product; null input is rejected before export.
 * The hook-count assertion documents this tiny example. It is **not advice to verify private call counts** throughout the application.
@@ -518,7 +518,7 @@ columns = List.copyOf(builder.columns);
 
 ---
 
-## Test, Trade-Off and Non-Use
+## Builder: Test, Trade-Off and Non-Use
 
 * Tests check defaults, explicit options, invalid dates, and the **independence of two products** built before and after another column is added. Attempting to modify a product's columns must **fail**.
 * Checking only that chained calls compile **would not detect an alias to mutable builder state**.
@@ -936,7 +936,7 @@ catch (DeliveryFailure failure) { delegate.send(message); }
 
 ---
 
-## Test, Trade-Off and Non-Use
+## Decorator: Test, Trade-Off and Non-Use
 
 * Tests assert **both event sequences**, the **two-attempt bound**, and propagation of expected and unexpected failures.
 * The decorators stay **isolated**. Chapter 6's notification contract says **one attempt, no automatic retry**: installing this retry there **would change that contract**. A pattern name does not authorise it.

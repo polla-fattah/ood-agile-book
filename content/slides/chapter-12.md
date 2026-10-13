@@ -618,7 +618,7 @@ Age H: 3.00 days
 
 ## Combine a Risk, Evidence and a Response
 
-* "There are 136 passing tests in the Chapter 11 checkpoint" records **a build result**.
+* "There are 159 passing tests in the Chapter 11 checkpoint" records **a build result**.
 * It does **not** say every rule is correct, every important boundary has a test, or more tests would produce a better design.
 * Chapter 11 supports **one narrow claim**: the selected tests detect a deliberately changed equality boundary.
 * A high **line-coverage** percentage can identify unexecuted areas but **cannot tell whether assertions distinguish correct from incorrect outcomes**.
@@ -672,6 +672,14 @@ Age H: 3.00 days
 
 # 12.7 Changed Requirement and Impact Analysis
 ### CR-12: visiting-researcher reservations
+
+---
+
+## From Metrics to a Changed Requirement
+
+* The first six sections taught how to **read evidence** about a team's work.
+* Now the **same habits** go to a new request: say what it must do, **what it touches** and **what evidence will show it works**.
+* It is the visiting-researcher change from the opening problem: **Chapter 13 implements it and Chapter 14 reviews it**.
 
 ---
 

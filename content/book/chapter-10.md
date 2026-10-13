@@ -31,17 +31,28 @@ By the end of this chapter, you should be able to:
 
 **Starting point:** Chapter 9's tested Java 17 project, including the stronger assertions added when that chapter was reviewed (the companion lists them in Section 2.5). The completed checkpoint preserves its existing use-case results and earlier demonstrations. Package names, imports, launcher names and direct coordinator construction change, so this is not a claim of Java source or binary compatibility.
 
-**Milestone 3 checklist: use it from the start.** Milestone 3 falls in this week and covers design patterns and layered architecture, with a demonstration and a retrospective. Do not wait until the end of the chapter. By your demonstration you should be able to show, on your **Team project**: (1) at least one design pattern from Chapters 8–9 used where it removes a real problem, and one place where you declined to use one; (2) a compact package diagram saying which packages may depend on which; (3) one restructuring change, with moves kept separate from logic changes; (4) passing checks, including a dependency check or a documented review of imports; (5) a short architecture decision record with alternatives, consequences and a revisit trigger; (6) real peer review of that change, with the feedback addressed; (7) a demonstration and a retrospective with a next action; and (8) a statement of what the architecture does not do. Section 10.8 explains each item. Start with items 2 and 5, which need no code. The approved Milestone 3 instructions decide what is submitted; this list is preparation, not a rubric.
+**Milestone 3 checklist: use it from the start.** Milestone 3 falls in this week and covers design patterns and layered architecture, with a demonstration and a retrospective. Do not wait until the end of the chapter. By your demonstration you should be able to show, on your **Team project**:
 
-**Core reading.** Sections 10.1–10.4 (except the Ports and Adapters comparison at the end of 10.4), 10.6, 10.7 and 10.8.
+1. at least one design pattern from Chapters 8–9 used where it removes a real problem, and one place where you declined to use one;
+2. a compact package diagram saying which packages may depend on which;
+3. one restructuring change, with moves kept separate from logic changes;
+4. passing checks, including a dependency check or a documented review of imports;
+5. a short architecture decision record with alternatives, consequences and a revisit trigger;
+6. real peer review of that change, with the feedback addressed;
+7. a demonstration and a retrospective with a next action; and
+8. a statement of what the architecture does not do.
 
-**Working-knowledge reading.** Section 10.5 (entities and value objects). Understand the difference between identity and value meaning, and why Java equality is a separate decision. You do not implement either one.
+Section 10.9 explains each item. Start with items 2 and 5, which need no code. The approved Milestone 3 instructions decide what is submitted; this list is preparation, not a rubric.
 
-**Minimum required lab.** Steps B1–B3 and T1–T5 of the practical activity in Section 10.11. Steps B1–B3 run on the **Book project** and are reading, tracing and diagnosis: the migrated checkpoint is supplied, and there is nothing to rebuild. Steps T1–T5 run on your **Team project** and produce your Milestone 3 evidence.
+**Core reading.** Sections 10.1–10.5 (except the Ports and Adapters comparison at the end of 10.4), 10.7, 10.8 and 10.9.
 
-**Optional extension.** The Ports and Adapters comparison, the Section 10.9 AI activity, steps B4–B6 (break the dependency rules on purpose, and reproduce the migration yourself), the review questions, the transfer challenge and the optional extension in Section 10.11.
+**Working-knowledge reading.** Section 10.6 (entities and value objects). Understand the difference between identity and value meaning, and why Java equality is a separate decision. You do not implement either one.
 
-Sections 10.1–10.4 establish the structural model, including package design. Sections 10.5–10.6 examine domain semantics and storage. Sections 10.7–10.8 connect the implementation to an architecture decision and review. The separate code-and-solutions file contains the complete checkpoint, tests, migration guidance and worked answers.
+**Minimum required lab.** Steps B1–B3 and T1–T5 of the practical activity in Section 10.12. Steps B1–B3 run on the **Book project** and are reading, tracing and diagnosis: the migrated checkpoint is supplied, and there is nothing to rebuild. Steps T1–T5 run on your **Team project** and produce your Milestone 3 evidence.
+
+**Optional extension.** The Ports and Adapters comparison, the Section 10.10 AI activity, steps B4–B6 (break the dependency rules on purpose, and reproduce the migration yourself), the review questions, the transfer challenge and the optional extension in Section 10.12.
+
+Sections 10.1–10.5 establish the structural model, including package design. Sections 10.6–10.7 examine domain semantics and storage. Sections 10.8–10.9 connect the implementation to an architecture decision and review. The separate code-and-solutions file contains the complete checkpoint, tests, migration guidance and worked answers.
 
 ## 10.1 Why class-level design is insufficient
 
@@ -153,7 +164,7 @@ The equipment directory from Chapter 8 is the book's data-backed collaborator, a
 
 If your team's project has a model-backed collaborator instead, it would occupy the same three positions: a narrow port with bounded outcomes and a defined failure, an adapter in infrastructure, and construction in bootstrap. The application would not import the adapter, and a test could substitute the port exactly as the directory tests do.
 
-## 10.4 Dependency direction and package design
+## 10.4 Dependency direction and its check
 
 ### Read arrows as source dependencies
 
@@ -164,13 +175,15 @@ flowchart TB
     B["Bootstrap: choose implementations"] --> P["Presentation"]
     B --> A["Application and ports"]
     B --> I["Infrastructure adapters"]
+    B --> D["Domain"]
     P --> A
-    A --> D["Domain"]
+    P --> D
+    A --> D
     I --> A
     I --> D
 ```
 
-**Figure 10.1.** Permitted source dependencies. Each box is a group of packages, and an arrow means that classes in the first group may refer to classes in the second. A missing arrow means the reference is not permitted: `Domain` refers to nothing else in the application. The figure shows source references only, not the order of calls.
+**Figure 10.1.** Permitted source dependencies. Each box is a group of packages, and an arrow means that classes in the first group may refer to classes in the second. A missing arrow means the reference is not permitted: `Domain` refers to nothing else in the application, and `Presentation` and `Infrastructure` may not refer to each other or to `Bootstrap`. The figure shows source references only, not the order of calls. It draws the rows of the matrix in Section 10.2, including the two arrows into `Domain` from `Bootstrap` and `Presentation`.
 
 The application has no arrow to infrastructure. `ReservationCoordinator` imports `ReservationRepository`, which is an application-owned contract. `InMemoryReservationRepository` imports and implements that contract. Bootstrap constructs the implementation and passes it to the coordinator.
 
@@ -218,9 +231,19 @@ This test can detect a fully qualified concrete-class reference even if no impor
 
 The test requires a full Java 17 JDK with the `jdk.jdeps` module. It is part of the supplied Maven test run. Package rules are project decisions, not universal rules inferred by the analyser.
 
+### Optional comparison: Ports and Adapters
+
+The directory, sender and repository interfaces can also be discussed as ports, with infrastructure implementations as adapters. The console drives the application, while storage and notifications are collaborators the application calls. This inside/outside emphasis is consistent with Cockburn's discussion of isolating application behaviour from runtime mechanisms [4].
+
+The terminology provides another view of the same small program. It does not require six adapters, a hexagonal deployment topology or a new package for every method. Use it only when it clarifies which side owns the contract and which mechanism may be replaced.
+
+## 10.5 Package design: cohesion, coupling and stability
+
+Section 10.4 asked which package may refer to which. This section asks whether the packages themselves are well cut. It applies three questions to the same checkpoint (what changes together, what clients depend on, and whether dependencies point towards stability) and gives counts that you can reproduce.
+
 ### Package cohesion: what should change together
 
-Package design asks the questions of class design at a larger scale. A cohesive package holds types that change for the same reason and are used together. A package that mixes unrelated reasons to change is edited more often and by more people. Martin's principles of package design put this as two rules: things that change together belong together, and things that are used together belong together [7].
+Package design asks the questions of class design at a larger scale. A cohesive package holds types that change for the same reason and are used together. A package that mixes unrelated reasons to change is edited more often and by more people. Martin's principles of package design put this as two rules [7][9]. The Common Closure Principle (CCP): things that change together belong together. The Common Reuse Principle (CRP): things that are used together belong together, so a client is not forced to depend on classes it never uses. A third rule, the Reuse/Release Equivalence Principle (REP), says that the unit you reuse is the unit you release: a package that other teams adopt needs a version, release notes and a stable contract, so it should be one coherent thing. This project has no separately released package, so REP gives context here and no check [9].
 
 Test the cuts with concrete changes, not with slogans. For each change, list the packages whose production code must change.
 
@@ -236,7 +259,7 @@ Most changes touch one or two packages, which is evidence that the cuts are reas
 
 ### Package coupling: what clients depend on
 
-Coupling between packages is the number of references that cross a package boundary. Two habits keep it manageable. First, depend on a small contract where the other side may vary. The coordinator refers to `ReservationRepository`, not to the in-memory class, so changing the storage touches one package. Second, keep the package graph free of cycles. If `application` referred to `infrastructure.notification` while that package referred back to `application`, neither could be compiled, tested or replaced without the other. Martin calls this the acyclic dependencies principle [7].
+Coupling between packages is the number of references that cross a package boundary. Two habits keep it manageable. First, depend on a small contract where the other side may vary. The coordinator refers to `ReservationRepository`, not to the in-memory class, so changing the storage touches one package. Second, keep the package graph free of cycles. If `application` referred to `infrastructure.notification` while that package referred back to `application`, neither could be compiled, tested or replaced without the other. Martin calls this the Acyclic Dependencies Principle (ADP) [7][9].
 
 The layer matrix in Section 10.2 rules out cycles between layers by construction, because each pair of layers allows references in one direction only. It does not do so inside one layer: the matrix lets `infrastructure.directory` and `infrastructure.notification` refer to each other freely, so a cycle between those two would pass the direction test. That is why `DependencyRulesTest` has the separate cycle check.
 
@@ -244,7 +267,7 @@ The `application.port` package shows the reuse side of the same idea. Its five t
 
 ### Package stability: depend in the direction of stability
 
-A package is **stable** when it is costly to change: many other packages depend on it, and it depends on little itself. A package is **unstable** when little depends on it, so changing it disturbs few others, and it depends on many. Both kinds are needed. The useful rule is that dependencies should point towards stability, so that code that changes often depends on code that changes rarely [7].
+A package is **stable** when it is costly to change: many other packages depend on it, and it depends on little itself. A package is **unstable** when little depends on it, so changing it disturbs few others, and it depends on many. Both kinds are needed. The useful rule, Martin's Stable Dependencies Principle (SDP), is that dependencies should point towards stability, so that code that changes often depends on code that changes rarely [7][9].
 
 The idea can be counted. For a package P:
 
@@ -273,6 +296,14 @@ One arrow does not: `infrastructure.notification` (0.30) depends on `application
 
 Treat the numbers as questions, not grades. With one to eight classes per package, adding a single class moves a ratio by several hundredths. A package can have a good number and a muddled responsibility, and a poor number can be the right design (bootstrap). Compare numbers only when they come from the same tool and counting rules.
 
+### Package abstractness: stable packages should be easy to extend
+
+The Stable Abstractions Principle (SAP) adds the last question [7][9]. A package that many others depend on cannot change freely, so it should be abstract enough to be extended without being edited. Martin measures abstractness, A, as the share of a package's classes that are abstract classes or interfaces. This book does not compute A for the checkpoint: it would need a second tool, and with one to eight classes per package the ratio moves with every class added. The principle still works as a reading question.
+
+- `application.port` is made of contracts and their failure types, so it is mostly abstract, and it is stable (I = 0.18). SAP is satisfied.
+- `bootstrap` is concrete and unstable (I = 1.00). SAP is satisfied: nothing depends on it.
+- `domain` deserves the question. Sixteen classes depend on it, yet it is mostly concrete records and rules. It stays safe to depend on because it changes only when the borrowing vocabulary changes, and `BorrowingPolicy` gives the part that varies an abstract seam. A package that was stable, concrete and also changed often would be the warning sign.
+
 ### A worked comparison: where should `NotificationException` live?
 
 The notification implementations throw `NotificationException`, and the coordinator catches it. Two placements are plausible. In Option A, the checkpoint's choice, the exception sits in `application.port` with the `NotificationSender` contract. In Option B it sits in `infrastructure.notification`, beside the senders that throw it, on the argument that implementations should own their failures.
@@ -281,13 +312,7 @@ Option B was tried on a copy: the class was moved and the imports changed. The c
 
 The rule that follows: a type that callers must catch or inspect belongs with the contract they depend on, not with one implementation. Implementations may still define failures that no caller handles, and those can stay inside an adapter.
 
-### Optional comparison: Ports and Adapters
-
-The directory, sender and repository interfaces can also be discussed as ports, with infrastructure implementations as adapters. The console drives the application, while storage and notifications are collaborators the application calls. This inside/outside emphasis is consistent with Cockburn's discussion of isolating application behaviour from runtime mechanisms [4].
-
-The terminology provides another view of the same small program. It does not require six adapters, a hexagonal deployment topology or a new package for every method. Use it only when it clarifies which side owns the contract and which mechanism may be replaced.
-
-## 10.5 Entities and value objects
+## 10.6 Entities and value objects
 
 ### Identity is a domain decision
 
@@ -315,7 +340,7 @@ A previously returned snapshot stays unchanged when another reservation is store
 
 These distinctions matter when models evolve. If a later reservation becomes mutable, a shallow list copy no longer establishes a historical snapshot of its fields. Revisit that promise before claiming that an old snapshot represents past state.
 
-## 10.6 Repositories and services
+## 10.7 Repositories and services
 
 ### Extract the smallest useful storage contract
 
@@ -348,7 +373,7 @@ Similarly, repository snapshots and duplicate-ID checks do not make count-check,
 
 An application service coordinates operations; a repository manages access to stored domain records; domain policies express rules. The boundaries are useful precisely because they expose what each responsibility does and does not promise.
 
-## 10.7 A small architecture decision
+## 10.8 A small architecture decision
 
 ### Record the concrete choice
 
@@ -368,7 +393,7 @@ In a real repository, a useful review sequence separates package moves from the 
 
 A decision record should state when to revisit the choice. Here those triggers include persistence, multiple writers, structured result objects and an agreed cancellation lifecycle. They do not automatically justify building those features now.
 
-## 10.8 Peer review and Milestone 3
+## 10.9 Peer review and Milestone 3
 
 ### Review one scenario across boundaries
 
@@ -397,7 +422,7 @@ Use the approved Milestone 3 instructions to determine submission requirements. 
 
 A useful reviewer question is not “Does it have four layers?” but “Where would this concrete change belong, and which existing tests protect its consequences?” The answer should identify files, contracts and trade-offs rather than only package names.
 
-## 10.9 AI in practice: verify a dependency review
+## 10.10 AI in practice: verify a dependency review
 
 **Objective:** examine a proposed dependency review without treating its wording as evidence. Supply the package map, relevant Java files and the declared dependency policy. Limit the task to identifying references and responsibility concerns; do not ask the assistant to invent a database or rewrite the module requirements.
 
@@ -409,7 +434,7 @@ For each claim, inspect actual imports or compiled dependencies and separate fac
 
 Record the proposed claim, the reference inspected, your conclusion and any remaining limitation. A live AI service is optional; use synthetic code and preserve only an actual transcript if one is produced. Another generated opinion is not independent verification.
 
-## 10.10 Common mistakes
+## 10.11 Common mistakes
 
 | Mistake | Consequence | Better action |
 |---|---|---|
@@ -425,9 +450,9 @@ Record the proposed claim, the reference inspected, your conclusion and any rema
 | Report an isolated package as I = 0 or I = 1 | The formula is undefined when Ca + Ce = 0 | Report it as undefined and explain why |
 | Accept a package cycle because the layers look right | Two packages inside one layer can still depend on each other | Check the package graph for cycles, not only the layer directions |
 
-## 10.11 Practical activity
+## 10.12 Practical activity
 
-**Input:** the migrated checkpoint in the companion (Sections 3–5), the package responsibility table in Section 10.2, the package-metrics table in Section 10.4 and your Team project's repository. Steps B1–B6 use the **Book project**; steps T1–T5 use your **Team project**.
+**Input:** the migrated checkpoint in the companion (Sections 3–5), the package responsibility table in Section 10.2, the package-metrics table in Section 10.5 and your Team project's repository. Steps B1–B6 use the **Book project**; steps T1–T5 use your **Team project**.
 
 **Instructor demonstration:** trace the current coordinator's storage access, then show the port and adapter after extraction. Compare the source dependency diagram with the runtime sequence. Run `tools/PackageMetrics.java` and `DependencyRulesTest`, and show one preserved demonstration using its new fully qualified launcher name.
 
@@ -437,7 +462,7 @@ Record the proposed claim, the reference inspected, your conclusion and any rema
 
 - **B1. Classify.** For `StaffReservationRules`, `LegacyDirectoryAdapter`, `DirectoryReservationService`, `InMemoryReservationRepository` and `ReservationApplication`, name the package, say what it may refer to under the Section 10.2 rules, and name one thing it must not refer to.
 - **B2. Check the references.** Run the build and the compiled dependency check. Find in the report one reference that Figure 10.1 permits and explain why it is permitted, then find the reference that runs from `infrastructure.notification` to `application` and say what it is for.
-- **B3. Diagnose the package design.** Use the table in Section 10.4 as a model. (a) Write two change requests of your own and list the packages each would change. (b) Using the metrics table, identify the one arrow that points to a less stable package and say whether you would act on it. (c) Decide, with reasons, whether `ConfirmationFormatter` should stay in `application`, and name the test or number that would change your mind.
+- **B3. Diagnose the package design.** Use the table in Section 10.5 as a model. (a) Write two change requests of your own and list the packages each would change. (b) Using the metrics table, identify the one arrow that points to a less stable package and say whether you would act on it. (c) Decide, with reasons, whether `ConfirmationFormatter` should stay in `application`, and name the test or number that would change your mind.
 
 **Minimum required lab: Team project (your Milestone 3 evidence)**
 
@@ -455,11 +480,20 @@ Record the proposed claim, the reference inspected, your conclusion and any rema
 
 **Expected artefacts:** written answers to B1–B3; for the Team project, the T1 diagram, the T2 decision record, the T3 diff or PR description, the T4 dependency result, and the T5 review record with the checklist status. A pull request is a good vehicle for T3 and T5 where your course workflow permits it.
 
-**Acceptance conditions:** your diagram matches your code; your decision record states a real alternative and an observable revisit trigger; the restructuring keeps moves apart from logic changes and keeps existing checks green; the dependency evidence covers direction and cycles and states whether it was compiled or manual; the review is real. For the Book analysis, the classification obeys the Section 10.2 rules, each change request names the packages it touches, and the formatter conclusion cites evidence. Do not claim review or hosted CI that has not occurred.
+**Acceptance conditions:**
+
+- your diagram matches your code;
+- your decision record states a real alternative and an observable revisit trigger;
+- the restructuring keeps moves apart from logic changes and keeps existing checks green;
+- the dependency evidence covers direction and cycles and states whether it was compiled or manual;
+- the review is real;
+- for the Book analysis, the classification obeys the Section 10.2 rules, each change request names the packages it touches, and the formatter conclusion cites evidence.
+
+Do not claim review or hosted CI that has not occurred.
 
 **Optional extension:** propose replacing size-based identifiers or adopting value equality for the cumulative period. Identify observable changes and tests before implementation. Keep that proposal separate from this structural checkpoint.
 
-## 10.12 Review and transfer
+## 10.13 Review and transfer
 
 ### Concept questions
 
@@ -481,7 +515,7 @@ A clinic appointment application has eligibility rules, an external patient dire
 
 ## Summary and next chapter
 
-Application structure makes responsibilities and dependency decisions visible beyond individual classes. The worked checkpoint introduces named packages, a narrow storage port, explicit assembly and a thin presentation adapter while preserving the tested use-case outcomes. Package design adds three questions: what changes together, what clients depend on, and whether dependencies point towards stability.
+Application structure makes responsibilities and dependency decisions visible beyond individual classes. The worked checkpoint introduces named packages, a narrow storage port, explicit assembly and a thin presentation adapter while preserving the tested use-case outcomes. Package design adds four questions: what changes together and is released together, what clients depend on, whether dependencies point towards stability, and whether a stable package is abstract enough to extend.
 
 The remaining limitations are deliberate: in-memory sequential state, existing string results and unchanged lifecycle rules. Chapter 11 examines refactoring and legacy code, building on the tests and boundaries established here.
 
@@ -495,6 +529,6 @@ Online sources 1–6 were checked on 12 October 2026, and sources 8 and 9 on 13 
 4. Cockburn, A., [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture). Original inside/outside and ports/adapters discussion.
 5. Oracle, [Java SE 17 List](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html). Unmodifiable list factories and collection contracts.
 6. Hieatt, E. and Mee, R., [Repository](https://martinfowler.com/eaaCatalog/repository.html), in Fowler's enterprise application architecture catalogue. Collection-like access to domain objects.
-7. Martin, R. C., *Agile Software Development: Principles, Patterns, and Practices.* Prentice Hall, 2002. The module's required text; the Week 9 reading is its principles of package design. The definitions of afferent and efferent coupling and of instability used here are confirmed through [9], which attributes them to this book. This chapter treats package design in Section 10.4.
-8. Evans, E., [Domain-Driven Design Reference: Definitions and Pattern Summaries](https://domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf). Domain Language, 2015, licensed CC BY 4.0. Layered Architecture (p. 10), Entities (p. 11) and Value Objects (p. 12), with Modules and Repositories on pp. 15 and 17. A recommended companion to the Week 9 reading, which lists selected chapters of Evans's 2004 book.
-9. Wikipedia, [Software package metrics](https://en.wikipedia.org/wiki/Software_package_metrics). A secondary summary of the afferent coupling, efferent coupling and instability definitions, which it attributes to Martin (2002) [7]. It does not describe the stable-dependencies or acyclic-dependencies principles, which this chapter takes from [7].
+7. Martin, R. C., *Agile Software Development: Principles, Patterns, and Practices.* Prentice Hall, 2002. The module's required text; the Week 9 reading is its principles of package design. The definitions of afferent and efferent coupling and of instability, and the package principles, are also stated in Martin's own earlier paper [9]. This chapter treats package design in Section 10.5.
+8. Evans, E., [Domain-Driven Design Reference: Definitions and Pattern Summaries](https://www.domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf). Domain Language, 2015, licensed CC BY 4.0. Layered Architecture (p. 10), Entities (p. 11) and Value Objects (p. 12), with Modules and Repositories on pp. 15 and 17. A recommended companion to the Week 9 reading, which lists selected chapters of Evans's 2004 book.
+9. Martin, R. C. (2000), [Design Principles and Design Patterns](https://staff.cs.utu.fi/~jounsmed/doos_06/material/DesignPrinciplesAndPatterns.pdf). The author's own paper, hosted by the University of Turku. Its text was extracted and read on 14 October 2026: it names the reuse/release equivalence, common closure, common reuse, acyclic dependencies, stable dependencies and stable abstractions principles, and defines Ca, Ce, I and abstractness A. Its counting unit is the class, as in this chapter. It is the primary source for Section 10.5; [7] is the module's required treatment.

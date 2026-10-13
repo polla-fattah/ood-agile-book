@@ -510,7 +510,17 @@ A repair is possible for the first two claims: keep the neater structure but res
 
 **Expected artefacts:** B1–B3 as above, with the commits or stage files; for the Team project, the observation notes, the characterisation tests, at least three refactoring commits, the rationale and the review record. A pull request is a good vehicle where your course workflow permits it.
 
-**Acceptance conditions:** every characterisation test was run before its expectation was recorded; surprising and suspect results are commented; no refactoring commit changes behaviour; the tests pass after every commit; the seam edit is mechanical and has been checked by running the original beside it; questions are recorded and not silently fixed; signatures and formats that others depend on are unchanged. Do not claim a review or CI run that has not happened. A passing suite is evidence for the behaviours it covers, not a proof of equivalence.
+**Acceptance conditions:**
+
+- every characterisation test was run before its expectation was recorded;
+- surprising and suspect results are commented;
+- no refactoring commit changes behaviour;
+- the tests pass after every commit;
+- the seam edit is mechanical and has been checked by running the original beside it;
+- questions are recorded and not silently fixed;
+- signatures and formats that others depend on are unchanged.
+
+Do not claim a review or CI run that has not happened. A passing suite is evidence for the behaviours it covers, not a proof of equivalence.
 
 **Optional extension:** extend the differential test to generate null items and borrowers, and say what a difference would mean. Keep this separate from the refactoring steps.
 

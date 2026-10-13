@@ -155,7 +155,7 @@ ADR-010 from Chapter 10 is still in docs. No hosted CI run and no peer review is
 
 ### 3.2 `after/pom.xml`
 
-Change the project version from 0.13.0 to 0.14.0 and nothing else. The hunk is an edit to the Chapter 13 POM:
+Change the project version from 0.13.1 to 0.14.0 and nothing else. The hunk is an edit to the Chapter 13 POM:
 
 ```diff
 --- chapter13/pom.xml
@@ -1484,7 +1484,7 @@ These are not model answers, because the code is your team's. A good answer show
 - **T2:** a known-issues list in which every item has a decision, a reason, and (for a deferred item) an owner and a trigger; no feature added; a freeze time.
 - **T3:** the bundle (setup, usage example, limitations, test instructions, requirements-to-evidence table, demonstration outline); a dry run in a fresh copy; a record of what a person outside the team struggled with, and what was changed; at least one statement in the bundle that a script checks.
 - **T4:** two decision records with a true status, one about the flag or the change (the conditions for removal checked one by one, and a decision) and one other; the old record untouched if the new one applies or supersedes it.
-- **T5:** at most three retrospective actions with owners, each tied to evidence; an individual reflection of claims with links and honest limits; the checklist of Section 14.6 with each item marked complete or a gap.
+- **T5:** at most three retrospective actions with owners, each tied to evidence; an individual reflection of claims with links and honest limits; the checklist of Section 14.7 with each item marked complete or a gap.
 
 A weak answer describes the code instead of the change, lists defects with no decision, writes documents nobody has followed, edits an accepted decision record, ranks people by commit counts or claims a run that did not happen.
 
@@ -1519,7 +1519,7 @@ If a live assistant is used, keep its actual output, and check its README the sa
 
 ## 8. Intentionally flawed alternatives
 
-These fragments are **diagnostic alternatives**, not files to compile. Each corresponds to a mistake in Section 14.8 of the chapter or to a fault in the experiments of Section 10.2.
+These fragments are **diagnostic alternatives**, not files to compile. Each corresponds to a mistake in Section 14.9 of the chapter or to a fault in the experiments of Section 10.2.
 
 ### 8.1 A number stated in two places
 
@@ -1638,7 +1638,7 @@ The online references of the student chapter (sources 1–9) were opened on 13 O
 3. Schwaber, K. and Sutherland, J., [The Scrum Guide](https://scrumguides.org/scrum-guide.html).
 4. [Retrospective Wiki: The Prime Directive](https://retrospectivewiki.org/index.php?title=The_Prime_Directive).
 5. Fowler, M., [Yagni](https://martinfowler.com/bliki/Yagni.html).
-6. GitHub, [Why are my contributions not showing up on my profile?](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile).
-7. GitHub, [Creating a commit with multiple authors](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors).
-8. GitHub, [About pull request reviews](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews).
+6. GitHub, [Why are my contributions not showing up on my profile?](https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/troubleshooting-missing-contributions).
+7. GitHub, [Creating a commit with multiple authors](https://docs.github.com/en/pull-requests/how-tos/commit-changes/creating-a-commit-with-multiple-authors).
+8. GitHub, [About pull request reviews](https://docs.github.com/en/pull-requests/reference/pull-request-reviews).
 9. Hodgson, P., [Feature Toggles (aka Feature Flags)](https://martinfowler.com/articles/feature-toggles.html).

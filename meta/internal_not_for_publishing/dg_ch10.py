@@ -7,7 +7,7 @@ from dg_ch08 import _seq
 
 
 def layers():
-    s = Svg("ch10-layers", 345, label="Figure 10.1, permitted source dependencies: Bootstrap may refer to Presentation, Application and ports, and Infrastructure adapters. Presentation refers to Application. Application refers to Domain. Infrastructure refers to Application and to Domain. Domain refers to nothing else.")
+    s = Svg("ch10-layers", 365, label="Figure 10.1, permitted source dependencies: Bootstrap may refer to Presentation, Application and ports, Infrastructure adapters and Domain. Presentation refers to Application and Domain. Application refers to Domain. Infrastructure refers to Application and to Domain. Domain refers to nothing else.")
     b = s.node(285, 10, 300, 62, "Bootstrap\nchoose implementations", "dark", size=17, weight=600)
     p = s.node(20, 130, 230, 66, "Presentation", "box", size=19, weight=600)
     a = s.node(320, 130, 230, 66, "Application\nand ports", "copper", size=18, weight=600)
@@ -20,9 +20,10 @@ def layers():
     s.edge([i.a("l"), a.a("r")])
     s.edge([a.a("b"), d.a("t")])
     s.edge([i.a("b"), (735, 288), d.a("r")])
-    s.text(20, 250, "A missing arrow means the", size=15, fill=SOFT, italic=True)
-    s.text(20, 270, "reference is not permitted:", size=15, fill=SOFT, italic=True)
-    s.text(20, 290, "Domain refers to nothing else.", size=15, fill=SOFT, italic=True)
+    s.edge([p.a("b"), (135, 288), d.a("l")])
+    s.edge([(570, 72), (570, 225), (520, 225), (520, 255)])
+    s.text(20, 336, "A missing arrow means the reference is not permitted:", size=15, fill=SOFT, italic=True)
+    s.text(20, 356, "Domain refers to nothing else.", size=15, fill=SOFT, italic=True)
     return s
 
 

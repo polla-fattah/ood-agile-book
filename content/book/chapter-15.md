@@ -392,7 +392,15 @@ Constructed output is **not** a recording of a real model. It is written to illu
 
 **Expected artefacts:** B1–B4 as above; for the Team project, one defined task with its acceptance examples, the attempts, a record and, if you did T4, a team note.
 
-**Acceptance conditions:** the acceptance examples were written before the candidate was requested; every claim the assistant made about itself was checked or marked unchecked; the check used the project's own compiler settings; a rejected attempt is in the record with its reason; the record's limits say what was not run; no secrets or personal data were shared; no live tool was used where the rules forbid it.
+**Acceptance conditions:**
+
+- the acceptance examples were written before the candidate was requested;
+- every claim the assistant made about itself was checked or marked unchecked;
+- the check used the project's own compiler settings;
+- a rejected attempt is in the record with its reason;
+- the record's limits say what was not run;
+- no secrets or personal data were shared;
+- no live tool was used where the rules forbid it.
 
 **Optional extension:** do the same task twice, once with the acceptance examples in the prompt and once without, and compare the outputs and what each tells you.
 

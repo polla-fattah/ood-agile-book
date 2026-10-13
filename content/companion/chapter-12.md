@@ -274,7 +274,7 @@ In visitor success/rejection rows assume a recognised active V1, flag enabled, f
 | AC17 | Unknown directory code or inactive visitor | Existing unknown/inactive semantics; never default to student |
 | AC18 | Report generated after a visitor loan exists | Existing report mapping and SD-11 boundary retained |
 
-These are planned examples, not claims that new tests have run. Existing policy tests, directory tests, command tests and the 136-test Chapter 11 suite remain relevant. Some test fixtures that enumerate every category will require explicit updates because adding an enum value changes their setup; document that necessary fixture change without weakening old assertions.
+These are planned examples, not claims that new tests have run. Existing policy tests, directory tests, command tests and the 159-test Chapter 11 suite remain relevant. Some test fixtures that enumerate every category will require explicit updates because adding an enum value changes their setup; document that necessary fixture change without weakening old assertions.
 
 ### Ordered backlog and impact note
 
@@ -295,7 +295,7 @@ Status of C12-2–6 in this chapter: **planned, not implemented**. C12-1's sourc
 
 ## 6. Preserve the pre-change checkpoint
 
-The supplied Chapter 11 code is the baseline; this chapter makes no edits to its production classes, tests or build file. Its last delivered full run passed 136 JUnit invocations. The metrics tool lives outside that Maven project and has its own checks; do not add its check count to the baseline's count.
+The supplied Chapter 11 code is the baseline; this chapter makes no edits to its production classes, tests or build file. Its last delivered full run passed 159 JUnit invocations. The metrics tool lives outside that Maven project and has its own checks; do not add its check count to the baseline's count.
 
 For your working project, first run its documented gate from its project root:
 
@@ -376,7 +376,7 @@ A good impact note identifies the concrete touchpoints, uncertainty and first ex
 
 The supplied calculator was compiled at Java release 17 and its 17 checks passed. The exact synthetic report above was executed. A separate boundary-mutant copy was checked to confirm the exclusive-window assertion detects the deliberately inclusive upper bound; restoration returned the checks to green. The Markdown file listings were reconstructed and run before delivery.
 
-An independent calculation also reconciled the eight source rows, five completions, 16 completed points, 23 final scope points, seven remaining points, the five-item duration means and the daily chart table. Chapter 11's source was retained without modification. Its prior 136-test result is a baseline reference, not a newly implemented CR-12 result.
+An independent calculation also reconciled the eight source rows, five completions, 16 completed points, 23 final scope points, seven remaining points, the five-item duration means and the daily chart table. Chapter 11's source was retained without modification. Its prior 159-test result is a baseline reference, not a newly implemented CR-12 result.
 
 No student repository or actual PR history has been analysed in this authoring run. RM-12 supplies the procedure and blank evidence record for that required learner activity. No sponsor approval, stakeholder acceptance, hosted pipeline or peer review is claimed. CR-12's adapter, tests and feature flag are specifications for Chapter 13. The calculator does not handle reopened histories, revised estimates or business calendars.
 

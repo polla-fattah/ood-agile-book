@@ -77,7 +77,7 @@ Contrast this with “Database later.” That phrase records neither the current
 
 Do not attempt to settle every future policy before running the starter. Resolve questions that determine the next slice’s behaviour. Keep other questions visible with an owner and a decision point. This supports progress while preventing a temporary assumption from quietly becoming a permanent rule.
 
-## 4.2 Domain assumptions and wireframes
+## 4.2 Wireframes and worked examples
 
 ### A wireframe is a question made visible
 
@@ -251,7 +251,9 @@ flowchart TD
     C -->|No| E["Integrate and verify shared branch"]
 ```
 
-This diagram describes the chapter’s team policy, not an automatic guarantee from Git. A repository does not enforce review simply because the README requests it. Where supported, configure the shared branch to require the agreed check and review. If enforcement is unavailable, state that the team follows a manual policy and retain its review evidence.
+**Figure 4.1.** The team's review-and-CI loop for one small change. A blocking finding sends the change back to the author and the checks run again; only a change with no blocking finding is integrated, and the shared branch is verified after integration.
+
+The figure describes the chapter’s team policy, not an automatic guarantee from Git. A repository does not enforce review simply because the README requests it. Where supported, configure the shared branch to require the agreed check and review. If enforcement is unavailable, state that the team follows a manual policy and retain its review evidence.
 
 ### Review the claim, the change and the evidence
 

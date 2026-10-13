@@ -148,7 +148,7 @@ Periods that meet at a boundary do not overlap. A reservation ending on 22 Octob
 
 Identifiers in the examples are `B1` for a borrower, `CAM1` for an item and `R1` for a reservation. The first checkpoints check only that an identifier is not blank; they do not look it up in a directory or catalogue. The coordinator allocates reservation identifiers in sequence, and a rejected request does not use one.
 
-`LoanPeriod` and `Reservation` do not override `equals` or `hashCode`. Two separate objects with the same data are not equal through Java's inherited equality. The repository (Chapter 10) uses the reservation's identifier as its key and rejects a duplicate. Domain identity and Java object identity are different ideas (Chapter 2, Section 2.1, and Chapter 10, Section 10.5).
+`LoanPeriod` and `Reservation` do not override `equals` or `hashCode`. Two separate objects with the same data are not equal through Java's inherited equality. The repository (Chapter 10) uses the reservation's identifier as its key and rejects a duplicate. Domain identity and Java object identity are different ideas (Chapter 2, Section 2.1, and Chapter 10, Section 10.6).
 
 ### Borrower categories and limits
 
@@ -262,9 +262,9 @@ The entries follow the chapters. The reference after each says where the term is
 
 **Acceptance criteria.** The behaviour expected of one backlog item, specific enough that a second team can tell whether an implementation meets it (Chapter 3, Section 3.7). An acceptance example is one concrete case of a criterion.
 
-**ADR (architecture decision record).** A short record in the repository of a decision, its context, the alternatives, the consequences, how it was checked and what would reopen it (Chapter 10, Section 10.7; Chapter 14, Section 14.3; Appendix C).
+**ADR (architecture decision record).** A short record in the repository of a decision, its context, the alternatives, the consequences, how it was checked and what would reopen it (Chapter 10, Section 10.8; Chapter 14, Section 14.3; Appendix C).
 
-**Afferent coupling (Ca).** For a package, the number of classes outside it that depend on classes inside it (Chapter 10, Section 10.4).
+**Afferent coupling (Ca).** For a package, the number of classes outside it that depend on classes inside it (Chapter 10, Section 10.5).
 
 **Arrange–Act–Assert.** A test structure: establish the state, perform the operation being examined and inspect the outcome (Chapter 7, Section 7.2).
 
@@ -290,7 +290,7 @@ The entries follow the chapters. The reference after each says where the term is
 
 **Dependency Inversion Principle (DIP).** High-level policy should not depend on low-level detail; both depend on an abstraction that the policy owns (Chapter 6, Section 6.4).
 
-**Efferent coupling (Ce).** For a package, the number of classes inside it that depend on classes outside it (Chapter 10, Section 10.4).
+**Efferent coupling (Ce).** For a package, the number of classes inside it that depend on classes outside it (Chapter 10, Section 10.5).
 
 **Encapsulation and information hiding.** Grouping state with the operations that govern it and controlling access to it; and deciding which implementation choices callers need not know (Chapter 2, Section 2.3).
 
@@ -304,7 +304,7 @@ The entries follow the chapters. The reference after each says where the term is
 
 **Half-open interval.** A period that includes its start and excludes its end (D.4).
 
-**Instability.** For a package, I = Ce / (Ca + Ce), from 0 (maximally stable) to 1 (maximally unstable) (Chapter 10, Section 10.4).
+**Instability.** For a package, I = Ce / (Ca + Ce), from 0 (maximally stable) to 1 (maximally unstable) (Chapter 10, Section 10.5).
 
 **Integration test.** A test that runs an adapter against the real mechanism it adapts, such as a real file or a real HTTP client talking to a service under our control (Chapter 13, Sections 13.1 and 13.2).
 
@@ -336,7 +336,7 @@ The entries follow the chapters. The reference after each says where the term is
 
 **Throughput, velocity and work in progress.** Completed items over a stated period; the sum of estimates of the items completed in an iteration; and the items started but not finished at a stated moment (Chapter 12, Sections 12.3 and 12.5).
 
-**Traceability.** The chain from a requirement to the code that decides it and the test that checks it (Chapter 14, Section 14.3).
+**Traceability.** The chain from a requirement to the code that decides it and the test that checks it (Chapter 14, Section 14.4).
 
 **Unit test.** A test that runs a small part of the system in memory with everything it collaborates with under control (Chapter 13, Section 13.1).
 

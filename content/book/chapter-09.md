@@ -38,7 +38,7 @@ By the end of this chapter, you should be able to:
 
 **Starting checkpoint:** Chapter 8's Java 17 application, directory adapter and complete Maven test suite. The code-and-solutions file supplies a complete new checkpoint. The original borrowing policies already demonstrate Strategy. A notification publisher is an optional cumulative collaborator. The proposed lifecycle is a separate exercise; it does not replace the running project's reservation or loan rules.
 
-**Reading reminder:** the module descriptor places the individual critical book review in Week 8. Follow the module leader's approved instructions and reading list. See the [Appendix E reading checkpoint](#appendix-e-reading-checkpoint) below and [Appendix E]({{< relref "appendix-e" >}}); evidence must come from the selected book and verified sources, not an AI summary of an unread text.
+**Reading reminder:** the module descriptor places the individual critical book review in Week 8. Follow the module leader's approved instructions and reading list. See the [Section 9.12](#reading-checkpoint) below and [Appendix E]({{< relref "appendix-e" >}}); evidence must come from the selected book and verified sources, not an AI summary of an unread text.
 
 ## 9.1 Variation in behaviour
 
@@ -409,7 +409,16 @@ A live AI service is optional. If used, provide synthetic inputs, retain relevan
 
 **Expected artefacts:** before/after source; a reviewed transition table; runnable tests; a reproducible demonstration; a concise problem–solution–consequence note; and the step 6 decision for your Team project.
 
-**Acceptance conditions:** no unrestricted phase setter; correct terminal behaviour; transition outcomes match independently stated expectations; observer failure does not imply rollback; command construction performs no reservation; the old regression suite still runs. This exercise does not require wiring the proposed lifecycle into the cumulative application.
+**Acceptance conditions:**
+
+- no unrestricted phase setter;
+- correct terminal behaviour;
+- transition outcomes match independently stated expectations;
+- observer failure does not imply rollback;
+- command construction performs no reservation;
+- the old regression suite still runs.
+
+This exercise does not require wiring the proposed lifecycle into the cumulative application.
 
 **Optional extension:** propose cancellation for the real project. Specify effects on reservation counts, availability, active loans, identifiers and notifications before changing any code. Keep that proposal separate from the behaviour-preserving State exercise.
 
@@ -431,13 +440,11 @@ A live AI service is optional. If used, provide synthetic inputs, retain relevan
 
 A document workflow has draft, approved and published stages. Review policy differs by department, several local views react after publication, and a user interface can hold a publish request before executing it. Identify the four variation pressures, choose only the justified patterns, and specify one invalid transition, one observer failure and one stale-command outcome. State which requirements need clarification before implementation.
 
-## Appendix E reading checkpoint
+## 9.12 Reading checkpoint: the critical book review {#reading-checkpoint}
 
-Your individual critical review of a book from the approved list is due in Week 8. **Appendix E** develops the review method in full: a reading record, questions for each part of the task and prompts for checking your sources. This short checkpoint is enough to check where you stand now, and the current assignment brief is always the authority on length, sources, format and deadline.
+Your individual critical review of a book from the approved list is due in Week 8. The current assignment brief is the authority on length, sources, format and deadline, and **Appendix E** develops the review method in full (a reading record, a question for each part of the task, and prompts for checking sources). This chapter's patterns give you one concrete angle for a pattern discussion: ask whether the book's example establishes the extension benefit it claims, which simpler alternative the author considered and what cost the author acknowledges.
 
-Read the selected book directly, not a summary of it. For each point you intend to make, record a precise claim with its chapter and page or stable section, the example that supports it, and the conditions under which the claim is useful. Then look for a concrete counterexample or limitation, and verify any external source you use. Keep three things apart: what the author claims, what you infer, and what an AI tool suggested. The brief also asks how the book's advice applies to engineering AI-enabled systems, supported by further sources, so collect those as you read.
-
-For a pattern discussion, ask whether the book's example establishes the extension benefit it claims, which simpler alternative the author considered, and what cost the author acknowledges. A criticism that rests on a source and a concrete case is stronger than a catalogue of definitions. Reading this textbook does not satisfy the assignment, and an AI summary of a book you have not read is not evidence about it. Confirm submission details against the assignment brief and do not infer a deadline from this chapter.
+Read the selected book directly. Keep three things apart: what the author claims, what you infer, and what an AI tool suggested. Reading this textbook does not satisfy the assignment, and an AI summary of a book you have not read is not evidence about it.
 
 ## Summary and next chapter
 

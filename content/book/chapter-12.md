@@ -1,6 +1,6 @@
 ---
 title: "Chapter 12: Measuring Progress, Flow and Technical Health"
-description: "Empirical delivery metrics: lead time, cycle time, throughput, and repository analysis."
+description: "Empirical delivery metrics (lead time, cycle time, throughput), repository analysis, and planning a changed requirement."
 weight: 120
 ---
 
@@ -136,16 +136,18 @@ Current scope includes completed items and accepted unfinished items; it exclude
 
 On day 04, the remaining line rises from 17 to 18 despite C's two-point completion: three points arrived as G. On day 08, the line falls by five points, but only three came from D's completion; two came from removing F. Without the scope events, both changes are easy to misread.
 
-The burn-up below samples five dates for readability. The upper line is current scope; the lower line is cumulative completion. It is not a smoothed model of unobserved activity. The full daily values are in the table.
+Figure 12.1 plots the eleven daily snapshots from the table. The upper line is current scope; the lower line is cumulative completion. It is a plot of the observed snapshots, not a smoothed model of unobserved activity.
 
 ```mermaid
 xychart-beta
     title "Synthetic iteration: scope and completed points"
-    x-axis "October 2026 snapshot day" ["01", "04", "06", "08", "11"]
+    x-axis "October 2026 snapshot day" ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11"]
     y-axis "Points" 0 --> 25
-    line [20, 23, 25, 23, 23]
-    line [0, 5, 10, 13, 16]
+    line [20, 20, 20, 23, 23, 25, 25, 23, 23, 23, 23]
+    line [0, 0, 3, 5, 5, 10, 10, 13, 13, 16, 16]
 ```
+
+**Figure 12.1.** Synthetic iteration, one point per daily snapshot. Upper line: current scope (20, then 23 when G is added on day 04, 25 when H is added on day 06, 23 when F is removed on day 08). Lower line: cumulative completed points (3 on day 03, 5 on day 04, 10 on day 06, 13 on day 08, 16 on day 10). The gap between the lines is the remaining work, seven points at the end. The chart type has no legend, so the lines are identified here.
 
 An ideal diagonal burn-down can be a reference for a fixed initial scope. It is not evidence that real work should finish in equal daily increments. Review, integration and acceptance can produce uneven completions. Do not move Done timestamps to make a curve attractive. Ask whether the team can explain the change and whether the remaining work still serves the goal.
 
@@ -180,7 +182,7 @@ Keep URLs or IDs, original timestamps and the extraction date in the evidence re
 
 ## 12.6 Technical health and metric misuse
 
-A useful technical-health discussion combines a concrete risk with evidence and a proposed response. “There are 136 passing tests in the Chapter 11 checkpoint” records a build result. It does not say every rule is correct, that every important boundary has a test or that more tests would automatically produce a better design.
+A useful technical-health discussion combines a concrete risk with evidence and a proposed response. “There are 159 passing tests in the Chapter 11 checkpoint” records a build result. It does not say every rule is correct, that every important boundary has a test or that more tests would automatically produce a better design.
 
 Chapter 11 supplies stronger evidence for one narrow claim: the selected tests detect a deliberately changed equality boundary. That is relevant when deciding whether a report refactoring is protected. It says nothing about sponsor approval, which does not exist yet. Similarly, a high line-coverage percentage can identify unexecuted areas, but it cannot tell us whether assertions distinguish correct and incorrect outcomes.
 
@@ -198,6 +200,8 @@ Goodhart's Law is a useful caution: pressure to maximise a proxy can encourage b
 Use measures for team learning and system improvement, not individual rankings. A review, a careful deletion or help given to another person may be valuable without increasing the chosen count. Pair quantitative observations with a short account of what happened. Investigate suspicious numbers without assuming misconduct, and avoid presenting a tiny correlation as a causal explanation.
 
 ## 12.7 Changed requirement and impact analysis
+
+The first six sections taught how to read evidence about a team's work. This section uses the same habits on a new request: before estimating a change, say what it must do, what it touches and what evidence will show it works. The request is the visiting-researcher change from the opening problem, and it is the change that Chapters 13 and 14 implement and review.
 
 ### CR-12: visiting-researcher reservations
 

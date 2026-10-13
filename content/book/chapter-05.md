@@ -57,7 +57,31 @@ Consider these proposed changes:
 
 These are different concerns, but the table is not an instruction to create five interfaces immediately. The first two are the chapter's actual teaching changes. Persistence and catalogue integration remain future questions. Their possible existence is a reason to document a limitation, not sufficient evidence for building an extensibility framework now.
 
-### Ask the tools, then ask the code
+### State the new rule before choosing a design
+
+For the worked example, adopt this **illustrative teaching requirement**:
+
+| Category | Existing active reservations allowed before a successful request | Requested duration |
+|---|---|---|
+| Student | 0, 1 or 2 | 1 through 7 days |
+| Staff | 0, 1, 2, 3 or 4 | 1 through 14 days |
+
+A successful student request may therefore create the third active reservation; a successful staff request may create the fifth. Both policies reject negative counts and nonpositive durations. They decide only count and duration. Both still require a valid period and no overlapping reservation for the same item.
+
+This is a feature change. A staff request for fourteen days can now succeed where the existing four-argument operation would reject it. Moving the existing formatter is a refactoring only if its observable results remain the same. Combining those changes in one unexplained edit would make failures harder to interpret.
+
+The new example receives the category from a trusted fixture caller. It does not authenticate staff status, persist a borrower profile or infer category from an identifier. Passing `STAFF` is not proof that a person is staff. A production boundary would need an authoritative category source before accepting such a claim. The distinction is part of the example's scope, not an implementation task silently completed by adding an enum.
+
+### Define success for each stage
+
+Stage A succeeds when the formatting responsibility has moved and existing outputs, exceptions, state changes and signatures remain compatible for existing callers. Stage B succeeds when the explicit category operation implements the new table while the old operation continues to mean student borrowing.
+
+All stored records still count as active. Storage remains in memory, calls remain sequential and intervals remain half-open. No cancellation, return processing, catalogue, email delivery or availability enquiry is added. Those boundaries prevent a design exercise from accidentally becoming an unreviewable expansion of the system.
+
+### Gather evidence: the compiler, your reading and a static analyser
+
+The change pressures and the two-stage plan above say what we intend to do. Before changing anything, collect evidence about where the code is hard to change today, from three different sources.
+
 
 A static-analysis tool examines source code without running it and reports patterns that often indicate problems. The Week 4 lab uses one for smell diagnosis. You will gather three kinds of evidence in this order: the compiler's, your own, and the tool's. Setting them side by side is the point of the lab.
 
@@ -82,6 +106,8 @@ For each finding, record where it is, what you observed, whether it matches a ch
 
 **The analyser: PMD.** The book uses PMD, version 7.28.0 [8], which runs on Java 8 or above [8]. Download `pmd-dist-7.28.0-bin.zip` from the project's GitHub release page, compare the file's SHA-256 digest with the one the release page shows for it (the companion records the digest that was checked), unzip it, and set the variable `PMD_HOME` to the unzipped `pmd-bin-7.28.0` folder. This is the only download the chapter asks for.
 
+Before reading the output, five terms. **Cyclomatic complexity** counts the independent paths through a method: each `if`, loop or `case` adds one. **Cognitive complexity** is a variant that penalises nested conditions. **NPath** counts the possible execution paths through a method. A **God class** does too much and knows too much; a **Data class** holds data and little behaviour. In the Data-class line below, WOC, NOPA, NOAM and WMC are PMD's own measures of how much of a class is behaviour (the share of its public methods that are not accessors, its public attributes, its accessor methods and the summed complexity of its methods); you do not need them to read the result.
+
 PMD ships many rules in categories, and the choice of rules is part of using it. On this five-file starter, the quickstart rule set reports 5 findings, all the same one: classes without a package, which the book chooses deliberately until Chapter 10. The code-style category reports 34, for example parameters that “could be final”. Neither helps a smell diagnosis. The lab therefore uses a small rule set of eight design rules from PMD's design category, kept in `config/pmd-smells.xml`, with PMD's default thresholds [9]: cyclomatic complexity from 10, cognitive complexity from 15, NPath from 200, God class, Data class, more than 10 methods, 10 or more parameters, and 30 or more imports. Run the compiler gate first, so that PMD can read the compiled classes, and then run the lab script:
 
 ```bash
@@ -101,27 +127,6 @@ src\main\java\ReservationCoordinator.java:10:	CyclomaticComplexity:	The method '
 Now interpret each finding the way you interpreted your own. The second one is **useful**: `reserve` has twelve independent paths because it validates identifiers, counts the borrower's records, applies eligibility, searches for a conflict and creates the record, which is your first smell seen from another side. The first one is **low-value here**: `Reservation` is deliberately an immutable record of an accepted booking, so holding data and little behaviour is its job. It does carry a question, though: where does the behaviour that uses its fields live? In this starter, it lives in the coordinator's confirmation wording. And PMD **missed** things you found by reading: it did not report the `ReservationRules` that the coordinator constructs for itself, and it cannot know that “borrower limit or duration” is one string for two different reasons. Placing each finding in one of the three groups (useful, low-value in this context, a concern the tool missed) is the comparison the lab asks for.
 
 A finding is evidence to investigate, not an instruction. At this scale a tool may report items that do not matter, and it cannot know which changes your team expects. Rerun PMD after each stage of the practical activity: the complexity finding stays at 12 after Stage A and after Stage B, because moving wording and policy out changed who decides, not how many branches the sequence of checks has. The number moves only when you split that sequence. Extract Method alone can lower it while leaving every responsibility where it was, which is why a number is not a verdict. Record only output you actually produced.
-
-### State the new rule before choosing a design
-
-For the worked example, adopt this **illustrative teaching requirement**:
-
-| Category | Existing active reservations allowed before a successful request | Requested duration |
-|---|---|---|
-| Student | 0, 1 or 2 | 1 through 7 days |
-| Staff | 0, 1, 2, 3 or 4 | 1 through 14 days |
-
-A successful student request may therefore create the third active reservation; a successful staff request may create the fifth. Both policies reject negative counts and nonpositive durations. They decide only count and duration. Both still require a valid period and no overlapping reservation for the same item.
-
-This is a feature change. A staff request for fourteen days can now succeed where the existing four-argument operation would reject it. Moving the existing formatter is a refactoring only if its observable results remain the same. Combining those changes in one unexplained edit would make failures harder to interpret.
-
-The new example receives the category from a trusted fixture caller. It does not authenticate staff status, persist a borrower profile or infer category from an identifier. Passing `STAFF` is not proof that a person is staff. A production boundary would need an authoritative category source before accepting such a claim. The distinction is part of the example's scope, not an implementation task silently completed by adding an enum.
-
-### Define success for each stage
-
-Stage A succeeds when the formatting responsibility has moved and existing outputs, exceptions, state changes and signatures remain compatible for existing callers. Stage B succeeds when the explicit category operation implements the new table while the old operation continues to mean student borrowing.
-
-All stored records still count as active. Storage remains in memory, calls remain sequential and intervals remain half-open. No cancellation, return processing, catalogue, email delivery or availability enquiry is added. Those boundaries prevent a design exercise from accidentally becoming an unreviewable expansion of the system.
 
 ## 5.2 Responsibility and SRP
 

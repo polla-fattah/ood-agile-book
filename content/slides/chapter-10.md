@@ -22,30 +22,32 @@ layout: page
   * Eight packages, each with a reason.
 * **10.3 Presentation, application, domain and infrastructure**
   * Where an outside collaborator sits.
-* **10.4 Dependency direction and package design**
-  * Cohesion, coupling, stability and a compiled dependency check.
+* **10.4 Dependency direction and its check**
+  * Source dependencies, runtime calls and a compiled dependency check.
+* **10.5 Package design: cohesion, coupling and stability**
+  * CCP, CRP, REP, ADP, SDP, SAP and a worked placement comparison.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **10.5 Entities and value objects**
+* **10.6 Entities and value objects**
   * Identity, immutability and Java equality are three different things.
-* **10.6 Repositories and services**
+* **10.7 Repositories and services**
   * The smallest useful storage contract.
-* **10.7 A small architecture decision**
+* **10.8 A small architecture decision**
   * ADR-010.
-* **10.8 Peer review and Milestone 3**
+* **10.9 Peer review and Milestone 3**
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **10.9 AI in practice:** verify a dependency review.
-* **10.10 Common mistakes**
-* **10.11 Practical activity**
+* **10.10 AI in practice:** verify a dependency review.
+* **10.11 Common mistakes**
+* **10.12 Practical activity**
   * Book project B1 to B6; Team project T1 to T5.
-* **10.12 Review and transfer**
+* **10.13 Review and transfer**
   * A clinic appointment application.
 * **Summary and next chapter**
   * Chapter 11: refactoring and legacy code.
@@ -105,8 +107,8 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ## Reading Route
 
-* **Core reading:** 10.1 to 10.4 (except the Ports and Adapters comparison), 10.6, 10.7, 10.8.
-* **Working knowledge:** 10.5 (entities and value objects): understand identity versus value meaning, and why Java equality is a separate decision. You do not implement either.
+* **Core reading:** 10.1 to 10.5 (except the Ports and Adapters comparison), 10.7, 10.8, 10.9.
+* **Working knowledge:** 10.6 (entities and value objects): understand identity versus value meaning, and why Java equality is a separate decision. You do not implement either.
 * **Minimum lab:** **B1 to B3** (Book project: reading, tracing, diagnosis; **nothing to rebuild**) and **T1 to T5** (your Team project; your Milestone 3 evidence).
 * **Optional:** Ports and Adapters, the AI activity, B4 to B6 (break the rules on purpose; reproduce the migration), review questions, transfer.
 
@@ -345,7 +347,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-# 10.4 Dependency Direction and Package Design
+# 10.4 Dependency Direction and Its Check
 ### Arrows are source references
 
 ---
@@ -354,7 +356,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 <!--svg:ch10-layers-->
 <div>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 345" role="img" aria-label="Figure 10.1, permitted source dependencies: Bootstrap may refer to Presentation, Application and ports, and Infrastructure adapters. Presentation refers to Application. Application refers to Domain. Infrastructure refers to Application and to Domain. Domain refers to nothing else." style="display:block;width:100%;height:calc(var(--u) * 34.50);margin:0 auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 365" role="img" aria-label="Figure 10.1, permitted source dependencies: Bootstrap may refer to Presentation, Application and ports, Infrastructure adapters and Domain. Presentation refers to Application and Domain. Application refers to Domain. Infrastructure refers to Application and to Domain. Domain refers to nothing else." style="display:block;width:100%;height:calc(var(--u) * 36.50);margin:0 auto">
 <defs><marker id="ch10-layers-tri" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,1 L15,8 L1,15 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-layers-dia" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-layers-diaf" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#1d588c" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-layers-open" viewBox="0 0 16 16" refX="14" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M2,2 L14,8 L2,14" fill="none" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-layers-arr" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L13,7 L0,13 Z" fill="#1d588c"/></marker></defs>
 <rect x="285.0" y="10.0" width="300.0" height="62.0" rx="8" fill="#0c2238" stroke="#0c2238" stroke-width="2"/>
 <text x="435.0" y="36.2" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#ffffff" text-anchor="middle">Bootstrap</text>
@@ -376,9 +378,10 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 <path d="M620.0,163.0 L550.0,163.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
 <path d="M435.0,196.0 L435.0,255.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
 <path d="M735.0,196.0 L735.0,288.0 L550.0,288.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
-<text x="20.0" y="250.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="start" font-style="italic">A missing arrow means the</text>
-<text x="20.0" y="270.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="start" font-style="italic">reference is not permitted:</text>
-<text x="20.0" y="290.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="start" font-style="italic">Domain refers to nothing else.</text>
+<path d="M135.0,196.0 L135.0,288.0 L320.0,288.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<path d="M570.0,72.0 L570.0,225.0 L520.0,225.0 L520.0,255.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch10-layers-arr)"/>
+<text x="20.0" y="336.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="start" font-style="italic">A missing arrow means the reference is not permitted:</text>
+<text x="20.0" y="356.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="start" font-style="italic">Domain refers to nothing else.</text>
 </svg>
 </div>
 <!--/svg-->
@@ -488,10 +491,26 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
+## Optional: Ports and Adapters
+
+* The directory, sender and repository interfaces can be discussed as **ports**, with infrastructure implementations as **adapters**.
+* The console **drives** the application; storage and notifications are collaborators the application **calls**.
+* Consistent with Cockburn's discussion of isolating application behaviour from runtime mechanisms.
+* It does **not** require six adapters, a hexagonal deployment or a package per method. Use it **only when it clarifies which side owns the contract**.
+
+---
+
+# 10.5 Package Design: Cohesion, Coupling and Stability
+### Are the packages well cut?
+
+---
+
 ## Package Cohesion: What Changes Together
 
 * A cohesive package holds types that **change for the same reason** and are **used together**.
-* Martin's two rules: **things that change together belong together; things used together belong together**.
+* **CCP, Common Closure Principle:** things that **change together** belong together.
+* **CRP, Common Reuse Principle:** things **used together** belong together, so a client is not forced to depend on classes it never uses.
+* **REP, Reuse/Release Equivalence Principle:** the unit you reuse is the unit you release. This project has no separately released package, so REP is **context, not a check**.
 * Test the cuts with **concrete changes**, not slogans: for each change, list the packages whose production code must change.
 
 ---
@@ -521,7 +540,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 * Coupling between packages is the number of references that **cross a package boundary**.
 * **Habit 1:** depend on a **small contract** where the other side may vary. The coordinator refers to `ReservationRepository`, not the in-memory class.
-* **Habit 2:** keep the package graph **free of cycles**. If `application` referred to `infrastructure.notification` while it referred back, **neither could be compiled, tested or replaced without the other** (the acyclic dependencies principle).
+* **Habit 2:** keep the package graph **free of cycles**. If `application` referred to `infrastructure.notification` while it referred back, **neither could be compiled, tested or replaced without the other** (the Acyclic Dependencies Principle, ADP).
 
 ---
 
@@ -544,7 +563,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 * A package is **stable** when it is costly to change: **many depend on it, it depends on little**.
 * A package is **unstable** when **little depends on it** and it depends on many.
-* Both kinds are needed. The rule: **dependencies should point towards stability**, so code that changes often depends on code that changes rarely.
+* Both kinds are needed. The **Stable Dependencies Principle (SDP):** **dependencies should point towards stability**, so code that changes often depends on code that changes rarely.
 
 ---
 
@@ -669,6 +688,23 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
+## Package Abstractness: The Stable Abstractions Principle
+
+* **SAP:** a package that many others depend on cannot change freely, so it should be **abstract enough to be extended without being edited**.
+* Martin measures **abstractness A** as the share of a package's classes that are abstract classes or interfaces.
+* **This book does not compute A:** it needs a second tool, and with one to eight classes per package the ratio **moves with every class added**. SAP is used as a **reading question**.
+
+---
+
+## Reading SAP on the Checkpoint
+
+* `application.port`: contracts and their failure types, so **mostly abstract**, and stable (I = 0.18). **SAP satisfied.**
+* `bootstrap`: concrete and unstable (I = 1.00). **SAP satisfied**: nothing depends on it.
+* `domain` **deserves the question**: sixteen classes depend on it, yet it is mostly concrete records and rules. It stays safe because it changes only with the borrowing vocabulary, and `BorrowingPolicy` gives the varying part an **abstract seam**.
+* The **warning sign** would be a package that is stable, concrete **and** changes often.
+
+---
+
 ## Worked Comparison: Where Does `NotificationException` Live?
 
 * **Option A (the checkpoint's choice):** in `application.port`, with the `NotificationSender` contract.
@@ -686,16 +722,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-## Optional: Ports and Adapters
-
-* The directory, sender and repository interfaces can be discussed as **ports**, with infrastructure implementations as **adapters**.
-* The console **drives** the application; storage and notifications are collaborators the application **calls**.
-* Consistent with Cockburn's discussion of isolating application behaviour from runtime mechanisms.
-* It does **not** require six adapters, a hexagonal deployment or a package per method. Use it **only when it clarifies which side owns the contract**.
-
----
-
-# 10.5 Entities and Value Objects
+# 10.6 Entities and Value Objects
 ### Identity, immutability and equality are separate
 
 ---
@@ -735,7 +762,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-# 10.6 Repositories and Services
+# 10.7 Repositories and Services
 ### The smallest useful storage contract
 
 ---
@@ -791,7 +818,7 @@ public interface ReservationRepository {
 
 ---
 
-# 10.7 A Small Architecture Decision
+# 10.8 A Small Architecture Decision
 ### ADR-010
 
 ---
@@ -829,7 +856,7 @@ public interface ReservationRepository {
 
 ---
 
-# 10.8 Peer Review and Milestone 3
+# 10.9 Peer Review and Milestone 3
 ### One scenario across boundaries
 
 ---
@@ -891,7 +918,7 @@ public interface ReservationRepository {
 
 ---
 
-# 10.9 AI in Practice: Verify a Dependency Review
+# 10.10 AI in Practice: Verify a Dependency Review
 ### A claim needs a trace
 
 ---
@@ -932,7 +959,7 @@ public interface ReservationRepository {
 
 ---
 
-# 10.10 Common Mistakes
+# 10.11 Common Mistakes
 ### Eleven to avoid
 
 ---
@@ -969,7 +996,7 @@ public interface ReservationRepository {
 
 ---
 
-# 10.11 Practical Activity
+# 10.12 Practical Activity
 ### Book project B1 to B6; Team project T1 to T5
 
 ---
@@ -1048,7 +1075,7 @@ For `StaffReservationRules`, `LegacyDirectoryAdapter`, `DirectoryReservationServ
 
 * **B4. Break the rules on purpose.** In a scratch copy, construct `InMemoryReservationRepository` **inside** `ReservationCoordinator`. Run the dependency test, record the violation, **restore the original**.
 * **B5. Reproduce the migration** from the Chapter 9 project: move classes into the declared packages, extract the repository contract, supply it through construction, update imports and launchers, preserve results.
-* **B6.** The Section 10.9 AI activity.
+* **B6.** The Section 10.10 AI activity.
 
 ---
 
@@ -1135,7 +1162,7 @@ if (days > 7) { output.println("Rejected: borrower limit or duration."); return;
 
 ---
 
-# 10.12 Review and Transfer
+# 10.13 Review and Transfer
 ### Concept, diagnosis, transfer
 
 ---
@@ -1209,7 +1236,7 @@ A clinic appointment application has **eligibility rules, an external patient di
 
 * Application structure makes responsibilities and dependency decisions **visible beyond individual classes**.
 * The checkpoint adds **named packages**, a **narrow storage port**, **explicit assembly** and a **thin presentation adapter** while preserving tested outcomes.
-* Package design adds three questions: **what changes together**, **what clients depend on**, **whether dependencies point towards stability**.
+* Package design adds four questions: **what changes together and is released together**, **what clients depend on**, **whether dependencies point towards stability**, and **whether a stable package is abstract enough to extend**.
 
 ---
 

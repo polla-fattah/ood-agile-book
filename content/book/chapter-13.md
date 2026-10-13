@@ -67,9 +67,11 @@ flowchart LR
     G --> F["FileApprovalSource"]
     F -- "reads on every call" --> R["approvals.tsv"]
     S --> C["ReservationCoordinator"]
+    classDef outside stroke-dasharray: 6 4,stroke-width:2px
+    class P,R outside
 ```
 
-**Figure 13.1.** The two boundaries added by CR-12. Solid boxes are our code; the two outer boxes (the directory service and the register file) are what we do not control. Unit tests stop at the adapters, integration tests cross the labelled arrows with the real mechanism, and an end-to-end journey runs the whole picture in a separate process.
+**Figure 13.1.** The two boundaries added by CR-12. Boxes with a solid border are our code; the two boxes with a dashed border (the directory service and the register file) are what we do not control. Unit tests stop at the adapters, integration tests cross the labelled arrows with the real mechanism, and an end-to-end journey runs the whole picture in a separate process.
 
 ### Narrow checks first
 
@@ -286,7 +288,18 @@ AC18 deserves attention. A visitor who returns a loan late appears in the overdu
 
 ## 13.8 Milestone 4 evidence
 
-Milestone 4 falls in this week. By your demonstration you should be able to show, on your **Team project**: (1) your released requirement change, implemented from the smallest vertical slice outwards and behind one flag, with acceptance examples; (2) regression evidence from your existing suite, with any necessary fixture changes disclosed; (3) integration evidence for at least one genuine boundary, including its failure cases; (4) an observed pipeline run, and a failing run that you have read; (5) a delivery step, simulated or real, with a smoke test and a rollback; (6) flag evidence: both settings tested and a removal plan; (7) a demonstration and a retrospective with a next action; and (8) a statement of what your evidence does not show. The approved Milestone 4 instructions decide what is submitted, and this list is preparation, not a rubric.
+Milestone 4 falls in this week. By your demonstration you should be able to show, on your **Team project**:
+
+1. your released requirement change, implemented from the smallest vertical slice outwards and behind one flag, with acceptance examples;
+2. regression evidence from your existing suite, with any necessary fixture changes disclosed;
+3. integration evidence for at least one genuine boundary, including its failure cases;
+4. an observed pipeline run, and a failing run that you have read;
+5. a delivery step, simulated or real, with a smoke test and a rollback;
+6. flag evidence: both settings tested and a removal plan;
+7. a demonstration and a retrospective with a next action; and
+8. a statement of what your evidence does not show.
+
+The approved Milestone 4 instructions decide what is submitted, and this list is preparation, not a rubric.
 
 | Item | Artefact | What it should establish |
 |---|---|---|
@@ -387,7 +400,17 @@ A secondary activity: take the real failure output in the companion's pipeline r
 
 **Expected artefacts:** B1–B4 as above; for the Team project, the implemented change with its acceptance examples, the boundary tests, the pipeline output (one passing and one failing), the delivery and rollback record, the flag evidence, and the Milestone 4 checklist. A pull request is a good vehicle where your course workflow permits it.
 
-**Acceptance conditions:** the change is behind a flag that defaults to off; expected rejections and operational failures are distinguishable; one boundary is tested without being replaced, and its failure cases are tested; old behaviour is protected and any changed fixture is disclosed; a stage that selects no tests fails; the delivery step is labelled as a simulation unless it is real; the limits statement says what was not run. Do not claim a hosted run, a public deployment or a review that did not happen.
+**Acceptance conditions:**
+
+- the change is behind a flag that defaults to off;
+- expected rejections and operational failures are distinguishable;
+- one boundary is tested without being replaced, and its failure cases are tested;
+- old behaviour is protected and any changed fixture is disclosed;
+- a stage that selects no tests fails;
+- the delivery step is labelled as a simulation unless it is real;
+- the limits statement says what was not run.
+
+Do not claim a hosted run, a public deployment or a review that did not happen.
 
 **Optional extension:** add a third flag setting only if you can say what “on”, “off” and the new setting each mean and how each is tested. Otherwise remove a flag you no longer need.
 
@@ -423,7 +446,7 @@ Online sources 1–9, 13 and 14 were opened on 13 October 2026. The code, the st
 1. Fowler, M., [Integration Test](https://martinfowler.com/bliki/IntegrationTest.html). Narrow and broad integration tests.
 2. Fowler, M., [Contract Test](https://martinfowler.com/bliki/ContractTest.html). A suite run periodically against the real service to check that test doubles still match it; format rather than exact data.
 3. Fowler, M., [Deployment Pipeline](https://martinfowler.com/bliki/DeploymentPipeline.html). Stages that give fast feedback first and slower, broader checks later.
-4. GitHub, [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions). Jobs run in parallel unless `needs` makes them sequential. The workflow in the companion has not been run.
+4. GitHub, [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax). Jobs run in parallel unless `needs` makes them sequential. The workflow in the companion has not been run.
 5. Fowler, M., [Continuous Delivery](https://martinfowler.com/bliki/ContinuousDelivery.html). Delivery as the ability to release at any time, and the contrast with continuous deployment.
 6. Hodgson, P., [Feature Toggles (aka Feature Flags)](https://martinfowler.com/articles/feature-toggles.html). Toggle categories, short-lived release toggles, removal tasks, and testing the configurations that may go live.
 7. Maven, [Using JUnit 5 Platform in Surefire](https://maven.apache.org/surefire/maven-surefire-plugin/examples/junit-platform.html). The `groups` and `excludedGroups` parameters. The command-line properties `-Dgroups` and `-DexcludedGroups` are not documented on that page; they were checked by running them.

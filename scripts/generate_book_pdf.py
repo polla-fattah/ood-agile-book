@@ -105,8 +105,12 @@ def get_base_css():
       break-inside: avoid;
     }
     .td-book-print-toc a {
-      color: #0369a1 !important;
+      color: #0f172a !important;
       text-decoration: none;
+      font-weight: 500;
+    }
+    .td-book-print-toc a:hover {
+      color: #0284c7 !important;
     }
     .td-book-print-toc .td-book-number {
       font-weight: 700;
@@ -301,22 +305,11 @@ def prepare_documents():
       <div style="font-size: 15pt; color: #475569; font-style: italic; margin-bottom: 40px;">Designing, Testing and Evolving Software with AI Assistance</div>
     </div>
 
-    <div style="margin: 40px auto;">
-      <svg width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-        <path d="M2 12h20"></path>
-      </svg>
-    </div>
+    <div style="height: 40px;"></div>
 
     <div style="margin-top: auto; border-top: 1.5pt solid #cbd5e1; padding-top: 24px;">
       <div style="font-size: 16pt; font-weight: 700; color: #0f172a;">Dr. Polla Abdulhamid Fattah</div>
       <div style="font-size: 11pt; color: #64748b; margin-top: 4px;">with AI Collaboration and Practical Case Studies</div>
-      <div style="font-size: 9.5pt; color: #64748b; margin-top: 12px; line-height: 1.5;">
-        Senior Lecturer, Software &amp; Informatics Engineering, Salahaddin University-Erbil<br>
-        Artificial Intelligence and Innovation Centre, University of Kurdistan Hewlêr<br>
-        Software Development Team Manager, SmartGate
-      </div>
       <div style="font-size: 8.5pt; color: #94a3b8; margin-top: 24px; text-transform: uppercase; letter-spacing: 0.1em;">
         First Edition - Academic and Production Reference - 2026
       </div>
@@ -341,9 +334,9 @@ def prepare_documents():
       </p>
     </div>
 
-    <div style="margin-top: 50px; font-size: 8pt; color: #94a3b8; line-height: 1.6;">
-      <p>Copyright &copy; 2026 Dr. Polla Abdulhamid Fattah. All rights reserved.</p>
-      <p>No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form without prior written permission of the author, except for fair use in academic coursework, non-commercial education, and software development practices.</p>
+    <div style="margin-top: 50px; font-size: 8pt; color: #64748b; line-height: 1.6;">
+      <p><strong>Copyright &copy; 2026 Dr. Polla Abdulhamid Fattah.</strong></p>
+      <p>This work is open access and licensed under the <strong>Creative Commons Attribution 4.0 International License (CC BY 4.0)</strong>. You are free to share (copy and redistribute the material in any medium or format) and adapt (remix, transform, and build upon the material) for any purpose, including commercially, provided appropriate credit is given to the author.</p>
     </div>
   </div>
 </body>
@@ -375,6 +368,22 @@ def prepare_documents():
 
     # Remove cover divs
     content_raw = re.sub(r'<div class="td-book-cover-page[^"]*".*?</div>', '', content_raw, flags=re.DOTALL)
+
+    # Remove redundant root book landing section (which duplicates the TOC and overview)
+    content_raw = re.sub(
+        r'<section[^>]*data-td-book-page=[\"\']?/book[\"\']?[^>]*>.*?(?=<section[^>]*data-td-book-page=[\"\']?/book/chapter-01)',
+        '',
+        content_raw,
+        flags=re.DOTALL
+    )
+
+    # Remove the self-referencing first item in the print TOC pointing to the book root
+    content_raw = re.sub(
+        r'<li>\s*<a\s+href=[\"\']?#pg-[^\"\'>\s]+[\"\']?>\s*Object Oriented Development and Agile Practices\s*</a>\s*</li>',
+        '',
+        content_raw,
+        count=1
+    )
 
     # Convert any mdash to hyphens
     content_raw = content_raw.replace("\u2014", " - ").replace("&mdash;", " - ")

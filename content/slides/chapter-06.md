@@ -20,7 +20,7 @@ layout: page
   * A real boundary: notification output, first built the coupled way.
 * **6.2 Client-specific contracts and ISP**
   * Design the interface around what a particular client needs.
-* **6.3 Policy and implementation dependencies**
+* **6.3 Who decides what, and what happens when notification fails**
   * Three decisions, and the partial-success case made explicit.
 * **6.4 DIP**
   * Source dependency direction; DI can exist without DIP.
@@ -318,7 +318,7 @@ public void send(Reservation reservation) {
 
 ---
 
-# 6.3 Policy and Implementation Dependencies
+# 6.3 Who Decides What, and What Happens When Notification Fails
 ### Three decisions, and partial success
 
 ---

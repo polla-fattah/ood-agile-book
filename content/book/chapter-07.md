@@ -28,7 +28,17 @@ By the end of this chapter, you should be able to:
 
 **Module connection:** Week 6; LO3; Milestone 2 preparation. The midterm practice near the end draws on Chapters 2–7, corresponding to Weeks 1–6. This chapter does not add assessment weights, deadlines or marking rules. It supports the Week 6 readings: the testing chapter and “A Programming Episode” in Martin [9], and Part I of Beck [10].
 
-**Milestone 2 checklist: use it from the start.** Milestone 2 falls in this week, so do not wait until the end of the chapter. By your demonstration you need: (1) a working MVP flow that someone else can run from written instructions; (2) acceptance examples mapped to named tests; (3) one red–green–refactor sequence recorded from your own code; (4) a justified test double or controlled clock; (5) a build result for the revision you demonstrate; (6) real review feedback and a short retrospective with a next action; and (7) a statement of what the MVP does not do. Section 7.8 explains each item. Start with items 1 and 3.
+**Milestone 2 checklist: use it from the start.** Milestone 2 falls in this week, so do not wait until the end of the chapter. By your demonstration you need:
+
+1. a working MVP flow that someone else can run from written instructions;
+2. acceptance examples mapped to named tests;
+3. one red–green–refactor sequence recorded from your own code;
+4. a justified test double or controlled clock;
+5. a build result for the revision you demonstrate;
+6. real review feedback and a short retrospective with a next action; and
+7. a statement of what the MVP does not do.
+
+Section 7.8 explains each item. Start with items 1 and 3.
 
 **Entry checkpoint:** Chapter 6's Java 17 application, explicit collaborator construction, student/staff policies and local notification outputs. The previous executable checks remain available. We now introduce **Maven, JUnit Jupiter and Mockito**, with an explicitly versioned configuration in the separate code file.
 
@@ -134,6 +144,8 @@ flowchart TD
     G -->|Tests fail: repair refactoring| G
 ```
 
+**Figure 7.1.** The red–green–refactor cycle. The diamond is the test of the red stage: only the intended assertion failing lets the cycle move on to implementation. A different failure (a compile error, a missing dependency) sends you back to repair the setup, and a refactoring that breaks a test is repaired before the next behaviour starts.
+
 The supplied worked cycle begins with a compiling `isAvailable` method that validates its arguments but always returns true. This intentionally incomplete method supplies an API for the first test without pretending to implement overlap detection.
 
 Run only the new test:
@@ -170,7 +182,7 @@ The companion includes red, green and refactored coordinator snapshots plus thei
 
 A deliberately wrong implementation supplied after the fact can demonstrate test sensitivity. It does not reconstruct a historical test-first workflow that never happened. Be precise about whether evidence shows an actual development sequence or a later diagnostic experiment.
 
-## 7.4 Boundaries and deterministic tests
+## 7.4 Boundaries, controlled time and a bounded lending flow
 
 ### Test the edges that carry meaning
 
@@ -191,6 +203,9 @@ A fixed UTC instant is not sufficient to define a local date without a zone. One
 Do not wait until midnight or call `Thread.sleep` to test a date boundary. Change the supplied clock. The application remains quick to test, and the relevant time is visible in the fixture.
 
 ### Add a bounded lending flow
+
+The clock example above used checkout as its subject. This subsection states the rules of that small lending flow, which is a new feature and not a testing technique, so that the tests which follow rest on stated rules.
+
 
 The worked MVP increment adds a small `LoanService` linked to one coordinator in the same process. It records checkout and return against a confirmed reservation. Its teaching rules are explicit:
 

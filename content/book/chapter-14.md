@@ -30,11 +30,11 @@ By the end of this chapter, you should be able to:
 
 **Entry checkpoint:** the Chapter 13 checkpoint (the visitor change, version 0.13.1), or, for your Team project, a Milestone 4 outcome with its remaining defects named. The completed checkpoint of this chapter is version 0.14.0. Its production code is unchanged. The companion lists only the new and changed files.
 
-**Core reading.** Sections 14.1–14.4 and 14.6.
+**Core reading.** Sections 14.1–14.5 and 14.7.
 
-**Working-knowledge reading.** Section 14.5 on contribution evidence. You are not asked to measure anyone. You are asked to know what each kind of evidence can and cannot show.
+**Working-knowledge reading.** Section 14.6 on contribution evidence. You are not asked to measure anyone. You are asked to know what each kind of evidence can and cannot show.
 
-**Minimum required lab.** Steps B1–B4 and T1–T5 of the practical activity in Section 14.9. Steps B1–B4 run on the **Book project** and are running, tracing and diagnosis: the finished checkpoint is supplied. Steps T1–T5 run on your **Team project** and produce your handover bundle, retrospective and individual reflection.
+**Minimum required lab.** Steps B1–B4 and T1–T5 of the practical activity in Section 14.10. Steps B1–B4 run on the **Book project** and are running, tracing and diagnosis: the finished checkpoint is supplied. Steps T1–T5 run on your **Team project** and produce your handover bundle, retrospective and individual reflection.
 
 **Optional extension.** Steps B5–B8 (rehearse removing the flag, validate an AI-drafted README, read a contribution fixture, and close the gap that the one-line experiment found), the review questions, the transfer challenge and the optional extension.
 
@@ -93,7 +93,7 @@ Start the change in the smallest possible way and see what the tests say. On the
 
 Now add the visitor policy to the composition root, `ReservationApplication`, as well. The failures drop to five tests, in exactly the three test files that build their own policy map: `LegacyRegressionTest.chapter06` (through `Chapter06Checks`), `BehaviourStrategyTest` and three tests in `RepositoryBoundaryTest`. Add the policy to those four maps and the whole Chapter 11 suite passes, with no assertion changed.
 
-Is that good or bad? Both. It is the design telling you, at construction time and with a precise message, everywhere that lists every category. That is a safety net: the alternative would be a request that fails in production with a null policy. It is also a cost: every test that spells out the full policy map must be edited when a category is added. You can reproduce this in Section 14.9 (B1) by going the other way: remove the visitor policy from the composition root of the finished checkpoint, and roughly three in ten tests fail, in fourteen test classes.
+Is that good or bad? Both. It is the design telling you, at construction time and with a precise message, everywhere that lists every category. That is a safety net: the alternative would be a request that fails in production with a null policy. It is also a cost: every test that spells out the full policy map must be edited when a category is added. You can reproduce this in Section 14.10 (B1) by going the other way: remove the visitor policy from the composition root of the finished checkpoint, and roughly three in ten tests fail, in fourteen test classes.
 
 ### Revised assumptions
 
@@ -114,7 +114,7 @@ Here is the cheapest possible “implementation” of visitors. The directory ad
 
 Run it against the finished suite (Companion, Section 5.2). **Every unit test passes.** What fails is the tests that cross the real boundary: the three end-to-end journeys that use visitors and the integration test that serves a visitor through the real directory. In the journey with the flag off, visitor V1 is confirmed, so the flag is ignored; an unapproved visitor is rejected only because the item is already taken, not because it is unapproved; and a malformed register no longer stops anyone. It is a smaller diff, and it does not implement the requirement.
 
-Be careful about what this shows. It shows that this suite has a **gap**: no unit test checks the adapter's mapping of the visitor code, so a one-line change to it passes the whole unit stage. A focused unit test of the adapter would catch it, and so would the integration tests that did. The lesson is not that unit tests cannot see such a change. It is that a passing unit stage is evidence only about what the unit tests cover, and that a suite with a hole in it is found by trying a change that goes through the hole. Neither the size of a diff nor a green unit stage is the measure of a design. The acceptance examples are, and the gap itself is a finding: Section 14.9 (B8) asks you to close it.
+Be careful about what this shows. It shows that this suite has a **gap**: no unit test checks the adapter's mapping of the visitor code, so a one-line change to it passes the whole unit stage. A focused unit test of the adapter would catch it, and so would the integration tests that did. The lesson is not that unit tests cannot see such a change. It is that a passing unit stage is evidence only about what the unit tests cover, and that a suite with a hole in it is found by trying a change that goes through the hole. Neither the size of a diff nor a green unit stage is the measure of a design. The acceptance examples are, and the gap itself is a finding: Section 14.10 (B8) asks you to close it.
 
 The same reasoning protects the opposite case. A change that is larger than you expected, if each added file has a purpose that the requirement needs, is not a failure. It is a failure when the added files exist to support code that nobody asked for, or when existing files change in ways the change did not require. The footprint above has no such file: the three changes to existing test files add an entry to a map, and nothing else.
 
@@ -182,7 +182,7 @@ Fowler names four costs of building a feature before it is needed: the cost of b
 
 The Scrum Guide defines a Definition of Done as the state an increment must reach to meet its quality measures, and says that work that does not meet it cannot be part of the increment [3]. Write yours for the handover version, as a short list that a check can confirm: the pipeline passes; the handover check passes; no test is skipped; every number in a document matches a run; every decision record has a true status; every known issue has a decision. The next section shows which of these a script can confirm.
 
-## 14.3 Documentation and decision records
+## 14.3 Documents, decision records and release notes
 
 ### One document per question
 
@@ -204,6 +204,14 @@ The common failure is documentation that was true once. The cheapest document to
 A decision record captures a decision, not a description of the code. Nygard proposes short records kept in the repository with five parts: a title, the context (the forces at play), the decision, its status (proposed, accepted, or later superseded) and its consequences, numbered in order and never reused; if a decision is reversed, the old record stays and is marked as superseded so that a reader can see what was decided and why it changed [1]. The records of this project add three more parts that earn their place: the alternatives considered, how the decision was validated, and the triggers for revisiting it.
 
 ADR-013 recorded the visitor change and set conditions for removing the flag. ADR-014 is the handover decision about that flag, and it shows the shape of a good one. It states the three conditions from ADR-013 and checks each: the pipeline has run both settings (true); the visitor contract has not been accepted by an owner (not yet); nobody has recorded a decision to keep visitors enabled (not yet). It decides to keep the flag, default off, and **rehearses** the removal so that the change is ready and its cost is known. It does not remove it, and it does not edit ADR-013.
+
+### Release notes
+
+A changelog is for people, so write it for them. Keep a Changelog groups changes as Added, Changed, Deprecated, Removed, Fixed and Security, gives each version its own dated entry and puts the newest first [2]. The notes for version 0.14.0 use three of those headings and add two of their own that a handover needs: “Behaviour you should know about” and “Not verified”. The first line of the notes says that no production behaviour changed. That is a statement a reader can check, and it was checked: every file under `src/main` is byte for byte as in 0.13.1.
+
+## 14.4 Keeping the evidence true: rehearsal and traceability
+
+Section 14.3 described the documents. This section shows two ways to keep what they say true: rehearse a risky change before deciding it, and give the requirements table a check that fails when a name in it disappears.
 
 ### Rehearse a risky removal instead of arguing about it
 
@@ -228,11 +236,7 @@ flowchart LR
 
 `TraceabilityTest` checks three things: every test named in the table still exists as a method, every class named as deciding still exists, and each of the eighteen acceptance examples has exactly one row and every acceptance test appears in the table. In an experiment with six faults (Companion, Section 10.2) it caught the four that make a name disappear or an example lose its row. It did **not** catch two others, and it cannot: a row that points at a test that exists but is the wrong test for that requirement, and a row that lists an extra test. A script can check that a name exists. Only a reviewer can check that a name is the right evidence. Say so in the document, as the project does.
 
-### Release notes
-
-A changelog is for people, so write it for them. Keep a Changelog groups changes as Added, Changed, Deprecated, Removed, Fixed and Security, gives each version its own dated entry and puts the newest first [2]. The notes for version 0.14.0 use three of those headings and add two of their own that a handover needs: “Behaviour you should know about” and “Not verified”. The first line of the notes says that no production behaviour changed. That is a statement a reader can check, and it was checked: every file under `src/main` is byte for byte as in 0.13.0.
-
-## 14.4 Reproducible setup and demonstration
+## 14.5 Reproducible setup and demonstration
 
 ### Write for someone who is not you
 
@@ -263,7 +267,7 @@ A demonstration is a short, repeatable story with a fixed clock and fixed data. 
 
 It ran on one operating system with one JDK and a local Maven repository that already held the dependencies. It cannot show a first build over a slow network, a Java 17 runtime, a different shell, or a reader who misreads a sentence you thought was clear. To cover the last, ask a real person from outside your team to follow the document while you watch and say nothing. Write down every place they hesitate. That is the test.
 
-## 14.5 Retrospective and individual reflection
+## 14.6 Retrospective and individual reflection
 
 ### A retrospective is evidence-based or it is a mood
 
@@ -324,7 +328,7 @@ An individual reflection that explains your contribution does not say “I did a
 
 These are prompts for thinking, not a rubric. Your approved instructions say what the reflection must contain. Appendix C has templates for the retrospective (C.12) and for decision records (C.5), and Appendix E gives a fuller guide to contribution evidence (E.4), the final handover (E.5) and the reflection (E.6). This chapter stands on its own without them.
 
-## 14.6 Final submission preparation
+## 14.7 Final submission preparation
 
 ### What is submitted, and what it must show
 
@@ -355,7 +359,7 @@ Do these in order. Week 13 is for finishing and for the workshop's formative fee
 
 Do not claim a hosted run, a public deployment or a peer review that did not happen. A local run is evidence of a local run.
 
-## 14.7 AI in practice: validate a README that an assistant drafted
+## 14.8 AI in practice: validate a README that an assistant drafted
 
 Chapter 15 collects the recurring AI workflows; this activity is self-contained, and the fixture below is all you need.
 
@@ -402,7 +406,7 @@ A secondary activity: write what the README should say about limitations. The dr
 
 A live AI service is optional. If you use one, give it synthetic data or only project files you may share, keep its actual output, and treat its description of your project as a claim to check.
 
-## 14.8 Common mistakes
+## 14.9 Common mistakes
 
 | Mistake | Consequence | Better action |
 |---|---|---|
@@ -417,7 +421,7 @@ A live AI service is optional. If you use one, give it synthetic data or only pr
 | A reflection that says “I contributed a lot” | Nothing can be checked | Claims with links, and honest limits |
 | Claiming a hosted run, a review or a Java 17 run that did not happen | The submission loses credibility, and so do the true claims | Say what was not run |
 
-## 14.9 Practical activity
+## 14.10 Practical activity
 
 **Input:** the Chapter 14 checkpoint (version 0.14.0) with the files of the companion, the Chapter 13 material, and your Team project's repository. Steps B1–B7 use the **Book project**; steps T1–T5 use your **Team project**.
 
@@ -438,22 +442,32 @@ A live AI service is optional. If you use one, give it synthetic data or only pr
 - **T2. Triage your open items.** Make a known-issues list with a decision for each item (fix, defer, accept), a reason, and an owner for the deferred ones. Fix only blockers. Freeze.
 - **T3. Build the handover bundle.** Setup instructions, a usage example, the known limitations, test instructions, a requirements-to-evidence table and a demonstration outline. Run a dry run in a fresh copy, then have someone outside your team follow it while you watch. Record what they struggled with and fix it.
 - **T4. Decide and record.** Write at least two decision records: one about your flag or your change (keep, remove or replace, with the conditions), and one other. Give each a true status.
-- **T5. Retrospective, reflection and checklist.** Hold an evidence-based retrospective with at most three actions. Write your own individual reflection using claims with links. Complete the preparation checklist of Section 14.6, marking each item as complete or a gap.
+- **T5. Retrospective, reflection and checklist.** Hold an evidence-based retrospective with at most three actions. Write your own individual reflection using claims with links. Complete the preparation checklist of Section 14.7, marking each item as complete or a gap.
 
 **Optional extension (Book project)**
 
 - **B5. Rehearse the removal.** In a scratch copy apply `rehearsal/remove-visitor-flag.patch`, run the build and the handover check, and list the documents whose prose the patch does not edit and still needs changing.
-- **B6. AI activity.** Complete the Section 14.7 activity.
-- **B7. Read a contribution fixture.** Use the synthetic table of Section 14.5. Write two questions you would ask each team member, and what artefact you would read to answer each. Say what you would **not** conclude from the counts.
+- **B6. AI activity.** Complete the Section 14.8 activity.
+- **B7. Read a contribution fixture.** Use the synthetic table of Section 14.6. Write two questions you would ask each team member, and what artefact you would read to answer each. Say what you would **not** conclude from the counts.
 - **B8. Close the gap that E3 found.** Write the focused unit test of `LegacyDirectoryAdapter` that fails when kind `V` is mapped to staff: a visitor row maps to the visitor category, an inactive visitor is absent, and an unknown code is a failure and is never defaulted. Run the one-line change of Section 14.1 against your test.
 
 **Expected artefacts:** B1–B4 as above; for the Team project, the change review, the triage list, the handover bundle with its dry-run record, the decision records, the retrospective with its actions, the individual reflection and the completed checklist.
 
-**Acceptance conditions:** every number in a document matches a run; the handover has been followed by someone other than its author in a fresh copy; every known issue has a decision; no feature was added in the final sprint to fix a known issue that needs an owner; every decision record has a true status; contribution is described with claims and links and not ranked by counts; the limits statement says what was not run. Do not claim a hosted run, a public deployment or a review that did not happen.
+**Acceptance conditions:**
+
+- every number in a document matches a run;
+- the handover has been followed by someone other than its author in a fresh copy;
+- every known issue has a decision;
+- no feature was added in the final sprint to fix a known issue that needs an owner;
+- every decision record has a true status;
+- contribution is described with claims and links and not ranked by counts;
+- the limits statement says what was not run.
+
+Do not claim a hosted run, a public deployment or a review that did not happen.
 
 **Optional extension:** write a second handover for a different reader, such as the person who will operate the system. Say how its content differs from the first and why.
 
-## 14.10 Review and transfer
+## 14.11 Review and transfer
 
 ### Concept questions
 
@@ -484,10 +498,10 @@ Online sources 1–9 were opened on 13 October 2026. The code, the scripts, the 
 1. Nygard, M., [Documenting Architecture Decisions](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions), 15 November 2011. Short records in the repository: title, context, decision, status, consequences; numbered; superseded and not deleted.
 2. [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/). Changelogs for humans; the change types Added, Changed, Deprecated, Removed, Fixed and Security; a dated entry for each version.
 3. Schwaber, K. and Sutherland, J., [The Scrum Guide](https://scrumguides.org/scrum-guide.html), November 2020. The purpose of the Sprint Retrospective and the Definition of Done.
-4. Kerth, N., The Retrospective Prime Directive, in *Project Retrospectives: A Handbook for Team Review*; read as summarised on [Retrospective Wiki](https://retrospectivewiki.org/index.php?title=The_Prime_Directive). This chapter treats retrospectives in Section 14.5.
+4. Kerth, N., The Retrospective Prime Directive, in *Project Retrospectives: A Handbook for Team Review*; read as summarised on [Retrospective Wiki](https://retrospectivewiki.org/index.php?title=The_Prime_Directive). This chapter treats retrospectives in Section 14.6.
 5. Fowler, M., [Yagni](https://martinfowler.com/bliki/Yagni.html). The costs of building a presumptive feature: build, delay, carry and repair.
-6. GitHub, [Why are my contributions not showing up on my profile?](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile). The author email, the default branch and the fork conditions for a commit to count. The page does not say how squashed, rebased or co-authored commits are counted.
-7. GitHub, [Creating a commit with multiple authors](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors). The `Co-authored-by` trailer.
-8. GitHub, [About pull request reviews](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/about-pull-request-reviews). Reviews as comment, approve or request changes. The page says an approval signals that the changes are ready to merge, and not what it guarantees beyond that.
+6. GitHub, [Why are my contributions not showing up on my profile?](https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/troubleshooting-missing-contributions). The author email, the default branch and the fork conditions for a commit to count. The page does not say how squashed, rebased or co-authored commits are counted.
+7. GitHub, [Creating a commit with multiple authors](https://docs.github.com/en/pull-requests/how-tos/commit-changes/creating-a-commit-with-multiple-authors). The `Co-authored-by` trailer.
+8. GitHub, [About pull request reviews](https://docs.github.com/en/pull-requests/reference/pull-request-reviews). Reviews as comment, approve or request changes. The page says an approval signals that the changes are ready to merge, and not what it guarantees beyond that.
 9. Hodgson, P., [Feature Toggles (aka Feature Flags)](https://martinfowler.com/articles/feature-toggles.html). Release toggles are short-lived, and toggles are inventory with a carrying cost; also used in Chapter 13.
 10. Martin, R. C., *Agile Software Development: Principles, Patterns, and Practices.* Prentice Hall, 2002. The module's required text; the descriptor lists the Week 13 reading as a review of the relevant chapters. Chapters 2 to 13 of this book cover the material to review, and this chapter shows how to evidence it.

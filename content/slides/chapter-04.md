@@ -18,7 +18,7 @@ layout: page
 
 * **4.1 Vision, scope and constraints**
   * A bounded outcome, a visible boundary, small decision records.
-* **4.2 Domain assumptions and wireframes**
+* **4.2 Wireframes and worked examples**
   * A wireframe is a question made visible.
 * **4.3 Prioritisation and vertical slicing**
   * Slice by a user outcome, not by technical layer.
@@ -241,7 +241,7 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 4.2 Domain Assumptions and Wireframes
+# 4.2 Wireframes and Worked Examples
 ### A wireframe is a question made visible
 
 ---

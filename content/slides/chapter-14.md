@@ -14,28 +14,35 @@ layout: page
 
 ---
 
-## Chapter Roadmap (1 of 2)
+## Chapter Roadmap (1 of 3)
 
 * **14.1 Reviewing the change outcome**
   * Four questions, each with its own evidence.
 * **14.2 Defects, polish and scope control**
   * Fix, defer or accept, and freeze.
-* **14.3 Documentation and decision records**
-  * One document per question; the flag decision; traceability.
-* **14.4 Reproducible setup and demonstration**
-  * Follow your own instructions in a fresh copy.
+* **14.3 Documents, decision records and release notes**
+  * One document per question; the flag decision.
+* **14.4 Keeping the evidence true: rehearsal and traceability**
+  * A rehearsed flag removal; requirements traced to tests.
 
 ---
 
-## Chapter Roadmap (2 of 2)
+## Chapter Roadmap (2 of 3)
 
-* **14.5 Retrospective and individual reflection**
+* **14.5 Reproducible setup and demonstration**
+  * Follow your own instructions in a fresh copy.
+* **14.6 Retrospective and individual reflection**
   * Evidence-based retrospectives; contribution as claims with links.
-* **14.6 Final submission preparation**
-* **14.7 AI in practice:** validate a README that an assistant drafted.
-* **14.8 Common mistakes**
-* **14.9 Practical activity**
-* **14.10 Review and transfer**
+* **14.7 Final submission preparation**
+* **14.8 AI in practice:** validate a README that an assistant drafted.
+
+---
+
+## Chapter Roadmap (3 of 3)
+
+* **14.9 Common mistakes**
+* **14.10 Practical activity**
+* **14.11 Review and transfer**
 * **Summary and next chapter**
   * Chapter 15: the recurring assistance workflows and their verification records.
 
@@ -71,8 +78,8 @@ After this chapter, you should be able to:
 
 ## Reading Route
 
-* **Core:** 14.1 to 14.4 and 14.6.
-* **Working knowledge:** 14.5 on contribution evidence. **You are not asked to measure anyone**; you are asked to know what each kind of evidence can and cannot show.
+* **Core:** 14.1 to 14.5 and 14.7.
+* **Working knowledge:** 14.6 on contribution evidence. **You are not asked to measure anyone**; you are asked to know what each kind of evidence can and cannot show.
 * **Minimum required lab:** **B1 to B4** (Book project: running, tracing and diagnosis, the finished checkpoint is supplied) and **T1 to T5** (Team project: your handover bundle, retrospective and individual reflection).
 * **Optional extension:** B5 to B8 (rehearse removing the flag, validate an AI-drafted README, read a contribution fixture, close the gap the one-line experiment found), the review questions, the transfer challenge.
 
@@ -531,7 +538,7 @@ Fowler names four:
 
 ---
 
-# 14.3 Documentation and Decision Records
+# 14.3 Documents, Decision Records and Release Notes
 ### One document per question
 
 ---
@@ -596,6 +603,19 @@ ADR-013 set three conditions for removing the flag. ADR-014 **checks each one**:
 * **Keep the flag with no removal plan:** rejected. **An owner-less flag is a permanent branch.**
 * **Replace the flag by run-time configuration:** not adopted; outside the scope of the module.
 * **Consequence:** both paths stay tested (AC12, the flag-off journey, the gate's disabled tests). A visitor can never be served unless someone sets the property to `true`.
+
+---
+
+## Release Notes
+
+* A changelog is for people. **Keep a Changelog** groups changes as **Added, Changed, Deprecated, Removed, Fixed and Security**, gives each version its own dated entry and puts the **newest first**.
+* The notes for version 0.14.0 use three of those headings and add two of their own that a handover needs: **"Behaviour you should know about"** and **"Not verified"**.
+* The first line says **no production behaviour changed**: a statement a reader can check, and it was checked. **Every file under `src/main` is byte for byte as in 0.13.1.**
+
+---
+
+# 14.4 Keeping the Evidence True: Rehearsal and Traceability
+### Rehearse, then check
 
 ---
 
@@ -697,15 +717,7 @@ ADR-013 set three conditions for removing the flag. ADR-014 **checks each one**:
 
 ---
 
-## Release Notes
-
-* A changelog is for people. **Keep a Changelog** groups changes as **Added, Changed, Deprecated, Removed, Fixed and Security**, gives each version its own dated entry and puts the **newest first**.
-* The notes for version 0.14.0 use three of those headings and add two of their own that a handover needs: **"Behaviour you should know about"** and **"Not verified"**.
-* The first line says **no production behaviour changed**: a statement a reader can check, and it was checked. **Every file under `src/main` is byte for byte as in 0.13.0.**
-
----
-
-# 14.4 Reproducible Setup and Demonstration
+# 14.5 Reproducible Setup and Demonstration
 ### Write for someone who is not you
 
 ---
@@ -816,7 +828,7 @@ Notices: 1
 
 ---
 
-# 14.5 Retrospective and Individual Reflection
+# 14.6 Retrospective and Individual Reflection
 ### Evidence, not mood
 
 ---
@@ -942,7 +954,7 @@ A team of three finished its last sprint with these counts.
 
 ---
 
-# 14.6 Final Submission Preparation
+# 14.7 Final Submission Preparation
 ### What is submitted, and what it must show
 
 ---
@@ -1007,7 +1019,7 @@ A team of three finished its last sprint with these counts.
 
 ---
 
-# 14.7 AI in Practice
+# 14.8 AI in Practice
 ### Validate a README that an assistant drafted
 
 ---
@@ -1128,7 +1140,7 @@ Run `bash scripts/demo.sh` to see visitors rejected and then approved.
 
 ---
 
-# 14.8 Common Mistakes
+# 14.9 Common Mistakes
 ### Ten to avoid
 
 ---
@@ -1186,7 +1198,7 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 
 ---
 
-# 14.9 Practical Activity
+# 14.10 Practical Activity
 ### Run, trace, diagnose; then hand over your own
 
 ---
@@ -1247,7 +1259,7 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 ## Optional Extension: B5 to B7
 
 * **B5. Rehearse the removal.** In a scratch copy apply `rehearsal/remove-visitor-flag.patch` (`patch -p1`), run the build (233 invocations) and the handover check; **list the documents whose prose the patch does not edit**: `README.md`, `HANDOVER.md` section 6, ADR-013, `KNOWN-ISSUES.md` (KI-13), and the descriptions in the requirements table.
-* **B6. AI activity.** Complete 14.7.
+* **B6. AI activity.** Complete 14.8.
 * **B7. Read a contribution fixture.** Using the synthetic table, **write two questions you would ask each team member** and the artefact you would read to answer each. Say what you would **not** conclude from the counts.
 
 ---
@@ -1272,7 +1284,7 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 
 ---
 
-# 14.10 Review and Transfer
+# 14.11 Review and Transfer
 ### Concept, diagnosis, transfer
 
 ---

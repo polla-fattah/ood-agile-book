@@ -123,7 +123,7 @@ This is a **simulation**: staging is the folder `build/staging`, delivering is c
 | `src/test/java/edu/se506/lending/integration/*` | New | Stub service, interface contract, directory outage (including a stalled body) and file tests (29 invocations) |
 | `src/test/java/edu/se506/lending/e2e/Chapter13JourneyE2ETest.java` | New | Three journeys against a separate process |
 | `src/test/java/edu/se506/lending/regression/BehaviourStrategyTest.java`, `Chapter06Checks.java`, `structure/RepositoryBoundaryTest.java` | Changed | The policy map gains the visitor entry; no assertion changed |
-| `pom.xml`, `README.md` | Changed | Version 0.13.0; description of the checkpoint |
+| `pom.xml`, `README.md` | Changed | Version 0.13.1; description of the checkpoint |
 | `scripts/pipeline.sh`, `scripts/simulate-release.sh` | New | Five-stage pipeline; simulated delivery and rollback |
 | `.github/workflows/pipeline.yml` | New | The same stages as a hosted-runner workflow (not run) |
 | `docs/ADR-013-visiting-researchers.md` | New | Decision, alternatives, flag removal plan, rollback |
@@ -1921,7 +1921,7 @@ Other test files that build a coordinator needed no edit, and the 159 inherited 
 
 ### 5.1 `after/pom.xml`
 
-Change the project version from 0.11.0 to 0.13.0 and nothing else. The POM already sets `failIfNoTests` to true for Surefire, which is why a stage that selects no tests fails (Section 1.3). The hunk is an edit to the Chapter 11 POM:
+Change the project version from 0.11.0 to 0.13.1 and nothing else. The POM already sets `failIfNoTests` to true for Surefire, which is why a stage that selects no tests fails (Section 1.3). The hunk is an edit to the Chapter 11 POM:
 
 ```diff
 --- chapter11/pom.xml
@@ -2414,7 +2414,7 @@ The pipeline and the tests show the selected behaviours on the supplied inputs i
 
 ### 8.1 Book project, steps B1–B4
 
-**B1. Run the pipeline.** A good answer reproduces the counts of Section 1.2 (202, 25, 3), notes the time of each stage, and says what a failure at each stage means: 1, the code does not build; 2, a rule or an architectural boundary of our own code is wrong; 3, an adapter does not meet its boundary; 4, the pieces are not joined or a setting is not read; 5, the artefact cannot be built.
+**B1. Run the pipeline.** A good answer reproduces the counts of Section 1.2 (203, 26, 3), notes the time of each stage, and says what a failure at each stage means: 1, the code does not build; 2, a rule or an architectural boundary of our own code is wrong; 3, an adapter does not meet its boundary; 4, the pieces are not joined or a setting is not read; 5, the artefact cannot be built.
 
 **B2. Trace three examples.** For example:
 
@@ -2629,7 +2629,7 @@ The online references of the student chapter (sources 1–9, 13 and 14) were ope
 1. Fowler, M., [Integration Test](https://martinfowler.com/bliki/IntegrationTest.html).
 2. Fowler, M., [Contract Test](https://martinfowler.com/bliki/ContractTest.html).
 3. Fowler, M., [Deployment Pipeline](https://martinfowler.com/bliki/DeploymentPipeline.html).
-4. GitHub, [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions).
+4. GitHub, [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax).
 5. Fowler, M., [Continuous Delivery](https://martinfowler.com/bliki/ContinuousDelivery.html).
 6. Hodgson, P., [Feature Toggles (aka Feature Flags)](https://martinfowler.com/articles/feature-toggles.html).
 7. Maven, [Using JUnit 5 Platform in Surefire](https://maven.apache.org/surefire/maven-surefire-plugin/examples/junit-platform.html).

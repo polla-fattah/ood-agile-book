@@ -169,6 +169,90 @@ By the end of this chapter, you should be able to:
 
 ---
 
+## State the New Rule Before Choosing a Design
+
+| Category | Existing active reservations allowed before a successful request | Requested duration |
+|---|---|---|
+| Student | 0, 1 or 2 | 1 through 7 days |
+| Staff | 0, 1, 2, 3 or 4 | 1 through 14 days |
+
+* A successful student request may create the **third** active reservation; a successful staff request the **fifth**.
+* Both reject negative counts and nonpositive durations.
+* Both still require a valid period and **no overlap** for the same item.
+
+---
+
+## This Is a Feature Change
+
+* A staff request for fourteen days can now succeed where the existing four-argument operation **would reject it**.
+* Moving the existing formatter is a refactoring **only if its observable results remain the same**.
+* Combining the two in one unexplained edit makes failures **harder to interpret**.
+
+---
+
+## The Category Is Trusted, Not Verified
+
+* The example receives the category from a **trusted fixture caller**.
+* It does **not** authenticate staff status, persist a borrower profile or infer category from an identifier.
+* Passing `STAFF` is **not proof that a person is staff**.
+* A production boundary would need an **authoritative category source**. Adding an enum does not complete that task.
+
+---
+
+## Define Success for Each Stage
+
+* **Stage A succeeds** when the formatting responsibility has moved and existing **outputs, exceptions, state changes and signatures** remain compatible for existing callers.
+* **Stage B succeeds** when the explicit category operation implements the new table while the **old operation still means student borrowing**.
+
+---
+
+## Boundaries That Stay Fixed
+
+* All stored records still count as **active**.
+* Storage remains **in memory**; calls remain **sequential**; intervals remain **half-open**.
+* **No** cancellation, return processing, catalogue, email delivery or availability enquiry is added.
+* These boundaries stop a design exercise becoming **an unreviewable expansion of the system**.
+
+---
+
+## The Two Stages
+
+<!--svg:ch05-stages-->
+<div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 215" role="img" aria-label="Baseline gate passes; Stage A extracts the formatter as a refactoring; the unchanged checks run; Stage B adds the staff policy as a feature change; the old and new checks run." style="display:block;width:100%;height:calc(var(--u) * 21.50);margin:0 auto">
+<defs><marker id="ch05-stages-tri" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,1 L15,8 L1,15 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch05-stages-dia" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch05-stages-diaf" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#1d588c" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch05-stages-open" viewBox="0 0 16 16" refX="14" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M2,2 L14,8 L2,14" fill="none" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch05-stages-arr" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L13,7 L0,13 Z" fill="#1d588c"/></marker></defs>
+<rect x="10.0" y="30.0" width="150.0" height="96.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="85.0" y="73.2" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Baseline</text>
+<text x="85.0" y="94.4" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">gate passes</text>
+<rect x="190.0" y="30.0" width="150.0" height="96.0" rx="8" fill="#f6ead9" stroke="#b4762e" stroke-width="2"/>
+<text x="265.0" y="62.5" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Stage A:</text>
+<text x="265.0" y="83.8" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">extract the</text>
+<text x="265.0" y="105.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">formatter</text>
+<rect x="370.0" y="30.0" width="150.0" height="96.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="445.0" y="62.5" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Unchanged</text>
+<text x="445.0" y="83.8" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">checks</text>
+<text x="445.0" y="105.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">still pass</text>
+<rect x="550.0" y="30.0" width="150.0" height="96.0" rx="8" fill="#f6ead9" stroke="#b4762e" stroke-width="2"/>
+<text x="625.0" y="62.5" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Stage B:</text>
+<text x="625.0" y="83.8" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">add the staff</text>
+<text x="625.0" y="105.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">policy</text>
+<rect x="730.0" y="30.0" width="150.0" height="96.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
+<text x="805.0" y="73.2" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Old and new</text>
+<text x="805.0" y="94.4" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">checks pass</text>
+<path d="M160.0,78.0 L190.0,78.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch05-stages-arr)"/>
+<path d="M340.0,78.0 L370.0,78.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch05-stages-arr)"/>
+<path d="M520.0,78.0 L550.0,78.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch05-stages-arr)"/>
+<path d="M700.0,78.0 L730.0,78.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch05-stages-arr)"/>
+<text x="265.0" y="160.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="700" fill="#b4762e" text-anchor="middle">refactoring</text>
+<text x="265.0" y="183.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="middle" font-style="italic">behaviour unchanged</text>
+<text x="625.0" y="160.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="700" fill="#b4762e" text-anchor="middle">feature change</text>
+<text x="625.0" y="183.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="middle" font-style="italic">student entry point kept</text>
+</svg>
+</div>
+<!--/svg-->
+
+---
+
 ## Three Kinds of Evidence, in This Order
 
 1. **The compiler's.**
@@ -216,6 +300,16 @@ javac --release 17 -Xlint:all -d build/lint \
 |---|---|
 | Repeated or similar logic | Two loops over the stored list that differ only in the test, or rejection outcomes returned as plain strings a caller must compare |
 | Primitive values standing for concepts | Strings or integers carrying meaning (an identifier, a number of days, a rejection reason) without a type of their own |
+
+---
+
+## Five Terms Before the PMD Output
+
+* **Cyclomatic complexity:** the number of **independent paths** through a method; each `if`, loop or `case` adds one.
+* **Cognitive complexity:** a variant that **penalises nested** conditions.
+* **NPath:** the number of possible **execution paths** through a method.
+* **God class:** does too much and knows too much. **Data class:** holds data and little behaviour.
+* In the Data-class line, **WOC, NOPA, NOAM and WMC** are PMD's measures of how much of a class is behaviour. **You do not need them to read the result.**
 
 ---
 
@@ -312,90 +406,6 @@ ReservationCoordinator.java:10:  CyclomaticComplexity: 'reserve(...)' has comple
 * The companion's experiment: extracting `activeReservationsOf(borrowerId)` and `isUnavailable(itemId, requested)` made the finding disappear. The gate still passed (44 checks, five acceptance groups).
 * The class still validates, counts, checks eligibility, searches and creates.
 * Say **what the tool measures** and **what the change targeted**.
-
----
-
-## State the New Rule Before Choosing a Design
-
-| Category | Existing active reservations allowed before a successful request | Requested duration |
-|---|---|---|
-| Student | 0, 1 or 2 | 1 through 7 days |
-| Staff | 0, 1, 2, 3 or 4 | 1 through 14 days |
-
-* A successful student request may create the **third** active reservation; a successful staff request the **fifth**.
-* Both reject negative counts and nonpositive durations.
-* Both still require a valid period and **no overlap** for the same item.
-
----
-
-## This Is a Feature Change
-
-* A staff request for fourteen days can now succeed where the existing four-argument operation **would reject it**.
-* Moving the existing formatter is a refactoring **only if its observable results remain the same**.
-* Combining the two in one unexplained edit makes failures **harder to interpret**.
-
----
-
-## The Category Is Trusted, Not Verified
-
-* The example receives the category from a **trusted fixture caller**.
-* It does **not** authenticate staff status, persist a borrower profile or infer category from an identifier.
-* Passing `STAFF` is **not proof that a person is staff**.
-* A production boundary would need an **authoritative category source**. Adding an enum does not complete that task.
-
----
-
-## Define Success for Each Stage
-
-* **Stage A succeeds** when the formatting responsibility has moved and existing **outputs, exceptions, state changes and signatures** remain compatible for existing callers.
-* **Stage B succeeds** when the explicit category operation implements the new table while the **old operation still means student borrowing**.
-
----
-
-## Boundaries That Stay Fixed
-
-* All stored records still count as **active**.
-* Storage remains **in memory**; calls remain **sequential**; intervals remain **half-open**.
-* **No** cancellation, return processing, catalogue, email delivery or availability enquiry is added.
-* These boundaries stop a design exercise becoming **an unreviewable expansion of the system**.
-
----
-
-## The Two Stages
-
-<!--svg:ch05-stages-->
-<div>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 215" role="img" aria-label="Baseline gate passes; Stage A extracts the formatter as a refactoring; the unchanged checks run; Stage B adds the staff policy as a feature change; the old and new checks run." style="display:block;width:100%;height:calc(var(--u) * 21.50);margin:0 auto">
-<defs><marker id="ch05-stages-tri" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,1 L15,8 L1,15 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch05-stages-dia" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch05-stages-diaf" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#1d588c" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch05-stages-open" viewBox="0 0 16 16" refX="14" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M2,2 L14,8 L2,14" fill="none" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch05-stages-arr" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L13,7 L0,13 Z" fill="#1d588c"/></marker></defs>
-<rect x="10.0" y="30.0" width="150.0" height="96.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
-<text x="85.0" y="73.2" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Baseline</text>
-<text x="85.0" y="94.4" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">gate passes</text>
-<rect x="190.0" y="30.0" width="150.0" height="96.0" rx="8" fill="#f6ead9" stroke="#b4762e" stroke-width="2"/>
-<text x="265.0" y="62.5" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Stage A:</text>
-<text x="265.0" y="83.8" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">extract the</text>
-<text x="265.0" y="105.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">formatter</text>
-<rect x="370.0" y="30.0" width="150.0" height="96.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
-<text x="445.0" y="62.5" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Unchanged</text>
-<text x="445.0" y="83.8" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">checks</text>
-<text x="445.0" y="105.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">still pass</text>
-<rect x="550.0" y="30.0" width="150.0" height="96.0" rx="8" fill="#f6ead9" stroke="#b4762e" stroke-width="2"/>
-<text x="625.0" y="62.5" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Stage B:</text>
-<text x="625.0" y="83.8" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">add the staff</text>
-<text x="625.0" y="105.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">policy</text>
-<rect x="730.0" y="30.0" width="150.0" height="96.0" rx="6" fill="#ffffff" stroke="#1d588c" stroke-width="2"/>
-<text x="805.0" y="73.2" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">Old and new</text>
-<text x="805.0" y="94.4" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#172a42" text-anchor="middle">checks pass</text>
-<path d="M160.0,78.0 L190.0,78.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch05-stages-arr)"/>
-<path d="M340.0,78.0 L370.0,78.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch05-stages-arr)"/>
-<path d="M520.0,78.0 L550.0,78.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch05-stages-arr)"/>
-<path d="M700.0,78.0 L730.0,78.0" fill="none" stroke="#1d588c" stroke-width="2.2" marker-end="url(#ch05-stages-arr)"/>
-<text x="265.0" y="160.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="700" fill="#b4762e" text-anchor="middle">refactoring</text>
-<text x="265.0" y="183.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="middle" font-style="italic">behaviour unchanged</text>
-<text x="625.0" y="160.0" font-size="17" font-family="Inter, system-ui, sans-serif" font-weight="700" fill="#b4762e" text-anchor="middle">feature change</text>
-<text x="625.0" y="183.0" font-size="15" font-family="Inter, system-ui, sans-serif" font-weight="400" fill="#46586d" text-anchor="middle" font-style="italic">student entry point kept</text>
-</svg>
-</div>
-<!--/svg-->
 
 ---
 

@@ -22,7 +22,7 @@ layout: page
   * Assertions that can be wrong; fresh, small fixtures.
 * **7.3 Red-green-refactor**
   * One recorded cycle, and why the first failure must be the intended one.
-* **7.4 Boundaries and deterministic tests**
+* **7.4 Boundaries, controlled time and a bounded lending flow**
   * Boundary values, a controlled clock, a bounded lending flow.
 
 ---
@@ -465,7 +465,7 @@ mvn --batch-mode -Dtest=AvailabilityTddTest test
 
 ---
 
-# 7.4 Boundaries and Deterministic Tests
+# 7.4 Boundaries, Controlled Time and a Bounded Lending Flow
 ### Edges that carry meaning, and time under control
 
 ---

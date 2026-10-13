@@ -24,7 +24,7 @@ This file accompanies Appendix C. It supplies a small, complete **template kit**
 | `requirements-to-evidence` | Chapter 14 | `docs/REQUIREMENTS-TO-EVIDENCE.md` |
 | `known-issues` | Chapter 14 | `docs/KNOWN-ISSUES.md` |
 | `release-notes` | Chapter 14 | `docs/RELEASE-NOTES-0.14.0.md` |
-| `retrospective` | Chapter 14 | The observation, evidence, action and owner table of Section 14.5 |
+| `retrospective` | Chapter 14 | The observation, evidence, action and owner table of Section 14.6 |
 | `ai-assistance-record` | Chapter 15 | The eight headings of Section 15.8, checked by the lab's `check-record.sh` |
 
 The examples are **constructed to illustrate**. They belong to an invented team, are labelled as such in their first line and are not evidence of anything. Do not copy their contents into your own records.

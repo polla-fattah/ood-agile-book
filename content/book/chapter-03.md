@@ -111,6 +111,20 @@ Scrum is a framework with defined elements. The November 2020 Scrum Guide is the
 
 Scrum links three artefacts to commitments: the **Product Backlog** to the **Product Goal**, the **Sprint Backlog** to the **Sprint Goal**, and the **Increment** to the **Definition of Done**. The Sprint Backlog includes the goal, selected work and delivery plan. User-story templates and story points are optional practices, not required Scrum elements [3].
 
+```mermaid
+flowchart LR
+    PB["Product Backlog"] --> SP
+    subgraph SPR["Sprint: one month or less"]
+        direction LR
+        SP["Sprint Planning"] -->|"Sprint Goal and Sprint Backlog"| DS["Daily Scrum, every day"]
+        DS --> SR["Sprint Review"]
+        SR --> RT["Sprint Retrospective"]
+    end
+    RT --> PB
+```
+
+**Figure 3.1.** A Sprint contains all of the Scrum events. Planning selects work from the Product Backlog and sets the Sprint Goal; the Developers inspect progress at each Daily Scrum; the Review inspects the outcome with stakeholders; the Retrospective improves how the team works, and what is learned feeds the Product Backlog and the next Sprint.
+
 ### Applying the distinctions to a student team
 
 A possible Product Goal for our learning project is: “Enable the equipment office to manage a small set of student reservations with visible rules and reliable records.” This expresses a useful future state. It does not specify every screen or method.
@@ -142,6 +156,19 @@ For our introductory board, use five columns:
 | Building | Implementation and associated checks are under way |
 | Review | Work is awaiting or receiving review and verification |
 | Done | The agreed completion conditions have been met |
+
+```mermaid
+flowchart LR
+    BL["Backlog"] --> RD["Ready"]
+    RD --> BU
+    subgraph LIM["Combined limit: two items"]
+        direction LR
+        BU["Building"] --> RV["Review"]
+    end
+    RV --> DN["Done"]
+```
+
+**Figure 3.2.** The five-column board. The start point is entry into Building and the finish point is entry into Done. Building and Review share one limit of two items, and a blocked item stays inside it.
 
 These columns are our example, not mandatory names. Define the start point as entry into Building and the finish point as entry into Done. For this exercise, limit the **combined** number of items in Building and Review to two. Blocked work remains within that count; moving it to an uncounted “Blocked” column would hide unfinished work rather than finish it.
 

@@ -64,7 +64,7 @@ java -cp target/classes edu.se506.lending.bootstrap.Chapter09Demo
 
 ### 1.3 Package metrics
 
-The metrics in Section 10.4 of the chapter come from a small program that is not part of the Maven build. After compiling, run it from the project root:
+The metrics in Section 10.5 of the chapter come from a small program that is not part of the Maven build. After compiling, run it from the project root:
 
 ```bash
 mvn --batch-mode compile
@@ -3408,7 +3408,7 @@ Replace validation statements with the results for the actual submitted revision
 
 (b) The arrow is `infrastructure.notification` (I = 0.30) to `application` (I = 0.31). The difference is too small to act on by itself. What the arrow points at is the concrete dependency on `ConfirmationFormatter`. Reasonable options: leave it, because the formatter's output is part of the observable result; or introduce a small formatting port in `application.port` so that the sender depends only on a contract, at the cost of another interface. Either answer is acceptable if it names the trade-off.
 
-(c) `ConfirmationFormatter` should stay in `application`. The coordinator needs it to build the returned text, so moving it into `infrastructure.notification` would make `application` depend on infrastructure, which is the same failure as moving `NotificationException` (Section 10.4 of the chapter). Moving it into `domain` would put wording in the domain. What would change the answer: a second notification format that needs its own formatter, or the dependency report showing more concrete application classes referenced from infrastructure.
+(c) `ConfirmationFormatter` should stay in `application`. The coordinator needs it to build the returned text, so moving it into `infrastructure.notification` would make `application` depend on infrastructure, which is the same failure as moving `NotificationException` (Section 10.5 of the chapter). Moving it into `domain` would put wording in the domain. What would change the answer: a second notification format that needs its own formatter, or the dependency report showing more concrete application classes referenced from infrastructure.
 
 **Experiment behind Option B in the chapter.** `NotificationException` was moved to `infrastructure.notification` in a copy and its imports changed. The direction test failed with `application.ReservationCoordinator -> infrastructure.notification.NotificationException`, and the cycle test failed with `application -> infrastructure.notification -> application`. Both tests together reject the placement.
 
@@ -3523,7 +3523,7 @@ For Milestone 3, use the module leader's approved requirements. The chapter supp
 
 **Book project and Team project.** Keep the two apart in class. The supplied checkpoint, ADR-010 and the sample PR description are the Book project: students read, trace and diagnose them (steps B1–B3) and are not asked to rebuild them. Milestone 3 evidence comes from each team's own repository (steps T1–T5). A team that copies ADR-010's decision has not shown its own architectural judgement; ask what problem in their code the decision solves. A team on another provided domain applies the same steps to that domain's starter codebase and uses the transfer challenge for orientation.
 
-**Teaching the package-design material.** Start from the five change requests in Section 10.4 of the chapter and ask students to predict the packages that change before showing the answers. Then show the metrics table and ask which arrow is the odd one out. Resist the urge to turn the numbers into a score: the point is to decide what to examine. Show the `NotificationException` experiment only after students have argued for Option A or Option B.
+**Teaching the package-design material.** Start from the five change requests in Section 10.5 of the chapter and ask students to predict the packages that change before showing the answers. Then show the metrics table and ask which arrow is the odd one out. Resist the urge to turn the numbers into a score: the point is to decide what to examine. Show the `NotificationException` experiment only after students have argued for Option A or Option B.
 
 ### 11.2 Do the tests detect faults?
 
@@ -3559,5 +3559,5 @@ Online references 1–5 checked 12 October 2026 and 7–8 on 13 October 2026; se
 4. Cockburn, A., [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture).
 5. Oracle, [Java 17 jdeps](https://docs.oracle.com/en/java/javase/17/docs/specs/man/jdeps.html) and [Java SE 17 List](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html).
 6. Martin, R. C., *Agile Software Development: Principles, Patterns, and Practices.* Prentice Hall, 2002. The Week 9 reading is its principles of package design. This book treats package design in Section 10.4 of Chapter 10.
-7. Evans, E., [Domain-Driven Design Reference: Definitions and Pattern Summaries](https://domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf). Domain Language, 2015 (CC BY 4.0). Layered Architecture p. 10, Entities p. 11, Value Objects p. 12; opened 13 October 2026.
+7. Evans, E., [Domain-Driven Design Reference: Definitions and Pattern Summaries](https://www.domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf). Domain Language, 2015 (CC BY 4.0). Layered Architecture p. 10, Entities p. 11, Value Objects p. 12; opened 13 October 2026.
 8. Wikipedia, [Software package metrics](https://en.wikipedia.org/wiki/Software_package_metrics). Definitions of afferent coupling, efferent coupling and instability; opened 13 October 2026.

@@ -114,7 +114,7 @@ A provider SDK might expose account management, diagnostics and bulk operations.
 
 The book does not implement those external operations here. The important review question is whether the coordinator's contract can be explained without referring to a vendor or transport setting. “Send this accepted reservation to the configured output” can. “Send this vendor request with the provider's retry token” would pull provider details into the workflow.
 
-## 6.3 Policy and implementation dependencies
+## 6.3 Who decides what, and what happens when notification fails
 
 ### Separate three decisions
 
@@ -481,7 +481,7 @@ The cumulative checkpoint includes local console and recording outputs, explicit
 
 Sources checked 12 and 13 October 2026. The notification contract, failure rule, source examples and educational container are author-created teaching material.
 
-1. Martin, R. C. (2000), [Design Principles and Design Patterns](https://staff.cs.utu.fi/~jounsmed/doos_06/material/DesignPrinciplesAndPatterns.pdf). The author's own discussion of ISP and DIP, hosted by the University of Turku. The link is a scanned PDF; its existence and authorship are bibliographically confirmed, but its text could not be machine-checked, so read it directly and rely on [8] for the module's required treatment.
+1. Martin, R. C. (2000), [Design Principles and Design Patterns](https://staff.cs.utu.fi/~jounsmed/doos_06/material/DesignPrinciplesAndPatterns.pdf). The author's own discussion of ISP and DIP, hosted by the University of Turku. The link is a text PDF whose text was extracted and read on 14 October 2026: it states ISP as a preference for many client-specific interfaces over one general-purpose interface, and DIP as depending upon interfaces or abstract classes rather than concrete ones. [8] is the module's required treatment.
 2. Martin, R. C. (2016), [A Little Architecture](https://blog.cleancoder.com/uncle-bob/2016/01/04/ALittleArchitecture.html). Policy, details and dependency direction.
 3. Fowler, M. (2004), [Inversion of Control Containers and the Dependency Injection Pattern](https://martinfowler.com/articles/injection.html). Separating configuration from use and distinguishing injection from service location.
 4. Fowler, M. (2005), [Inversion of Control](https://martinfowler.com/bliki/InversionOfControl.html). Broader IoC terminology.

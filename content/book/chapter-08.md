@@ -1,6 +1,6 @@
 ---
 title: "Chapter 8: Creating and Connecting Objects"
-description: "Creational patterns: Factory Method, Builder, and dependency injection seams."
+description: "Creation and connection patterns: Factory Method, Abstract Factory, Builder, Adapter and Decorator, and when to decline them."
 weight: 80
 ---
 
@@ -124,7 +124,7 @@ The diagram shows why the design is Factory Method: subclasses vary creation ins
 
 Tests can show that both designs produce `TEXT: R1` or an HTML paragraph. Identical output does not make their extension mechanisms identical. One central selection function changes when a new option is added; the other introduces a concrete creator subclass. Code structure and change requirements settle the classification.
 
-### Test, trade-off and non-use case
+### Factory Method: test, trade-off and non-use case
 
 The tests exercise both concrete jobs and an instrumented creator whose hook returns a distinctive exporter. They check that the inherited workflow uses the chosen product and that null input is rejected before export. The hook-count assertion documents this tiny creator example; it is not advice to verify private call counts throughout the application.
 
@@ -154,7 +154,7 @@ The tests render a complete receipt with each family. They expect `Loan` and `R1
 
 A test that merely asserts both product references are non-null would miss a mixed-format family. The expected complete result observes the relationship that motivated the design.
 
-### Trade-off and non-use case
+### Abstract Factory: trade-off and non-use case
 
 Adding another family can leave the client workflow unchanged. Adding a new product role, such as a footer, changes the factory contract and requires every family to supply it. The design makes one axis of extension convenient by making another more coordinated.
 
@@ -193,7 +193,7 @@ Validation belongs before publication of the product. Each `build()` checks the 
 
 The builder is mutable and intended for one construction sequence at a time. An immutable product does not make its builder thread-safe. Reusing the builder is supported sequentially in this example, but callers must recognise that settings remain until changed.
 
-### Test, trade-off and non-use case
+### Builder: test, trade-off and non-use case
 
 Tests check defaults, explicit options, invalid dates and the independence of two products built before and after another column is added. Attempting to modify a product's columns must fail. Merely checking that chained calls compile would not detect an alias to mutable builder state.
 
@@ -312,7 +312,7 @@ The audit list is an in-memory observation fixture. It is not durable audit stor
 
 A real sender may deliver a message and then lose the acknowledgement. Retrying can duplicate the effect. This toy example has no idempotency key or delivery guarantee, and “sent” means only that the delegate returned normally.
 
-### Test, trade-off and non-use case
+### Decorator: test, trade-off and non-use case
 
 Tests assert both event sequences, the two-attempt bound and propagation of expected and unexpected failures. These are meaningful interaction observations because order and attempt count are the feature under discussion.
 
@@ -406,7 +406,15 @@ For live AI assistance, provide only synthetic contracts and fixtures. Retain th
 
 **Expected artefacts:** runnable source and tests; a mapping table; a reproducible demonstration; a short design decision; a record of AI claims accepted or rejected with reasons; the two exercise solutions with their tests; and the step 9 note for your Team project.
 
-**Acceptance conditions:** known codes map correctly; unknown codes never grant a category; provider outage is distinct from absence; legacy behaviour remains tested; the second design comparison identifies costs rather than counting classes. The diagram, if useful, must match the implemented boundary.
+**Acceptance conditions:**
+
+- known codes map correctly;
+- unknown codes never grant a category;
+- provider outage is distinct from absence;
+- legacy behaviour remains tested;
+- the second design comparison identifies costs rather than counting classes.
+
+The diagram, if useful, must match the implemented boundary.
 
 **Optional extension:** propose a changed provider code for staff, or a second provider contract. Identify the adapter changes and contract tests required. Do not add automatic fallback between providers without defining conflict, outage and identity semantics.
 

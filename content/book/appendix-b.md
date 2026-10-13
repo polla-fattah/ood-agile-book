@@ -316,6 +316,6 @@ Official references opened on 13 October 2026. The explanations and commands are
 13. Git, [gitattributes](https://git-scm.com/docs/gitattributes). The `eol` and `text` attributes.
 14. Git, [git-restore](https://git-scm.com/docs/git-restore) and [git-switch](https://git-scm.com/docs/git-switch).
 15. Git, [git-revert](https://git-scm.com/docs/git-revert). A revert records a new commit.
-16. GitHub Docs, [About pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests). Also Chacon and Straub, [Pro Git: branching](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging).
+16. GitHub Docs, [About pull requests](https://docs.github.com/en/pull-requests/reference/pull-requests). Also Chacon and Straub, [Pro Git: branching](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging).
 17. GitHub, [actions/checkout](https://github.com/actions/checkout). Usage and versions.
 18. GitHub, [actions/setup-java](https://github.com/actions/setup-java). Distributions, `java-version` and `cache: maven`.
