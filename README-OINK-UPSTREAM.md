@@ -65,7 +65,7 @@ print and RSS for publication, semantic Markdown for reuse, and optional
 The recommended path is the public
 [`pgsty/oink-starter`](https://github.com/pgsty/oink-starter) template. It is a
 small production baseline with Docs, Blog, Book, English/Chinese/French
-profiles, and GitHub Pages and Cloudflare Pages workflows—without this theme
+profiles, and GitHub Pages and Cloudflare Pages workflows, without this theme
 repository's internal fixtures.
 
 [**Use this template on GitHub**](https://github.com/new?template_name=oink-starter&template_owner=pgsty)

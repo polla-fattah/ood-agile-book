@@ -1,26 +1,23 @@
 brand:
-  name: Modern Front-End Engineering
-  logo: icons/logo.svg
-  tagline: From Browser Fundamentals to Production Architecture
+  name: Object Oriented Development and Agile Practices
+  logo: images/logo.png
+  tagline: Designing, Testing and Evolving Software with AI Assistance
   slogan: |
     **By Dr. Polla Abdulhamid Fattah**
 
-    An authoritative, end-to-end engineering guide to building scalable, resilient, and high-performance web applications. Moving beyond ephemeral framework syntax, this book deconstructs the modern browser platform: from rendering pipelines and hardware acceleration to reactive state systems, distributed persistence, micro-frontends, and production observability.
+    An authoritative, hands-on engineering textbook guiding developers and graduate students from syntax to robust object-oriented design, test-driven development, SOLID principles, refactoring, and iterative agile delivery. Centered around a realistic Campus Equipment Lending System in Java, preparing engineers to build maintainable, extensible software around data and AI components.
 columns:
 - title: Read and explore
   links:
-  - label: The book
+  - label: Book Manuscript
     url: book/
-  - label: Download PDF
-    url: downloads/Modern_Front_End_Engineering.pdf
-  - label: Learning topics
+  - label: Code & Solutions Companion
+    url: companion/
+  - label: Blueprint & Syllabus
     url: topics/
-  - label: Learning paths
-    url: /#paths
 - title: Teach and practise
   links:
-  - label: Lecture slides
+  - label: Lecture Slides
     url: slides/
-  - label: Playground
-    url: playground/
-
+  - label: GitHub Repository
+    url: https://github.com/polla-fattah/oop-and-agile

@@ -5,8 +5,8 @@
 # This repository is the complete Hugo website. The former frontend-book
 # theme has been folded into the site root so content and presentation evolve
 # together in one project.
-baseURL: https://polla.dev/frontend-book/
-title: "Modern Front-End Engineering"
+baseURL: https://polla.dev/oop-and-agile/
+title: "Object Oriented Development and Agile Practices"
 locale: en
 defaultContentLanguage: en
 enableRobotsTXT: true
@@ -31,26 +31,33 @@ outputs:
 menus:
   main:
     - identifier: book
-      name: Book
+      name: Book Manuscript
       pageRef: /book
       weight: 10
       params:
         icon: false
-    - identifier: slides
-      name: Lecture slides
-      pageRef: /slides
+    - identifier: companion
+      name: Code & Solutions
+      pageRef: /companion
       weight: 20
       params:
         icon: false
-    - identifier: playground
-      name: Playground
-      pageRef: /playground
+    - identifier: topics
+      name: Blueprint & Syllabus
+      pageRef: /topics
       weight: 30
+      params:
+        icon: false
+    - identifier: slides
+      name: Lecture Slides
+      pageRef: /slides
+      weight: 40
       params:
         icon: false
 
 params:
-  description: "From Browser Fundamentals to Production Architecture"
+  description: "Designing, Testing and Evolving Software with AI Assistance"
+  logo: images/logo.png
   # Highlight code with Chroma class names so it follows the theme's light/dark
   # palettes. Hugo ignores `markup` set by a theme, so the theme applies this
   # through layouts/_markup/render-codeblock.html instead. Set to false to fall
@@ -69,8 +76,8 @@ params:
   time_format_blog: 2006-01-02
   time_format_default: 2006-01-02
   # Branch used by the edit / history / new-page links derived from github_repo.
-  github_repo: https://github.com/polla-fattah/frontend-book
-  github_project_repo: https://github.com/polla-fattah/frontend-book
+  github_repo: https://github.com/polla-fattah/oop-and-agile
+  github_project_repo: https://github.com/polla-fattah/oop-and-agile
   github_branch: main
   page_width: normal # normal | wide | full
   # Inner reading measure for Book pages: slim | normal | wide. Unlike

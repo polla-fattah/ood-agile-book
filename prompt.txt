@@ -333,43 +333,43 @@ Architecture should remain contextual and trade-off-driven.
 
 ## Existing Manuscript Structure
 
-Part I — Web Platform, Languages & Browser Runtime
+Part I: Web Platform, Languages & Browser Runtime
 
-* Chapter 1 — Modern Web Platform & Browser Internals
-* Chapter 2 — Semantic HTML, Accessibility, Internationalization & DOM
-* Chapter 3 — Modern CSS Architecture & Layout Systems
-* Chapter 4 — Modern JavaScript & Async Programming
-* Chapter 5 — TypeScript, Runtime Contracts & Safe Data Boundaries
+* Chapter 1: Modern Web Platform & Browser Internals
+* Chapter 2: Semantic HTML, Accessibility, Internationalization & DOM
+* Chapter 3: Modern CSS Architecture & Layout Systems
+* Chapter 4: Modern JavaScript & Async Programming
+* Chapter 5: TypeScript, Runtime Contracts & Safe Data Boundaries
 
-Part II — Component Architecture & Application State
+Part II: Component Architecture & Application State
 
-* Chapter 6 — Component-Driven Architecture & Design Patterns
-* Chapter 7 — Reactivity & Rendering Mechanics
-* Chapter 8 — State Management, Routing & Form Architecture
+* Chapter 6: Component-Driven Architecture & Design Patterns
+* Chapter 7: Reactivity & Rendering Mechanics
+* Chapter 8: State Management, Routing & Form Architecture
 
-Part III — Data, Networking & Rendering Topologies
+Part III: Data, Networking & Rendering Topologies
 
-* Chapter 9 — Client-Server Communication, APIs & Cache Management
-* Chapter 10 — Real-Time Communication, Offline Systems & Client Persistence
-* Chapter 11 — Rendering Topologies: CSR, SSR, SSG & Beyond
+* Chapter 9: Client-Server Communication, APIs & Cache Management
+* Chapter 10: Real-Time Communication, Offline Systems & Client Persistence
+* Chapter 11: Rendering Topologies: CSR, SSR, SSG & Beyond
 
-Part IV — Tooling, Security & Front-End Scale
+Part IV: Tooling, Security & Front-End Scale
 
-* Chapter 12 — Modern Build Systems, Development Tooling & Team Workflows
-* Chapter 13 — Front-End Security, Authentication & Browser Isolation
-* Chapter 14 — Scaling Front-End Architecture: Design Systems, Monorepos & Micro-Frontends
+* Chapter 12: Modern Build Systems, Development Tooling & Team Workflows
+* Chapter 13: Front-End Security, Authentication & Browser Isolation
+* Chapter 14: Scaling Front-End Architecture: Design Systems, Monorepos & Micro-Frontends
 
-Part V — Performance, Quality & Production Engineering
+Part V: Performance, Quality & Production Engineering
 
-* Chapter 15 — Core Web Vitals & Performance Engineering
-* Chapter 16 — Testing Strategies for Resilient Interfaces
-* Chapter 17 — Continuous Delivery, Observability & Maintenance
-* Chapter 18 — Front-End Architecture & Technical Decision-Making
+* Chapter 15: Core Web Vitals & Performance Engineering
+* Chapter 16: Testing Strategies for Resilient Interfaces
+* Chapter 17: Continuous Delivery, Observability & Maintenance
+* Chapter 18: Front-End Architecture & Technical Decision-Making
 
 Appendices:
 
-* Appendix A — Front-End Architectural Rosetta Stone
-* Appendix B — Modern Browser APIs Reference
+* Appendix A: Front-End Architectural Rosetta Stone
+* Appendix B: Modern Browser APIs Reference
 
 ## Review Philosophy
 

@@ -168,7 +168,7 @@ print_entire_section: "पूरे खंड को प्रिंट कर�
 feedback_question: "क्या यह पृष्ठ सहायक था?"
 feedback_positive: "हाँ"
 feedback_negative: "नहीं"
-feedback_thanks: "धन्यवाद—आपकी प्रतिक्रिया इस पृष्ठ को बेहतर बनाने में हमारी मदद करती है।"
+feedback_thanks: "धन्यवाद, आपकी प्रतिक्रिया इस पृष्ठ को बेहतर बनाने में हमारी मदद करती है।"
 feedback_reason_prompt: "क्या बाधा बनी? (वैकल्पिक)"
 feedback_reason_missing: "जानकारी की कमी"
 feedback_reason_outdated: "गलत या पुराना"

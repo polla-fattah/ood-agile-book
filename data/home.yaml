@@ -1,4 +1,4 @@
-# Homepage content. Export links are placeholders.
+# Homepage content for Object Oriented Development and Agile Practices
 sections:
 - hero
 - metrics
@@ -14,249 +14,210 @@ sections:
 - principles
 - cta
 hero:
-  eyebrow: '<a href="https://github.com/polla-fattah/frontend-book" class="td-hero-os-badge" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> <span>Open Source Project</span> <span class="td-hero-os-badge__sep">·</span> <span class="td-hero-os-badge__sub">GitHub</span> <i class="fa-solid fa-arrow-right td-hero-os-badge__arrow"></i></a>'
-  title: Modern Front-End Engineering
+  eyebrow: '<a href="https://github.com/polla-fattah/oop-and-agile" class="td-hero-os-badge" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> <span>Open Source Course & Book</span> <span class="td-hero-os-badge__sep">·</span> <span class="td-hero-os-badge__sub">GitHub</span> <i class="fa-solid fa-arrow-right td-hero-os-badge__arrow"></i></a>'
+  title: Object Oriented Development and Agile Practices
   title_size: 3rem
-  subtitle: From Browser Fundamentals to Production Architecture
-  desc: Understand how browsers work, build reliable interfaces, and make informed architectural decisions.
-    Move from the web platform through components, state, data, and rendering to performance, testing,
-    and production delivery. Basic HTML, CSS, JavaScript, and command-line knowledge is assumed.
+  subtitle: Designing, Testing and Evolving Software with AI Assistance
+  desc: Move beyond mere language syntax to professional object-oriented design, test-driven development, SOLID principles, refactoring legacy code, and iterative agile delivery. Designed for postgraduate and advanced software engineering cohorts around a realistic Java lending system.
   image:
-    light: images/cover-front.png
-    dark: images/cover-front.png
-    alt: "Book cover: Modern Front-End Engineering - From Browser Fundamentals to Production Architecture by Dr. Polla Abdulhamid Fattah"
+    light: images/front-image.png
+    dark: images/front-image.png
+    alt: "Book cover: Object Oriented Development and Agile Practices - Designing, Testing and Evolving Software with AI Assistance by Dr. Polla Abdulhamid Fattah"
   media:
     hide_below: md
     ratio: 1fr 1fr
-    max_width: 540px
+    max_width: 500px
   actions:
-  - label: 'Start reading: Chapter 1'
-    url: book/chapter_01_the_modern_web_platform_and_browser_internals/
+  - label: 'Read Book Manuscript'
+    url: book/
     icon: fa-solid fa-book-open
     style: primary
-  - label: Choose a learning path
-    url: '#paths'
-    icon: fa-solid fa-route
+  - label: 'Code & Solutions Companion'
+    url: companion/
+    icon: fa-solid fa-code
     style: ghost
   - label: GitHub Repository
-    url: https://github.com/polla-fattah/frontend-book
+    url: https://github.com/polla-fattah/oop-and-agile
     icon: fa-brands fa-github
     style: ghost
     external: true
 metrics:
-  title: The book in four numbers
-  desc: Based on the manuscript and teaching materials currently in this site.
+  title: The curriculum in numbers
+  desc: Designed for SE506 MSc in Artificial Intelligence at UKH.
   columns: 4
   items:
-  - value: 18
+  - value: 15
     label: Chapters
-    desc: from browser internals to architecture decisions
-  - value: 3
-    label: Appendices
-    desc: framework comparisons, browser APIs, and deployment
-  - value: 18
-    label: Lecture decks
-    desc: presentation materials for Chapters 1-18
-  - value: 18
-    label: Practical briefs
-    desc: one guided exercise for each chapter
+    desc: from foundations to architecture, refactoring, and delivery
+  - value: 12+
+    label: Checkpoints
+    desc: cumulative, fully-verified Java/Maven codebases
+  - value: 6
+    label: Learning outcomes
+    desc: LO1 to LO6 covering design, TDD, agile flow, and reflection
+  - value: 100%
+    label: Executable & tested
+    desc: zero mock hand-waving; fully verifiable with JUnit & Mockito
 steps:
-  title: How to use the book
+  title: The change-driven teaching method
   items:
-  - title: Build a mental model
-    desc: Read the chapter to understand how the browser, language, or architectural boundary works.
-  - title: Study the examples
-    desc: Connect the explanation to code and compare the costs of different approaches.
-  - title: Apply it in the Playground
-    desc: Use the companion practical brief to investigate the chapter’s ideas in a small project.
-  - title: Review the trade-offs
-    desc: Use the summaries, lecture decks, and reference appendices to revisit your decisions.
+  - title: 1. Understand the change
+    desc: Read the scenario and distinguish existing guarantees from new business requirements.
+  - title: 2. Choose the OO design
+    desc: Justify structural choices using SOLID principles, encapsulation, and composition over inheritance.
+  - title: 3. Test as design practice
+    desc: Drive implementation with characterisation and unit tests using Arrange-Act-Assert.
+  - title: 4. Inspect, refactor & evolve
+    desc: Apply safe refactorings, monitor lead/cycle time, and integrate feedback continuously.
 paths:
-  title: Learning paths
+  title: Learning paths through the curriculum
   columns: 4
-  link_label: Start this path
+  link_label: Explore this section
   items:
-  - name: The complete path
+  - name: Complete Progression
     icon: fa-solid fa-seedling
-    meta: Chapters 1-18
-    desc: Follow the platform, application, and production topics in order.
-    url: book/chapter_01_the_modern_web_platform_and_browser_internals/
-  - name: Platform foundations
-    icon: fa-solid fa-code
-    meta: Chapters 1-5
-    desc: Strengthen browser, HTML, accessibility, CSS, JavaScript, and TypeScript knowledge.
-    url: book/chapter_01_the_modern_web_platform_and_browser_internals/
-  - name: Application architecture
-    icon: fa-solid fa-layer-group
-    meta: Chapters 6-14
-    desc: Explore components, reactivity, state, APIs, offline systems, rendering, tooling, security,
-      and scale.
-    url: book/chapter_06_component_driven_architecture_and_design_patterns/
-  - name: Production engineering
-    icon: fa-solid fa-gauge-high
-    meta: Chapters 15-18
-    desc: Investigate performance, test resilient interfaces, plan delivery, and justify architectural
-      choices.
-    url: book/chapter_15_core_web_vitals_and_performance_engineering/
+    meta: Chapters 1-15
+    desc: Follow the full journey from single classes to multi-package architecture and continuous delivery.
+    url: book/
+  - name: OO Principles & SOLID
+    icon: fa-solid fa-shapes
+    meta: Chapters 1-6
+    desc: Master responsibilities, extension, substitutability, and dependency inversion.
+    url: book/
+  - name: TDD & Design Patterns
+    icon: fa-solid fa-vial-circle-check
+    meta: Chapters 7-9
+    desc: Drive design with test doubles, factory/builder creation, and behavioral patterns.
+    url: book/
+  - name: Architecture & Refactoring
+    icon: fa-solid fa-cubes
+    meta: Chapters 10-14
+    desc: Layered architecture, package stability, legacy code seams, and empirical flow metrics.
+    url: book/
 timeline:
-  title: The arc of the book
+  title: The arc of the textbook
   items:
-  - date: Chapters 1-5
-    title: Understand the web platform
-    desc: Browser internals, semantic HTML, accessibility, CSS, JavaScript, and safe TypeScript boundaries.
-    url: book/chapter_01_the_modern_web_platform_and_browser_internals/
-  - date: Chapters 6-8
-    title: Structure interactive applications
-    desc: Component design, rendering mechanics, state management, routing, and forms.
-    url: book/chapter_06_component_driven_architecture_and_design_patterns/
-  - date: Chapters 9-11
-    title: Connect data and rendering
-    desc: API communication, caching, real-time and offline systems, and rendering topologies.
-    url: book/chapter_09_client_server_communication_apis_and_cache_management/
-  - date: Chapters 12-14
-    title: Build and scale responsibly
-    desc: Build tools, team workflows, security, design systems, monorepos, and micro-frontends.
-    url: book/chapter_12_modern_build_systems_development_tooling_and_team_workflows/
-  - date: Chapters 15-18
-    title: Measure, deliver, and decide
-    desc: Performance, testing, continuous delivery, observability, and architectural judgment.
-    url: book/chapter_15_core_web_vitals_and_performance_engineering/
+  - date: Part I (Weeks 1-4)
+    title: Foundations, OO Principles & Iterations
+    desc: Developing software that can change, OO beyond syntax, Agile user stories, and SOLID principles.
+    url: book/
+  - date: Part II (Weeks 5-8)
+    title: Testing, Object Creation & Changing Behaviour
+    desc: Interfaces, TDD with JUnit/Mockito, Creational patterns, and GoF Behavioral patterns.
+    url: book/
+  - date: Part III (Weeks 9-10)
+    title: Architecture, Packages & Refactoring
+    desc: Layered packages, component stability, characterisation tests, and legacy seams.
+    url: book/
+  - date: Part IV (Weeks 11-13)
+    title: Flow Metrics, Continuous Delivery & AI Assistance
+    desc: Cycle time, contract tests, feature flags, retrospective handover, and responsible AI assistance.
+    url: book/
 topics:
-  title: Learning topics
+  title: Core competencies
   layout: grid
   columns: 3
   items:
-  - title: Browser internals
-    icon: fa-solid fa-book-open
+  - title: OO Responsibilities & Invariants
+    icon: fa-solid fa-shield-halved
     url: topics/#topic-1
-  - title: Semantic HTML & accessibility
-    icon: fa-solid fa-book-open
+  - title: SOLID Design Principles
+    icon: fa-solid fa-cubes
     url: topics/#topic-2
-  - title: Responsive CSS
-    icon: fa-solid fa-book-open
+  - title: Agile Planning & User Stories
+    icon: fa-solid fa-list-check
     url: topics/#topic-3
-  - title: Modern JavaScript
-    icon: fa-solid fa-book-open
+  - title: Test-Driven Development (TDD)
+    icon: fa-solid fa-flask
     url: topics/#topic-4
-  - title: TypeScript & runtime validation
-    icon: fa-solid fa-book-open
+  - title: Test Doubles & Mocks
+    icon: fa-solid fa-clone
     url: topics/#topic-5
-  - title: Component architecture
-    icon: fa-solid fa-book-open
+  - title: Creational & DI Containers
+    icon: fa-solid fa-box-open
     url: topics/#topic-6
-  - title: Reactivity & rendering
-    icon: fa-solid fa-book-open
+  - title: Behavioral Design Patterns
+    icon: fa-solid fa-arrows-split-up-and-left
     url: topics/#topic-7
-  - title: State, routing & forms
-    icon: fa-solid fa-book-open
+  - title: Package Cohesion & Coupling
+    icon: fa-solid fa-sitemap
     url: topics/#topic-8
-  - title: APIs & caching
-    icon: fa-solid fa-book-open
+  - title: Safe Legacy Refactoring
+    icon: fa-solid fa-wrench
     url: topics/#topic-9
-  - title: Real-time & offline systems
-    icon: fa-solid fa-book-open
+  - title: Lead & Cycle Time Metrics
+    icon: fa-solid fa-chart-line
     url: topics/#topic-10
-  - title: Rendering strategies
-    icon: fa-solid fa-book-open
+  - title: Contract Testing & Feature Flags
+    icon: fa-solid fa-toggle-on
     url: topics/#topic-11
-  - title: Development tooling
-    icon: fa-solid fa-book-open
+  - title: AI as an Engineering Assistant
+    icon: fa-solid fa-robot
     url: topics/#topic-12
-  - title: Front-end security
-    icon: fa-solid fa-book-open
-    url: topics/#topic-13
-  - title: Design systems & scaling
-    icon: fa-solid fa-book-open
-    url: topics/#topic-14
-  - title: Performance engineering
-    icon: fa-solid fa-book-open
-    url: topics/#topic-15
-  - title: Front-end testing
-    icon: fa-solid fa-book-open
-    url: topics/#topic-16
-  - title: Delivery & observability
-    icon: fa-solid fa-book-open
-    url: topics/#topic-17
-  - title: Architectural decisions
-    icon: fa-solid fa-book-open
-    url: topics/#topic-18
 tools:
-  title: Tools and technologies you will explore
+  title: Tools and technologies applied
   columns: 3
   items:
-  - name: Browser DevTools
-    desc: Inspect rendering, scheduling, and performance
-    icon: fa-solid fa-magnifying-glass
-    url: book/chapter_01_the_modern_web_platform_and_browser_internals/
-  - name: HTML and CSS
-    desc: Accessible documents and adaptable layouts
-    icon: fa-brands fa-html5
-    url: book/chapter_02_semantic_html_accessibility_internationalization_and_the_dom/
-  - name: JavaScript and TypeScript
-    desc: Async behavior and safe data boundaries
-    icon: fa-brands fa-js
-    url: book/chapter_04_modern_javascript_and_asynchronous_programming/
-  - name: React and Vue
-    desc: Compare component and reactivity models
-    icon: fa-solid fa-layer-group
-    url: book/chapter_06_component_driven_architecture_and_design_patterns/
-  - name: Vite and build tools
-    desc: Understand module graphs and code splitting
-    icon: fa-solid fa-bolt
-    url: book/chapter_12_modern_build_systems_development_tooling_and_team_workflows/
-  - name: Testing and observability
-    desc: Verify behavior and investigate production systems
+  - name: Java 17+ Baseline
+    desc: Strong typing, immutable records, explicit contracts, and modern syntax
+    icon: fa-brands fa-java
+    url: book/
+  - name: Apache Maven
+    desc: Deterministic builds, dependency graphs, and offline surefire verification
+    icon: fa-solid fa-gears
+    url: companion/
+  - name: JUnit 5 & Mockito
+    desc: Parametrized suites, assertions, strict stubs, and isolation spies
     icon: fa-solid fa-vial
-    url: book/chapter_16_testing_strategies_for_resilient_interfaces/
+    url: companion/
+  - name: PMD Static Analysis
+    desc: Automated code smell detection, design rules, and complexity gates
+    icon: fa-solid fa-magnifying-glass-chart
+    url: companion/
+  - name: Git & Agile Workboards
+    desc: Traceable commits, pull request peer reviews, and milestone delivery
+    icon: fa-brands fa-git-alt
+    url: book/
+  - name: LLMs & AI Coding Agents
+    desc: Critical evaluation of AI suggestions, boundary testing, and prompts
+    icon: fa-solid fa-brain
+    url: book/
 faq:
-  title: FAQ
+  title: Frequently Asked Questions
   items:
-  - question: Who is this book for?
-    answer: Readers who know basic HTML, CSS, JavaScript, and command-line usage and want to develop broader
-      front-end engineering skills. Professional front-end experience is not assumed.
+  - question: Who is this textbook intended for?
+    answer: It is written for postgraduate students in Artificial Intelligence (SE506 at UKH) and software engineers looking to master production-quality object-oriented design, automated testing, and agile collaboration.
     open: true
-  - question: Is this a React or Vue book?
-    answer: The web platform comes first. React and Vue provide comparative examples, while the book focuses
-      on concepts that carry across frameworks.
-  - question: How do the practicals work?
-    answer: The Playground contains 18 exercise briefs. Most call for a small Vite and TypeScript project;
-      follow each brief for its requirements. Runnable companion implementations are planned for a separate
-      repository.
-  - question: Are lecture slides available?
-    answer: There are currently 18 lecture decks covering Chapters 1-18. Open a deck from Lecture slides
-      to present it or use its print layout.
-  - question: Where should I begin?
-    answer: Start with Chapter 1 for the full progression, or choose a learning path above to revisit
-      platform foundations, application architecture, or production engineering.
-  - question: Can I download the book?
-    answer: Yes! You can download the complete offline PDF edition or read the entire manuscript online in a single continuous view using the download section below.
+  - question: Why focus on software engineering for AI students?
+    answer: The course descriptor prepares students to build reliable, maintainable software *around* AI and data components, handling real-world fallbacks, timeouts, test doubles, and evolving domain rules.
+  - question: What is the Campus Equipment Lending System?
+    answer: A realistic running domain used across chapters. Starting from a single reservation rule, it grows iteratively into a layered, decoupled system with persistence and policy models.
+  - question: How are code companions structured?
+    answer: Each chapter is paired with a companion containing complete or delta Java listings, line-by-line walkthroughs, lab solutions, and verified test outputs.
+  - question: Can I read and build the materials offline?
+    answer: Yes. Every chapter companion includes self-contained code listings, and all dependencies are pinned for reproducible offline testing.
 principles:
-  title: Engineering principles
+  title: Foundational engineering principles
   columns: 3
   items:
-  - icon: fa-solid fa-globe
-    title: Understand the platform
-    desc: Use browser behavior, web standards, accessibility, and security as the foundation for framework
-      decisions.
-  - icon: fa-solid fa-chart-line
-    title: Measure and verify
-    desc: Support performance and reliability decisions with observations, tests, and production feedback.
-  - icon: fa-solid fa-scale-balanced
-    title: Make trade-offs explicit
-    desc: Choose the simplest approach that meets the requirements, and record its costs and constraints.
+  - icon: fa-solid fa-code-branch
+    title: Design for change
+    desc: Invert dependencies, protect invariants, and isolate components that change for different reasons.
+  - icon: fa-solid fa-check-double
+    title: Test as a design practice
+    desc: Write automated tests to discover cohesive interfaces, define contracts, and prevent regressions.
+  - icon: fa-solid fa-arrows-spin
+    title: Iterate with empirical feedback
+    desc: Make small, reversible commits, measure flow with lead and cycle times, and adapt plans continuously.
 cta:
-  title: Read the book online or download
-  desc: Read all 18 chapters and 3 appendices online. You can also download the complete PDF edition for offline reading or browse the full continuous HTML edition.
+  title: Ready to explore the textbook?
+  desc: Start with the book manuscript or dive into the verified code companions and lab solutions.
   actions:
-  - label: Download (PDF)
-    url: downloads/Modern_Front_End_Engineering.pdf
-    icon: fa-solid fa-file-pdf
+  - label: Read Book Manuscript
+    url: book/
+    icon: fa-solid fa-book-open
     style: primary
-  - label: View Entirely (HTML)
-    url: _print/book/
-    icon: fa-solid fa-book-open-reader
-    style: ghost
-  - label: Start Chapter 1
-    url: book/chapter_01_the_modern_web_platform_and_browser_internals/
-    icon: fa-solid fa-compass
+  - label: Browse Companion & Code
+    url: companion/
+    icon: fa-solid fa-code
     style: ghost

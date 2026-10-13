@@ -57,7 +57,7 @@
       "description": "Front matter key read by the theme's templates."
     },
     "featured_image": {
-      "description": "How a blog page presents the featured image `images` selects: none | banner (a framed figure above the title) | wash (the image behind the article header at a low opacity) | hero (the immersive presentation: the blog shell paints the image as its own full-bleed backdrop and moves the opening down — on single pages and section indexes alike). Front matter `featured_image` overrides it for one page or, in a cascade, one section. A page that carries no image renders nothing either way."
+      "description": "How a blog page presents the featured image `images` selects: none | banner (a framed figure above the title) | wash (the image behind the article header at a low opacity) | hero (the immersive presentation: the blog shell paints the image as its own full-bleed backdrop and moves the opening down (on single pages and section indexes alike)). Front matter `featured_image` overrides it for one page or, in a cascade, one section. A page that carries no image renders nothing either way."
     },
     "feedback": {
       "description": "One-click structured docs feedback. The theme calls the site's existing gtag integration when present; no endpoint or free-text form is used."
@@ -231,7 +231,7 @@
       "description": "Front matter key read by the theme's templates."
     },
     "toc_style": {
-      "description": "Presentation of the right rail: fixed (a panel pinned to the viewport) or flow (a wider panel in the content flow that starts where the article starts and pins only on scroll — the immersive blog rail)."
+      "description": "Presentation of the right rail: fixed (a panel pinned to the viewport) or flow (a wider panel in the content flow that starts where the article starts and pins only on scroll (the immersive blog rail))."
     },
     "toc_taxonomies": {
       "description": "Taxonomy term clouds on the right rail. Front matter `toc_taxonomies` (or a section cascade) turns them off; a rail left with neither a TOC nor clouds renders nothing at all."

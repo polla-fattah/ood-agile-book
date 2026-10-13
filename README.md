@@ -1,42 +1,52 @@
-# Modern Front-End Engineering
+# Object Oriented Development and Agile Practices
 
-*From Browser Fundamentals to Production Architecture*
+*Designing, Testing and Evolving Software with AI Assistance*  
+**SE506, University of Kurdistan Hewlêr (UKH)**  
+Author: Dr. Polla Abdulhamid Fattah
 
-This repository is the complete Hugo website for the front-end architecture and engineering book.
-
-It is intentionally one site:
+This repository is the complete Hugo website and reader for the *Object Oriented Development and Agile Practices* textbook and companion.
 
 ```text
-new-lectures/
-├── content/book/        chapter and appendix manuscript
-├── content/slides/      lecture decks for each chapter
-├── content/playground/  practical exercises and labs
-├── layouts/             site presentation and Hugo templates
-├── assets/              styles, scripts, and slide assets
-├── static/              local fonts and static files
-└── hugo.yaml            the site configuration
+FrontEndBook/
+├── content/
+│   ├── book/         # Chapter and appendix manuscript (/book)
+│   ├── companion/    # Code, explanations, and lab solutions (/companion)
+│   ├── topics/       # Curriculum blueprint and learning outcomes (/topics)
+│   └── slides/       # Lecture decks (/slides)
+├── layouts/          # Book shell, presentation layer, and Hugo templates
+├── assets/           # SCSS styles, scripts, and runtime assets
+├── static/           # Images (front cover, logo), fonts, and static files
+├── scripts/          # Ingestion and helper scripts (sync_chapters.py)
+├── data/             # Homepage data (home.yaml, footer.yaml)
+└── hugo.yaml         # Site configuration
 ```
 
-The presentation layer is part of this website. There is no separate theme dependency or `themes/` directory.
+## Running Locally
 
-## Run locally
-
-From the repository root:
+Run development server with live reload:
 
 ```powershell
 hugo server --source .
 ```
 
-Build the complete site:
+Build the static site:
 
 ```powershell
 hugo --source . --cleanDestinationDir
 ```
 
-The Playground contains exercise briefs only. Implementation code for those exercises will live in a separate repository in a later phase.
+## Ingesting Chapters and Companions
 
-## Main sections
+When you are ready to copy the manuscript chapters and their companions into the site, run:
 
-- `/book` - the complete manuscript;
-- `/slides` - chapter lecture decks;
-- `/playground` - practical chapter exercises.
+```powershell
+# Dry run to preview what will be copied:
+python scripts/sync_chapters.py --dry-run
+
+# Execute sync:
+python scripts/sync_chapters.py
+```
+
+This automatically formats and adds the required Hugo front matter (`title`, `weight`, `book_number`, `type: book`) to:
+- `content/book/` for chapter manuscripts
+- `content/companion/` for code solutions and lab companions

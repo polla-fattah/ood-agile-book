@@ -168,7 +168,7 @@ print_entire_section: "পুরো বিভাগ মুদ্রণ করু
 feedback_question: "এই পৃষ্ঠাটি কি সহায়ক ছিল?"
 feedback_positive: "হ্যাঁ"
 feedback_negative: "না"
-feedback_thanks: "ধন্যবাদ—আপনার প্রতিক্রিয়া এই পৃষ্ঠাটি উন্নত করতে আমাদের সাহায্য করে।"
+feedback_thanks: "ধন্যবাদ, আপনার প্রতিক্রিয়া এই পৃষ্ঠাটি উন্নত করতে আমাদের সাহায্য করে।"
 feedback_reason_prompt: "কী বাধা হয়েছিল? (ঐচ্ছিক)"
 feedback_reason_missing: "অনুপস্থিত তথ্য"
 feedback_reason_outdated: "ভুল বা পুরোনো"
