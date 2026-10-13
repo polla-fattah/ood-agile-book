@@ -15,8 +15,10 @@ TITLE_PDF = os.path.join(SCRATCH_DIR, "title_pages.pdf")
 CONTENT_HTML = os.path.join(SCRATCH_DIR, "content_pages.html")
 CONTENT_PDF = os.path.join(SCRATCH_DIR, "content_pages.pdf")
 
-OUTPUT_PDF = os.path.join(WORKSPACE_DIR, "static", "downloads", "Modern_Front_End_Engineering.pdf")
-PUBLIC_PDF = os.path.join(WORKSPACE_DIR, "public", "downloads", "Modern_Front_End_Engineering.pdf")
+OUTPUT_PDF = os.path.join(WORKSPACE_DIR, "static", "downloads", "Object_Oriented_Development_and_Agile_Practices.pdf")
+PUBLIC_PDF = os.path.join(WORKSPACE_DIR, "public", "downloads", "Object_Oriented_Development_and_Agile_Practices.pdf")
+ALIAS_STATIC_PDF = os.path.join(WORKSPACE_DIR, "static", "downloads", "OOD_and_Agile_Book.pdf")
+ALIAS_PUBLIC_PDF = os.path.join(WORKSPACE_DIR, "public", "downloads", "OOD_and_Agile_Book.pdf")
 FRONT_COVER_IMG = os.path.join(WORKSPACE_DIR, "images", "cover-front.png")
 BACK_COVER_IMG = os.path.join(WORKSPACE_DIR, "images", "cover-back.png")
 MAIN_CSS = os.path.join(WORKSPACE_DIR, "public", "scss", "main.css")
@@ -297,8 +299,8 @@ def prepare_documents():
   <div class="formal-title-page">
     <div>
       <div style="font-size: 11pt; text-transform: uppercase; letter-spacing: 0.15em; color: #64748b; margin-bottom: 30px; font-weight: 600;">Textbook and Engineering Monograph</div>
-      <h1>Modern Front-End Engineering</h1>
-      <div style="font-size: 15pt; color: #475569; font-style: italic; margin-bottom: 40px;">From Browser Fundamentals to Production Architecture</div>
+      <h1>Object Oriented Development and Agile Practices</h1>
+      <div style="font-size: 15pt; color: #475569; font-style: italic; margin-bottom: 40px;">Designing, Testing and Evolving Software with AI Assistance</div>
     </div>
 
     <div style="margin: 40px auto;">
@@ -311,32 +313,33 @@ def prepare_documents():
 
     <div style="margin-top: auto; border-top: 1.5pt solid #cbd5e1; padding-top: 24px;">
       <div style="font-size: 16pt; font-weight: 700; color: #0f172a;">Dr. Polla Abdulhamid Fattah</div>
-      <div style="font-size: 11pt; color: #64748b; margin-top: 4px;">and Collection of LLMs</div>
+      <div style="font-size: 11pt; color: #64748b; margin-top: 4px;">with AI Collaboration and Practical Case Studies</div>
       <div style="font-size: 9.5pt; color: #64748b; margin-top: 12px; line-height: 1.5;">
         Senior Lecturer, Software &amp; Informatics Engineering, Salahaddin University-Erbil<br>
         Artificial Intelligence and Innovation Centre, University of Kurdistan Hewlêr<br>
         Software Development Team Manager, SmartGate
       </div>
       <div style="font-size: 8.5pt; color: #94a3b8; margin-top: 24px; text-transform: uppercase; letter-spacing: 0.1em;">
-        First Edition - Academic &amp; Production Reference - 2026
+        First Edition - Academic and Production Reference - 2026
       </div>
     </div>
   </div>
 
   <div class="colophon-page">
-    <h3 style="font-size: 13pt; color: #0f172a; margin-bottom: 12px;">Modern Front-End Engineering</h3>
-    <p style="font-style: italic; color: #64748b; margin-bottom: 20px;">From Browser Fundamentals to Production Architecture</p>
+    <h3 style="font-size: 13pt; color: #0f172a; margin-bottom: 12px;">Object Oriented Development and Agile Practices</h3>
+    <p style="font-style: italic; color: #64748b; margin-bottom: 20px;">Designing, Testing and Evolving Software with AI Assistance</p>
 
     <p><strong>Author:</strong> Dr. Polla Abdulhamid Fattah</p>
-    <p><strong>Published By:</strong> Academic &amp; Professional Engineering Monograph Series</p>
+    <p><strong>Course Context:</strong> SE506: Object Oriented Development and Agile Practices (MSc in AI / Software Engineering)</p>
+    <p><strong>Published By:</strong> Academic and Professional Engineering Monograph Series</p>
     <p><strong>Publication Date:</strong> 2026</p>
-    <p><strong>Repository &amp; Continuous Updates:</strong> <a href="https://github.com/polla-fattah/frontend-book" style="color: #0284c7;">github.com/polla-fattah/frontend-book</a></p>
-    <p><strong>Online Interactive Platform:</strong> <a href="https://polla.dev/frontend-book/" style="color: #0284c7;">polla.dev/frontend-book/</a></p>
+    <p><strong>Repository and Continuous Updates:</strong> <a href="https://github.com/polla-fattah/ood-agile-book" style="color: #0284c7;">github.com/polla-fattah/ood-agile-book</a></p>
+    <p><strong>Online Interactive Platform:</strong> <a href="https://polla.dev/ood-agile-book/" style="color: #0284c7;">polla.dev/ood-agile-book/</a></p>
 
     <div style="margin-top: 36px; padding: 16px; background: #f8fafc; border-left: 3pt solid #0284c7; border-radius: 4px;">
       <p style="margin: 0; font-size: 8.5pt; color: #334155;">
         <strong>About This Work:</strong><br>
-        This monograph presents front-end development as an engineering discipline, bridging raw computer science fundamentals (rendering engines, memory models, compilation pipelines, ASTs) with large-scale production architecture (micro-frontends, typed runtime boundaries, offline replication, Core Web Vitals, and observability). Designed for senior engineers, engineering leaders, and university students.
+        This textbook guides postgraduate and advanced students from writing classes to designing, testing, reviewing, and changing maintainable software in a collaborative team workflow. Its central teaching unit is a software change: understand requested behavior, choose an object-oriented design, protect it with automated tests, inspect results, and use feedback to plan subsequent iterations.
       </p>
     </div>
 
@@ -476,7 +479,7 @@ async def render_pdfs():
 
     header_template = """
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 7.5pt; color: #64748b; width: 100%; padding: 0 20mm; display: flex; justify-content: space-between; border-bottom: 0.5pt solid #cbd5e1; padding-bottom: 3px;">
-      <span>Modern Front-End Engineering</span>
+      <span>Object Oriented Development and Agile Practices</span>
       <span>Dr. Polla Abdulhamid Fattah</span>
     </div>
     """
@@ -532,7 +535,7 @@ def assemble_final_pdf():
     final_doc.insert_pdf(title_doc)
     title_doc.close()
 
-    # 3. Main Content Pages (TOC + Chapters 1-18 + Appendices A-C)
+    # 3. Main Content Pages (TOC + Chapters 1-15 + Appendices A-F)
     print(f"Inserting Book Content pages ({CONTENT_PDF})...")
     content_doc = pymupdf.open(CONTENT_PDF)
     final_doc.insert_pdf(content_doc)
@@ -545,6 +548,8 @@ def assemble_final_pdf():
     # Save
     final_doc.save(OUTPUT_PDF, garbage=4, deflate=True)
     final_doc.save(PUBLIC_PDF, garbage=4, deflate=True)
+    final_doc.save(ALIAS_STATIC_PDF, garbage=4, deflate=True)
+    final_doc.save(ALIAS_PUBLIC_PDF, garbage=4, deflate=True)
     page_count = len(final_doc)
     final_doc.close()
 
