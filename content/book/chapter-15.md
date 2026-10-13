@@ -7,7 +7,7 @@ weight: 150
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening problem
+## Opening scenario
 
 It is late. You ask an assistant for a small method, and it returns tidy code with a confident note: “I tested this with Java 17 and it works.” It compiles on your laptop. You also ask it for tests, and they pass. You commit. The next morning the pipeline fails to compile, because one call exists only from Java 21. A reviewer asks why the tests agree with the code when your teammate's examples do not. Another reviewer asks where a dependency named in a `pom.xml` snippet came from, because nobody can find it.
 
@@ -138,7 +138,7 @@ The lab's first prompt says the search is “within `searchDays` days”. That s
 
 ## 15.3 Requirements and code explanation
 
-### Ask for explanations that are about the code, and then check them
+### Explanations: ask for claims, then check them
 
 An assistant is often asked to explain code. Its explanation is a list of claims, some about what the code shows and some about things the code does not show. Break it into single claims and classify each:
 
@@ -287,7 +287,7 @@ The lab supplies a constructed example of a prompt that should not be sent, with
 
 ### Verify every dependency
 
-An assistant may suggest a library that does not exist. Researchers who tested sixteen code-generating models on 576,000 samples found that hallucinated package names averaged at least 5.2% for the commercial models and 21.7% for the open-source models they tested, and they point out that an attacker could register such a name with malicious code [7]. The percentages describe that study and its models, not yours. The habit is what matters.
+An assistant may suggest a library that does not exist. A Maven coordinate (group ID, artifact ID and version) names a library, and Appendix B.4 explains how the book uses Maven. Researchers who tested sixteen code-generating models on 576,000 samples found that hallucinated package names averaged at least 5.2% for the commercial models and 21.7% for the open-source models they tested, and they point out that an attacker could register such a name with malicious code [7]. The percentages describe that study and its models, not yours. The habit is what matters.
 
 | Check | How, for the book's toolchain | What it does not show |
 |---|---|---|

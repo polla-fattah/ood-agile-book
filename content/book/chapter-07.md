@@ -33,10 +33,11 @@ By the end of this chapter, you should be able to:
 1. a working MVP flow that someone else can run from written instructions;
 2. acceptance examples mapped to named tests;
 3. one red–green–refactor sequence recorded from your own code;
-4. a justified test double or controlled clock;
-5. a build result for the revision you demonstrate;
-6. real review feedback and a short retrospective with a next action; and
-7. a statement of what the MVP does not do.
+4. a short rationale for your object-oriented and SOLID choices;
+5. a justified test double or controlled clock;
+6. a build result for the revision you demonstrate;
+7. real review feedback and a short retrospective with a next action; and
+8. a statement of what the MVP does not do.
 
 Section 7.8 explains each item. Start with items 1 and 3.
 
@@ -419,7 +420,7 @@ A paid AI service is unnecessary. If using a live service, provide only syntheti
 
 ## 7.12 Review questions and midterm practice
 
-### Short concept questions
+### Concept questions
 
 1. Why is “the method did not throw” insufficient evidence for an availability query?
 2. What distinguishes the red stage of the worked cycle from a missing-dependency failure?

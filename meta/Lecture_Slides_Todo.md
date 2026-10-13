@@ -13,16 +13,16 @@ Checks run on every deck: no slide scrolls vertically or horizontally (`check.js
 | chapter-02 | Object-Oriented Development Beyond Syntax | 183 | 9 |
 | chapter-03 | Agile Development and the Nature of Change | 149 | 3 |
 | chapter-04 | From Requirements to an Iteration | 159 | 4 |
-| chapter-05 | Responsibilities, Extension, and Substitutability | 151 | 3 |
+| chapter-05 | Responsibilities, Extension, and Substitutability | 152 | 3 |
 | chapter-06 | Interfaces, Dependencies, and Composition | 126 | 3 |
 | chapter-07 | Testing as a Design Practice | 144 | 3 |
 | chapter-08 | Creating and Connecting Objects | 118 | 6 |
-| chapter-09 | Designing Changing Behaviour | 109 | 4 |
-| chapter-10 | From Classes to Application Structure | 125 | 3 |
+| chapter-09 | Designing Changing Behaviour | 108 | 4 |
+| chapter-10 | From Classes to Application Structure | 128 | 3 |
 | chapter-11 | Refactoring and Legacy Code | 112 | 4 |
-| chapter-12 | Measuring Progress, Flow and Technical Health | 101 | 2 |
+| chapter-12 | Measuring Progress, Flow and Technical Health | 102 | 2 |
 | chapter-13 | Integration, Delivery and Feedback | 120 | 3 |
-| chapter-14 | Responding to Change and Handing Over | 127 | 3 |
+| chapter-14 | Responding to Change and Handing Over | 129 | 3 |
 | chapter-15 | AI as a Software Engineering Assistant | 117 | 2 |
 
 ## Notes

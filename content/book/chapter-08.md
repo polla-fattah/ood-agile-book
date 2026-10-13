@@ -7,7 +7,7 @@ weight: 80
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening problem
+## Opening scenario
 
 The equipment office can reserve, check out and return equipment. Now it wants borrower categories to come from a university directory rather than from a category supplied by the calling code. Unfortunately, the proposed directory returns records containing `S`, `T`, `Y` and `N`; it returns null when a person is missing and throws its own exception when lookup fails.
 
@@ -446,7 +446,7 @@ The running project now has a tested directory-backed entry point. Chapter 9 mov
 
 Checked 12 and 13 October 2026. The project policies, provider contract, code, fixtures and teaching scenarios are original examples. The design patterns used here are treated in this chapter and, for the behavioural patterns, in Chapter 9.
 
-1. Gamma, E., Helm, R., Johnson, R. and Vlissides, J. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley. [Publisher catalogue](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-software-9780201633610). Read the five named pattern entries for their full discussions and variations.
+1. Gamma, E., Helm, R., Johnson, R. and Vlissides, J. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. [Publisher catalogue](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-software-9780201633610). Read the five named pattern entries for their full discussions and variations.
 2. Gamma et al., [Abstract Factory, publisher excerpt](https://www.informit.com/articles/article.aspx?p=1398599). Related product families and the intent of the pattern.
 3. Gamma et al., [Adapter, publisher excerpt](https://www.informit.com/articles/article.aspx?p=1398600). Interface conversion and object composition.
 4. Oracle, [Java SE 17 Optional](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Optional.html). Presence and absence in the return type.

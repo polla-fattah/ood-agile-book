@@ -137,7 +137,7 @@ Wireframes, examples and code are three descriptions of the same intended behavi
 
 ### Preserve the backlog’s history
 
-Chapter 3 proposed the following order. This chapter preserves its identifiers while clarifying what already exists and what remains to do.
+Chapter 3's order covered US-01, US-02 and EN-01, and its Part A asked you to extend it to six items. This chapter uses the extended order below. It preserves Chapter 3's identifiers while clarifying what already exists and what remains to do.
 
 | Order | Item | Current interpretation |
 |---|---|---|
@@ -273,7 +273,7 @@ Acceptance criteria remain specific to a story. The Definition of Done addresses
 
 ### Make one command meaningful
 
-Continuous integration needs a check that can run without relying on one developer’s open IDE. Our starter uses Java 17, Bash and the supplied executable Java checks. It has no external Java dependencies. Maven and JUnit remain the planned build and testing tools for the fuller testing stage; this checkpoint preserves the existing plain-Java checks so the kickoff does not require learning a test framework first. On Windows, run the script from Git Bash or WSL; PowerShell cannot interpret it.
+Continuous integration needs a check that can run without relying on one developer’s open IDE. Our starter uses Java 17, Bash and the supplied executable Java checks. It has no external Java dependencies. Maven and JUnit remain the planned build and testing tools for the fuller testing stage; this checkpoint preserves the existing plain-Java checks so the kickoff does not require learning a test framework first. On Windows, run the script from Git Bash or WSL; PowerShell cannot interpret it. Three terms you will meet below: Temurin is one distribution of the OpenJDK; YAML is the plain-text format in which a hosted workflow is written; and an exit status is the number a command returns to the shell, where zero means success and anything else means failure, which is how a script or a CI job learns that a step failed. Appendix B has the setup.
 
 The code file supplies a conventional source layout and a script. If you are continuing from the flat Chapter 2 directory, the move is mechanical: application classes go to `src/main/java`, the check classes go to `src/test/java`, and their contents do not change. The classes stay in the unnamed package, so this is a layout change only. It is the directory layout Maven expects, so a later move to Maven changes the build file and the checks, not where the sources live. From the repository root, run:
 
@@ -424,7 +424,7 @@ If using an AI service, give it only the synthetic scope and backlog. Ask for ri
 
 ## 4.11 Review questions
 
-### Short concept questions
+### Concept questions
 
 1. How do a vision, an iteration goal and an implementation task differ? Use the equipment project for each.
 2. Why can a console-based journey be a vertical slice even when it has no database?

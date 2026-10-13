@@ -22,7 +22,7 @@ Fifteen lecture decks, **one for each chapter** of *Object Oriented Development 
 **159 slides.** Vision and scope, capacity planning, tasks and tests, Arrange-Act-Assert, Git hygiene, a first CI pipeline.
 {{< /card >}}
 {{< card title="Chapter 5: Responsibilities, Extension, and Substitutability" link="slides/chapter-05/" icon="fa-solid fa-sitemap" >}}
-**151 slides.** Change pressures, code smells and static analysis, Single Responsibility, Open/Closed, Liskov Substitution.
+**152 slides.** Change pressures, code smells and static analysis, Single Responsibility, Open/Closed, Liskov Substitution.
 {{< /card >}}
 {{< card title="Chapter 6: Interfaces, Dependencies, and Composition" link="slides/chapter-06/" icon="fa-solid fa-sitemap" >}}
 **126 slides.** Interface Segregation, Dependency Inversion, constructor injection, composition roots.
@@ -39,7 +39,7 @@ Fifteen lecture decks, **one for each chapter** of *Object Oriented Development 
 **118 slides.** Factory Method, Abstract Factory, Builder, the legacy directory adapter, Decorator order, dependency injection.
 {{< /card >}}
 {{< card title="Chapter 9: Designing Changing Behaviour" link="slides/chapter-09/" icon="fa-solid fa-vial" >}}
-**109 slides.** Strategy, State and its transition table, Observer, Command and execution-time evaluation.
+**108 slides.** Strategy, State and its transition table, Observer, Command and execution-time evaluation.
 {{< /card >}}
 {{< /cards >}}
 
@@ -47,7 +47,7 @@ Fifteen lecture decks, **one for each chapter** of *Object Oriented Development 
 
 {{< cards >}}
 {{< card title="Chapter 10: From Classes to Application Structure" link="slides/chapter-10/" icon="fa-solid fa-layer-group" >}}
-**125 slides.** Layers and the permitted-dependency matrix, ports and adapters, package principles, instability, ADR-010.
+**128 slides.** Layers and the permitted-dependency matrix, ports and adapters, the package principles (CCP, CRP, REP, ADP, SDP, SAP), instability, ADR-010.
 {{< /card >}}
 {{< card title="Chapter 11: Refactoring and Legacy Code" link="slides/chapter-11/" icon="fa-solid fa-layer-group" >}}
 **112 slides.** The escape route, seams, characterisation tests, suspected defects, Extract Method and Extract Class.
@@ -58,13 +58,13 @@ Fifteen lecture decks, **one for each chapter** of *Object Oriented Development 
 
 {{< cards >}}
 {{< card title="Chapter 12: Measuring Progress, Flow and Technical Health" link="slides/chapter-12/" icon="fa-solid fa-gauge-high" >}}
-**101 slides.** Measurement contracts, velocity and throughput, burn-down and burn-up, lead and cycle time, CR-12 impact analysis.
+**102 slides.** Measurement contracts, velocity and throughput, burn-down and burn-up, lead and cycle time, CR-12 impact analysis.
 {{< /card >}}
 {{< card title="Chapter 13: Integration, Delivery and Feedback" link="slides/chapter-13/" icon="fa-solid fa-gauge-high" >}}
 **120 slides.** Boundary and contract tests, end-to-end journeys, the five-stage pipeline, feature flags, rollback.
 {{< /card >}}
 {{< card title="Chapter 14: Responding to Change and Handing Over" link="slides/chapter-14/" icon="fa-solid fa-gauge-high" >}}
-**127 slides.** Change review, triage, decision records, handover and traceability checks, retrospectives, contribution evidence.
+**129 slides.** Change review, triage, decision records, handover and traceability checks, retrospectives, contribution evidence.
 {{< /card >}}
 {{< card title="Chapter 15: AI as a Software Engineering Assistant" link="slides/chapter-15/" icon="fa-solid fa-gauge-high" >}}
 **117 slides.** The six-step workflow, work orders, claim-by-claim review, failure modes, privacy, dependencies and records.

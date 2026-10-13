@@ -7,7 +7,7 @@ weight: 130
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening problem
+## Opening scenario
 
 The visiting-researcher rule passes every unit test, and the demonstration works on the developer's laptop. On the morning of the Milestone 4 demonstration three things go wrong. The sponsor register exported by the office has a stray column, so a visitor request ends in an exception. The borrower directory takes eleven seconds to answer, and the officer's screen freezes. And the new flag is switched on for the demonstration but is off in the build, so the build is green and the demonstration fails.
 
@@ -97,6 +97,8 @@ CR-12 puts the sponsor approvals in a small tab-separated register with eight co
 Nothing replaces the file system or the parser, because those are the boundary under test. The suite also tests a missing file, a wrong header, a wrong column count, an unknown status, a bad date or instant, a blank sponsor, an invalid interval, a duplicate key, text that is not UTF-8, and a file that changes between two calls. A missing record is an expected result (the source returns empty). An unreadable or untrustworthy file is a failure (the source throws). The two must never be confused, because the first means “no sponsor approved this” and the second means “we could not find out”.
 
 ### The network boundary: a controlled local service
+
+A few words of HTTP for readers who have not used it directly. A client sends a request to an address. The server answers with a status code (200 means success, 404 means the thing asked about does not exist, 500 means the server itself failed), then headers (information about the answer) and then a body (the data). A timeout can in principle apply to each of those stages, which matters below. A loopback address is the local machine only, and an ephemeral port is one that the operating system picks because it is free, so a test can start a server without clashing with anything else.
 
 The directory used to be an in-memory fixture. It is now reachable over HTTP. `HttpLegacyDirectoryClient` asks `GET /borrowers/<key>` and understands one line, the provider's kind and status separated by a tab. To test it we need a service that we control: the JDK includes a simple HTTP server API for building embedded servers [9], which is enough for a stub that answers known keys, returns an error, never answers, or sends nonsense. A real service on the network would make the tests slow and dependent on someone else's availability.
 
@@ -314,7 +316,7 @@ The approved Milestone 4 instructions decide what is submitted, and this list is
 
 Do not claim a hosted pipeline run, a public deployment or a peer review that did not happen. A local pipeline run is evidence of a local run.
 
-## 13.9 AI in practice: inspect an integration test that replaces its boundary
+## 13.9 AI in practice: an integration test that mocks its boundary
 
 Chapter 15 collects the recurring AI workflows; this activity is self-contained, and the fixture below is all you need.
 

@@ -7,7 +7,7 @@ weight: 90
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening problem
+## Opening scenario
 
 The equipment team receives three requests. Borrowing limits may vary by borrower category. A proposed reservation workflow should allow cancellation before checkout but reject cancellation after the item is on loan. A successful reservation should inform several local observers, even when one expected notification attempt fails.
 
@@ -210,7 +210,7 @@ After a reservation is accepted, several local components may need to react. Har
 
 The optional `NotificationPublisher` implements `NotificationSender`. Observers register a callback receiving the immutable confirmed reservation. The coordinator can therefore use the publisher through its existing boundary. Registration and dispatch are the publisher's responsibility, not new methods on the coordinator.
 
-Java provides listener-management examples such as `PropertyChangeSupport` [2]. This chapter implements a deliberately smaller publisher with its own documented contract. It does not inherit another library's ordering, concurrency or failure guarantees merely because both use listeners.
+Java provides listener-management examples such as `PropertyChangeSupport` [2]. (The older `java.util.Observable` class is deprecated and should not be used as a model.) This chapter implements a deliberately smaller publisher with its own documented contract. It does not inherit another library's ordering, concurrency or failure guarantees merely because both use listeners.
 
 ### Define observable behaviour before dispatching
 
@@ -456,7 +456,7 @@ The project now has an optional tested local notification publisher and a reques
 
 Checked 12 and 13 October 2026. Code, fixtures, transition rules and publisher policies are original teaching examples. The behavioural patterns used here are treated in this chapter.
 
-1. Gamma, E., Helm, R., Johnson, R. and Vlissides, J. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley. [Publisher catalogue](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-software-9780201633610). Read the Strategy, State, Observer and Command entries in an authorised copy.
+1. Gamma, E., Helm, R., Johnson, R. and Vlissides, J. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. [Publisher catalogue](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-software-9780201633610). Read the Strategy, State, Observer and Command entries in an authorised copy.
 2. Oracle, [Java SE 17 PropertyChangeSupport](https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/beans/PropertyChangeSupport.html). A concrete listener-management API; its documented guarantees should not be assumed for the chapter's custom publisher.
 3. Oracle, [Java SE 17 Throwable](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Throwable.html). Suppressed exceptions used to retain multiple observer failures.
 4. Oracle, [Java SE 17 Runnable](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Runnable.html). A no-result action interface for comparison with the chapter's result-bearing command.

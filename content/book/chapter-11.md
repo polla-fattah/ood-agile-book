@@ -11,7 +11,7 @@ weight: 110
 
 The records office has an old overdue report. It lists every unreturned loan that is past its due date and adds a fine. This week two things go wrong. A student points out that a laptop two days late shows a fine of 0.00 yet still counts as overdue. A colleague on another machine sees amounts printed as `0,50` where everyone else sees `0.50`. Then the office asks for a small change: staff should get seven days of grace instead of five.
 
-You open the code. It is one method of about forty lines. The staff rule appears in one branch, the student rule in another, and a third branch handles anyone else. The number five appears twice in the staff branch, once in a comparison and once in a subtraction, and a change to only one of them would be a bug. The method reads today's date from the system clock, so its output changes every day. Nobody wrote tests, and the author has left.
+You open the code. It is one method of about forty lines. The staff rule appears in one branch, the student rule in another, and a third branch handles anyone else. The grace number, five, appears twice in the staff branch, once in a comparison and once in a subtraction, and a change to only one of them would be a bug. The same literal 5 also stands for the staff cap, so a search-and-replace would change the wrong thing as well. The method reads today's date from the system clock, so its output changes every day. Nobody wrote tests, and the author has left.
 
 There is a second reason for care. A colleague once tidied a report like this one, and the new version was shorter. It also listed fewer loans. Nobody could say whether a defect had been repaired or a promise had been broken, because nobody had recorded what the old report promised. What do you change first? Not the staff grace period. Before changing a rule you need to know what the code does today, so that you can tell afterwards whether you changed only what you meant to change. This chapter is about that situation: **changing code you do not yet understand, without tests that protect it**. The method is to observe, to pin what you observe, to reshape the structure in small checked steps, and to keep every correction of behaviour separate from every improvement of structure.
 
@@ -197,7 +197,7 @@ The observed fines for one loan, run on the supplied code with today fixed at 20
 | s (lower case) | 3 | **3.00** | Suspected defect: a typo in the data costs six times the student fine |
 | blank | 2 | **2.00** | Same branch |
 
-Four further observations belong in the suite: a loan due today or later is not listed; a returned loan is ignored; a null kind throws `NullPointerException` (and only for a loan that is actually overdue); and under a German locale the amounts print with a comma. The list shows one of each class: the grace listing and the comma are *surprising*, the unknown kinds are *suspected defects*, and the null-kind failure is *unknown*.
+Four further observations belong in the suite: a loan due today or later is not listed; a returned loan is ignored; a null kind throws `NullPointerException` (and only for a loan that is actually overdue); and under a German locale the amounts print with a comma. The list shows one example of each class that is not simply expected: the grace listing and the comma are *surprising*, the unknown kinds are *suspected defects*, and the null-kind failure is *unknown*.
 
 ### One test, written in the style
 
@@ -214,7 +214,7 @@ The comment is part of the test. In six months someone will see this test fail w
 
 ### A second net
 
-A table of examples covers only the inputs you thought of. A *differential* check adds a different kind of cover: keep a copy of the original code as an oracle, generate thousands of inputs with a fixed seed and compare the old and new output. The companion contains such a test. It is stronger than the examples for the kinds of input it generates, and it says nothing about inputs outside them. Neither net proves that the new code is equivalent to the old. They show that a chosen set of behaviours is unchanged, and the right amount of testing depends on how risky the change is. Add more where you are about to change more.
+A table of examples covers only the inputs you thought of. A *differential* check adds a different kind of cover: keep a copy of the original code as an oracle (a trusted source of expected results), generate thousands of inputs with a fixed seed and compare the old and new output. The companion contains such a test. It is stronger than the examples for the kinds of input it generates, and it says nothing about inputs outside them. Neither net proves that the new code is equivalent to the old. They show that a chosen set of behaviours is unchanged, and the right amount of testing depends on how risky the change is. Add more where you are about to change more.
 
 ## 11.4 Seams and dependency isolation
 

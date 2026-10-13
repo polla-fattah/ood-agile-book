@@ -188,7 +188,20 @@ This table provides a better diagnosis than “the method is long.” It identif
 
 ### A small improvement with a limited claim
 
-We will extract the confirmation expression into a private method named `confirmationFor`. The request method will still add the record first and then return the helper's result. The helper will receive the existing reservation and return exactly the same text.
+We will extract the confirmation expression into a private method named `confirmationFor`. The request method will still add the record first and then return the helper's result. The helper will receive the existing reservation and return exactly the same text:
+
+```java
+// Method added to ReservationCoordinator.java by the extraction.
+private String confirmationFor(Reservation reservation) {
+    return "Confirmed: " + reservation.id()
+            + " for " + reservation.borrowerId()
+            + " on " + reservation.itemId()
+            + " [" + reservation.period().start()
+            + ", " + reservation.period().endExclusive() + ").";
+}
+```
+
+The request method then ends with `reservations.add(reservation); return confirmationFor(reservation);`, so the record is still stored before the text is built.
 
 This is a modest refactoring. It gives the formatting operation a name and allows a reader to follow the request steps without reading every concatenation. It does **not** create a separate presentation component, remove storage coupling or make the coordinator thread-safe. A private helper changes readability inside the class; a new component would change the collaboration between classes.
 
@@ -564,7 +577,7 @@ Record one accepted claim and one rejected or qualified claim with evidence. Do 
 
 Parts A–C use the **Book project**; Part D concerns your **Team project**. Use the companion's common source files and **starting** `ReservationCoordinator.java`. Save all six Java files in one directory. Compile and run them using the instructions in the companion. The check runner should report 34 passing checks before you begin. Read the checks as provided evidence; you do not need to master the test-runner implementation yet.
 
-### Part A Understand the request
+### Part A: understand the request
 
 Trace the three requests in `Chapter02Demo`. Record the returned message and number of stored records after each call. Identify the first condition that rejects the overlapping request. Explain why the adjacent request is accepted and why the rejected request does not consume a reservation identifier.
 
@@ -576,17 +589,17 @@ Then complete one separate modelling exercise. It is practice in turning a writt
 
 Draw a class diagram with the classes, their key attributes and multiplicities. Include at least one aggregation, one composition, one interface realisation and one dependency, and state one assumption you had to make. For each relationship you draw, write the question from Section 2.6 that decided it. Then read every line aloud in both directions against the scenario.
 
-### Part B Diagnose the design
+### Part B: diagnose the design
 
 Write a short responsibility inventory for the coordinator. Identify two distinct reasons it might change. Explain one cohesive collaborator and one dependency that deserves attention. Avoid judging quality by method length alone.
 
-### Part C Make the change
+### Part C: make the change
 
 On a short-lived branch, move only the confirmation-string expression into a private `confirmationFor(Reservation reservation)` method. Keep its output, validation order, identifier allocation and storage effects unchanged. Do not add a new interface or change the public method signatures.
 
 Run the checks again, inspect the diff and ask a peer to review it. In independent study, perform a self-review and label it honestly as such. Produce one focused commit after addressing relevant feedback. A separate hosted pull request is optional for this introductory activity.
 
-### Part D Organise collaboration
+### Part D: organise collaboration
 
 Form teams of three or four as directed by the module leader. Confirm which of the module's provided starter domains your assessed project uses. Equipment lending is this book's running example; if your team chooses another domain, use each chapter's transfer note.
 
@@ -609,7 +622,7 @@ The activity is complete when the diagram matches the code, the confirmation ext
 3. Explain cohesion and coupling using one likely change to the coordinator. Why is reducing the total number of dependencies not a sufficient design goal?
 4. Compare composition and inheritance for the relationship between a reservation and its loan period. What would an inheritance relationship incorrectly suggest?
 
-### Diagnosis questions
+### Applied diagnosis
 
 5. A developer adds a getter returning the private mutable list and claims that the coordinator is still encapsulated because the field is private. Give a concrete counterexample and explain the limits of the proposed correction using `List.copyOf`.
 6. A refactoring returns the same confirmation text but omits `reservations.add(reservation)`. The developer demonstrates the printed text and declares success. Explain the behavioural change and identify evidence that would expose it.
@@ -620,7 +633,7 @@ A university room-booking coordinator stores bookings, checks room conflicts and
 
 Propose a responsibility diagram with at most four domain or application classes. State a period convention, identify the state that callers must not modify directly, and describe one small behaviour-preserving improvement. Provide two before-and-after observations needed to accept it. Include a brief review description and explain one remaining limitation. A new inheritance hierarchy or pattern is not required.
 
-## 2.12 Chapter summary
+## Summary and next chapter
 
 Objects become useful design units when their responsibilities and permitted interactions are clear. Constructors and controlled operations can protect invariants, while immutable values and careful collection access can prevent callers from bypassing intended boundaries.
 

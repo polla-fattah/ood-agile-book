@@ -99,7 +99,7 @@ By the end of this chapter, you should be able to:
 
 * One method of about **forty lines**.
 * The staff rule in one branch, the student rule in another, and a **third branch for anyone else**.
-* The number five appears **twice** in the staff branch; **changing only one is a bug**.
+* The **grace number, five,** appears **twice** in the staff branch; **changing only one is a bug**. The same literal 5 also stands for the **cap**, so a search-and-replace would change the wrong thing too.
 * It reads **today's date from the system clock**: its output changes every day.
 * **Nobody wrote tests, and the author has left.**
 

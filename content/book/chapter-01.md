@@ -190,7 +190,7 @@ An AI coding assistant may offer an explanation, suggest an implementation, prop
 
 GitHub’s documentation for Copilot inline suggestions, for example, warns that a suggestion can look valid and still be incorrect, and it says users are responsible for reviewing and validating suggestions before accepting them [4]. This is guidance about a particular tool, not evidence that every model has identical behaviour. In this book, we will apply the same review discipline to any candidate output we use.
 
-### Activity 1A Evaluate a candidate explanation
+### Activity 1A: evaluate a candidate explanation
 
 | Element | For this activity |
 |---|---|
@@ -264,7 +264,7 @@ Chapters 2–14 follow the thirteen teaching weeks. This introduction and Chapte
 
 The book’s worked system provides shared examples, and each practical activity says whether it runs on the **Book project** or on your **Team project**. Teams choose a project domain from those the module provides; equipment lending and an ML model-serving tool are examples. If your team uses another domain, its change requests will differ. Each chapter therefore ends with a transfer note. Learn the reasoning well enough to apply it: copying an equipment-related class name into another project does not establish that the responsibility belongs there.
 
-The module aims to prepare you to build reliable software around AI and data components, and the running project reflects that. It does not require training a model. The book takes the data-component route. Its data-backed collaborator is the **equipment directory**, which answers the question “who is this borrower, and which category are they in?” from outside the application. The domain code depends on it only through a contract. You meet it in steps: Chapter 6 previews the contract, Chapter 7 shows how a test substitutes it, Chapter 8 builds the adapter that translates the provider's codes, Chapter 10 places it in the application structure, and Chapter 13 adds what a real provider needs, namely timeouts and an explicit fallback-or-failure policy. It gives us a concrete place to discuss interpreting inputs, handling failures, evaluating outputs and substituting a test double. If your team's project uses a model-serving domain, the same questions apply to the component that calls the model. Using AI to help write software is a different topic, and Chapter 15 covers it. Neither turns this book into a machine-learning implementation course.
+The module aims to prepare you to build reliable software around AI and data components, and the running project reflects that without training a model. The book takes the data-component route. Its data-backed collaborator is the **equipment directory**, which answers the question “who is this borrower, and which category are they in?” from outside the application. The application depends on it only through a contract, so a test can substitute it and an outage can be told apart from an absent borrower. You meet it in steps: Chapter 6 previews the contract, Chapter 7 shows how a test substitutes it, Chapter 8 builds the adapter that translates the provider's codes, Chapter 10 places it in the application structure, and Chapter 13 adds what a real provider needs. Each of those terms is explained where it first appears. If your team's project uses a model-serving domain, the same questions apply to the component that calls the model. Using AI to help write software is a different topic, and Chapter 15 covers it.
 
 ## 1.7 How to study and read critically
 
@@ -307,7 +307,7 @@ Each mistake below can be exposed with a small counterexample from this chapter.
 
 This diagnostic helps identify what you need to practise. It is not a new graded assessment. It runs on the **Book project**: use the Java class in Section 1.1, its stated rules and the staff change as your materials. No team code is needed.
 
-### Task A Read and explain
+### Task A: read and explain
 
 Without running the code, predict the results of these calls. Explain each answer by identifying the relevant condition.
 
@@ -322,7 +322,7 @@ Without running the code, predict the results of these calls. Explain each answe
 
 Identify the class name, method name, parameter types and return type. Explain whether a call modifies a reservation count or records a new reservation. If you are unfamiliar with a keyword, distinguish that syntax gap from a difficulty understanding the rule.
 
-### Task B Examine one small fault
+### Task B: examine one small fault
 
 A developer changes `requestedDays <= 7` to `requestedDays < 7`. Provide one input that distinguishes the original and modified versions. State both results and explain which result agrees with the initial requirement.
 
@@ -354,7 +354,7 @@ false
 
 If you make the deliberate fault, repeat the same calls and explain the difference. Restore the original expression afterwards. Appendix B gives a full, reproducible development setup; a Java Development Kit and the commands shown above are all this exercise needs, and installing tools is not required to complete the paper diagnostic.
 
-### Task C Plan the staff change
+### Task C: plan the staff change
 
 Write a short change note without implementing a complete redesign. Include:
 
@@ -395,7 +395,7 @@ Choose one item marked “Need practice” and state your next action. For synta
 3. Why does passing a set of tests provide useful but limited evidence? Include an example of an incorrect expectation.
 4. Distinguish a behaviour change from a refactoring. Why should a reviewer know which one is intended?
 
-### Diagnosis questions
+### Applied diagnosis
 
 5. A developer replaces the student limits of three reservations and seven days with five and fourteen. Staff examples now pass. Explain why this is insufficient evidence that the requested change is correct, and give a student example that exposes the problem.
 6. An AI assistant writes a method and tests for it. Every test passes, so the team accepts the change without comparing it with the equipment officer’s rules. Identify the gap in the reasoning and propose a check that addresses it.
@@ -408,7 +408,7 @@ Prepare a change note using the method from Task C. State any assumptions you ne
 
 No design pattern is required. Your task is to explain the change, preserve existing behaviour and identify evidence that would support acceptance.
 
-## 1.11 Chapter summary
+## Summary and next chapter
 
 A functioning program is a starting point for engineering work. To change it responsibly, we need to understand the requested behaviour, locate the decisions that implement it and identify what must remain true.
 

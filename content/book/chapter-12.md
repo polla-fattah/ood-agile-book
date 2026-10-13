@@ -7,7 +7,7 @@ weight: 120
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*  
 
-## Opening problem
+## Opening scenario
 
 The lending team has completed several changes, yet the remaining-work line has risen. One item spent two days waiting for a directory decision. Another was removed from scope. A team member says that more commits prove the team is faster; an AI summary says the blocked item proves the architecture is poor.
 

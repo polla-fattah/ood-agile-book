@@ -334,7 +334,7 @@ Keep a record of what you accepted, rejected and deferred. Refer to the relevant
 
 This activity runs on your **Team project**. If your team uses equipment lending, start from the Chapter 2 coordinator, the three backlog entries in Section 3.6 and the teaching rules. If your team chose another provided domain, apply the same steps to that domain's starter codebase and its first user-visible capability. For an ML model-serving tool, for example, you might write “as an analyst, I want a prediction for a supplied record so that I can check the result”. The transfer challenge shows how to adapt the steps. This is preparation for the Week 3 kickoff; it does not change the module's assessment dates or weights.
 
-### Part A Define and refine the work
+### Part A: define and refine the work
 
 Write a short proposed Product Goal. Extend the draft backlog to six items by considering a borrower's active-reservation list, cancellation and catalogue-identifier validation. Use stable IDs and identify dependencies or unresolved decisions. Order the items and explain the first two positions.
 
@@ -342,7 +342,7 @@ Record which behaviours are already supported in code, which need new implementa
 
 Refine US-02 into a small story with at least four acceptance examples. State that asking about availability must not create or remove reservations. Decide which identifiers and period rules belong to its controlled scope, and mark unresolved policy rather than guessing it.
 
-### Part B Agree completion and workflow
+### Part B: agree completion and workflow
 
 Propose a Definition of Done and explain how it differs from your story criteria. Draw a board using the five example columns or a justified alternative. Define its start and finish points, movement policies, WIP control and handling of blocked work. Record the service-level expectation as provisional if you lack data. Write a short process note naming which Scrum elements your team uses as the Guide defines them, which it adapts for the course, and which optional practices (stories, points, a board) it adopts.
 
@@ -354,7 +354,7 @@ Use this **hypothetical later snapshot** only to practise a decision; it is not 
 
 The combined Building-plus-Review limit is two. Decide what the team should investigate next and explain why moving the blocked card outside the counted area would misrepresent its work.
 
-### Part C Estimate and critique
+### Part C: estimate and critique
 
 Choose two clarified items and propose relative estimates with assumptions. Identify one item that needs clarification or investigation before sizing. Complete the AI activity and record the disposition of each suggestion.
 
@@ -395,7 +395,7 @@ The activity is complete when the other team can explain the intended outcome, s
 3. Distinguish Sprint Review, Sprint Retrospective and Daily Scrum using the decisions each helps the team make.
 4. Explain the difference between acceptance criteria, Definition of Done and the local Ready-column policy.
 
-### Diagnosis questions
+### Applied diagnosis
 
 5. A team marks an availability story Done because its method returns a correct answer for one date. The enquiry also adds a reservation, and the change has not been reviewed. Identify two separate completion failures and the evidence needed to investigate them.
 6. Two items already occupy the team's limited active workflow. One is blocked in Review. A developer moves it to an uncounted column and starts a third item, claiming the WIP limit is still respected. Explain what the board now hides and propose a useful next action.
@@ -406,7 +406,7 @@ A laboratory room-booking team receives the request “Make booking easier.” D
 
 Identify one question that needs a stakeholder answer and one technical uncertainty that might need an investigation. Explain how the team could obtain feedback without pretending that every room-booking rule is already known.
 
-## 3.13 Chapter summary
+## Summary and next chapter
 
 Agile development combines a willingness to learn with visible work and explicit quality expectations. Short cycles help when feedback changes what the team understands, while careful design and checks help it make the resulting changes safely.
 

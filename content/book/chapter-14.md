@@ -7,7 +7,7 @@ weight: 140
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening problem
+## Opening scenario
 
 It is the morning of the final presentation. A classmate who was not in your team opens your repository link to see what you built. The README says to run one command. It fails, because the classmate's machine has no `mvn` on its path, and the error says only “command not found”. The README promises one number of passing tests, and the build reports another. The requirements table points at a test that was renamed last week. A reviewer asks which of the three of you wrote the approval-file adapter, and the commit log says the person with the most commits wrote it. They did not.
 
@@ -112,7 +112,7 @@ Chapters 5 to 11 made statements that the change tested. Some held and some did 
 
 Here is the cheapest possible “implementation” of visitors. The directory adapter maps the kind code `V` to the existing staff category, in one line, and no gate, no approval register and no new policy exist. The diff is one line.
 
-Run it against the finished suite (Companion, Section 5.2). **Every unit test passes.** What fails is the tests that cross the real boundary: the three end-to-end journeys that use visitors and the integration test that serves a visitor through the real directory. In the journey with the flag off, visitor V1 is confirmed, so the flag is ignored; an unapproved visitor is rejected only because the item is already taken, not because it is unapproved; and a malformed register no longer stops anyone. It is a smaller diff, and it does not implement the requirement.
+Run it against the finished suite (experiment E3 in the companion, Section 5.2). **Every unit test passes.** What fails is the tests that cross the real boundary: the three end-to-end journeys that use visitors and the integration test that serves a visitor through the real directory. In the journey with the flag off, visitor V1 is confirmed, so the flag is ignored; an unapproved visitor is rejected only because the item is already taken, not because it is unapproved; and a malformed register no longer stops anyone. It is a smaller diff, and it does not implement the requirement.
 
 Be careful about what this shows. It shows that this suite has a **gap**: no unit test checks the adapter's mapping of the visitor code, so a one-line change to it passes the whole unit stage. A focused unit test of the adapter would catch it, and so would the integration tests that did. The lesson is not that unit tests cannot see such a change. It is that a passing unit stage is evidence only about what the unit tests cover, and that a suite with a hole in it is found by trying a change that goes through the hole. Neither the size of a diff nor a green unit stage is the measure of a design. The acceptance examples are, and the gap itself is a finding: Section 14.10 (B8) asks you to close it.
 
@@ -251,7 +251,7 @@ Following the handover in a fresh folder found four things before any reader did
 | Finding | Effect on a new reader | Change |
 |---|---|---|
 | The setup assumed `mvn` was on the PATH. On the test machine it was not, and the failure said only `command not found` | The reader stops at step 1 | The document starts with a tool check, and the scripts print a clear message and stop if Maven or Java is missing |
-| On a recent JDK, Maven 3.9.11 prints `WARNING` lines about `sun.misc.Unsafe`, and the mocking library prints a warning that an agent was loaded | A reader may think the build is broken | The document lists “things you may see that are not errors” and says to read the last lines |
+| On a recent JDK, Maven 3.9.11 prints `WARNING` lines about `sun.misc.Unsafe` (these come from the JDK version, not from your code), and the mocking library prints a warning that an agent was loaded | A reader may think the build is broken | The document lists “things you may see that are not errors” and says to read the last lines |
 | The demonstration program needed a directory service that only the tests could start | The reader could not see the system work | A launcher that runs the stub and the program in one process, and `scripts/demo.sh` |
 | The first version of the clear message for a missing Maven was wrong: it rejected a valid Maven path on Windows (a `.cmd` file that is not executable in the shell sense) | The check meant to help would have blocked a correct setup | Found by running the handover check on a machine with a full path in `CHAPTER_MVN`; fixed by also accepting a file that exists |
 

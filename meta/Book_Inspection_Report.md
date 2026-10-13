@@ -3,6 +3,24 @@
 *OO Development and Agile Practices*  
 Inspection date: 14 October 2026. Scope: the 15 chapters in `content/book/chapter-01.md` to `chapter-15.md` (about 105,000 words), checked against their companions, Appendix D, the Curriculum page and the module's external sources. Nothing in the chapters was edited during the inspection; every finding below is a recommendation for the author to accept or reject.
 
+## 0. Status after the fixes (14 October 2026, later the same day)
+
+Fixes were applied in the order of Section 7. After them, the full site builds with no error or warning, the reference scripts report no broken `Section`, `Figure`, `Chapter`, appendix or companion-section reference, all 31 Mermaid diagrams render, and the affected lecture decks measure with no overflowing slide. Nothing is committed.
+
+| Item | Done |
+|---|---|
+| 1. 136 -> 159 (High) | Fixed in `chapter-12.md` (book), `companion/chapter-12.md` (three places) and the Chapter 12 deck. |
+| 2. Cross-document inconsistencies | Figure 10.1 now draws Presentation -> Domain and Bootstrap -> Domain and its caption names what is not permitted (deck figure redrawn to match). Chapter 10 now teaches CCP, CRP, REP, ADP, SDP and SAP by name, with a new subsection on abstractness, so the Curriculum page is correct (deck gained two slides). Chapter 13 companion: version 0.13.1 and 203/26/3 throughout; Chapter 14 companion and book: 0.13.1. |
+| 3. Figures | Numbered captions added to Chapters 4, 7 and 12; Figure 12.1 now plots all eleven days and its caption identifies both lines; Figure 13.1 draws the two outside boxes with dashed borders; Chapter 3 gained Figure 3.1 (Sprint events) and Figure 3.2 (the board and its limit). |
+| 4. Over-packed sections | 5.1 reordered (rule and stages first, evidence gathering last, five analyser terms defined). 7.4 retitled and bridged. 10.4 split: 10.4 "Dependency direction and its check", new 10.5 "Package design: cohesion, coupling and stability" (later sections renumbered 10.6 to 10.13). 12.7 given a bridge and the chapter description updated. 14.3 split: 14.3 "Documents, decision records and release notes", new 14.4 "Keeping the evidence true: rehearsal and traceability" (later sections renumbered 14.5 to 14.11). Section references in the other chapters, Appendices D, E and C, the companions and the decks were updated. 9.12 shortened, numbered and given a stable anchor. 6.3, 4.2 and the Chapter 8 description retitled; repeated Chapter 8 subheadings now name their pattern. |
+| 5. Sources | Chapter 10 [9] now cites Martin's own 2000 paper instead of Wikipedia; the paper's text was extracted and it contains the definitions used (Ca, Ce, I, A and all six package principles). Chapter 6 [1] is the same paper, now confirmed to state ISP and DIP, so the "could not be machine-checked" caveat was removed. Six moved addresses updated (all return 200). Gamma et al. now carries the year 1994. |
+| 6. Long lists | Milestone checklists (Chapters 7, 10, 13) and the "Acceptance conditions" paragraphs (Chapters 8, 9, 10, 11, 13, 14, 15) are now numbered or bulleted lists. Chapter 7's checklist now has the same eight items, in the same order, as its table (and its deck). |
+| Also done | Chapter 2 now prints the extracted `confirmationFor` method; Chapter 1 Section 1.6 paragraph shortened; Chapter 4, 13 and 15 gained short glosses for CI tooling terms, HTTP and Maven; Chapter 11's "five appears twice" sentence made exact (and its deck); heading conventions made uniform ("Opening scenario", "Summary and next chapter", "Concept questions", "Applied diagnosis", "Task A:" style labels); two long headings shortened. |
+
+**Not done (left as optional, Low severity):** reorder Chapter 1 Sections 1.5 and 1.6; a slicing pointer in Chapter 3; multiplicities in Figure 5.1; citing the ten sources that are listed but not cited by number; mentioning IDE refactorings in Chapter 11; moving the Quiz 1 and Quiz 2 pointers (Chapters 6 and 11); shortening the repeated data-backed-collaborator passage in Chapters 8 and 10; a Little's Law note in Chapter 12 (left out on purpose: the synthetic history is not a stable system, so the relation would not hold on its own table).
+
+The findings below are kept as written during the inspection, so section numbers in them (for example 10.4, 14.3, 7.4) refer to the numbering before the fixes.
+
 ## 1. How the inspection was done
 
 | Method | What it covered |

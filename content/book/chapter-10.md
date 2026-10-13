@@ -7,7 +7,7 @@ weight: 100
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening problem
+## Opening scenario
 
 The equipment application now has borrowing policies, a directory adapter, notification collaborators, loan operations and several demonstrations. Individual classes have understandable responsibilities, but the production code still sits largely in Java's unnamed package. Nothing in that organisation tells a new developer whether a borrowing policy may depend on a directory client or where a storage implementation should be constructed.
 

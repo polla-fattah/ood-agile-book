@@ -258,8 +258,15 @@ One entry per chapter: what was removed or rewritten, where the evidence went, a
 ## Lecture slides: one deck per chapter (14 to 15 October 2026)
 
 - Instruction from the owner: slides for each chapter instead of per teaching week, many slides, no vertical scrolling, same style and fonts, Chapters 1 and 2 split from the week 1 deck, Chapter 15 created.
-- 15 new decks `content/slides/chapter-01.md` to `chapter-15.md`, written from the chapters and companions (not converted from the weekly decks). 1,986 slides in all. Diagrams are inline SVG (`svgkit.py`, `dg_ch01.py` to `dg_ch15.py`, `embed.py`) because Mermaid does not render on deck pages.
+- 15 new decks `content/slides/chapter-01.md` to `chapter-15.md`, written from the chapters and companions (not converted from the weekly decks). 1,992 slides in all. Diagrams are inline SVG (`svgkit.py`, `dg_ch01.py` to `dg_ch15.py`, `embed.py`) because Mermaid does not render on deck pages.
 - `content/slides/_index.md` rewritten to list the 15 chapter decks; `content/topics/_index.md`: the 14 "Lecture Slides (Week NN)" links now point to the chapter decks and Chapter 15 has a link.
 - Retired, not deleted: `content/slides/week-01.md` to `week-13.md` moved to `internal_not_for_publishing/retired_week_decks/` (they are also in Git history). `Lecture_Slides_Todo.md` rewritten for the chapter decks; the old version is kept in the same folder.
 - Not changed: `assets/slides/deck.css`, `deck.js`, `layouts/slides/page.html`, the chapters and companions.
 - Checked: a full-site build in a scratch copy (135 pages, no error or warning); every deck measured in the browser at 1280 x 720 (0 overflowing slides, 0 SVG text problems).
+
+## Book inspection and fixes (14 October 2026, later)
+
+- Request from the owner: inspect the 15 chapters against ten criteria and fix the findings in the report's order. Report: `meta/Book_Inspection_Report.md` (Section 0 lists every fix and what was left).
+- Edited: `content/book/chapter-01.md` to `chapter-15.md`, `appendix-d.md`, `appendix-e.md`, `appendix-b.md`, `content/companion/chapter-10.md`, `chapter-12.md`, `chapter-13.md`, `chapter-14.md`, `appendix-c.md`, `content/slides/chapter-04.md`, `05`, `06`, `07`, `08`, `09`, `10`, `11`, `12`, `14`, `content/slides/_index.md` (slide counts), `meta/Lecture_Slides_Todo.md`, and `meta/internal_not_for_publishing/dg_ch10.py`.
+- Section numbering changed in Chapter 10 (10.4 split; 10.5 to 10.12 became 10.6 to 10.13) and Chapter 14 (14.3 split; 14.4 to 14.10 became 14.5 to 14.11); every reference found in the book, the companions, the appendices and the decks was updated.
+- Checked: full-site build (135 pages, no error or warning), reference scripts (no broken reference), 31 Mermaid diagrams render, and the changed decks measured at 1280 x 720 with no overflowing slide.

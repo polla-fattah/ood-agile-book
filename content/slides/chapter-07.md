@@ -85,7 +85,7 @@ Milestone 2 falls in this week. By your demonstration you need:
 1. A **working MVP flow** that someone else can run from written instructions.
 2. **Acceptance examples mapped to named tests.**
 3. **One red-green-refactor sequence** recorded from your own code.
-4. A **justified test double or controlled clock**.
+4. A short **rationale for your object-oriented and SOLID choices**.
 
 * Start with items 1 and 3.
 
@@ -93,9 +93,10 @@ Milestone 2 falls in this week. By your demonstration you need:
 
 ## Milestone 2 Checklist (2 of 2)
 
-5. A **build result** for the revision you demonstrate.
-6. **Real review feedback** and a short retrospective with a next action.
-7. A statement of **what the MVP does not do**.
+5. A **justified test double or controlled clock**.
+6. A **build result** for the revision you demonstrate.
+7. **Real review feedback** and a short retrospective with a next action.
+8. A statement of **what the MVP does not do**.
 
 * Section 7.8 explains each item.
 * The checklist is preparation. **The module leader's approved Milestone 2 requirements remain authoritative.**

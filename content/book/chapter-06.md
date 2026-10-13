@@ -438,7 +438,7 @@ Produce a corrected object graph and a small constructor. If using a live AI ser
 
 ## 6.11 Review questions
 
-### Short concept questions
+### Concept questions
 
 1. Why does `NotificationSender` omit the recorder's `received()` method?
 2. How can constructor injection be present while the intended DIP boundary is still missing?

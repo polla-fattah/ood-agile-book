@@ -453,7 +453,7 @@ If using a live AI service, supply only the synthetic source and stated rules. A
 
 ## 5.11 Review questions
 
-### Short concept questions
+### Concept questions
 
 1. Why is counting methods an unreliable way to apply SRP? Give one example from the running project.
 2. Against which variation is the policy design relatively protected, and which selection code remains open to change?
