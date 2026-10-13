@@ -485,8 +485,7 @@ async def render_pdfs():
     """
 
     footer_template = """
-    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 7.5pt; color: #64748b; width: 100%; padding: 0 20mm; display: flex; justify-content: space-between; border-top: 0.5pt solid #cbd5e1; padding-top: 3px;">
-      <span>Salahaddin University-Erbil &bull; UKH AIIC</span>
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 7.5pt; color: #64748b; width: 100%; padding: 0 20mm; display: flex; justify-content: flex-end; border-top: 0.5pt solid #cbd5e1; padding-top: 3px;">
       <span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
     </div>
     """
