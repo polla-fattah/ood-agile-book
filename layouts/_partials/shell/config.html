@@ -1,4 +1,4 @@
-{{- $name := .Site.Title -}}
+{{- $name := .Site.Params.ui.navbar_title | default .Site.Title -}}
 {{- $logoPath := .Site.Params.logo | default "icons/logo.svg" -}}
 {{- $logoURL := (partial "content/url.html" (dict
   "name" "shell" "parameter" "logo" "position" "site configuration"
