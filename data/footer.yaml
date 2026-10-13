@@ -13,6 +13,8 @@ columns:
     url: book/
   - label: Code & Solutions Companion
     url: companion/
+  - label: Download Complete PDF
+    url: downloads/Object_Oriented_Development_and_Agile_Practices.pdf
   - label: Blueprint & Syllabus
     url: topics/
 - title: Teach and practise

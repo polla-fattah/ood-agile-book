@@ -211,7 +211,7 @@ principles:
     desc: Make small, reversible commits, measure flow with lead and cycle times, and adapt plans continuously.
 cta:
   title: Ready to explore the textbook?
-  desc: Start with the book manuscript or dive into the verified code companions and lab solutions.
+  desc: Read online, explore verified code companions, or download the complete 341-page PDF monograph.
   actions:
   - label: Read Book Manuscript
     url: book/
@@ -220,4 +220,8 @@ cta:
   - label: Browse Companion & Code
     url: companion/
     icon: fa-solid fa-code
+    style: ghost
+  - label: Download Complete PDF
+    url: downloads/Object_Oriented_Development_and_Agile_Practices.pdf
+    icon: fa-solid fa-file-pdf
     style: ghost

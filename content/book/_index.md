@@ -46,3 +46,5 @@ This textbook guides postgraduate and advanced students from writing classes to 
   - Appendix F: Software Engineering for AI and Data Components
 
 > 💡 **Code & Solutions:** Companion implementations, delta checkpoints, and instructor verification records are available under the [Code & Solutions Companion]({{< relref "/companion" >}}).
+
+> 📥 **Download Complete Textbook:** The full 341-page publication-grade PDF monograph is available for offline reading: [Object Oriented Development and Agile Practices PDF](/downloads/Object_Oriented_Development_and_Agile_Practices.pdf).

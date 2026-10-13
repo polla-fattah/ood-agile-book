@@ -17,8 +17,6 @@ CONTENT_PDF = os.path.join(SCRATCH_DIR, "content_pages.pdf")
 
 OUTPUT_PDF = os.path.join(WORKSPACE_DIR, "static", "downloads", "Object_Oriented_Development_and_Agile_Practices.pdf")
 PUBLIC_PDF = os.path.join(WORKSPACE_DIR, "public", "downloads", "Object_Oriented_Development_and_Agile_Practices.pdf")
-ALIAS_STATIC_PDF = os.path.join(WORKSPACE_DIR, "static", "downloads", "OOD_and_Agile_Book.pdf")
-ALIAS_PUBLIC_PDF = os.path.join(WORKSPACE_DIR, "public", "downloads", "OOD_and_Agile_Book.pdf")
 FRONT_COVER_IMG = os.path.join(WORKSPACE_DIR, "images", "cover-front.png")
 BACK_COVER_IMG = os.path.join(WORKSPACE_DIR, "images", "cover-back.png")
 MAIN_CSS = os.path.join(WORKSPACE_DIR, "public", "scss", "main.css")
@@ -547,8 +545,6 @@ def assemble_final_pdf():
     # Save
     final_doc.save(OUTPUT_PDF, garbage=4, deflate=True)
     final_doc.save(PUBLIC_PDF, garbage=4, deflate=True)
-    final_doc.save(ALIAS_STATIC_PDF, garbage=4, deflate=True)
-    final_doc.save(ALIAS_PUBLIC_PDF, garbage=4, deflate=True)
     page_count = len(final_doc)
     final_doc.close()
 
