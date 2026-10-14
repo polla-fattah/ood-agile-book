@@ -28,11 +28,11 @@ Because Milestone 2 falls in this week, its checklist comes up front rather than
 
 Section 7.8 explains each item. Start with items 1 and 3.
 
-You start from Chapter 6's Java 17 application, with its explicit collaborator construction, student and staff policies and local notification outputs; the previous executable checks remain available. This chapter introduces **Maven, JUnit Jupiter and Mockito**, with an explicitly versioned configuration in the separate code file. Appendix B records the setup (B.4 and B.5), and the companion's `pom.xml` and commands are the exact reference. The companion also contains the full cumulative source, test listings, three TDD stages, solutions and observed verification results.
+You start from Chapter 6's Java 17 application, with its explicit collaborator construction, student and staff policies and local notification outputs; the previous executable checks remain available. This chapter introduces **Maven, JUnit Jupiter and Mockito**, with an explicitly versioned configuration in the separate code file. Appendix B records the setup (B.4 and B.5), and the companion's `pom.xml` and commands are the exact reference. The companion also contains the full source of the running project, test listings, three TDD stages, solutions and observed verification results.
 
-Sections 7.1 to 7.8 are the core reading, and Section 7.5 introduces hand-written doubles before Mockito. The minimum lab is steps 1 to 6, 8 and 9 of the practical activity in Section 7.11. Steps 1 to 6 run on the **Book project**; steps 8 and 9 run on your **Team project**, which is where your Milestone 2 evidence comes from, including the demonstration rehearsal, real review feedback and retrospective in checklist item 7. Step 7 (the same demonstration rehearsal on the book's project), the Section 7.9 AI activity, the review questions and the transfer challenge are optional. So is the midterm practice set in Section 7.12, though it is recommended: it practises the class-diagram, refactoring and unit-test work the midterm covers.
+Sections 7.1 to 7.8 are the core reading, and Section 7.5 introduces hand-written doubles before Mockito. What you must do is steps 1 to 6, 8 and 9 of the practical activity in Section 7.11. Steps 1 to 6 run on the book's project; steps 8 and 9 run on your team's project, which is where your Milestone 2 evidence comes from, including the demonstration rehearsal, real review feedback and retrospective in checklist item 7. If you want more, there is step 7 (the same demonstration rehearsal on the book's project), the AI activity in Section 7.9, the questions and the transfer challenge in Section 7.12. The midterm practice set in Section 7.12 is optional too, but it is well worth doing: it practises the class-diagram, refactoring and unit-test work the midterm covers.
 
-## 7.1 Behaviour and test evidence
+## 7.1 What does a test actually show? Behaviour and test evidence
 
 ### Start from a promise, not an implementation
 
@@ -43,14 +43,14 @@ Chapter 3 proposed US-02: an officer can inspect availability without creating a
 | AQ-01 | Empty schedule; enquire about CAM1 for a valid interval | Available; records and notifications unchanged |
 | AQ-02 | CAM1 reserved `[20 Oct, 22 Oct)`; enquire `[21 Oct, 23 Oct)` | Unavailable; no side effects |
 | AQ-03 | Same booking; enquire `[22 Oct, 23 Oct)` | Available because the end is exclusive |
-| AQ-04 | Same booking; enquire about MIC1 for the same interval | Available for the different fixture item |
+| AQ-04 | Same booking; enquire about MIC1 for the same interval | Available for the different sample item |
 | AQ-05 | Equal or reversed interval | Identifiable invalid-input outcome; no side effects |
 
-All dates in these examples are in 2026. The selected Java API is `isAvailable(itemId, start, endExclusive)`. It returns a boolean for a valid interval. Blank or null item identifiers cause `IllegalArgumentException`; equal or reversed dates do likewise; null dates cause `NullPointerException` through `LoanPeriod`. These choices settle the earlier open API question for this teaching checkpoint.
+All dates in these examples are in 2026. The selected Java API is `isAvailable(itemId, start, endExclusive)`. It returns a boolean for a valid interval. Blank or null item identifiers cause `IllegalArgumentException`; equal or reversed dates do likewise; null dates cause `NullPointerException` through `LoanPeriod`. These choices settle the earlier open question about the API for this stage of the book's project.
 
 Availability means no conflicting reservation for the item and interval. It does not mean that a particular borrower is eligible. The query accepts any positive interval representable by the dates, including more than seven days; student reservation limits still apply when a reservation is requested. It also does not know whether an item is physically on loan or present in a real catalogue. Those are distinct questions.
 
-### Observe result and state together
+### Looking at the result and the state together
 
 The overlap example checks a false result, unchanged reservations and unchanged recorded notifications. An implementation that calls `reserve` and then undoes it would also send a notice, which the unchanged-notices check exposes. One that adds a temporary record directly and removes it again is harder to catch: with identifiers taken from the list size, nothing remains afterwards for a sequential test to see, and only a concurrent caller could observe the intermediate state. We therefore reject that design by reading it, not by testing it. A separate example confirms that an enquiry does not consume the next reservation identifier. With size-based identifiers it overlaps the unchanged-records check, but it protects the promise if identifiers later come from their own counter.
 
@@ -58,9 +58,9 @@ Choose observations according to the promise. For an immutable snapshot, compari
 
 The expected answer must come from an agreed example or rule. Calculating it by calling the same method under test is circular. Copying the implementation's overlap expression into a test can reproduce its mistake. Concrete dates with an independently understood boundary provide a better starting point.
 
-### Introduce a test runner without losing earlier evidence
+### Adding a test runner without losing earlier evidence
 
-JUnit provides annotations, assertions and reporting for the new tests [1]. Maven compiles the application and runs JUnit through the configured Surefire plugin [2]. The standard command becomes:
+So far our checks have been plain Java programs. For the new tests we want a runner. JUnit provides annotations, assertions and reporting for them [1]. Maven compiles the application and runs JUnit through the configured Surefire plugin [2]. The standard command becomes:
 
 ```bash
 mvn --batch-mode verify
@@ -70,11 +70,11 @@ The existing `scripts/check.sh` now delegates to that command. The former plain-
 
 The wrapper reports four JUnit cases while their internal output still reports 34 Chapter 2 checks, five Chapter 3 example groups, 44 Chapter 5 checks and 28 Chapter 6 checks. Do not merge those counts as if they were identical units. The useful question is which behaviours execute and what failures reach the build.
 
-## 7.2 Test anatomy and Arrange–Act–Assert
+## 7.2 What a test looks like: Arrange–Act–Assert
 
-### Give the test a readable argument
+### Making the test read like an argument
 
-Arrange–Act–Assert is a useful structure: establish the relevant state, perform the operation being examined, and inspect the outcome. It is a reading aid, not a requirement to place exactly one statement in each phase.
+Most good unit tests follow a simple shape: Arrange–Act–Assert. You establish the relevant state, perform the operation being examined, and inspect the outcome. It is a reading aid, not a requirement to place exactly one statement in each phase.
 
 The first availability test arranges a two-day CAM1 reservation and takes snapshots of records and notices. It acts by enquiring about an overlapping interval. It asserts that the answer is false and both snapshots still match.
 
@@ -88,11 +88,11 @@ assertAll(
         () -> assertEquals(noticesBefore, inbox.received()));
 ```
 
-The test name describes the behaviour: `overlappingEnquiryIsUnavailableWithoutChangingRecordsOrNotifying`. A precise name reduces the need to reverse-engineer why a fixture contains particular values. Avoid names such as `test1` or `worksCorrectly` when the failure should tell another developer what promise was broken.
+The test name describes the behaviour: `overlappingEnquiryIsUnavailableWithoutChangingRecordsOrNotifying`. A precise name saves the next reader from having to reverse-engineer why the setup contains particular values. Avoid names such as `test1` or `worksCorrectly` when the failure should tell another developer what promise was broken.
 
 Several assertions can belong together when they describe one outcome. Splitting this test into three methods with identical setup may obscure the relationship between a query result and its non-mutation promise. Combining every query, loan and notification scenario into one giant method would create the opposite problem: a failure would be hard to locate.
 
-### Use assertions that can be wrong
+### Assertions that could actually fail
 
 `assertTrue(true)` cannot reject an implementation. “No exception occurred” may be valuable for a specific promise, but it does not establish availability. A meaningful assertion must distinguish the behaviour you want from a plausible defect.
 
@@ -100,17 +100,17 @@ Use `assertThrows` for a specified exceptional outcome and inspect state afterwa
 
 The companion uses parameterised tests for small tables of policy boundaries. Each row states category, count, days and expected decision. The test runner reports individual invocations, making a particular boundary failure visible. The table is deliberately authored from the rule: it is not generated by evaluating the policy itself.
 
-### Keep setup independent and small
+### Keeping setup small and independent
 
 Each scenario constructs fresh mutable collaborators unless sharing is part of the behaviour being tested. Reusing a static coordinator across tests makes results depend on which test ran first. The same test may then pass alone and fail in the suite.
 
-A helper such as `reserved()` can make a repeated one-reservation fixture clear. A large universal setup that creates borrowers, loans, notices and dates for every test can conceal which state matters. Prefer the smallest fixture that makes the scenario meaningful, while using real simple domain objects rather than mocking their accessors.
+A helper such as `reserved()` can make a repeated one-reservation setup clear. A large universal setup that creates borrowers, loans, notices and dates for every test can conceal which state matters. Prefer the smallest setup that makes the scenario meaningful, while using real simple domain objects rather than mocking their accessors.
 
-## 7.3 Red–green–refactor
+## 7.3 Red, green, refactor: one cycle in detail
 
-### Make the missing behaviour visible
+### Red: make the missing behaviour visible
 
-TDD works in short cycles: express an expected behaviour, observe its failure, implement enough to satisfy it and improve structure while preserving the tests [3]. This is a development sequence, not a label for tests added after a complete feature.
+Test-driven development, or TDD, works in short cycles: express an expected behaviour, observe its failure, implement enough to satisfy it and improve structure while preserving the tests [3]. This is a way of developing, not a label for tests added after a complete feature.
 
 The decision at red matters: a failing build is useful only when the test reaches the behaviour it is intended to examine.
 
@@ -141,7 +141,7 @@ The observed red result is one executed test with one failure and zero errors. I
 
 A missing library, syntax error or inability to resolve a dependency would not be this red result. Those failures prevent or interrupt the experiment. Fix the environment or compilation issue, then rerun until the intended assertion exposes the missing behaviour.
 
-### Green: implement the required decision
+### Green: write just enough to pass
 
 The green version constructs a `LoanPeriod`, inspects existing reservations and returns false if the same item has an overlapping period. If no conflict exists, it returns true. It does not call `reserve`, allocate an identifier or invoke the sender.
 
@@ -149,7 +149,7 @@ The same test then passes. This is useful evidence for that example, not permiss
 
 The companion adds empty-schedule, adjacency, different-item, invalid-input, identifier-preservation and eligibility-distinction cases. These examples extend the specification. The complete author workflow includes one explicitly recorded TDD cycle; the chapter does not claim that every supplementary test or loan feature was developed test-first.
 
-### Refactor: share conflict detection
+### Refactor: share the conflict check
 
 The green query duplicates conflict scanning already present in `reserve`. The refactoring extracts a private `hasConflict(itemId, requestedPeriod)` operation and uses it from both public methods.
 
@@ -159,38 +159,37 @@ Rerun the TDD test and the legacy bridge after extraction. The observed refactor
 
 The extraction is not justified because duplicated text is always forbidden. It is justified because the two callers need the same meaning of a reservation conflict. If one caller later needs physical stock or maintenance status, that new meaning should not be forced into this helper merely to avoid duplication.
 
-### Preserve a traceable sequence
+### Keeping a trail you can show
 
 The companion includes red, green and refactored coordinator snapshots plus their commands and results. In a team's repository, separate commits or a clearly recorded diff sequence can provide equivalent evidence. Keep the actual failing assertion and correction, not just a final screenshot saying tests passed.
 
 A deliberately wrong implementation supplied after the fact can demonstrate test sensitivity. It does not reconstruct a historical test-first workflow that never happened. Be precise about whether evidence shows an actual development sequence or a later diagnostic experiment.
 
-## 7.4 Boundaries, controlled time and a bounded lending flow
+## 7.4 Edges, clocks and a small lending flow
 
-### Test the edges that carry meaning
+### Testing the edges that matter
 
 Borrowing rules have useful boundaries: a student with two existing records may add a third; one with three may not. Seven days are allowed for a student, eight are not. The illustrative staff limits are five total records and fourteen days. Test values around those boundaries rather than a large number of unrelated ordinary values.
 
 Overlap also has boundaries. An enquiry beginning at the exclusive end is available if no other reservation conflicts. Equal start and end is invalid. A different item does not conflict solely because its dates match. Each example distinguishes a plausible error in the rule.
 
-Boundary selection is a form of reasoning. It is not an exhaustive proof over every possible integer or date. Combine examples with source inspection and, where justified, broader techniques later. Do not introduce a coverage target as a substitute for an explanation of the risks.
+Choosing boundaries is a way of reasoning. It is not an exhaustive proof over every possible integer or date. Combine examples with source inspection and, where justified, broader techniques later. Do not introduce a coverage target as a substitute for an explanation of the risks.
 
-### Control time where behaviour depends on today
+### Taking control of time
 
-Availability does not depend on the current date in this checkpoint, so it needs no clock. The new loan checkout operation does: checkout is allowed only on a date within the confirmed reservation's half-open period.
+Availability does not depend on the current date in this version, so it needs no clock. The new loan checkout operation does: checkout is allowed only on a date within the confirmed reservation's half-open period.
 
 `LoanService` therefore receives a Java `Clock`. It obtains `LocalDate.now(clock)`. Tests use `Clock.fixed`, or a small controlled clock when the scenario must advance to a later date. Java's clock abstraction includes an instant and a zone, allowing a test to supply both [4].
 
 A fixed UTC instant is not sufficient to define a local date without a zone. One test uses 19 October at 22:30 UTC with the Asia/Baghdad zone and expects the local checkout date to be 20 October. This is a deliberate example of zone-sensitive date conversion, not reliance on the machine's default zone.
 
-Do not wait until midnight or call `Thread.sleep` to test a date boundary. Change the supplied clock. The application remains quick to test, and the relevant time is visible in the fixture.
+Do not wait until midnight or call `Thread.sleep` to test a date boundary. Change the supplied clock. The application remains quick to test, and the relevant time is visible in the setup.
 
-### Add a bounded lending flow
+### A small lending flow
 
 The clock example above used checkout as its subject. This subsection states the rules of that small lending flow, which is a new feature and not a testing technique, so that the tests which follow rest on stated rules.
 
-
-The worked MVP increment adds a small `LoanService` linked to one coordinator in the same process. It records checkout and return against a confirmed reservation. Its teaching rules are explicit:
+The worked MVP increment adds a small `LoanService` linked to one coordinator in the same process. It records checkout and return against a confirmed reservation. Its rules, which we invented for this book, are explicit:
 
 | Operation | Rule and state effect |
 |---|---|
@@ -205,19 +204,19 @@ A `Loan` is a Java record with validated identifiers, a checkout date and an opt
 
 The service replaces an active loan value with a returned value instead of mutating earlier snapshots. Tests can therefore compare current state while an earlier snapshot continues to describe the earlier state.
 
-### Do not invent lifecycle rules silently
+### Not inventing lifecycle rules by accident
 
-Returning a loan does not delete or cancel its reservation. The existing reservation-count rule still counts every stored reservation, and reservation availability remains based on those records. An early return therefore does not free a reserved interval or restore a borrower's reservation allowance in this checkpoint.
+Returning a loan does not delete or cancel its reservation. The existing reservation-count rule still counts every stored reservation, and reservation availability remains based on those records. An early return therefore does not free a reserved interval or restore a borrower's reservation allowance in this version.
 
 This inherited limitation is explicit and tested. A production lifecycle would need agreed definitions for completed reservations and active counts. Introducing that rule now without revisiting earlier contracts would disguise a feature change as testing work.
 
 The demonstration uses one coordinator and one loan service for the session. Multiple independent loan services would have independent loan maps; the example provides no shared persistent or concurrent protection. It is a bounded in-memory MVP flow, not a complete lending operation.
 
-## 7.5 Dummies, stubs, fakes, spies and mocks
+## 7.5 Standing in for collaborators: dummies, stubs, fakes, spies and mocks
 
-### Name the role a substitute plays
+### Naming the role a substitute plays
 
-A test double replaces a collaborator for a testing purpose. The vocabulary below follows the commonly used distinctions described by Meszaros and summarised by Fowler [5]. Roles can overlap; the tool or class name alone does not determine the role.
+Sometimes a test needs a collaborator that is hard to control, so we stand in a substitute for it. A test double replaces a collaborator for a testing purpose. The vocabulary below follows the commonly used distinctions described by Meszaros and summarised by Fowler [5]. Roles can overlap; the tool or class name alone does not determine the role.
 
 | Role | Purpose | Example in this project |
 |---|---|---|
@@ -231,7 +230,7 @@ The coordinator itself is the subject under test in notification scenarios. Mock
 
 A hand-written recorder is often clearer than a mocking framework. Its list makes the effect visible. A configured failing sender is similarly easy to understand. Learn those roles first so a framework's fluent syntax does not become a substitute for reasoning.
 
-### Introduce Mockito for a specific interaction
+### Bringing in Mockito for one specific interaction
 
 The companion then creates a `NotificationSender` using Mockito. After a successful reservation, it verifies one `send` call and captures the supplied reservation to inspect its identifiers and period. Another test verifies no interaction for an invalid duration. A third makes `send` throw `NotificationException`, then checks the retained record and explicit failure suffix.
 
@@ -251,9 +250,9 @@ BorrowerDirectory nobody = id -> Optional.empty();
 BorrowerDirectory offline = id -> { throw new DirectoryException("provider offline"); };
 ```
 
-`knownStudent` is a stub with a fixed answer: it lets you test what the service does with a borrower it can trust. `nobody` is a stub that says “absent or inactive”: it tests the ordinary rejection. `offline` is a throwing stub for the failure case: it tests that an outage is reported as an outage and not as “not found”. None of them needs a framework, and none of them proves that a real provider behaves this way. Those three lines were compiled and run against Chapter 8's types; they print `STUDENT`, `false` and `failure: provider offline` when the three doubles are asked about borrower `B1`. The checkpoint of this chapter does not contain these types, so the snippet is illustrative here and becomes real code in Chapter 8.
+`knownStudent` is a stub with a fixed answer: it lets you test what the service does with a borrower it can trust. `nobody` is a stub that says “absent or inactive”: it tests the ordinary rejection. `offline` is a throwing stub for the failure case: it tests that an outage is reported as an outage and not as “not found”. None of them needs a framework, and none of them proves that a real provider behaves this way. Those three lines were compiled and run against Chapter 8's types; they print `STUDENT`, `false` and `failure: provider offline` when the three doubles are asked about borrower `B1`. This chapter's code does not contain these types, so the snippet is illustrative here and becomes real code in Chapter 8.
 
-### Match the double to the question
+### Matching the double to the question
 
 Use a recorder when you want to inspect accumulated notices. Use a throwing stub when you need a predictable output failure. Use an interaction-verifying mock when the contractual call itself is the observation. A fixed clock supplies controlled time; it does not prove the real operating-system clock is correct.
 
@@ -261,7 +260,7 @@ Neither the recorder nor the mock proves that email is delivered. A fake may acc
 
 Avoid checking every possible interaction automatically. A blanket “nothing else was called” assertion can make harmless implementation changes fail. Verify only absence or ordering that is meaningful to the requirement. Here “no notification after rejection” is meaningful; “exactly three calls to the snapshot getter” is not.
 
-## 7.6 Testability and design feedback
+## 7.6 What testing tells you about design
 
 ### Difficult setup can reveal a design problem
 
@@ -271,19 +270,19 @@ A difficult test may expose hidden global configuration, mixed responsibilities 
 
 The availability query creates no records and has no notification side effects. Its clear contract made it easy to test result and state separately. Attempting to implement it by calling `reserve` would immediately entangle eligibility, identifiers and notifications. Test difficulty would then be useful feedback about the proposed design.
 
-### Use real simple collaborators
+### Using real, simple collaborators
 
 `LoanPeriod` is cheap, deterministic and central to the rule being examined. Mocking it to say “overlaps” in every scenario would prevent query tests from exercising actual period semantics. The companion uses real dates and period objects.
 
 Similarly, an ordinary list or map should usually remain real in these tests. Replacing it with a mock can lead to assertions about `add`, `get` and call ordering rather than whether the application preserved the right records. A substitute should remove an obstacle or expose a meaningful boundary, not erase the very behaviour under examination.
 
-### Preserve useful regression evidence during migration
+### Keeping regression evidence during the migration
 
 Moving to JUnit does not require rewriting every old assertion at once. The bridge makes the earlier check runners visible to the new build. New tests are focused JUnit methods with readable names and parameterised cases.
 
 This bridge is transitional. Its four coarse test results give less precise runner-level reporting than individual migrated methods, even though internal assertion messages remain useful. Later migration can improve diagnosis without changing the expected behaviour. Do not discard earlier checks simply because their syntax predates the chosen framework.
 
-## 7.7 Weak or brittle tests
+## 7.7 Tests that look good but are weak or brittle
 
 ### A test can execute code and still ask nothing useful
 
@@ -297,13 +296,13 @@ This is a targeted mutation experiment. It shows that one test detects one plaus
 
 The companion repeats the idea with sixteen faults. Fourteen were caught at once. One revealed a real gap: the rule table says loan snapshots are unmodifiable, but no test checked it, so one assertion was added. The last could not be caught by any sequential test at all, because the faulty enquiry leaves nothing behind. A surviving fault is information to examine, not always a defect in the tests.
 
-### Do not let tests reproduce the same misunderstanding
+### Tests must not repeat the same misunderstanding
 
 An AI-generated implementation and AI-generated tests may agree because both assume inclusive end dates. Agreement is not independent evidence. Check expected values against the human-reviewed interval convention and concrete examples.
 
-Also avoid expected values derived from the result itself. Asserting that a returned identifier equals the identifier in the same returned object establishes no independent fact. For the first accepted reservation, an explicit expected R1 is meaningful under this checkpoint's identifier contract.
+Also avoid expected values derived from the result itself. Asserting that a returned identifier equals the identifier in the same returned object establishes no independent fact. For the first accepted reservation, an explicit expected R1 is meaningful under this version's identifier contract.
 
-### Avoid unnecessary implementation coupling
+### Not tying tests to the implementation
 
 A test asserting that the query calls private `hasConflict` exactly once would fail if the implementation used a different correct structure. The public result and state contract should normally survive that refactoring.
 
@@ -311,9 +310,9 @@ Exact text assertions can be useful when text is part of the existing contract, 
 
 When a test fails, classify the failure before fixing it: requirement misunderstanding, implementation defect, outdated expectation, environment/configuration problem or test fragility. A green build obtained by suppressing the assertion's exit status answers none of those questions.
 
-## 7.8 Milestone 2 evidence
+## 7.8 Preparing the Milestone 2 evidence
 
-### Demonstrate an outcome with its boundaries
+### Demonstrating an outcome and its boundaries
 
 The Chapter 7 demonstration now follows a complete small journey: inspect reservation availability, create a reservation, observe the changed availability, check out the item within the reserved period and return the loan. It records one accepted-reservation notice. It does not send additional checkout or return notices because those were not part of the selected requirement.
 
@@ -332,36 +331,36 @@ This gives teams a concrete example of a bounded MVP increment. Their assessed d
 
 A test report is not the whole milestone. Another person should be able to reproduce the demonstration and explain what remains outside its claim. A hosted CI run remains separate evidence from the local Maven runs performed for this chapter.
 
-### Make the retrospective useful
+### Making the retrospective useful
 
 A retrospective note should connect an observation to an action. For example, a team might discover that availability tests had silently assumed the machine's current date, then decide to make all relevant time dependencies explicit. Record that only if it actually happened.
 
-Avoid pre-filled success narratives. “We collaborated well” without an example does not explain how work changed. A useful note might identify a delayed review, its effect on integration and a concrete earlier review checkpoint for the next iteration. Distinguish a proposed improvement from an improvement already tested.
+Avoid pre-filled success narratives. “We collaborated well” without an example does not explain how work changed. A useful note might identify a delayed review, its effect on integration and a concrete earlier point for review in the next iteration. Distinguish a proposed improvement from an improvement already tested.
 
-## 7.9 AI in practice: separate implementation from expected behaviour
+## 7.9 Keeping implementation and expected behaviour apart, with AI
 
 Use the reviewed AQ-01–AQ-05 examples as the authority. Ask an AI assistant for a candidate query implementation, then separately ask for omitted boundary cases. Evaluate both outputs rather than letting them validate each other.
 
-Chapter 15 collects the recurring AI workflows; this activity is self-contained, and the reviewed AQ-01–AQ-05 examples are all you need.
+Chapter 15 gathers the AI workflows that recur in this book. This activity is complete on its own, and the reviewed AQ-01–AQ-05 examples are all you need.
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Separate a proposed implementation from the evidence that would accept or reject it |
-| Input | AQ-01–AQ-05 as reviewed, and Chapter 6's coordinator |
-| Permitted scope | Evaluate the candidate implementation and its tests; do not treat either as proof of the other |
-| Independent checks | The reviewed examples, the labelled wrong-boundary mutation, and the build result |
-| Accept or reject | A verdict with independent evidence for each claim |
-| No-account route | The fixture below is sufficient |
+| Your goal | Separate a proposed implementation from the evidence that would accept or reject it |
+| You start with | AQ-01–AQ-05 as reviewed, and Chapter 6's coordinator |
+| What is in bounds | Evaluate the candidate implementation and its tests; do not treat either as proof of the other |
+| How to check | The reviewed examples, the labelled wrong-boundary mutation, and the build result |
+| How to decide | A verdict with independent evidence for each claim |
+| No AI account? | The ready-made output below is enough |
 
-For offline use, the following is an **author-written fictional AI-output fixture**, constructed for this exercise:
+For offline use, the text below is **fictional AI output written by the author** for this exercise:
 
 > An enquiry can call `reserve` and remove the temporary record. Treat the end date as inclusive so adjacent bookings conflict. A test is sufficient if the method returns without throwing. Since the implementation and generated tests agree, coverage will prove correctness. For time-sensitive loan tests, use the current date and wait until tomorrow to test the next state.
 
 Identify each unsupported claim, propose an independent expected result and describe the evidence that would reject the candidate. Run the supplied labelled boundary mutation in an isolated copy. Retain its actual failure and the restored pass.
 
-A paid AI service is unnecessary. If using a live service, provide only synthetic data and record the prompt, relevant output, accepted/rejected claims and independent verification. Do not manufacture a transcript or claim a test-first sequence that was not performed.
+A paid AI service is unnecessary. If you use a live service, give it only synthetic data and record the prompt, the relevant output, the claims you accepted or rejected and how you verified them independently. Do not manufacture a transcript or claim a test-first sequence that was not performed.
 
-## 7.10 Common mistakes
+## 7.10 Testing habits that mislead
 
 | Mistake | Consequence | Better action |
 |---|---|---|
@@ -374,15 +373,13 @@ A paid AI service is unnecessary. If using a live service, provide only syntheti
 | Remove old checks during tool migration | Loses existing evidence | Bridge or migrate them explicitly |
 | Call the bounded demo production-ready | Conceals lifecycle and integration gaps | State what the MVP actually demonstrates |
 
-## 7.11 Practical activity
+## 7.11 Try it yourself: a test-first change and the Milestone 2 evidence
 
-**Input:** Chapter 6's checkpoint, the reviewed query criteria, the new loan-flow rules and the companion's Maven/JUnit setup. Steps 1–7 run on the **Book project**; steps 8 and 9 run on your **Team project**.
+You start from Chapter 6's finished code, the reviewed query criteria, the new loan-flow rules and the companion's Maven and JUnit setup. Steps 1 to 7 run on the book's project; steps 8 and 9 run on your team's project.
 
-**Instructor demonstration:** run the labelled red stage, inspect the precise assertion failure, apply the green implementation, extract conflict detection and rerun both the new test and legacy bridge.
+If your instructor demonstrates the task, they will run the labelled red stage, point out the precise assertion failure, apply the green implementation, extract the conflict detection and rerun both the new test and the legacy bridge. For guided practice, convert one policy boundary table into parameterised examples and discuss which incorrect result each row distinguishes, then compare a hand-written recorder with the Mockito interaction test.
 
-**Guided practice:** convert one policy boundary table into parameterised examples. Discuss which incorrect result each row distinguishes. Compare a hand-written recorder with the Mockito interaction test.
-
-**Independent work:**
+Then work through these steps:
 
 1. Reproduce the supplied TDD cycle or conduct a small new one for an agreed missing behaviour. Record the actual sequence.
 2. Complete the remaining query examples, including side effects and adjacency.
@@ -391,16 +388,16 @@ A paid AI service is unnecessary. If using a live service, provide only syntheti
 5. Run the labelled wrong-boundary implementation in a separate copy, identify the failing assertion and restore the correct source.
 6. Run the full build and map selected acceptance examples to named tests.
 7. Rehearse the MVP demonstration from documented instructions, obtain actual review feedback and write a short retrospective with a next action.
-8. On your **Team project**, take one behaviour from your backlog and develop it test-first. Record the actual red failure, the green change and the refactoring, as the chapter's worked cycle does. Do not reconstruct a sequence afterwards.
-9. On your **Team project**, work through the Milestone 2 checklist at the top of this chapter. Rehearse your own MVP demonstration from written instructions, obtain actual review feedback and write a short retrospective with a next action, as step 7 does for the book's project. Record which checklist items are complete, which are gaps and who will close each one.
+8. On your team's project, take one behaviour from your backlog and develop it test-first. Record the actual red failure, the green change and the refactoring, as the chapter's worked cycle does. Do not reconstruct a sequence afterwards.
+9. On your team's project, work through the Milestone 2 checklist at the top of this chapter. Rehearse your own MVP demonstration from written instructions, obtain actual review feedback and write a short retrospective with a next action, as step 7 does for the book's project. Record which checklist items are complete, which are gaps and who will close each one.
 
-**Expected output:** runnable source; focused tests; TDD and mutation evidence; double rationale; actual build result; demonstration notes; review/retrospective notes; explicit limitations; and the step 8 and 9 records for your Team project.
+What you should end up with is: runnable source; focused tests; TDD and mutation evidence; a rationale for your double; the actual build result; demonstration notes; review and retrospective notes; explicit limitations; and the step 8 and 9 records for your team's project.
 
-**Completion checks:** the failure is behavioural and understood; query results and state effects match the examples; time-sensitive tests do not depend on the actual day; the whole regression suite executes; the demonstration includes reservation, checkout and return. Use approved module requirements for submission.
+You are done when the failure you saw was behavioural and you understood it, query results and state effects match the examples, time-sensitive tests do not depend on the actual day, the whole regression suite runs, and the demonstration includes reservation, checkout and return. For submission, use the approved module requirements.
 
-**Optional extension:** sketch how completed reservations should affect borrower counts and early-return availability. Identify every earlier contract and check that would need revisiting. Do not silently implement that policy as part of this exercise.
+If you want more, sketch how completed reservations should affect borrower counts and early-return availability. List every earlier contract and check that would need revisiting, and do not silently implement that policy as part of this exercise.
 
-## 7.12 Review questions and midterm practice
+## 7.12 Questions to think with, and midterm practice
 
 ### Concept questions
 
@@ -412,7 +409,7 @@ A paid AI service is unnecessary. If using a live service, provide only syntheti
 ### Applied diagnosis
 
 5. A test calculates its expected availability by calling the same overlap helper used by production code. Both treat adjacency as overlap. Explain why the green result is weak and replace it with an independent example.
-6. A loan test passes alone but fails after another test, and both use a static shared loan service. Diagnose the likely cause and propose a fixture strategy that still allows intentional multi-step scenarios.
+6. A loan test passes alone but fails after another test, and both use a static shared loan service. Diagnose the likely cause and propose a setup strategy that still allows intentional multi-step scenarios.
 
 ### Transfer challenge
 
@@ -420,7 +417,7 @@ A room-booking service permits availability enquiry and check-in only during the
 
 ### Midterm practice set (Chapters 2–7)
 
-The midterm covers Weeks 1–6, which are Chapters 2–7. According to the module descriptor, it asks you to model a scenario with UML class diagrams, identify SOLID violations and smells in supplied code, refactor short snippets by introducing interfaces and dependency injection, and write unit tests with test doubles for a small component. The five tasks below practise those four things. They are separate from the cumulative project. Do not add Chapter 8's patterns, which the midterm does not cover even though they are taught that week. Whether Mockito may be used in the exam is the module leader's decision, and it has not yet been confirmed for this book; follow the module leader's instructions about what the exam permits. The book teaches Mockito as a working tool, separately from what an assessment allows, and hand-written doubles work in any setup.
+The midterm covers Weeks 1–6, which are Chapters 2–7. According to the module descriptor, it asks you to model a scenario with UML class diagrams, identify SOLID violations and smells in supplied code, refactor short snippets by introducing interfaces and dependency injection, and write unit tests with test doubles for a small component. The five tasks below practise those four things. They are separate from the running project. Do not add Chapter 8's patterns, which the midterm does not cover even though they are taught that week. Whether Mockito may be used in the exam is the module leader's decision, and it has not yet been confirmed for this book; follow the module leader's instructions about what the exam permits. The book teaches Mockito as a working tool, separately from what an assessment allows, and hand-written doubles work in any setup.
 
 **Task 1: UML.** Draw a class diagram for this scenario. Include multiplicities, one composition, one interface realisation and one dependency, and write down one rule your diagram cannot express.
 
@@ -454,11 +451,11 @@ public class OverdueReminder {
 
 The companion gives the supplied `MailClient`, a model solution for each task and a way to run the tests. Attempt the tasks before reading it.
 
-## Summary and next chapter
+## What to take away, and what comes next
 
-Meaningful tests distinguish intended behaviour from plausible mistakes. The worked cycle makes one missing rule fail visibly, implements it and protects the subsequent structural change. Controlled collaborators and clocks make important outcomes reproducible, while carefully chosen assertions keep tests useful during refactoring.
+Meaningful tests tell intended behaviour apart from plausible mistakes. The worked cycle makes one missing rule fail visibly, implements it and protects the structural change that follows. Controlled collaborators and clocks make important outcomes reproducible, and carefully chosen assertions keep the tests useful while you refactor.
 
-The cumulative project now includes reservation availability enquiry and a bounded checkout/return flow. Its lifecycle and integration limits remain explicit. Chapter 8 examines construction and compatibility patterns, building on these tests rather than replacing design judgement with pattern names.
+The running project now includes reservation availability enquiry and a bounded checkout and return flow. Its limits on lifecycle and integration remain explicit. Chapter 8 looks at construction and compatibility patterns, building on these tests and not replacing design judgement with pattern names.
 
 ## Sources and further reading
 

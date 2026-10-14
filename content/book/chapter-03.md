@@ -13,13 +13,13 @@ The team can look inside the stored list, but the application has no such query.
 
 The team cannot do all of it at once, and it should not try. It needs a way to clarify what is being asked, compare the value of each request, be honest about what it does not yet know, and decide what useful work to finish next. That is what agile development is for: not speed for its own sake, but learning quickly while there is still little to undo. In this chapter you will watch that process work on the same small codebase. You will separate iteration from increment, explain the Agile values through concrete project decisions, and compare Scrum's framework with Kanban's attention to flow. You will write small user stories and test them with INVEST, write acceptance criteria and tell them apart from a Definition of Done, and talk about estimates and uncertainty without treating a number as a promise. What you end up with is an ordered backlog, testable stories, shared completion conditions and a visible workflow.
 
-This chapter corresponds to **Week 2** and supports LO5. It assumes you understand Chapter 2's objects, date convention and basic review workflow, and it needs no project-management platform and no new Java framework. It supports the Week 2 readings: the Agile practices and planning chapters of Martin [7], the Scrum Guide [3] and the selected chapters of Rubin [8]. The cumulative application stays at Chapter 2's completed checkpoint, because this chapter plans future work and does not claim that those features already exist. The companion has worked backlog items, board policies, exercise solutions and an optional executable bridge from acceptance examples to the existing Java implementation.
+This chapter corresponds to **Week 2** and supports LO5. It assumes you understand Chapter 2's objects, date convention and basic review workflow, and it needs no project-management platform and no new Java framework. It supports the Week 2 readings: the Agile practices and planning chapters of Martin [7], the Scrum Guide [3] and the selected chapters of Rubin [8]. The running project stays exactly where Chapter 2 left it, because this chapter plans future work and does not claim that those features already exist. The companion has worked backlog items, board policies, exercise solutions and an optional executable bridge from acceptance examples to the existing Java implementation.
 
-Sections 3.1 to 3.9 are the core reading. The minimum lab is Parts A to C of the practical activity in Section 3.10, done on your **Team project**; the equipment-lending backlog in this chapter is the worked model, not your evidence. The evidence listed at the end of Section 3.10 (backlog, story cards, Definition of Done, workflow policy, process note, estimates and AI decision log) comes out of those three parts and needs nothing more than a text editor or a board. If you want to go further, write the plain-Java acceptance check described at the end of Section 3.10, then answer the review questions and the transfer challenge.
+Sections 3.1 to 3.9 are the core reading. What you must do is Parts A to C of the practical activity in Section 3.10, on your team's project; the equipment-lending backlog in this chapter is the worked model, not your evidence. Everything you keep at the end of Section 3.10 (backlog, story cards, Definition of Done, workflow policy, process note, estimates and AI decision log) comes out of those three parts and needs nothing more than a text editor or a board. If you want more, write the plain-Java acceptance check described at the end of Section 3.10, then work through the questions and the transfer challenge in Section 3.12.
 
-## 3.1 Uncertainty and feedback
+## 3.1 What do we not know yet? Uncertainty and feedback
 
-At the start of a project, uncertainty appears in several forms. We may not understand what a user needs, how a rule should behave, whether an integration is feasible or how much work a change will require. Treating all of these as “requirements problems” hides useful distinctions.
+At the start of a project we are unsure about many different things. We may not understand what a user needs, how a rule should behave, whether an integration is feasible, or how much work a change will take. It is tempting to file all of these under “requirements problems”, but that hides differences that matter.
 
 | Uncertainty | Example in the equipment project | A useful next action |
 |---|---|---|
@@ -28,19 +28,19 @@ At the start of a project, uncertainty appears in several forms. We may not unde
 | Technical feasibility | Can the institution's catalogue be accessed? | Conduct a bounded investigation with a concrete result |
 | Delivery | Can the team finish a reviewed query workflow in the next iteration? | Examine remaining work, capacity and assumptions |
 
-Different questions require different evidence. A larger estimate will not determine the cancellation policy. More conversation will not prove that an unavailable service can be accessed. Naming the uncertainty helps the team choose an action that can reduce it.
+Each of these needs a different kind of evidence. A bigger estimate will not settle the cancellation policy, and more discussion will not show whether an unavailable service can be reached. Once the team has named what it does not know, it can pick an action that actually reduces the uncertainty.
 
-Feedback also varies. A user can expose a missing workflow. A compiler can identify an invalid program. A test can show that an observed result differs from an expectation. A reviewer can identify a dependency that makes the next change harder. None of these observers has complete authority over every question.
+Feedback comes in different kinds, too. A user can reveal a missing workflow. A compiler can reject an invalid program. A test can show that an observed result differs from what we expected. A reviewer can point out a dependency that will make the next change harder. None of them can answer every question.
 
-For example, the Java implementation currently allows adjacent bookings. That matches our teaching rule. If the equipment officer asks for an inspection day between loans, the team has discovered a possible policy change, not automatically a defect in the original comparison. We should record who proposed the change, why it matters and which examples would differ if it were adopted.
+Here is an example from our project. The Java implementation currently allows adjacent bookings, which matches a rule invented for this book. Suppose the equipment officer asks for an inspection day between loans. The team has not found a defect in the original comparison; it has found a possible change of policy. So we write down who proposed it, why it matters and which examples would come out differently if we adopted it.
 
-The purpose of a short feedback cycle is to make such discoveries while there is still a manageable amount of work to revise. It does not make change free. Tests, documentation and stored data may also need to change. The team should expose those consequences rather than accept every request without discussion.
+The reason for short feedback cycles is to find out things like this while there is still little work to revise. They do not make change free. Tests, documentation and stored data may all need to change too, and the team should say so openly instead of accepting every request without discussion.
 
-## 3.2 Agile values and principles
+## 3.2 What the Agile values mean for real project decisions
 
-The Agile Manifesto expresses preferences about how software work is conducted. In paraphrase, it gives greater emphasis to human collaboration, usable software, ongoing customer involvement and adaptation than to relying primarily on tools, exhaustive documents, contractual positions or a fixed plan. It explicitly retains value in the latter activities [1].
+You have probably heard the Agile Manifesto summed up in a slogan. Here is what it actually says, in paraphrase. It puts more weight on people working together, software that works, continuing involvement from customers and responding to change than on relying mainly on tools, exhaustive documents, contract terms or a fixed plan. It does not throw the second group away; it says explicitly that those things still have value [1].
 
-The following are applications to our project, not additional statements from the Manifesto:
+The table below applies these preferences to our project. The right-hand column is what the first two columns are meant to avoid. None of this is wording from the Manifesto itself:
 
 | Project decision | Applying the values thoughtfully | A mistaken interpretation |
 |---|---|---|
@@ -49,33 +49,33 @@ The following are applications to our project, not additional statements from th
 | Handling a new borrowing rule | Discuss its purpose and effect with the equipment officer | Let the team invent policy privately |
 | Planning the next increment | Use current information and revise the plan when needed | Stop planning because requirements may change |
 
-The accompanying principles connect regular delivery with technical quality, a sustainable pace and reflection on team effectiveness [2]. In this course, that connection matters because poorly understood code can make a seemingly small request expensive. The design and testing work from earlier chapters supports the team's ability to respond.
+The Manifesto's accompanying principles link regular delivery to technical quality, a sustainable pace and regular reflection on how the team works [2]. That link matters in this course. Code that nobody understands makes even a small request expensive, so the design and testing work from earlier chapters is what lets a team respond to change at all.
 
-Consider the availability enquiry. A useful response is to clarify whether it must merely inspect the coordinator's current in-memory records or include an authoritative inventory and maintenance schedule. The first may be a small teaching increment; the second introduces substantially more work. Calling both “check availability” does not make them equivalent.
+Take the availability enquiry. A good first move is to ask whether it only has to look at the coordinator's current in-memory records, or whether it must also consult a real inventory and a maintenance schedule. The first can be a small teaching increment, and the second is a lot more work. Both can be called “check availability”, but they are not the same job.
 
-Agile work still needs commitments, boundaries and evidence. What changes is the expectation that every detail can be settled correctly at the beginning. We will maintain an explicit record of what we know, what we intend to deliver and what still needs a decision.
+Agile work still has commitments, boundaries and evidence. What changes is that nobody expects every detail to be settled correctly on day one. Instead we keep an honest record of what we know, what we plan to deliver and what still needs a decision.
 
-## 3.3 Iterations and increments
+## 3.3 Iteration or increment? Two kinds of progress
 
-An **iteration** is a repeated cycle of work and feedback. An **increment** adds integrated, usable capability. The terms describe related but different aspects of development.
+The two words get mixed up all the time, so it helps to separate them. An **iteration** is one repeated cycle of work and feedback. An **increment** is a piece of integrated, usable capability. They describe different things about the same development.
 
-Suppose the team revises its reservation messages after a demonstration. It has iterated on the implementation. Suppose it then adds an availability enquiry that works with the existing records and can be used through the agreed interface. It has added an increment of capability.
+Suppose the team changes its reservation messages after a demonstration. It has iterated on the implementation. Now suppose it adds an availability enquiry that works with the existing records and can be used through the agreed interface. That is an increment, because there is new capability somebody can use.
 
-An isolated database table or a collection of unfinished screens may represent effort without yet providing a usable increment. Technical tasks can be necessary, but the team should explain how they contribute to a result that someone can inspect and use.
+An isolated database table or a pile of unfinished screens may represent a lot of effort and still not be a usable increment. Technical tasks are often necessary. The point is that the team should be able to say how each one contributes to a result that someone can inspect and use.
 
 ### A small route through the project
 
-One possible progression is to make the current reservation flow reproducible, add an enquiry that does not change records, then support a borrower's list of active reservations. Cancellation can follow once its policy and state transitions are understood. This is a proposed learning route, not a new assessment schedule.
+One possible route runs like this. First make the current reservation flow reproducible. Then add an enquiry that does not change any records, and after that a borrower's list of active reservations. Cancellation can come once its policy and state changes are understood. This is a suggested learning route, not a new assessment schedule.
 
-Each addition must still work with what came before. If the enquiry answers correctly but creates a reservation as a side effect, it has not delivered the intended capability. If cancellation removes an unrelated record, a successful cancellation message is insufficient evidence.
+Each addition still has to work with everything before it. If the enquiry gives the right answer but creates a reservation as a side effect, it has not delivered what was wanted. If cancellation removes an unrelated record, a friendly “cancelled” message is not enough evidence.
 
-Do not confuse an increment with a public release. A bounded teaching application can be demonstrated to its intended reviewers while remaining unsuitable for institutional deployment. Its scope and limitations must be explicit. The decision to release software to real users involves additional considerations beyond completing a classroom exercise.
+An increment is also not the same as a public release. A small teaching application can be demonstrated to its intended reviewers and still be unfit for the institution to deploy, so its scope and limitations should be stated openly. Releasing software to real users involves more decisions than finishing a classroom exercise.
 
-Chapter 4 will turn the selected work into an iteration plan. For now, concentrate on identifying small outcomes and the evidence that would make them credible.
+Chapter 4 will turn the chosen work into an iteration plan. For now, practise spotting small outcomes and asking what evidence would make each one believable.
 
-## 3.4 Scrum accountabilities, events and artefacts
+## 3.4 Scrum: who is accountable, what happens when, and what it produces
 
-Scrum is a framework with defined elements. The November 2020 Scrum Guide is the formal reference used here [3]. Its basic structure can be summarised compactly:
+Scrum is a framework with defined parts, and it is easy to describe loosely and get wrong. We use the November 2020 Scrum Guide as the formal reference [3]. Here is its basic structure in one table:
 
 | Element | Meaning |
 |---|---|
@@ -88,7 +88,7 @@ Scrum is a framework with defined elements. The November 2020 Scrum Guide is the
 | Sprint Review | Inspect the outcome with stakeholders and consider adaptations |
 | Sprint Retrospective | Examine how the team worked and choose improvements |
 
-Scrum links three artefacts to commitments: the **Product Backlog** to the **Product Goal**, the **Sprint Backlog** to the **Sprint Goal**, and the **Increment** to the **Definition of Done**. The Sprint Backlog includes the goal, selected work and delivery plan. User-story templates and story points are optional practices, not required Scrum elements [3].
+Scrum ties each of its three artefacts to a commitment: the **Product Backlog** to the **Product Goal**, the **Sprint Backlog** to the **Sprint Goal**, and the **Increment** to the **Definition of Done**. The Sprint Backlog holds the goal, the selected work and the plan for delivering it. User-story templates and story points are optional practices, not parts of Scrum [3].
 
 ```mermaid
 flowchart LR
@@ -104,29 +104,29 @@ flowchart LR
 
 **Figure 3.1.** A Sprint contains all of the Scrum events. Planning selects work from the Product Backlog and sets the Sprint Goal; the Developers inspect progress at each Daily Scrum; the Review inspects the outcome with stakeholders; the Retrospective improves how the team works, and what is learned feeds the Product Backlog and the next Sprint.
 
-### Applying the distinctions to a student team
+### What Scrum looks like for a student team
 
-A possible Product Goal for our learning project is: “Enable the equipment office to manage a small set of student reservations with visible rules and reliable records.” This expresses a useful future state. It does not specify every screen or method.
+Definitions only go so far, so let us see them applied. A possible Product Goal for our learning project is: “Enable the equipment office to manage a small set of student reservations with visible rules and reliable records.” It describes a useful future state without fixing every screen or method.
 
-A possible Sprint Goal is narrower: “Let the officer check availability without changing reservations.” It tells the team why its selected work belongs together. “Finish US-02, update the README and edit three classes” lists work but does not explain the outcome that connects it.
+A possible Sprint Goal is narrower: “Let the officer check availability without changing reservations.” It tells the team why its selected work belongs together. Compare it with “Finish US-02, update the README and edit three classes”, which lists tasks but never says what outcome they add up to.
 
-During a short coordination conversation, a developer might say, “The enquiry works, but its result depends on a date convention we have not documented. I will pair with the reviewer to resolve that before adding another feature.” This focuses on the team's progress. The Scrum Guide defines the Daily Scrum as a 15-minute event for the Developers to inspect progress toward the Sprint Goal and adapt their plan; it does not define it as a status report to a supervisor [3].
+Picture a short coordination conversation. A developer says, “The enquiry works, but its result depends on a date convention we have not documented. I will pair with the reviewer to resolve that before adding another feature.” That is the team talking about its own progress. The Scrum Guide defines the Daily Scrum as a 15-minute event where the Developers inspect progress toward the Sprint Goal and adapt their plan. It is not a status report to a supervisor [3].
 
-At a review, the equipment officer might try the enquiry and ask whether a damaged item should ever appear available. That discussion concerns the product and possible next work. The Scrum Guide describes the Sprint Review as a working session and advises against limiting it to a presentation [3].
+At a review, the equipment officer might try the enquiry and ask whether a damaged item should ever show as available. That is a conversation about the product and what to do next. The Scrum Guide calls the Sprint Review a working session and advises against turning it into a presentation [3].
 
-At a retrospective, the team might notice that reviews consistently arrived too late. It could agree to request review when a small behaviour first works, then inspect whether that agreement helps. The retrospective concerns ways to increase the team's quality and effectiveness, including how it collaborated and verified work [3].
+At a retrospective, the team might notice that reviews keep arriving too late. It could agree to ask for a review as soon as a small behaviour first works, and then look later at whether that helped. The retrospective is about raising the team's quality and effectiveness, including how it collaborated and checked its work [3].
 
-### Classroom adaptations must be named
+### When the classroom bends the rules, say so
 
-The module leader may provide stakeholder answers, teams may rotate facilitation and reviews may happen within teaching sessions. These are course arrangements. They do not redefine Scrum's accountabilities or turn every classroom meeting into a formal Scrum event. An academic submission date is also not automatically a Sprint boundary.
+In a course, things happen that Scrum does not describe. The module leader may supply stakeholder answers, teams may take turns facilitating, and reviews may happen inside teaching sessions. These are course arrangements. They do not change Scrum's accountabilities, and they do not make every classroom meeting a formal Scrum event. A submission date is not automatically a Sprint boundary either.
 
-The descriptor's later “Sprint 0” label refers to kickoff work. Treat it as a local preparation convention, not another formal Scrum event. Keep the distinction visible when writing reports about the process your team actually followed.
+The module descriptor's later “Sprint 0” label refers to kickoff work. Treat it as a local convention for preparation, not as another Scrum event. When you write about the process your team really followed, keep that distinction visible.
 
-## 3.5 Kanban and an explicit workflow
+## 3.5 Kanban: making the workflow visible
 
-Kanban focuses on the flow of value through work. The May 2025 Kanban Guide describes defining and visualising a workflow, managing work within it and improving that workflow. Its workflow definition includes work items, start and finish points, states, work-in-progress controls, movement policies and a service-level expectation. That expectation combines elapsed time with a probability; historical evidence should inform it when available [4].
+Scrum organises work around goals and time boxes. Kanban asks a different question: how does work move through the team, and where does it get stuck? The May 2025 Kanban Guide describes three jobs: define and visualise a workflow, manage work within it, and improve it. A workflow definition includes the work items, start and finish points, states, limits on work in progress, policies for moving work, and a service-level expectation. That expectation combines elapsed time with a probability, and it should be informed by historical evidence when you have it [4].
 
-For our introductory board, use five columns:
+For our introductory board we use five columns:
 
 | Column | Local meaning |
 |---|---|
@@ -149,13 +149,13 @@ flowchart LR
 
 **Figure 3.2.** The five-column board. The start point is entry into Building and the finish point is entry into Done. Building and Review share one limit of two items, and a blocked item stays inside it.
 
-These columns are our example, not mandatory names. Define the start point as entry into Building and the finish point as entry into Done. For this exercise, limit the **combined** number of items in Building and Review to two. Blocked work remains within that count; moving it to an uncounted “Blocked” column would hide unfinished work rather than finish it.
+These column names are only our example; your team can choose others. We define the start point as entry into Building and the finish point as entry into Done. For this exercise, the **combined** number of items in Building and Review may not exceed two. Blocked work stays inside that count. Moving it to a “Blocked” column that nobody counts would hide unfinished work instead of finishing it.
 
-Imagine that one item is in Building and another is waiting in Review. The team has reached its limit. Before starting a third, it should investigate what would help an existing item finish: review together, resolve a question or make a smaller change. A limit is useful only when it affects decisions.
+Imagine one item in Building and another waiting in Review. The team has reached its limit. Before starting a third item, it should ask what would help an existing one finish: reviewing together, answering an open question, or making a smaller change. A limit is only worth having if it changes what people decide to do.
 
-A board alone is an incomplete Kanban system. A team also needs the workflow policies, active management and evidence for improvement. For practice, a team might provisionally expect 85% of its small items to finish within five working days after starting. Without historical data, that is an explicitly unvalidated hypothesis, not a measured promise. Chapter 12 develops flow measures and forecasting; we will not derive a delivery guarantee from this invented example.
+A board by itself is not yet a Kanban system. The team also needs workflow policies, active management and evidence it can use to improve. For practice, a team might provisionally expect 85% of its small items to finish within five working days after starting. With no historical data, that is an unvalidated hypothesis and not a measured promise. Chapter 12 develops flow measures and forecasting, and we will not derive a delivery guarantee from this invented example.
 
-### Comparing Scrum and Kanban
+### Scrum or Kanban? What each pays attention to
 
 | Question | Scrum emphasis | Kanban emphasis |
 |---|---|---|
@@ -164,27 +164,27 @@ A board alone is an incomplete Kanban system. A team also needs the workflow pol
 | Can a board help? | Yes, to make selected work visible | Yes, to visualise the workflow and its policies |
 | Can they be used together? | A Scrum team can also manage flow explicitly | Flow practices can operate within a Sprint cadence |
 
-Do not reduce the choice to “Scrum has meetings; Kanban has none” or “Scrum is planned; Kanban is unplanned.” Our immediate learning goal is to make work and completion conditions visible. The chosen approach should help the team make decisions, not merely supply labels.
+Resist the two easy summaries: “Scrum has meetings and Kanban has none”, and “Scrum is planned and Kanban is unplanned.” Neither is true. What we want right now is to make the work and its completion conditions visible. Whichever approach you pick should help the team decide things, and not just give it new labels.
 
-## 3.6 Epics, user stories and INVEST
+## 3.6 From “manage equipment” to a story you can build: epics, user stories and INVEST
 
-“Manage equipment” is too broad to guide the next implementation. It may refer to stock records, borrowing, maintenance, losses, reporting or purchasing. We need to identify a particular actor, outcome and reason.
+“Manage equipment” is far too broad to tell anyone what to implement next. It could mean stock records, borrowing, maintenance, losses, reports or purchasing. To make progress, we need a particular person, a particular outcome and a reason.
 
-An **epic** is a convenient label for a large area of work that needs further division. For this book, “Manage student equipment reservations” is an epic. A **user story** expresses a smaller user-centred need. A familiar form is:
+An **epic** is a convenient name for a large area of work that still has to be split up. In this book, “Manage student equipment reservations” is an epic. A **user story** is a smaller need, written from the user's point of view. A familiar form looks like this:
 
 > As an equipment officer, I want to record an eligible, non-conflicting reservation so that the selected item is allocated for the borrower's requested period.
 
-The sentence opens a discussion. It does not define eligibility, conflicts, dates or failure behaviour by itself. Ron Jeffries's account of stories connects a short written reminder with conversation and confirmation [5]. We will keep a card, record the relevant decisions and attach observable examples.
+That sentence starts a conversation; it does not finish one. It does not say what “eligible” means, what counts as a conflict, how dates work or what happens on failure. Ron Jeffries describes a story as a short written reminder joined to conversation and confirmation [5]. We will do the same: keep a card, write down the decisions that come out of the discussion, and attach examples someone can observe.
 
-### Stories and implementation tasks
+### A story is not a task
 
-“Create a `HashMap`” names an implementation task. It does not explain the outcome a user needs. A story can lead to tasks involving data structures, checks and interface work, but the tasks should remain connected to the outcome.
+“Create a `HashMap`” is an implementation task. It says nothing about what a user needs. A story can lead to tasks about data structures, checks and interface work, but each task should stay tied to the outcome it serves.
 
-Not all backlog work needs a fictional user-story sentence. A build-check task can be labelled a technical enabler and justified by the delivery problem it addresses. Our convention uses `US-` for stories and `EN-` for enablers. These prefixes are local identifiers, not Agile rules.
+Not every item on a backlog needs an invented user-story sentence. A task that sets up a build check can be labelled a technical enabler and justified by the delivery problem it solves. In this book `US-` marks a story and `EN-` marks an enabler. These prefixes are our local identifiers and not Agile rules.
 
-### Apply INVEST as questions
+### Using INVEST as a set of questions
 
-Bill Wake introduced INVEST to prompt useful qualities in stories [6]. The following questions apply it to our domain:
+Bill Wake introduced INVEST as a prompt for the qualities a good story tends to have [6]. Here are the questions it raises in our domain:
 
 | Quality | Question to ask about this story |
 |---|---|
@@ -195,13 +195,13 @@ Bill Wake introduced INVEST to prompt useful qualities in stories [6]. The follo
 | Small | Can the team implement and verify a useful version within its intended work period? |
 | Testable | Can we describe observations that distinguish success from failure? |
 
-This is a reasoning aid, not a six-point score that certifies a story. Real dependencies should be recorded. “Independent” should not lead us to pretend that cancellation needs no existing reservation, while “negotiable” should not mean ignoring an agreed safety or domain rule.
+Treat INVEST as a way to reason, not a six-point score that certifies a story. Real dependencies should still be written down. “Independent” should not tempt us into pretending that cancellation needs no existing reservation, and “negotiable” should not mean brushing aside a rule that the team agreed for safety or for the domain.
 
-For the availability story, a small version might inspect the coordinator's current records for one known item and one period, leaving records unchanged. Adding live inventory, maintenance calendars, permissions and email delivery at the same time would make it harder to identify what is being delivered.
+For the availability story, a small version could look at the coordinator's current records for one known item and one period, and leave the records unchanged. If we also added live inventory, maintenance calendars, permissions and email delivery in the same story, nobody could say clearly what was being delivered.
 
-### A backlog is ordered work, not a collection of equal priorities
+### A backlog is an ordered list, not a pile of equal priorities
 
-The Scrum Guide describes the Product Backlog as an emergent, ordered list, and refinement as the ongoing work of breaking items into smaller, more precise ones [3]. Ordering and refinement together help make upcoming work understandable. We will record current support as well as remaining work, because the team inherits code from Chapter 2.
+The Scrum Guide describes the Product Backlog as an emergent, ordered list, and refinement as the continuing work of breaking items into smaller, more precise ones [3]. Ordering and refinement together keep upcoming work understandable. Because the team inherits code from Chapter 2, we will also record what the code already supports next to what remains to be done.
 
 | Order | ID | Outcome or purpose | Relationship to existing code |
 |---:|---|---|---|
@@ -209,13 +209,13 @@ The Scrum Guide describes the Product Backlog as an emergent, ordered list, and 
 | 2 | US-02 | Inspect an item's availability without reserving it | No dedicated query operation exists yet |
 | 3 | EN-01 | Make the existing checks reproducible in an automated build workflow | Planned enabler for the kickoff work in Chapter 4 |
 
-This is the beginning of a draft backlog, not a report that three items have been delivered. Review inherited capability instead of pretending to implement it again. When a story's complete conditions are met, retain the evidence in completed history rather than counting it again as new work.
+This is the start of a draft backlog, not a report that three items are finished. Review what the code already does instead of pretending to build it a second time. Once a story's conditions are fully met, keep the evidence in the history of completed work and do not count it again as new work.
 
-## 3.7 Acceptance criteria and Definition of Done
+## 3.7 How do we know a story is finished? Acceptance criteria and Definition of Done
 
-**Acceptance criteria** describe the behaviour expected for a particular item. They should be specific enough that a second team can tell whether an implementation meets them. **Definition of Done** describes the shared quality conditions required for an increment. Scrum makes that definition the commitment associated with the Increment [3].
+Two ideas answer that question, and they work at different levels. **Acceptance criteria** describe the behaviour expected from one particular item, and they should be precise enough that a second team could tell whether an implementation meets them. The **Definition of Done** describes the quality conditions that every increment must meet. Scrum makes that definition the commitment attached to the Increment [3].
 
-For US-01, the following criteria use the existing teaching rules. All counts are measured before adding the new reservation; all stored reservations are currently active. Dates use the exclusive-end convention established in Chapter 2.
+Here are criteria for US-01. They use the rules from earlier chapters. All counts are taken before the new reservation is added, and every stored reservation is currently active. Dates use the exclusive-end convention from Chapter 2.
 
 | Criterion | Required observable behaviour |
 |---|---|
@@ -225,11 +225,11 @@ For US-01, the following criteria use the existing teaching rules. All counts ar
 | AC-04 | A borrower with three active reservations cannot add a fourth, even for another item |
 | AC-05 | Durations of one through seven whole days are allowed by the duration rule; zero, negative and eight-day requests are rejected without adding records |
 
-These criteria describe a controlled demonstration using non-blank, agreed fixture identifiers and representable dates. They do not establish catalogue membership, authentication, persistence or concurrency safety. Those omissions must remain visible when judging what kind of product the story represents.
+These criteria describe a controlled demonstration with non-blank, agreed sample identifiers and dates that can be represented. They say nothing about whether an item exists in a catalogue, about authentication, about persistence or about safety under concurrent use. Keep those gaps in view when you judge what kind of product the story describes.
 
-### Turn a criterion into an example
+### Turning a criterion into an example
 
-For AC-02, use this example:
+A criterion becomes much clearer once it has a concrete example. Here is one for AC-02:
 
 ```text
 Given CAM1 is reserved for B1 from 20 October to 22 October,
@@ -239,13 +239,13 @@ then the request is rejected as unavailable,
 and the original reservation remains the only stored record.
 ```
 
-The format separates context, action and observations. It is plain text here, not an executable framework. The companion shows a short Java check against the existing coordinator. This introduces traceability between an example and behaviour; it does not yet teach a complete TDD or BDD method.
+The format separates the starting situation, the action and what we observe afterwards. Here it is just plain text and not something a tool can run. The companion shows a short Java check against the existing coordinator. That gives you a first link between an example and real behaviour, though it is not yet a full TDD or BDD method.
 
-Notice both observations: the rejection and unchanged state. A program that prints the correct rejection but still adds a reservation has not met the criterion.
+Look at both observations: the rejection, and the unchanged state. A program that prints the correct rejection but still adds a reservation has not met the criterion.
 
-### A working Definition of Done for this stage
+### A working Definition of Done to start with
 
-The team could adopt the following as **DoD version 0.1 for its controlled teaching increment**:
+Acceptance criteria say what one story must do. What must be true of every piece of work before the team calls it finished? Here is a first answer that a team could adopt as **DoD version 0.1 for its controlled teaching increment**:
 
 1. Relevant acceptance examples have been checked, including important rejection paths.
 2. The code compiles and runs using the documented commands in the agreed environment.
@@ -254,44 +254,44 @@ The team could adopt the following as **DoD version 0.1 for its controlled teach
 5. Necessary usage notes, domain decisions and known limitations are current.
 6. The increment can be reproduced and demonstrated within its explicitly stated scope.
 
-This is a proposed team agreement, not a university grading policy. It uses checks available now; automated CI gates can be added when the infrastructure is introduced. Do not claim a pipeline has passed before it exists, or weaken the agreed standard merely to move a card to Done.
+This is a proposal for a team to agree on, not a university grading policy. It relies on checks you have now; automated CI gates can join it once the infrastructure exists. Do not claim that a pipeline has passed before it exists, and do not lower the agreed standard just to move a card to Done.
 
-AC-03 belongs to the reservation story because it defines date behaviour. Reproducible setup belongs to the shared completion agreement. Both matter. Passing a story's examples while leaving an unreviewed, unintegrated change does not meet this example DoD. Appendix C has blank forms, each with a worked example, for a story card (C.2), an acceptance example (C.3) and a Definition of Done (C.4).
+AC-03 belongs to the reservation story, because it defines how dates behave. Reproducible setup belongs to the shared completion agreement. Both matter. If a story's examples pass but the change is unreviewed and not integrated, it does not meet this example DoD. Appendix C has blank forms, each with a worked example, for a story card (C.2), an acceptance example (C.3) and a Definition of Done (C.4).
 
-“Ready” has a different purpose: it records whether a team considers an item sufficiently understood to start. Our Ready-column policy is a local agreement, not an additional formal Scrum artefact or event.
+“Ready” answers a different question: does the team understand an item well enough to start it? Our Ready-column policy is a local agreement. It is not an extra formal Scrum artefact or event.
 
-## 3.8 Relative estimation and uncertainty
+## 3.8 Estimating without pretending to know: relative estimation and uncertainty
 
-An estimate helps a team discuss and forecast work. It is not a guarantee that a specific person will finish at a precise time. Before estimating, establish what is included: implementation alone, or also review, checking and documentation needed to meet Done?
+Teams estimate so they can talk about work and make forecasts. An estimate is not a guarantee that a particular person will finish at a precise time. Before anyone estimates, agree what is included: only the implementation, or also the review, checking and documentation needed to reach Done?
 
-We will use **story points** as an optional local relative scale. A team might use 1, 2, 3, 5 and 8 to compare work while considering effort, complexity and uncertainty. These numbers are not hours, and the same number in two teams need not represent equivalent work.
+We use **story points** as an optional, local, relative scale. A team might use 1, 2, 3, 5 and 8 to compare items, weighing effort, complexity and uncertainty together. Points are not hours, and the same number in two teams need not mean the same amount of work.
 
-Suppose a familiar display adjustment is the team's reference item at two points. A small availability query may seem larger because it needs a non-mutating operation, several date examples and a new interaction. One learner estimates three and another eight. Averaging them immediately would discard the most useful information: why they disagree.
+Say a familiar display adjustment is the team's reference item at two points. A small availability query may seem bigger, because it needs a read-only operation, several date examples and a new way of interacting. One learner estimates three and another eight. Averaging those two numbers straight away would throw away the most useful thing we have, which is the reason they disagree.
 
-The second learner may be assuming that the query includes maintenance schedules. Once that assumption is exposed, the team can narrow the story or record a separate requirement. If the uncertainty concerns an external catalogue whose interface is unknown, a short investigation may be more useful than a larger number.
+The second learner may be assuming the query covers maintenance schedules. Once that assumption is spoken aloud, the team can narrow the story or record a separate requirement. If the uncertainty is about an outside catalogue whose interface nobody knows, a short investigation is often more useful than a bigger number.
 
-Such an investigation should have a bounded question and output: for example, “Determine whether a read-only sample catalogue can be accessed and record the fields it provides.” It should not become an unlimited task called “research the system.”
+An investigation like that should have a bounded question and a defined output, for example: “Determine whether a read-only sample catalogue can be accessed and record the fields it provides.” It should not turn into an open-ended task called “research the system”.
 
-For practice, estimate only clarified items and write the assumption behind each estimate. Leave an item unestimated when a material question remains. Different reasoned estimates are acceptable; claiming certainty without evidence is not.
+When you practise, estimate only the items you have clarified, and write down the assumption behind each estimate. If an important question is still open, leave the item unestimated. Different, well-reasoned estimates are fine. Claiming certainty without evidence is not.
 
-Do not rank students by points completed, convert points into individual productivity targets or assume that doubling team size doubles delivery. Chapter 12 will examine measured progress and flow. Chapter 4 will combine selected work with actual team capacity to form an iteration plan.
+Do not rank students by the points they complete, turn points into individual productivity targets, or assume that doubling the team doubles the delivery. Chapter 12 looks at measured progress and flow, and Chapter 4 combines the selected work with the team's real capacity to make an iteration plan.
 
-## 3.9 AI in practice: challenge a story without inventing policy
+## 3.9 Challenging a story with AI without letting it invent policy
 
-An AI assistant can suggest missing assumptions and candidate criteria, but it has no authority to decide the equipment office's rules. The exercise is to evaluate its proposals against the agreed context.
+An AI assistant can suggest assumptions you missed and criteria you could use, but it has no authority over the equipment office's rules. The exercise is to judge what it proposes against the context your team has agreed.
 
-Chapter 15 collects the recurring AI workflows; this activity is self-contained, and the fixture and classification table below are everything you need.
+Chapter 15 gathers the AI workflows that recur in this book. This activity is complete on its own, and the ready-made suggestions and the table below are all you need.
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide which suggested assumptions and criteria belong in the story, which do not and which need a stakeholder |
-| Input | US-01, AC-01 through AC-05, and Chapter 2's scope |
-| Permitted scope | Classify the suggestions; do not change the policy, the code or the story's scope on your own |
-| Independent checks | The stated rules, the Chapter 2 code and checks, and the story's scope |
-| Accept or reject | **Accept**, **reject for this story**, or **clarify** with a named person or decision |
-| No-account route | The fixture below is sufficient |
+| Your goal | Decide which suggested assumptions and criteria belong in the story, which do not, and which need a stakeholder |
+| You start with | US-01, AC-01 through AC-05, and Chapter 2's scope |
+| What is in bounds | Classify the suggestions; do not change the policy, the code or the story's scope on your own |
+| How to check | The stated rules, the Chapter 2 code and checks, and the story's scope |
+| How to decide | **Accept**, **reject for this story**, or **clarify** with a named person or decision |
+| No AI account? | The ready-made suggestions below are enough |
 
-The following suggestions are an **author-written teaching fixture** constructed for this exercise, not a captured response from a real model:
+The suggestions below were written by the author for this exercise. They are not a captured response from a real model:
 
 1. A request for the same item and an identical period must be refused.
 2. A request that begins exactly when an existing period ends must be refused.
@@ -301,59 +301,59 @@ The following suggestions are an **author-written teaching fixture** constructed
 6. A deposit payment must be taken before any reservation can be confirmed.
 7. Specify whether cancelled reservations count toward the borrower's limit.
 
-Classify each suggestion, with a reason. “Reject” can mean the proposal contradicts a rule or introduces unapproved scope; it need not mean that the idea could never be useful. A clarification about a future feature does not automatically block today's bounded story.
+Sort each suggestion into one of the three groups and give a reason. To “reject” a suggestion can mean that it contradicts a rule or adds scope nobody approved. It does not have to mean the idea could never be useful. And a question about a future feature does not automatically block today's small story.
 
-If permitted and available, use this optional prompt:
+If your course allows it, you can also try this prompt with a live assistant:
 
 > Review this story against the supplied policy and current project scope. Suggest missing assumptions, edge cases and candidate acceptance criteria. Label each suggestion as derived from a stated rule, an open question or a possible scope extension. Do not silently change the policy or claim a feature is already implemented.
 
-Keep a record of what you accepted, rejected and deferred. Refer to the relevant rule or code evidence rather than the assistant's confidence. The supplied fixture makes the activity possible without an AI account.
+Keep a record of what you accepted, rejected and deferred, and point to the rule or the code as your evidence, not to how confident the assistant sounded. The ready-made suggestions mean you can do the whole activity without an AI account.
 
-## 3.10 Practical activity: create a draft backlog
+## 3.10 Try it yourself: build a draft backlog
 
-This activity runs on your **Team project**. If your team uses equipment lending, start from the Chapter 2 coordinator, the three backlog entries in Section 3.6 and the teaching rules. If your team chose another provided domain, apply the same steps to that domain's starter codebase and its first user-visible capability. For an ML model-serving tool, for example, you might write “as an analyst, I want a prediction for a supplied record so that I can check the result”. The transfer challenge shows how to adapt the steps. This is preparation for the Week 3 kickoff; it does not change the module's assessment dates or weights.
+This activity is about your team's project. If your team uses equipment lending, start from the Chapter 2 coordinator, the three backlog entries in Section 3.6 and the rules from earlier chapters. If your team chose another of the provided domains, apply the same steps to that domain's starter codebase and its first user-visible capability. For an ML model-serving tool, for example, you might write “as an analyst, I want a prediction for a supplied record so that I can check the result”. The transfer challenge shows how to adapt the steps. The work prepares you for the Week 3 kickoff; it does not change the module's assessment dates or weights.
 
 ### Part A: define and refine the work
 
-Write a short proposed Product Goal. Extend the draft backlog to six items by considering a borrower's active-reservation list, cancellation and catalogue-identifier validation. Use stable IDs and identify dependencies or unresolved decisions. Order the items and explain the first two positions.
+Write a short proposed Product Goal. Extend the draft backlog to six items by considering a borrower's active-reservation list, cancellation and catalogue-identifier validation. Give the items stable IDs, and note any dependencies or unresolved decisions. Put the items in order and explain why the first two come first.
 
-Record which behaviours are already supported in code, which need new implementation and which cannot yet be judged. Do not label an inherited feature Done solely because a demonstration prints the desired text.
+Record which behaviours the code already supports, which need new implementation and which you cannot yet judge. Do not label an inherited feature Done just because a demonstration prints the text you wanted.
 
-Refine US-02 into a small story with at least four acceptance examples. State that asking about availability must not create or remove reservations. Decide which identifiers and period rules belong to its controlled scope, and mark unresolved policy rather than guessing it.
+Refine US-02 into a small story with at least four acceptance examples. State that asking about availability must not create or remove reservations. Decide which identifiers and period rules belong to its controlled scope, and mark any policy that is still unresolved instead of guessing it.
 
-### Part B: agree completion and workflow
+### Part B: agree on completion and workflow
 
-Propose a Definition of Done and explain how it differs from your story criteria. Draw a board using the five example columns or a justified alternative. Define its start and finish points, movement policies, WIP control and handling of blocked work. Record the service-level expectation as provisional if you lack data. Write a short process note naming which Scrum elements your team uses as the Guide defines them, which it adapts for the course, and which optional practices (stories, points, a board) it adopts.
+Propose a Definition of Done and explain how it differs from your story criteria. Draw a board with the five example columns, or with an alternative you can justify. Define its start and finish points, its movement policies, its WIP control and how it handles blocked work. If you have no data, mark the service-level expectation as provisional. Then write a short process note that says which Scrum elements your team uses as the Guide defines them, which it adapts for the course, and which optional practices (stories, points, a board) it adopts.
 
-Use this **hypothetical later snapshot** only to practise a decision; it is not a claim about current project progress:
+The snapshot below is **hypothetical** and only gives you a decision to practise on. It says nothing about how far your project has really got:
 
 | Ready | Building | Review | Done |
 |---|---|---|---|
 | US-03, US-04 | US-02 | EN-01, blocked by a setup problem | US-01 |
 
-The combined Building-plus-Review limit is two. Decide what the team should investigate next and explain why moving the blocked card outside the counted area would misrepresent its work.
+The combined Building-plus-Review limit is two. Decide what the team should look into next, and explain why moving the blocked card outside the counted area would misrepresent its work.
 
 ### Part C: estimate and critique
 
-Choose two clarified items and propose relative estimates with assumptions. Identify one item that needs clarification or investigation before sizing. Complete the AI activity and record the disposition of each suggestion.
+Pick two clarified items and propose relative estimates with their assumptions. Name one item that needs clarification or an investigation before anyone can size it. Do the AI activity and record what you decided about each suggestion.
 
-Finally, compare these two invented recommendations:
+Finally, compare these two invented pieces of advice:
 
 > Advice A: Freeze every detailed story before any implementation begins.
 
 > Advice B: Start implementation immediately and leave acceptance conditions until the demonstration.
 
-Identify the problem each recommendation tries to solve, its risk in this project and a more defensible working agreement. This is practice for the critical reading introduced in Chapter 1, not a claim about a particular author's position.
+For each one, say what problem it is trying to solve, what risk it carries in this project, and what working agreement would be easier to defend. This practises the critical reading introduced in Chapter 1; it is not a claim about any particular author's position.
 
-### Evidence and completion check
+### What to keep, and how to know you are done
 
-Retain the proposed goal, ordered six-item backlog, two refined story cards, acceptance examples, Definition of Done, workflow policy, process note, estimates with assumptions and AI decision log. Exchange the top story with another team.
+Keep the proposed goal, the ordered six-item backlog, two refined story cards, the acceptance examples, the Definition of Done, the workflow policy, the process note, the estimates with their assumptions and the AI decision log. Then swap your top story with another team.
 
-The activity is complete when the other team can explain the intended outcome, select meaningful inputs and predict observable results without inventing essential policy. Record any question they could not answer and revise the story or explicitly defer the decision.
+You are done when the other team can explain the intended outcome, choose meaningful inputs and predict what they would observe, all without inventing any essential policy. Write down any question they could not answer, and either revise the story or deliberately put the decision off.
 
-**Optional extension:** write a plain-Java check for your top story's examples, in the style of the companion's `Chapter03AcceptanceExamples`, and confirm that it fails when you introduce a deliberate fault.
+If you want more, write a plain-Java check for your top story's examples in the style of the companion's `Chapter03AcceptanceExamples`, and confirm that it fails when you introduce a deliberate fault.
 
-## 3.11 Common mistakes
+## 3.11 Habits that sound agile but are not
 
 | Mistake | Consequence | Correction |
 |---|---|---|
@@ -365,7 +365,7 @@ The activity is complete when the other team can explain the intended outcome, s
 | Treating AI suggestions as stakeholder decisions | The scope or policy changes without agreement | Classify each proposal and justify its disposition |
 | Counting inherited working code as newly delivered work | Progress becomes misleading | Record the baseline and the remaining work honestly |
 
-## 3.12 Review questions and transfer challenge
+## 3.12 Questions to think with
 
 ### Concept questions
 
@@ -385,19 +385,19 @@ A laboratory room-booking team receives the request “Make booking easier.” D
 
 Identify one question that needs a stakeholder answer and one technical uncertainty that might need an investigation. Explain how the team could obtain feedback without pretending that every room-booking rule is already known.
 
-## Summary and next chapter
+## What to take away, and what comes next
 
-Agile development combines a willingness to learn with visible work and explicit quality expectations. Short cycles help when feedback changes what the team understands, while careful design and checks help it make the resulting changes safely.
+Agile development pairs a willingness to learn with visible work and clear quality expectations. Short cycles pay off when feedback changes what the team understands, and good design and checks are what let it act on that feedback safely.
 
-Scrum and Kanban offer different ways to organise that work. Their terminology should clarify responsibilities and decisions. A board, meeting or estimate has little value if the team cannot explain how it affects the next action.
+Scrum and Kanban are two ways of organising the work. Their vocabulary is there to clarify who is responsible for what and which decisions are being made. A board, a meeting or an estimate has little value if the team cannot explain how it changes the next thing they do.
 
-Our immediate result is a draft backlog with clear stories, observable examples, shared completion conditions and a workflow. It distinguishes inherited capability from new work and records the decisions that remain open.
+What you now have is a draft backlog with clear stories, observable examples, shared completion conditions and a workflow. It separates what the code already does from new work, and it records the decisions that are still open.
 
-In **Chapter 4: From Requirements to an Iteration**, we will use those artefacts to define project scope, slice features, prepare the kickoff milestone and establish a reproducible repository and initial CI workflow.
+In **Chapter 4: From Requirements to an Iteration**, we use these documents to define project scope, slice features, prepare for the kickoff milestone, and set up a reproducible repository with an initial CI workflow.
 
 ## Sources and further reading
 
-All project scenarios, backlog entries, board policies, exercises and AI fixtures are original teaching material. The numeric rules and Java baseline continue the preceding chapters. Sources were checked on 12 and 13 October 2026; the named guide versions keep the conceptual baseline explicit.
+All project scenarios, backlog entries, board policies, exercises and ready-made AI examples are original teaching material. The numeric rules and Java baseline continue the preceding chapters. Sources were checked on 12 and 13 October 2026; the named guide versions keep the conceptual baseline explicit.
 
 1. **Authors of the Agile Manifesto.** [Manifesto for Agile Software Development](https://agilemanifesto.org/), 2001. Section 3.2 paraphrases its preferences; read the original wording alongside the project applications.
 2. **Authors of the Agile Manifesto.** [Principles behind the Agile Manifesto](https://agilemanifesto.org/principles.html), 2001. Delivery, technical quality, sustainable work and reflection.

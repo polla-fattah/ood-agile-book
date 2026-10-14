@@ -17,29 +17,29 @@ Knowing how to declare a class does not answer any of that. These are questions 
 
 The chapter corresponds to **Week 1** and supports LO1 and LO6. It builds on Chapter 1's reservation rule, so you should be comfortable tracing conditions, calling methods and explaining a returned value; Java's official class tutorial [1] and Appendix A are there if you need to revise syntax. The examples use a Java 17 language and API baseline with no preview features or external dependencies, and you need a JDK to compile them. JUnit, Maven and automated CI are not prerequisites for this first design exercise; they arrive with the later work that needs them, and Appendix B records the toolchain and commands for the whole book.
 
-The checkpoint you start from is the Chapter 2 starter in the companion file, and the checkpoint you finish with is the same code after the confirmation extraction. It becomes the cumulative baseline for later chapters. The fault demonstrations and the notation examples in Section 2.6 are separate teaching material and do not join the project. The companion holds every complete source file, a starting version, the completed refactoring, the checks and suggested answers: use its starting listings and execution instructions first, and look at the solutions only after you have attempted the activity. Java excerpts in this chapter are labelled where they leave out surrounding code.
+You start from the Chapter 2 starter in the companion file, and you finish with the same code after the confirmation extraction. That finished version is where the running project picks up in later chapters. The fault demonstrations and the notation examples in Section 2.6 are separate teaching material and do not join the project. The companion holds every complete source file, a starting version, the completed refactoring, the checks and suggested answers: use its starting listings and execution instructions first, and look at the solutions only after you have attempted the activity. Java excerpts in this chapter are labelled where they leave out surrounding code.
 
-Read Sections 2.1 to 2.9 as the core, and give the most time to Section 2.6 on UML class diagrams, because that is the notation the midterm assesses. The module's Week 1 reading is Martin [10], the Part I introduction and the object-oriented design fundamentals, with Sections 2.1 to 2.5 as its practical counterpart; use the Moodle links for the exact pages. The minimum lab is the Section 2.8 AI activity and Parts A to D of the practical activity in Section 2.10: the annotated diagram and scenario model, the responsibility diagnosis, the checked extraction commit with its review, and your team's issue board and branch policy. Parts A to C run on the **Book project**, and Part D concerns your **Team project**. The optional extension is the investigation at the end of Section 2.10, followed by the review questions and the transfer challenge.
+Read Sections 2.1 to 2.9 as the core, and give the most time to Section 2.6 on UML class diagrams, because that is the notation the midterm assesses. The module's Week 1 reading is Martin [10], the Part I introduction and the object-oriented design fundamentals, with Sections 2.1 to 2.5 as its practical counterpart; use the Moodle links for the exact pages. What you must do is the Section 2.8 AI activity and Parts A to D of the practical activity in Section 2.10: the annotated diagram and scenario model, the responsibility diagnosis, the checked extraction commit with its review, and your team's issue board and branch policy. Parts A to C run on the book's project, and Part D concerns your team's project. If you want more, try the investigation at the end of Section 2.10, then the questions and the transfer challenge in Section 2.11.
 
-## 2.1 Objects, identity, state and behaviour
+## 2.1 Objects: what they know, what they do, and who they are
 
-A class defines a type and its implementation. An object is an instance created at run time. Two objects created from the same class can represent different things and hold different state. Java's class model gives us fields, constructors and methods with which to express these distinctions [1].
+Start with the vocabulary. A class describes a kind of thing, and an object is one particular thing of that kind that exists while the program runs. Two objects built from the same class can stand for different things and hold different information; Java gives us fields, constructors and methods to say all this [1].
 
-In our project, a `Reservation` records an arrangement involving a borrower, an equipment item and a period. Its state includes an identifier such as `R1`, a borrower identifier such as `B1`, an item identifier such as `CAM1`, and a `LoanPeriod`.
+In our project a `Reservation` records an arrangement between a borrower, an equipment item and a period. Its information includes an identifier such as `R1`, a borrower identifier such as `B1`, an item identifier such as `CAM1` and a `LoanPeriod`.
 
-These identifiers are different kinds of identity. Two physical cameras may have the same model name but need different item identifiers. Two reservations for the same camera on different dates are still separate reservations. The borrower's name would be a poor substitute for a stable identifier because names can change or be shared by different people.
+Notice that these identifiers are different kinds of identity. Two physical cameras may share a model name but still need separate item identifiers. Two reservations for the same camera on different dates are still two reservations. And a borrower's name would be a poor identifier, because names change and different people share them.
 
-Java object identity is another distinction. Two references can point to the same instance, or to distinct instances that represent the same domain identifier. The `==` operator on references checks whether they refer to the same object. Domain equality needs a deliberate definition; it is not automatically established by matching fields. Our small `Reservation` class does not override `equals`, so do not assume it already implements identifier-based equality.
+Java adds an identity of its own. Two references can point at the very same object, or at two separate objects that stand for the same domain identifier, and the `==` operator on references only tells you about the first case. Whether two objects count as "equal" in the domain is a decision somebody has to make; matching fields do not settle it automatically. Our small `Reservation` class does not override `equals`, so do not assume it already treats two reservations with the same identifier as equal.
 
-**State** is information an object holds. **Behaviour** is what it can do through its operations. A reservation record can expose its identifier and period without allowing callers to replace them. A coordinator can add a new record after checking the request. A period can answer whether it overlaps another period.
+It helps to separate what an object *knows* from what it can *do*. The first is its **state**, the information it holds. The second is its **behaviour**, what it can do through its operations. A reservation can reveal its identifier and period without letting anyone replace them. A coordinator can add a new record once it has checked the request. A period can say whether it overlaps another period.
 
-These objects do not all need to be mutable. In the starter, each `Reservation` and `LoanPeriod` is immutable after construction: their fields cannot be reassigned, their referenced values are immutable, and their operations do not modify state. The coordinator is different. It accumulates reservations in a private list.
+Not every object needs to change over its lifetime. In the starter, each `Reservation` and `LoanPeriod` is immutable once built: its fields cannot be reassigned, the values they refer to cannot change, and none of its operations modifies it. The coordinator is the exception. It collects reservations in a private list as the program runs.
 
-That distinction explains why the same request can produce a different answer after an earlier successful call. Chapter 1's `mayRequest` method only examined supplied numbers. Here, a call to the coordinator may change the state that the next call examines.
+That difference explains something you may already have noticed. The same request can get a different answer after an earlier request succeeded. Chapter 1's `mayRequest` method only looked at the numbers it was given. A call to the coordinator can change the state that the next call looks at.
 
-### From the numeric rule to a small system
+### From a numeric rule to a small system
 
-We keep Chapter 1's `ReservationRules` unchanged: a borrower may have at most three active reservations and request one to seven days. The staff variation remains a future design exercise; this checkpoint applies the initial student policy to every borrower identifier.
+We keep Chapter 1's `ReservationRules` exactly as it was: a borrower may hold at most three active reservations and request one to seven days. The staff variation stays a future design exercise, so at this stage the student rules apply to every borrower identifier.
 
 The new starter has four domain and application classes:
 
@@ -50,21 +50,21 @@ The new starter has four domain and application classes:
 | `Reservation` | Record the identity and details of a confirmed reservation | Reservation, borrower and item identifiers; period |
 | `ReservationCoordinator` | Process requests using policy checks and existing records | In-memory reservations and a rules object |
 
-The identifiers stand in for borrower and equipment records. We do not yet implement complete `Borrower` and `EquipmentItem` classes or a catalogue. A non-blank identifier is therefore not proof that a real person or item exists.
+The identifiers stand in for real borrower and equipment records. We have not written full `Borrower` and `EquipmentItem` classes or a catalogue, so a non-blank identifier proves nothing about whether such a person or item exists.
 
-## 2.2 Responsibilities and invariants
+## 2.2 Who is responsible for keeping things true?
 
-A responsibility is an obligation assigned to part of the system. “Hold two dates” describes data. “Represent a period whose end follows its start” describes an obligation that gives those data meaning.
+Every class has a job, and the useful way to state a job is as an obligation. "Hold two dates" only describes data. "Represent a period whose end follows its start" is an obligation, and it is what gives those two dates their meaning. We call such an obligation a **responsibility**.
 
-An **invariant** is a condition that must hold for valid objects or valid system states. Different invariants belong at different boundaries. One `LoanPeriod` can ensure its end is after its start. It cannot, by itself, ensure that another reservation has not already claimed the same equipment.
+Some obligations can be written as a condition that must always hold, and that kind has a name: an **invariant** is a condition that must be true for valid objects or valid states of the system. Different invariants belong in different places. A single `LoanPeriod` can guarantee that its end comes after its start. It cannot guarantee that nobody else has already reserved the same equipment, because it knows nothing about other reservations.
 
 ### A period convention we can test
 
-For this checkpoint, dates are calendar dates with no time of day. We represent a period as **start inclusive, end exclusive**, written `[start, end)`. A period from 20 October to 22 October covers the 20th and 21st; another may begin on the 22nd. This is an explicit teaching policy. A real lending service might require a cleaning or inspection interval, which would need another rule.
+For this stage, dates are calendar dates with no time of day. We write a period as **start inclusive, end exclusive**, or `[start, end)`. A period from 20 October to 22 October covers the 20th and the 21st, and another period may begin on the 22nd. This is an explicit decision for the book; a real lending service might need a cleaning or inspection gap between loans, and that would be another rule.
 
-Java's `LocalDate` is immutable and represents a date without a time or time zone [2]. We use `isBefore` and `plusDays` to express the convention; we do not interpret these dates as UTC instants or fixed numbers of elapsed hours.
+Java's `LocalDate` is immutable and represents a date with no time and no time zone [2]. We use `isBefore` and `plusDays` to express the convention, and we do not treat these dates as UTC instants or as a fixed number of elapsed hours.
 
-The constructor rejects a missing date or an end that is not after the start. The overlap operation then has a small, clear implementation:
+The constructor rejects a missing date or an end that does not come after the start. With that guaranteed, the overlap test is short:
 
 ```java
 // Method excerpt from LoanPeriod.java.
@@ -75,7 +75,7 @@ public boolean overlaps(LoanPeriod other) {
 }
 ```
 
-Two periods overlap when each begins before the other ends. Both comparisons are strict, so adjacent periods do not overlap. `Objects.requireNonNull` throws `NullPointerException` for a null argument; it does not fabricate a replacement period [3].
+Two periods overlap when each one begins before the other ends. Both comparisons are strict, which is exactly why two periods that merely touch do not overlap. `Objects.requireNonNull` throws a `NullPointerException` for a null argument instead of inventing a replacement period [3].
 
 | First period | Second period | Overlap? | Explanation |
 |---|---|---|---|
@@ -84,29 +84,29 @@ Two periods overlap when each begins before the other ends. Both comparisons are
 | `[20 Oct, 22 Oct)` | `[20 Oct, 22 Oct)` | Yes | Identical periods overlap |
 | `[20 Oct, 22 Oct)` | `[19 Oct, 24 Oct)` | Yes | The second contains the first |
 
-Comparing start dates alone would miss some of these relationships. Concrete examples help us check the meaning of a short expression.
+Try comparing only the start dates and you will see that some of these rows go wrong. Concrete examples are the quickest way to check what a short expression really means.
 
 ### Who protects which condition?
 
-The constructor protects the local validity of a period. `ReservationRules` protects the numeric policy only when given an accurate count. The coordinator counts its records and checks item conflicts before storing a new reservation. No one class can enforce all of those conditions without information from the others.
+Each condition has a natural owner. The constructor protects the validity of one period. `ReservationRules` protects the numeric policy, provided it is given an accurate count. The coordinator counts its records and checks for item conflicts before it stores anything. No single class can enforce all of this alone, because each one lacks information that another holds.
 
-The starter has intentionally limited operating assumptions. All stored records are confirmed and remain active because cancellation, completion and automatic expiry are not implemented. Calls occur sequentially in one process. Data disappear when the process ends. Identifiers are matched exactly, without normalisation or authentication. The coordinator checks availability only against its own stored records; maintenance schedules and other coordinators are outside this checkpoint.
+The starter also makes some deliberately limited assumptions. Every stored record is confirmed and stays active, because cancellation, completion and expiry do not exist yet. Calls arrive one at a time in one process. The data vanishes when the process ends. Identifiers are matched exactly, with no clean-up and no authentication. And the coordinator checks availability only against its own records, so maintenance schedules and other coordinators are out of scope.
 
-These limits matter when describing correctness. Within a single sequential coordinator, checking conflicts before adding a record prevents the demonstrated overlap. It does not establish safe concurrent booking by multiple processes. Later integration work will revisit that boundary.
+These limits shape what we may claim. Inside one sequential coordinator, checking for conflicts before adding a record prevents the overlap we demonstrate. That is not the same as safe booking by several processes at once, a boundary we revisit when we reach integration.
 
-## 2.3 Encapsulation and information hiding
+## 2.3 Keeping state safe: encapsulation and information hiding
 
-**Encapsulation** groups state with the operations that govern its use and controls access to that state. **Information hiding** concerns which implementation decisions callers should not need to know. The two ideas reinforce each other, but neither is achieved simply by placing the word `private` before every field.
+You may have been told that making fields `private` is encapsulation. It is a start, and only a start. **Encapsulation** groups state with the operations that govern it and controls who can reach that state. **Information hiding** is about which implementation decisions callers should not need to know. The two support each other, but writing `private` in front of every field achieves neither by itself.
 
-**Abstraction** presents the aspects relevant to a caller while leaving out unnecessary detail. A caller can ask a period whether it overlaps another period without repeating the date comparisons. That abstraction exists through an ordinary public method; it does not require Java's `abstract` keyword or a separate interface. A useful abstraction still needs a clear contract, including our decision that adjacent periods do not overlap.
+A related word is **abstraction**: showing a caller only what it needs and leaving out the detail. A caller can ask a period whether it overlaps another period without repeating the date comparisons. That is abstraction through an ordinary public method, with no need for Java's `abstract` keyword or an interface. It still needs a clear contract, including our decision that two periods that touch do not overlap.
 
-Suppose a class exposes separate setters for a period's start and end. A caller could move the start beyond the current end. If each setter merely assigns a field, making those fields private has not protected the relationship between them.
+To see why `private` is not enough, imagine a class with separate setters for a period's start and end. A caller could move the start beyond the current end. If each setter simply assigns a field, the fields are private and the relationship between them is still unprotected.
 
-Our `LoanPeriod` constructor requires both dates together and validates the relationship. It provides readers but no setters. To express another period, a caller creates another valid object. This keeps an invalid intermediate state out of the public protocol. In another domain, a controlled mutation operation could be appropriate; immutability is a design choice rather than a rule that every object must follow.
+Our `LoanPeriod` avoids that. Its constructor takes both dates together and checks the relationship, and the class offers readers but no setters. To describe a different period, a caller makes another valid object, so an invalid half-way state never exists. In another domain a controlled way to change an object could be the right choice; immutability is a design decision, not a law.
 
-### A getter can expose a mutation path
+### A getter can hand out the keys
 
-Consider this deliberately unsafe alternative inside the coordinator:
+Here is a deliberately unsafe alternative for the coordinator:
 
 ```java
 // Unsafe alternative for diagnosis; not the starter implementation.
@@ -115,9 +115,9 @@ public List<Reservation> reservations() {
 }
 ```
 
-A caller could invoke `coordinator.reservations().clear()`. That would erase records without passing through the coordinator's request checks. The field would still be private, yet callers would possess a reference to the mutable list it uses.
+Now any caller can write `coordinator.reservations().clear()` and erase every record without passing through the coordinator's checks. The field is private, yet callers hold a reference to the very list the coordinator uses.
 
-The starter instead returns:
+The starter returns this instead:
 
 ```java
 // Method excerpt from the supplied coordinator.
@@ -126,19 +126,19 @@ public List<Reservation> reservations() {
 }
 ```
 
-`List.copyOf` produces an unmodifiable list whose contents are not updated by later changes to the source collection [4]. This protects the list structure and provides a snapshot. It does not deep-copy the elements or make mutable elements immutable. Here, `Reservation`, `LoanPeriod`, `String` and `LocalDate` provide the necessary immutability for the values we expose.
+`List.copyOf` builds an unmodifiable list, and later changes to the original collection do not show up in it [4]. So callers get a snapshot they cannot modify. It does not copy the elements themselves, and it cannot make a mutable element immutable. Here that is fine, because `Reservation`, `LoanPeriod`, `String` and `LocalDate` are already immutable.
 
-This is also why `private final List<Reservation>` alone would be insufficient. `final` prevents reassignment of the field to another list; it does not prohibit `add` or `clear` on that list.
+The same reasoning shows why `private final List<Reservation>` alone would not be enough. `final` stops the field from being pointed at a different list, and it does nothing to stop `add` or `clear` on the list it points at.
 
-The coordinator still exposes more representation than a mature system might require: callers know that stored reservations can be inspected as a list. That is acceptable for a small teaching checkpoint. If a caller later needs only a count or an availability answer, a narrower operation may reduce what the caller must understand.
+The coordinator still reveals more of its inner workings than a mature system might, since callers can see that the records are kept as a list. That is acceptable at this stage. If callers later need only a count or an availability answer, a narrower operation would mean they have less to understand.
 
-## 2.4 Cohesion, coupling and dependencies
+## 2.4 Why a long method is not the real problem: cohesion and coupling
 
-**Cohesion** concerns how closely the responsibilities within a component belong together. `LoanPeriod` has a focused purpose: its validation and overlap calculation concern the same period concept. A coordinator that also knows message wording, storage details and borrowing policy has more varied responsibilities.
+Reviewers often say "this method is too long", and sometimes they are right, but length is a symptom. Two ideas get closer to the cause. **Cohesion** asks how closely the responsibilities inside one component belong together. `LoanPeriod` is cohesive: its validation and its overlap calculation are about the same idea, a period. A coordinator that also knows message wording, storage details and borrowing policy is mixing more varied responsibilities.
 
-**Coupling** concerns the dependencies between components. A component depends on another when it relies on its type, operations, data format or behaviour. Some dependency is necessary: software works because components collaborate. The question is whether the dependency expresses a useful relationship or makes unrelated changes spread.
+**Coupling** asks how much components depend on each other. One component depends on another when it relies on its type, its operations, its data format or its behaviour. Some dependency is unavoidable, because software works only when its parts cooperate. What matters is whether a dependency expresses a useful relationship or lets unrelated changes spread.
 
-Look at this excerpt from the end of the starter's `reserve` method:
+Look at the end of the starter's `reserve` method:
 
 ```java
 // Excerpt from the starting ReservationCoordinator.java.
@@ -152,9 +152,9 @@ return "Confirmed: " + reservation.id()
         + ", " + reservation.period().endExclusive() + ").";
 ```
 
-The excerpt creates and stores a reservation, then assembles its confirmation. Earlier lines count the borrower's records and check conflicts. All of this is visible in the companion's complete starting file.
+It creates and stores a reservation and then builds its confirmation text. Earlier lines, which you can see in the companion's complete starting file, count the borrower's records and check for conflicts.
 
-The method is not wrong merely because it contains several steps. Coordination often involves several collaborators. The useful question is which decisions have independent reasons to change.
+Having several steps does not make a method wrong; coordinating often means working with several collaborators. The better question is which of those decisions has its own reasons to change. One way to find out is to imagine some likely requests and ask where each would land:
 
 | Possible request | Decision it affects | Current location |
 |---|---|---|
@@ -163,11 +163,11 @@ The method is not wrong merely because it contains several steps. Coordination o
 | Store records beyond process lifetime | Storage mechanism | Coordinator's list and storage operations |
 | Translate a confirmation message | Presentation wording | Coordinator's final return expression |
 
-This table provides a better diagnosis than “the method is long.” It identifies which changes currently require editing the coordinator and why. It also distinguishes likely work from hypothetical generality: a future database is a possible boundary, not a reason to implement a repository framework in this chapter.
+That table is a better diagnosis than "the method is long". It shows which changes would force an edit to the coordinator, and why. It also separates likely work from imagined generality: a database may be a future boundary, but that is no reason to build a repository framework now.
 
-### A small improvement with a limited claim
+### A small improvement, and exactly what it is worth
 
-We will extract the confirmation expression into a private method named `confirmationFor`. The request method will still add the record first and then return the helper's result. The helper will receive the existing reservation and return exactly the same text:
+We will pull the confirmation expression into a private method called `confirmationFor`. The request method still adds the record first and then returns what the helper produces. The helper receives the existing reservation and returns exactly the same text:
 
 ```java
 // Method added to ReservationCoordinator.java by the extraction.
@@ -182,23 +182,23 @@ private String confirmationFor(Reservation reservation) {
 
 The request method then ends with `reservations.add(reservation); return confirmationFor(reservation);`, so the record is still stored before the text is built.
 
-This is a modest refactoring. It gives the formatting operation a name and allows a reader to follow the request steps without reading every concatenation. It does **not** create a separate presentation component, remove storage coupling or make the coordinator thread-safe. A private helper changes readability inside the class; a new component would change the collaboration between classes.
+It is a modest refactoring. The formatting now has a name, and a reader can follow the steps of a request without wading through every concatenation. It does **not** create a separate presentation component, remove the coupling to storage or make the coordinator thread-safe. A private helper improves readability inside one class; a new component would change how classes collaborate.
 
-The distinction prevents us from overstating the benefit of a small edit. If translation later needs its own collaborators, a separate formatting responsibility may become justified. For now, a named private operation is enough for the stated task.
+It is worth being exact about this, because small edits are easy to oversell. If translation later needs collaborators of its own, a separate formatting responsibility may be justified. For the task at hand a named private operation is enough.
 
-The supplied checks examine both returned messages and stored state. After the extraction, both must remain the same. Merely preserving a success string while forgetting to store the reservation would not preserve behaviour.
+The supplied checks look at both the returned messages and the stored state, and after the extraction both must be unchanged. A version that kept the success message but forgot to store the reservation would not have preserved the behaviour.
 
-## 2.5 Composition and inheritance
+## 2.5 Has-a or is-a? Composition and inheritance
 
-**Composition**, in the broad programming sense, means building behaviour by giving an object collaborators or component objects. A `Reservation` has a `LoanPeriod`; it delegates the question of overlap through that period. A coordinator has a `ReservationRules` object rather than inheriting from it.
+If one class needs the services of another, there are two classic ways to arrange it. The first is **composition**: build behaviour by giving an object collaborators or components. A `Reservation` has a `LoanPeriod` and asks it about overlap, and a coordinator has a `ReservationRules` object instead of inheriting from it.
 
-This fits the domain meanings. A coordinator is not a kind of borrowing rule, and a reservation is not a kind of period. Their relationships concern what they use or contain, not a subtype relationship.
+That fits the domain. A coordinator is not a kind of borrowing rule, and a reservation is not a kind of period. The relationships are about what one object uses or contains, not about one being a subtype of the other.
 
-**Inheritance** defines a derived class in relation to a superclass. Java supports inherited members, method overriding and run-time selection of overridden instance methods [5]. These mechanisms can express a useful family of related behaviours, but they also establish expectations that callers may rely on.
+The second way is **inheritance**, where a derived class is defined in terms of a superclass. Java supports inherited members, overriding and run-time selection of the overridden method [5]. These tools can express a real family of related behaviours, but they also create expectations that callers will come to rely on.
 
-Consider a hypothetical `SpecialReservation` subclass introduced only because some borrowers have longer limits. Is the difference really a new kind of reservation, or a policy governing whether a reservation may be created? If staff status can change while an existing reservation retains its identity, forcing that distinction into a reservation hierarchy may be awkward.
+Take an imaginary `SpecialReservation` subclass, introduced only because some borrowers have longer limits. Is that really a new kind of reservation, or is it a policy about whether a reservation may be created at all? If a borrower's staff status can change while an existing reservation keeps its identity, forcing that difference into a reservation hierarchy gets awkward quickly.
 
-This does not prove that inheritance is always unsuitable. It directs us to ask what varies, what remains stable and what a caller expects from the base type. Chapter 5 develops behavioural substitutability more formally. For this checkpoint, the constructors, fields and collaborators already express the required relationships without a custom inheritance hierarchy.
+That does not mean inheritance is always the wrong choice. It means asking what varies, what stays stable and what a caller expects from the base type. Chapter 5 returns to this through behavioural substitutability. For the project at this stage, constructors, fields and collaborators already express every relationship we need, with no custom hierarchy.
 
 | Question | Composition can help when | Inheritance deserves consideration when |
 |---|---|---|
@@ -206,9 +206,9 @@ This does not prove that inheritance is always unsuitable. It directs us to ask 
 | What varies? | A collaborator or delegated responsibility | Behaviour shared through a stable base contract |
 | What must be reviewed? | How collaborators are selected and called | Whether derived behaviour preserves caller expectations |
 
-Composition has costs too. Too many small collaborators make it harder to follow a request. Avoid replacing one readable expression with several classes unless that organisation solves an actual problem. The design goal is understandable responsibility boundaries, not the maximum number of objects.
+Composition has costs too. If you break a readable expression into many tiny collaborators, a request becomes harder to follow. Do not replace one clear expression with several classes unless that reorganisation solves a real problem. The goal is responsibility boundaries that people can understand, not the largest possible number of objects.
 
-## 2.6 UML class diagrams: reading, drawing and checking
+## 2.6 Drawing the design: UML class diagrams you can read, write and check
 
 A class diagram is a selective explanation of a design. It answers one question for one audience, such as “which objects take part in a reservation request, and how are they related?” It is not a copy of the source code, and a diagram that tries to show every field and method answers no question well. This section teaches you to read a diagram, to draw one from a written description, and to check one against code. Class diagrams are the only UML notation used in this chapter; later chapters introduce other kinds where they are first needed.
 
@@ -478,21 +478,21 @@ classDiagram
 | Drawing every class and member | The design question disappears among the detail | One diagram, one question, only the members it needs |
 | A diagram that disagrees with the code | Readers trust the diagram | Run the checking steps above before you share it |
 
-## 2.7 Git history, branches and review
+## 2.7 Making a change someone else can review
 
-A codebase becomes a shared engineering artefact when the team can inspect its changes, reproduce its behaviour and explain its decisions. Version control supports that work, but a commit alone is not evidence of a good design.
+A design improvement is only half the job. The other half is making the change in a way that your teammates can inspect, reproduce and understand. Version control exists for that, although a commit on its own is no proof that a design is good.
 
-Git separates the working files, the staging area and recorded commits. You edit working files, select content for the next commit and record that selected state. The staging area matters when unrelated edits are present: the next commit should contain the change you intend to explain [6].
+Git keeps three things apart: the working files, the staging area and the recorded commits. You edit working files, choose what goes into the next commit, and record that chosen state. Staging matters most when your working files hold several unrelated edits, because the next commit should contain the one change you intend to explain [6].
 
-A **branch** gives a name to a line of development. For our lab, use a short-lived branch containing the confirmation extraction. A **pull request** or **merge request** is a hosting-platform review proposal; it is not the same operation as a local commit. A local peer review can still serve the learning objective when no hosting account is available.
+A **branch** gives a name to a line of development. For the practical activity, put the confirmation extraction on a short-lived branch of its own. A **pull request** (some platforms say **merge request**) is a proposal for review on a hosting platform, and it is a different thing from a local commit. If you have no hosting account, a peer review done at your desk still serves the purpose.
 
-Teams using trunk-based development integrate small changes frequently into a main line, sometimes through very short-lived branches. A feature-branch workflow groups a feature's work on a branch before integration. These approaches overlap in practice: a short reviewed branch can be part of frequent integration. For this course, focus on keeping changes small, reviewable and integrated regularly. Git's branching discussion illustrates why topic branches can help organise independent work [7].
+You will hear two styles of working. In trunk-based development, small changes are integrated into one main line often, sometimes through very short-lived branches. In a feature-branch workflow, the work for a feature stays on its branch until it is ready to merge. In practice the two overlap, because a short reviewed branch can be part of frequent integration. What we ask in this course is simple: keep changes small, reviewable and integrated regularly. Git's own branching discussion shows why topic branches help to keep independent work apart [7].
 
-### A reviewable change
+### What a reviewable change looks like
 
-Begin with the supplied starting files and a recorded baseline. Confirm that the checks pass before editing. Create a branch, perform only the extraction, rerun the checks and inspect the diff. The companion contains the complete setup commands.
+Begin from the supplied starting files and a recorded baseline, and confirm that the checks pass before you edit anything. Then create a branch, make only the extraction, run the checks again and inspect the diff. The companion has the full setup commands.
 
-The key inspection commands are:
+These are the commands you will use to inspect your work:
 
 ```sh
 git status
@@ -500,44 +500,44 @@ git diff
 git diff --staged
 ```
 
-The first reports file state. The second normally shows tracked changes not yet staged; the third shows staged changes against the current commit [8]. An empty `git diff` after staging does not mean there is nothing to commit. Untracked files also need attention in `git status`.
+The first reports the state of your files. The second normally shows tracked changes that are not yet staged, and the third shows staged changes against the current commit [8]. One trap: an empty `git diff` after staging does not mean there is nothing to commit, and untracked files need a look in `git status` as well.
 
-Appendix B collects the Git commands and the pull-request workflow used in this book (B.8); the Pro Git readings [6][7] and the commands above are enough for this chapter.
+Appendix B collects the Git commands and the pull-request routine used in this book (B.8). The Pro Git readings [6][7] and the commands above are all you need for this chapter.
 
-A useful commit message is `Extract reservation confirmation formatting`. Many teams adopt a written convention for such messages. Conventional Commits, for example, puts a type before a short description, as in `refactor: extract reservation confirmation formatting` [9]. Use whichever convention your team agrees, and apply it consistently. A useful review description states the problem, the limited change, and the checks performed. For example: “The request method interleaves storage and confirmation text. This change moves the text assembly into a private helper. The existing messages and stored records remain unchanged in the supplied checks.”
+A good commit message here would be `Extract reservation confirmation formatting`. Many teams write their convention down; Conventional Commits, for example, puts a type in front of a short description, as in `refactor: extract reservation confirmation formatting` [9]. Use whatever your team agrees, and use it consistently. A good review description states the problem, the limited change and the checks that were run. For example: “The request method interleaves storage and confirmation text. This change moves the text assembly into a private helper. The existing messages and stored records remain unchanged in the supplied checks.”
 
-The reviewer should inspect the diff, verify that the helper does not add state changes and check that the record is still added before confirmation is returned. A comment such as “Looks cleaner” is weaker than an explanation of what was inspected and why it matters.
+A reviewer should read the diff, confirm that the helper adds no state changes, and check that the record is still added before the confirmation is returned. “Looks cleaner” says less than a sentence about what was inspected and why it matters.
 
-Do not combine this refactoring with changed limits, renamed identifiers or new message punctuation. Each may be legitimate work, but combining them makes it harder to determine why a result changed. Keep compiled class files out of commits; the companion's `.gitignore` handles those generated files.
+Keep this refactoring on its own. Changing limits, renaming identifiers or touching message punctuation may each be fine, but if they arrive together it is hard to tell why a result changed. And keep compiled class files out of your commits; the companion's `.gitignore` takes care of those.
 
-## 2.8 AI in practice: tracing a coordinator
+## 2.8 Checking an AI's explanation of the coordinator
 
-Chapter 15 collects the recurring AI workflows; this activity is self-contained, and its table gives the contract you need.
+Chapter 15 gathers the AI workflows that recur in this book, but this activity is complete on its own and the table below gives you its ground rules.
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Compare an explanation of the coordinator with its actual control flow, state changes and side effects |
-| Input | The complete starting `ReservationCoordinator` and its collaborators from the companion |
-| Permitted scope | Judge the explanation only; do not change the code |
-| Independent checks | Tracing the code, the three-request demonstration and the supplied checks |
-| Accept or reject | Keep supported claims, reject contradicted ones and mark claims the code does not establish |
-| No-account route | The fixture below is sufficient |
+| Your goal | Compare an explanation of the coordinator with its actual control flow, state changes and side effects |
+| You start with | The complete starting `ReservationCoordinator` and its collaborators from the companion |
+| What is in bounds | Judge the explanation only; do not change the code |
+| How to check | Trace the code, run the three-request demonstration and use the supplied checks |
+| How to decide | Keep supported claims, reject contradicted ones and mark claims the code does not establish |
+| No AI account? | The ready-made explanation below is enough |
 
-The following **author-written teaching fixture** imitates a plausible AI explanation. It was constructed for this exercise and is not a captured response from a real model:
+The explanation below was written by the author to imitate a plausible AI answer. It is not a captured response from a real model:
 
 > The coordinator validates identifiers, counts the borrower's stored reservations and checks the numeric rule. It tests availability using existing reservations for the same item. On success, it adds a reservation before returning a confirmation. It sends that confirmation by email and persists the reservation to a database. Because the list field is final, callers receive a deeply immutable copy and booking is safe under concurrent requests.
 
-Classify each claim as supported, contradicted or not established. Cite the relevant operation, or the absence of one, for each judgement. Pay particular attention to control flow, state changes and side effects.
+Sort each claim into supported, contradicted or not established, and for each one point to the operation in the code, or to the absence of one, that justifies your verdict. Pay particular attention to control flow, state changes and side effects.
 
-Keep accurate statements in the revised explanation. Write a four-sentence replacement that describes input validation, successful and rejected paths, state changes and the checkpoint's limits.
+Then write a four-sentence replacement that keeps the accurate parts. It should describe input validation, the successful and rejected paths, the state changes and the limits of this version of the project.
 
-If permitted, you may repeat the exercise with a live assistant using the prompt below. The supplied fixture is sufficient without an AI account.
+If your course allows it, you can repeat the exercise with a live assistant and this prompt; the ready-made explanation is enough if you have no AI account:
 
 > Trace this coordinator and its supplied collaborators. Identify inputs, returned values and state changes on success and rejection. State what is established about storage, notifications and concurrency. Separate facts visible in the code from assumptions. Do not change the code.
 
-Record one accepted claim and one rejected or qualified claim with evidence. Do not treat a second model's agreement as a substitute for tracing the operations.
+Write down one claim you accepted and one you rejected or qualified, with your evidence for each. A second model agreeing with the first is no substitute for tracing the operations yourself.
 
-## 2.9 Common mistakes
+## 2.9 Mistakes that look like good design
 
 | Mistake | Why it fails in this example | Better question |
 |---|---|---|
@@ -550,77 +550,77 @@ Record one accepted claim and one rejected or qualified claim with evidence. Do 
 | A formatting refactoring fixes the whole design | The helper leaves storage and other responsibilities in the coordinator | Which improvement did this edit actually make? |
 | Green checks prove the application is production-ready | The starter omits lifecycle, persistence, catalogue validation and concurrency | Which claims have we tested, under which assumptions? |
 
-## 2.10 Practical activity: one checked design improvement
+## 2.10 Try it yourself: improve the design, with evidence
 
-### Inputs and starting point
+### What you start with
 
-Parts A–C use the **Book project**; Part D concerns your **Team project**. Use the companion's common source files and **starting** `ReservationCoordinator.java`. Save all six Java files in one directory. Compile and run them using the instructions in the companion. The check runner should report 34 passing checks before you begin. Read the checks as provided evidence; you do not need to master the test-runner implementation yet.
+Parts A to C use the book's project, and Part D is about your own team's project. Use the companion's common source files and the **starting** `ReservationCoordinator.java`. Save all six Java files in one directory, then compile and run them by following the companion's instructions. The check runner should report 34 passing checks before you change anything. Treat those checks as given evidence; you do not need to understand how the runner itself works yet.
 
 ### Part A: understand the request
 
-Trace the three requests in `Chapter02Demo`. Record the returned message and number of stored records after each call. Identify the first condition that rejects the overlapping request. Explain why the adjacent request is accepted and why the rejected request does not consume a reservation identifier.
+Trace the three requests in `Chapter02Demo`. After each call, record the returned message and the number of stored records. Find the first condition that rejects the overlapping request, and explain why the adjacent request is accepted and why the rejected request does not use up a reservation identifier.
 
-Draw a small class diagram of the starter using the relationships in the code, without copying Figure 2.1: use the “From code to diagram” table, then run the four checking steps from Section 2.6 on your own drawing. Annotate one local invariant and one condition that needs information from multiple objects. The annotations may sit next to the diagram rather than inside it.
+Then draw a small class diagram of the starter that follows the relationships in the code, without copying Figure 2.1. Use the "From code to diagram" table, and run the four checking steps from Section 2.6 on your own drawing. Next to it, mark one invariant that a single object can protect and one condition that needs information from several objects. The notes may sit beside the diagram rather than inside it.
 
-Then complete one separate modelling exercise. It is practice in turning a written scenario into a class diagram, using the six-step method from Section 2.6, and it does not extend the project:
+After that, do one separate modelling exercise. It practises turning a written scenario into a class diagram with the six-step method from Section 2.6, and it does not extend the project:
 
 > The equipment office groups laboratory equipment into kits. A kit has a name and holds one or more equipment items. Removing a kit does not delete its items, and an item belongs to at most one kit. Each item keeps any number of maintenance records; a maintenance record belongs to exactly one item and has no meaning without it. A kit summary is produced through an exporter. The office needs CSV output now and expects other formats later.
 
-Draw a class diagram with the classes, their key attributes and multiplicities. Include at least one aggregation, one composition, one interface realisation and one dependency, and state one assumption you had to make. For each relationship you draw, write the question from Section 2.6 that decided it. Then read every line aloud in both directions against the scenario.
+Draw a class diagram with the classes, their key attributes and multiplicities. Include at least one aggregation, one composition, one interface realisation and one dependency, and state one assumption you had to make. For every relationship, write down the question from Section 2.6 that decided it, then read each line aloud in both directions against the scenario.
 
 ### Part B: diagnose the design
 
-Write a short responsibility inventory for the coordinator. Identify two distinct reasons it might change. Explain one cohesive collaborator and one dependency that deserves attention. Avoid judging quality by method length alone.
+Write a short responsibility inventory for the coordinator. Name two separate reasons it might have to change, one collaborator that is cohesive and one dependency that deserves attention. Do not judge quality by method length alone.
 
 ### Part C: make the change
 
-On a short-lived branch, move only the confirmation-string expression into a private `confirmationFor(Reservation reservation)` method. Keep its output, validation order, identifier allocation and storage effects unchanged. Do not add a new interface or change the public method signatures.
+On a short-lived branch, move only the confirmation-string expression into a private `confirmationFor(Reservation reservation)` method. Leave its output, validation order, identifier allocation and storage effects exactly as they were, and do not add an interface or change any public method signature.
 
-Run the checks again, inspect the diff and ask a peer to review it. In independent study, perform a self-review and label it honestly as such. Produce one focused commit after addressing relevant feedback. A separate hosted pull request is optional for this introductory activity.
+Run the checks again, read the diff and ask a peer to review it. If you are studying alone, review it yourself and say honestly that it was a self-review. Make one focused commit after dealing with any useful feedback. A separate hosted pull request is optional for this introductory activity.
 
-### Part D: organise collaboration
+### Part D: organise your team
 
-Form teams of three or four as directed by the module leader. Confirm which of the module's provided starter domains your assessed project uses. Equipment lending is this book's running example; if your team chooses another domain, use each chapter's transfer note.
+Form teams of three or four as the module leader directs, and confirm which of the module's starter domains your project uses. Equipment lending is this book's running example; if your team picks another domain, use each chapter's transfer note.
 
-Set up an issue board with columns that match how your team will work, and add three cards with concrete completion conditions, such as “extract confirmation formatting with unchanged output and checks”. Agree a branch policy, either very short-lived branches integrated into a main line often or one feature branch per story, and write down your reason. Agree who prepares the next demonstration and who reviews the next change. Roles should rotate; commit counts alone will not explain individual contributions.
+Set up an issue board with columns that match how your team will really work, and add three cards with concrete completion conditions, for instance "extract confirmation formatting with unchanged output and checks". Agree a branch policy, either very short-lived branches merged often or one feature branch per story, and write down why. Decide who prepares the next demonstration and who reviews the next change, and rotate those roles. Commit counts alone will not explain who contributed what.
 
-### Evidence to retain
+### What to keep
 
-Keep the annotated diagram, the scenario model, responsibility diagnosis, before-and-after check results, commit identifier, review note, AI claim analysis, and your team's issue board and branch-policy note. Add a short limitation statement: which risks remain after the extraction?
+Keep your annotated diagram, the scenario model, your responsibility diagnosis, the before-and-after check results, the commit identifier, the review note, your analysis of the AI explanation, and your team's issue board and branch-policy note. Add a short statement of the risks that remain after the extraction.
 
-The activity is complete when the diagram matches the code, the confirmation extraction preserves the checked behaviour, and your review explains both the improvement and its limits. You should also be able to explain the returned list's protection without claiming that all copies are deep copies.
+You are done when the diagram matches the code, the extraction preserves the checked behaviour, and your review explains both the improvement and its limits. You should also be able to explain how the returned list is protected without claiming that every copy is a deep copy.
 
-**Optional investigation:** in a temporary copy, replace `List.copyOf(reservations)` with `reservations`. Predict the effect of an external `clear()` call, then run the checks. Restore the original before continuing. This is a deliberate fault demonstration, not a proposed improvement.
+If you want to go further, try this investigation. In a temporary copy, replace `List.copyOf(reservations)` with `reservations`, predict what an outside `clear()` call would do, then run the checks. Put the original back before you continue. It is a deliberate fault demonstration, not an improvement.
 
-## 2.11 Review questions and transfer challenge
+## 2.11 Questions to think with
 
 ### Concept questions
 
-1. Distinguish a Java object reference from a reservation's domain identifier. Why are equal identifier strings not sufficient to make two `Reservation` instances equal through `equals` in this starter?
-2. Explain one local invariant and one system-level condition in the project. Why do they need different enforcement points?
+1. Distinguish a Java object reference from a reservation's domain identifier. Why are equal identifier strings not enough to make two `Reservation` instances equal through `equals` in this starter?
+2. Explain one invariant that a single object can protect and one condition that needs several objects. Why do they need different enforcement points?
 3. Explain cohesion and coupling using one likely change to the coordinator. Why is reducing the total number of dependencies not a sufficient design goal?
-4. Compare composition and inheritance for the relationship between a reservation and its loan period. What would an inheritance relationship incorrectly suggest?
+4. Compare composition and inheritance for the relationship between a reservation and its loan period. What would an inheritance relationship wrongly suggest?
 
 ### Applied diagnosis
 
-5. A developer adds a getter returning the private mutable list and claims that the coordinator is still encapsulated because the field is private. Give a concrete counterexample and explain the limits of the proposed correction using `List.copyOf`.
-6. A refactoring returns the same confirmation text but omits `reservations.add(reservation)`. The developer demonstrates the printed text and declares success. Explain the behavioural change and identify evidence that would expose it.
+5. A developer adds a getter that returns the private mutable list and says the coordinator is still encapsulated because the field is private. Give a concrete counterexample, and explain the limits of the proposed correction using `List.copyOf`.
+6. A refactoring returns the same confirmation text but leaves out `reservations.add(reservation)`. The developer shows the printed text and declares success. Explain the change in behaviour and name the evidence that would expose it.
 
 ### Transfer challenge
 
-A university room-booking coordinator stores bookings, checks room conflicts and constructs confirmation text. Its users now request a wording change only.
+A university room-booking coordinator stores bookings, checks room conflicts and builds confirmation text. Its users now ask for a wording change and nothing else.
 
-Propose a responsibility diagram with at most four domain or application classes. State a period convention, identify the state that callers must not modify directly, and describe one small behaviour-preserving improvement. Provide two before-and-after observations needed to accept it. Include a brief review description and explain one remaining limitation. A new inheritance hierarchy or pattern is not required.
+Propose a responsibility diagram with at most four domain or application classes. State a period convention, name the state that callers must not modify directly, and describe one small behaviour-preserving improvement. Give two before-and-after observations you would need to accept it, a brief review description and one remaining limitation. You need no new inheritance hierarchy or pattern.
 
-## Summary and next chapter
+## What to take away, and what comes next
 
-Objects become useful design units when their responsibilities and permitted interactions are clear. Constructors and controlled operations can protect invariants, while immutable values and careful collection access can prevent callers from bypassing intended boundaries.
+Objects become useful design units when their responsibilities, and the ways others may interact with them, are clear. Constructors and controlled operations protect invariants, and immutable values together with careful handling of collections stop callers from bypassing the boundaries you meant.
 
-Cohesion and coupling help us discuss the consequences of change. The coordinator's formatting extraction makes one operation easier to follow without resolving every responsibility it currently holds. Explaining that limited improvement is part of sound design reasoning.
+Cohesion and coupling give us a way to talk about the consequences of change. Extracting the confirmation text made one operation easier to follow without solving every responsibility the coordinator still holds, and being honest about that limit is part of good design reasoning.
 
-Diagrams, checks, diffs and review notes describe different aspects of the same codebase. They should agree with the implementation. An AI explanation is another candidate description to check against that evidence.
+Diagrams, checks, diffs and review notes each describe a different side of the same code, and they should all agree with the implementation. An AI explanation is one more description to check against that evidence.
 
-In **Chapter 3: Agile Development and the Nature of Change**, we will turn project needs into an ordered backlog, write useful stories and acceptance criteria, and examine how a team plans and learns through feedback.
+In **Chapter 3: Agile Development and the Nature of Change**, we step back from the code to ask how a team decides what to build next: turning needs into an ordered backlog, writing stories and acceptance criteria, and learning through feedback.
 
 ## Sources and further reading
 

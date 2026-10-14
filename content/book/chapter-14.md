@@ -15,11 +15,11 @@ You will review how the design accommodated the change, using the affected respo
 
 This is Week 13, the final sprint and retrospective, and it touches all learning outcomes, LO1 to LO6. The required reading is Martin (2002), a review of the chapters relevant to your project [10]; the recommended reading is whatever is relevant to your own team's project. Week 13 has a final-sprint workshop with formative feedback, Week 14 has no classes and is for independent project work with optional team consultations, and the final demonstration, presentation and submission are in Weeks 15 and 16. The descriptor says teams submit a repository link, a technical report and an individual reflection, and give a demonstration and presentation, and that marks are moderated by individual contribution. This chapter creates no new deadlines, weights or marking rules: the approved final-project instructions decide what you submit.
 
-You start from the Chapter 13 checkpoint (the visitor change, version 0.13.1) or, for your Team project, from a Milestone 4 outcome with its remaining defects named. The checkpoint you finish with is version 0.14.0, and its production code is unchanged. The companion lists only the new and changed files, with the model answers, the experiments and teaching notes.
+You start from the Chapter 13 version (the visitor change, version 0.13.1) or, for your team's project, from a Milestone 4 outcome with its remaining defects named. You finish with version 0.14.0, and its production code is unchanged. The companion lists only the new and changed files, with the model answers, the experiments and teaching notes.
 
-Sections 14.1 to 14.5 and 14.7 are the core reading. Section 14.6 on contribution evidence is working knowledge: you are not asked to measure anyone, you are asked to know what each kind of evidence can and cannot show. The minimum lab is steps B1 to B4 and T1 to T5 of the practical activity in Section 14.10. Steps B1 to B4 run on the **Book project** and are running, tracing and diagnosis, since the finished checkpoint is supplied; steps T1 to T5 run on your **Team project** and produce your handover bundle, retrospective and individual reflection. Steps B5 to B8 (rehearse removing the flag, validate an AI-drafted README, read a contribution fixture, and close the gap that the one-line experiment found), the review questions, the transfer challenge and the optional extension are optional.
+Sections 14.1 to 14.5 and 14.7 are the core reading. Section 14.6 on contribution evidence is working knowledge: you are not asked to measure anyone, you are asked to know what each kind of evidence can and cannot show. What you must do is steps B1 to B4 and T1 to T5 of the practical activity in Section 14.10. Steps B1 to B4 run on the book's project and are running, tracing and diagnosis, since the finished version is supplied; steps T1 to T5 run on your team's project and produce your handover bundle, retrospective and individual reflection. If you want more, there are steps B5 to B8 (rehearse removing the flag, validate an AI-drafted README, read a synthetic contribution table, and close the gap that the one-line experiment found), the questions and the transfer challenge in Section 14.11, and the extension at the end of Section 14.10.
 
-## 14.1 Reviewing the change outcome
+## 14.1 Did the design absorb the change? Reviewing the outcome
 
 ### Ask four questions, in this order
 
@@ -34,7 +34,7 @@ Sections 14.1 to 14.5 and 14.7 are the core reading. Section 14.6 on contributio
 
 ### Affected responsibilities
 
-Between the Chapter 11 checkpoint and the Chapter 13 checkpoint, 23 files were added and 10 changed. Production code first. Nine new production files hold 399 lines: the visitor policy, the approval record and its status, the gate, the approval port and its exception, the file adapter, the HTTP client and the demonstration program. Five **existing** production files changed, by 21 added lines and 3 removed: the category enum, the directory entry point, the composition root, the directory adapter and the directory client contract. Ten new test files hold 992 lines, and three existing test files changed by 10 added lines and 4 removed. The rest is scripts, a workflow, a decision record and the README and POM.
+Between the Chapter 11 version and the Chapter 13 version, 23 files were added and 10 changed. Production code first. Nine new production files hold 399 lines: the visitor policy, the approval record and its status, the gate, the approval port and its exception, the file adapter, the HTTP client and the demonstration program. Five **existing** production files changed, by 21 added lines and 3 removed: the category enum, the directory entry point, the composition root, the directory adapter and the directory client contract. Ten new test files hold 992 lines, and three existing test files changed by 10 added lines and 4 removed. The rest is scripts, a workflow, a decision record and the README and POM.
 
 ```mermaid
 flowchart LR
@@ -68,11 +68,11 @@ What does this show? Mostly that the existing structure took the change by exten
 
 ### What broke first
 
-Start the change in the smallest possible way and see what the tests say. On the Chapter 11 checkpoint, add `VISITOR` to the category enum and change nothing else. The build fails: more than a quarter of the suite fails (one failure and a long list of errors), and nearly all of them say `Missing policy: VISITOR`. The coordinator requires a policy for every category and says so when it is constructed. The exact figures are in the companion (Section 5.2).
+Start the change in the smallest possible way and see what the tests say. On the Chapter 11 version, add `VISITOR` to the category enum and change nothing else. The build fails: more than a quarter of the suite fails (one failure and a long list of errors), and nearly all of them say `Missing policy: VISITOR`. The coordinator requires a policy for every category and says so when it is constructed. The exact figures are in the companion (Section 5.2).
 
 Now add the visitor policy to the composition root, `ReservationApplication`, as well. The failures drop to five tests, in exactly the three test files that build their own policy map: `LegacyRegressionTest.chapter06` (through `Chapter06Checks`), `BehaviourStrategyTest` and three tests in `RepositoryBoundaryTest`. Add the policy to those four maps and the whole Chapter 11 suite passes, with no assertion changed.
 
-Is that good or bad? Both. It is the design telling you, at construction time and with a precise message, everywhere that lists every category. That is a safety net: the alternative would be a request that fails in production with a null policy. It is also a cost: every test that spells out the full policy map must be edited when a category is added. You can reproduce this in Section 14.10 (B1) by going the other way: remove the visitor policy from the composition root of the finished checkpoint, and roughly three in ten tests fail, in fourteen test classes.
+Is that good or bad? Both. It is the design telling you, at construction time and with a precise message, everywhere that lists every category. That is a safety net: the alternative would be a request that fails in production with a null policy. It is also a cost: every test that spells out the full policy map must be edited when a category is added. You can reproduce this in Section 14.10 (B1) by going the other way: remove the visitor policy from the composition root of the finished version, and roughly three in ten tests fail, in fourteen test classes.
 
 ### Revised assumptions
 
@@ -81,7 +81,7 @@ Chapters 5 to 11 made statements that the change tested. Some held and some did 
 | Assumption (where it was made) | What the change showed | Verdict |
 |---|---|---|
 | A policy answers a count and duration question and nothing else (Ch. 5, 6) | Approval needs the borrower, the item, the period and the time. Widening the policy would give it hidden state, so the request-specific decision went to a separate gate | Held, because the contract was not widened |
-| Every borrower category has a policy in one place (Ch. 6) | True in production, but four test fixtures also spelled out the map | Held, with a cost |
+| Every borrower category has a policy in one place (Ch. 6) | True in production, but four tests also spelled out the map | Held, with a cost |
 | The directory is a synthetic in-process provider with a failure contract but no transport (Ch. 8) | Chapter 8 already translated a provider failure into a directory exception and told an outage from an absence. Chapter 13 added a real HTTP client and observed the failures a transport brings, including a timeout that has to cover the whole answer and not only the headers | The contract held. The behaviour behind it was extended |
 | The count of retained reservations is the borrowing count (Ch. 7) | CR-12 preserved it on purpose and AC11 pins it | Still open (SD-12) |
 | The overdue report knows two borrower kinds (Ch. 11) | A late visitor reaches the “any other kind” rule and is fined at a rate nobody chose | Still open (SD-11-1) |
@@ -112,9 +112,9 @@ That is a category-specific branch in the entry point. For one special category 
 
 ### Review feedback
 
-Real review feedback is evidence, and **constructed** feedback is not. If your team has review comments on its change, use those and the responses. The Book project has no team, so the companion supplies a short, author-written, fictional review of the visitor change, labelled as such, and asks you to check each comment against the code instead of accepting or rejecting it by tone. No real peer review of this book's project has taken place.
+Real review feedback is evidence, and **constructed** feedback is not. If your team has review comments on its change, use those and the responses. The book's project has no team, so the companion supplies a short, author-written, fictional review of the visitor change, labelled as such, and asks you to check each comment against the code instead of accepting or rejecting it by tone. No real peer review of this book's project has taken place.
 
-## 14.2 Defects, polish and scope control
+## 14.2 Fix, defer or accept: scope control in the last week
 
 ### The temptation of the last week
 
@@ -161,7 +161,7 @@ Fowler names four costs of building a feature before it is needed: the cost of b
 
 The Scrum Guide defines a Definition of Done as the state an increment must reach to meet its quality measures, and says that work that does not meet it cannot be part of the increment [3]. Write yours for the handover version, as a short list that a check can confirm: the pipeline passes; the handover check passes; no test is skipped; every number in a document matches a run; every decision record has a true status; every known issue has a decision. The next section shows which of these a script can confirm.
 
-## 14.3 Documents, decision records and release notes
+## 14.3 Writing it down: documents, decision records and release notes
 
 ### One document per question
 
@@ -215,7 +215,7 @@ flowchart LR
 
 `TraceabilityTest` checks three things: every test named in the table still exists as a method, every class named as deciding still exists, and each of the eighteen acceptance examples has exactly one row and every acceptance test appears in the table. In an experiment with six faults (Companion, Section 10.2) it caught the four that make a name disappear or an example lose its row. It did **not** catch two others, and it cannot: a row that points at a test that exists but is the wrong test for that requirement, and a row that lists an extra test. A script can check that a name exists. Only a reviewer can check that a name is the right evidence. Say so in the document, as the project does.
 
-## 14.5 Reproducible setup and demonstration
+## 14.5 Setup and a demonstration that anyone can reproduce
 
 ### Write for someone who is not you
 
@@ -252,7 +252,7 @@ It ran on one operating system with one JDK and a local Maven repository that al
 
 The Scrum Guide gives the purpose of the Sprint Retrospective as planning ways to increase quality and effectiveness: the team inspects the last sprint's individuals, interactions, processes, tools and Definition of Done, discusses what went well and what went wrong, and identifies the most helpful changes, which may be added to the next Sprint Backlog [3]. Kerth's Prime Directive asks the team to assume that everyone did the best they could, given what they knew and the resources they had [4]. Together they say: look at the work and the process, not at blame.
 
-Make it evidence-based by bringing the sprint's artefacts: the board, the pipeline runs (passing and failing), the review comments, the defect list, the time between starting and finishing items from Chapter 12. For each thing the team wants to say, ask what artefact shows it.
+Make it evidence-based by bringing the sprint's records: the board, the pipeline runs (passing and failing), the review comments, the defect list, the time between starting and finishing items from Chapter 12. For each thing the team wants to say, ask what record shows it.
 
 | Observation | Evidence | Action | Owner and date |
 |---|---|---|---|
@@ -288,9 +288,9 @@ The following is **synthetic**, constructed for this chapter. A team of three (P
 | P2 | 9 | 0 | 1,150 | 11 | 5 |
 | P3 | 24 | 3 | 620 | 7 | 0 |
 
-Rank them by commits and you get P1, P3, P2. Rank them by lines changed, P2, P3, P1. By reviews given, P2, P3, P1. By reviews that asked for changes, P2, P1, P3. Four rankings, three different orders. P1 has 38 of the team's 71 commits, more than half, and 19% of the changed lines. Those numbers describe habits, not contributions. The underlying facts, which only the people and the artefacts can supply, might be: P1's commits include seventeen formatting-only commits and several that undo each other, and P1 built the pipeline; P2 wrote the approval-file adapter in nine substantial commits and found two defects in review; P3 wrote the demonstration and the documents and did four pair sessions with P1, only two of them recorded.
+Rank them by commits and you get P1, P3, P2. Rank them by lines changed, P2, P3, P1. By reviews given, P2, P3, P1. By reviews that asked for changes, P2, P1, P3. Four rankings, three different orders. P1 has 38 of the team's 71 commits, more than half, and 19% of the changed lines. Those numbers describe habits, not contributions. The underlying facts, which only the people and the work itself can supply, might be: P1's commits include seventeen formatting-only commits and several that undo each other, and P1 built the pipeline; P2 wrote the approval-file adapter in nine substantial commits and found two defects in review; P3 wrote the demonstration and the documents and did four pair sessions with P1, only two of them recorded.
 
-Notice that no ranking is offered, and that none could be. The honest use of counts is as a pointer to the artefact to read: “Why did P2 have so few commits?” is a question to ask, and the answer is in the diff and the review.
+Notice that no ranking is offered, and that none could be. The honest use of counts is as a pointer to the work to read: “Why did P2 have so few commits?” is a question to ask, and the answer is in the diff and the review.
 
 ### Write your contribution as claims with evidence
 
@@ -307,11 +307,11 @@ An individual reflection that explains your contribution does not say “I did a
 
 These are prompts for thinking, not a rubric. Your approved instructions say what the reflection must contain. Appendix C has templates for the retrospective (C.12) and for decision records (C.5), and Appendix E gives a fuller guide to contribution evidence (E.4), the final handover (E.5) and the reflection (E.6). This chapter stands on its own without them.
 
-## 14.7 Final submission preparation
+## 14.7 Getting ready for the final submission
 
 ### What is submitted, and what it must show
 
-The descriptor says that teams submit the complete system built across the sprints, together with a short technical report and an individual reflection, through a repository link, and give a demonstration and a presentation followed by questions. It also says what the submission must show: clean object-oriented design, justified use of design patterns and architecture, automated tests with continuous integration, evidence of safe refactoring, and adaptability to the injected change in requirements. You can use those five phrases as the headings of an evidence index. For the book project, one looks like this:
+The descriptor says that teams submit the complete system built across the sprints, together with a short technical report and an individual reflection, through a repository link, and give a demonstration and a presentation followed by questions. It also says what the submission must show: clean object-oriented design, justified use of design patterns and architecture, automated tests with continuous integration, evidence of safe refactoring, and adaptability to the injected change in requirements. You can use those five phrases as the headings of an evidence index. For the book's project, one looks like this:
 
 | The submission must show | Evidence in the project | What it does not show |
 |---|---|---|
@@ -323,7 +323,7 @@ The descriptor says that teams submit the complete system built across the sprin
 
 ### A short sequence
 
-Do these in order. Week 13 is for finishing and for the workshop's formative feedback. Then freeze: decide a time after which only fixes to the handover and blockers are allowed. Run the handover check on the frozen version. Use Week 14, which has no classes, for independent review of the whole bundle: read it as a stranger, fix what the dry run finds, and ask someone outside the team to follow it. Then prepare the demonstration and the report from the evidence index, and write your reflection from your own artefacts.
+Do these in order. Week 13 is for finishing and for the workshop's formative feedback. Then freeze: decide a time after which only fixes to the handover and blockers are allowed. Run the handover check on the frozen version. Use Week 14, which has no classes, for independent review of the whole bundle: read it as a stranger, fix what the dry run finds, and ask someone outside the team to follow it. Then prepare the demonstration and the report from the evidence index, and write your reflection from your own work.
 
 ### A preparation checklist (not a rubric)
 
@@ -332,26 +332,26 @@ Do these in order. Week 13 is for finishing and for the workshop's formative fee
 - The pipeline has run, and you can show one passing run and one failing run you have read.
 - Every number in a document matches a run. Every claim names the evidence.
 - Every decision record has a true status. Every known issue has a decision.
-- The limits statement says what was not run: for the Book project, a Java 17 runtime, a hosted CI run and any independent review.
+- The limits statement says what was not run: for the book's project, a Java 17 runtime, a hosted CI run and any independent review.
 - Each person can say, with links, what they did.
 - The demonstration works from a fresh checkout with only the documented setup.
 
 Do not claim a hosted run, a public deployment or a peer review that did not happen. A local run is evidence of a local run.
 
-## 14.8 AI in practice: validate a README that an assistant drafted
+## 14.8 Validating an AI-drafted README
 
-Chapter 15 collects the recurring AI workflows; this activity is self-contained, and the fixture below is all you need.
+Chapter 15 gathers the AI workflows that recur in this book. This activity is complete on its own, and the ready-made README below is all you need.
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide which statements in an AI-drafted README are supported by the submitted version, and correct the rest |
-| Input | The README draft below and the project at version 0.14.0 |
-| Permitted scope | Verify every command, every feature claim and every limitation; edit only the draft |
-| Independent checks | Run each command; read the code, tests and decision records that each claim depends on |
-| Accept or reject | A verdict on each statement, and a corrected README |
-| No-account route | The fixture below is sufficient |
+| Your goal | Decide which statements in an AI-drafted README are supported by the submitted version, and correct the rest |
+| You start with | The README draft below and the project at version 0.14.0 |
+| What is in bounds | Verify every command, every feature claim and every limitation; edit only the draft |
+| How to check | Run each command; read the code, tests and decision records that each claim depends on |
+| How to decide | A verdict on each statement, and a corrected README |
+| No AI account? | The ready-made README below is enough |
 
-Use this **author-written fictional AI-output fixture**, constructed for offline comparison. An assistant was asked to “write a README for the project”, and produced:
+Use this **fictional AI answer written by the author** for offline comparison. An assistant was asked to “write a README for the project”, and produced:
 
 ```markdown
 # Campus Equipment Lending System
@@ -385,7 +385,7 @@ A secondary activity: write what the README should say about limitations. The dr
 
 A live AI service is optional. If you use one, give it synthetic data or only project files you may share, keep its actual output, and treat its description of your project as a claim to check.
 
-## 14.9 Common mistakes
+## 14.9 Handover habits that mislead
 
 | Mistake | Consequence | Better action |
 |---|---|---|
@@ -396,26 +396,24 @@ A live AI service is optional. If you use one, give it synthetic data or only pr
 | Documents that nobody checks | They rot, and a reader trusts them anyway | Give each document a check or a reviewer, and say which |
 | Editing an old decision record to match what happened | The reasons for the decision are lost | Write a new record that supersedes or applies it |
 | Removing a flag as tidy-up | The specification changes silently, and the rollback changes with it | Rehearse the removal, decide it and update the examples that mention the flag |
-| Ranking teammates by commit counts | Habits are mistaken for contribution | Use counts as a pointer to the artefact, and read the artefact |
+| Ranking teammates by commit counts | Habits are mistaken for contribution | Use counts as a pointer to the work, and read the work |
 | A reflection that says “I contributed a lot” | Nothing can be checked | Claims with links, and honest limits |
 | Claiming a hosted run, a review or a Java 17 run that did not happen | The submission loses credibility, and so do the true claims | Say what was not run |
 
-## 14.10 Practical activity
+## 14.10 Try it yourself: hand the project over
 
-**Input:** the Chapter 14 checkpoint (version 0.14.0) with the files of the companion, the Chapter 13 material, and your Team project's repository. Steps B1–B7 use the **Book project**; steps T1–T5 use your **Team project**.
+You start from the Chapter 14 version (0.14.0) with the companion's files, the Chapter 13 material, and your team's repository. Steps B1 to B7 use the book's project; steps T1 to T5 use your team's project.
 
-**Instructor demonstration:** run `scripts/handover-check.sh` and read its output. Break one thing (add a test, or rename a word in the demonstration output) and run it again. Run `TraceabilityTest` after renaming a test the table names. Show the one-line adapter change that passes the unit stage and fails the integration stage.
+If your instructor demonstrates the task, they will run `scripts/handover-check.sh` and read its output, break one thing (add a test, or rename a word in the demonstration output) and run it again, run `TraceabilityTest` after renaming a test the table names, and show the one-line adapter change that passes the unit stage and fails the integration stage. For guided practice, classify four known issues of your choice as blocker, deferred or accepted and say what evidence each decision rests on, then read the requirements table and find the row you trust least.
 
-**Guided practice:** classify four known issues of your choice as blocker, deferred or accepted, and say what evidence each decision rests on. Read the requirements table and find the row you trust least.
+**What you must do: the book's project (run, trace and diagnose; nothing to rebuild)**
 
-**Minimum required lab: Book project (run, trace and diagnose; nothing to rebuild)**
-
-- **B1. Predict and measure what breaks.** In a scratch copy of the finished checkpoint, remove the visitor policy from the map in `ReservationApplication.create`. Predict how many invocations fail and in how many test classes, and what the message will say. Run the full build, compare, and say what the result shows about the design. Restore the original.
+- **B1. Predict and measure what breaks.** In a scratch copy of the finished version, remove the visitor policy from the map in `ReservationApplication.create`. Predict how many invocations fail and in how many test classes, and what the message will say. Run the full build, compare, and say what the result shows about the design. Restore the original.
 - **B2. Triage.** Take five items from `docs/KNOWN-ISSUES.md`. For each, check the decision against the three questions of Section 14.2 and say whether you agree. Add one item that you find yourself, with a decision.
 - **B3. Follow the handover.** Run `scripts/handover-check.sh`. Then follow `docs/HANDOVER.md` by hand from a new folder on your machine, and list every place where you had to guess or where the text was wrong for your setup.
 - **B4. Trace and break a row.** Choose one contract clause, one acceptance example and one known gap in the requirements table. For each, open the named test and say whether it checks what the row claims. Rename one named test in a scratch copy, run `TraceabilityTest`, and read the failure. Then name something the check cannot catch.
 
-**Minimum required lab: Team project (your handover bundle, retrospective and reflection)**
+**What you must do: your team's project (your handover bundle, retrospective and reflection)**
 
 - **T1. Review your change.** Fill in the four questions of Section 14.1 for your own change, with real evidence: the files and responsibilities affected, what failed when you started the change, the assumptions it overturned and the review comments you actually received. Say where the design did not absorb the change cleanly.
 - **T2. Triage your open items.** Make a known-issues list with a decision for each item (fix, defer, accept), a reason, and an owner for the deferred ones. Fix only blockers. Freeze.
@@ -423,16 +421,16 @@ A live AI service is optional. If you use one, give it synthetic data or only pr
 - **T4. Decide and record.** Write at least two decision records: one about your flag or your change (keep, remove or replace, with the conditions), and one other. Give each a true status.
 - **T5. Retrospective, reflection and checklist.** Hold an evidence-based retrospective with at most three actions. Write your own individual reflection using claims with links. Complete the preparation checklist of Section 14.7, marking each item as complete or a gap.
 
-**Optional extension (Book project)**
+**If you want more (the book's project)**
 
 - **B5. Rehearse the removal.** In a scratch copy apply `rehearsal/remove-visitor-flag.patch`, run the build and the handover check, and list the documents whose prose the patch does not edit and still needs changing.
 - **B6. AI activity.** Complete the Section 14.8 activity.
-- **B7. Read a contribution fixture.** Use the synthetic table of Section 14.6. Write two questions you would ask each team member, and what artefact you would read to answer each. Say what you would **not** conclude from the counts.
+- **B7. Read a synthetic contribution table.** Use the synthetic table of Section 14.6. Write two questions you would ask each team member, and what you would read to answer each. Say what you would **not** conclude from the counts.
 - **B8. Close the gap that E3 found.** Write the focused unit test of `LegacyDirectoryAdapter` that fails when kind `V` is mapped to staff: a visitor row maps to the visitor category, an inactive visitor is absent, and an unknown code is a failure and is never defaulted. Run the one-line change of Section 14.1 against your test.
 
-**Expected artefacts:** B1–B4 as above; for the Team project, the change review, the triage list, the handover bundle with its dry-run record, the decision records, the retrospective with its actions, the individual reflection and the completed checklist.
+What you should end up with is: B1 to B4 as described; for your team's project, the change review, the triage list, the handover bundle with its dry-run record, the decision records, the retrospective with its actions, the individual reflection and the completed checklist.
 
-**Acceptance conditions:**
+You are done when these things hold:
 
 - every number in a document matches a run;
 - the handover has been followed by someone other than its author in a fresh copy;
@@ -444,9 +442,9 @@ A live AI service is optional. If you use one, give it synthetic data or only pr
 
 Do not claim a hosted run, a public deployment or a review that did not happen.
 
-**Optional extension:** write a second handover for a different reader, such as the person who will operate the system. Say how its content differs from the first and why.
+If you want more, write a second handover for a different reader, such as the person who will operate the system. Say how its content differs from the first and why.
 
-## 14.11 Review and transfer
+## 14.11 Questions to think with, and a transfer challenge
 
 ### Concept questions
 
@@ -457,22 +455,22 @@ Do not claim a hosted run, a public deployment or a review that did not happen.
 
 ### Applied diagnosis
 
-5. A teammate has 40 commits and another has 8. Name three questions you would ask before saying anything about their contributions, and an artefact you would read for each.
+5. A teammate has 40 commits and another has 8. Name three questions you would ask before saying anything about their contributions, and something you would read for each.
 6. Your handover says “run `mvn verify`; expect a stated number of tests” and a colleague adds a test. List two things that could have noticed and the cost of each.
 
 ### Transfer challenge
 
 A small team has built an ML model-serving service. Its final sprint ends in a week. Plan its handover: a README for a stranger, the tool check and what the first run prints, a demonstration with a fixed model and fixed data, a requirements-to-evidence table, a known-issues list that includes what the team did not evaluate about the model, and a decision record for the one flag that gates a model version. Say what you would put in the limits statement. Use synthetic model identifiers: no model needs to be trained.
 
-## Summary and next chapter
+## What to take away, and what comes next
 
 A change is finished when someone else can see what it did, trust what the documents say, and run it. Review the change with evidence, not feelings: the responsibilities affected, the failures it caused, the assumptions it overturned, the feedback it received. Sort what remains into fix, defer and accept, and leave the deferred questions with their owners. Write the few documents a stranger needs, and give each a check or a reviewer. Follow your own instructions in a fresh copy and let someone else follow them too. Describe each person's work as claims with links, and never rank people by counts. Say what you did not run.
 
-The visitor project is handed over at version 0.14.0 with its flag decided, its removal rehearsed, fourteen known issues with decisions and two unresolved questions for an owner: SD-11-1, the late-fine rate, and SD-12, the count rule. Chapter 15 collects the assistance workflows that recur through the book and the verification records that make them reviewable.
+The visitor project is handed over at version 0.14.0 with its flag decided, its removal rehearsed, fourteen known issues with decisions and two unresolved questions for an owner: SD-11-1, the late-fine rate, and SD-12, the count rule. Chapter 15 gathers the assistance workflows that recur through the book and the verification records that make them reviewable.
 
 ## Sources and further reading
 
-Online sources 1–9 were opened on 13 October 2026. The code, the scripts, the documents, the experiments and the fixtures are original teaching material.
+Online sources 1–9 were opened on 13 October 2026. The code, the scripts, the documents, the experiments and the ready-made examples are original teaching material.
 
 1. Nygard, M., [Documenting Architecture Decisions](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions), 15 November 2011. Short records in the repository: title, context, decision, status, consequences; numbered; superseded and not deleted.
 2. [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/). Changelogs for humans; the change types Added, Changed, Deprecated, Removed, Fixed and Security; a dated entry for each version.

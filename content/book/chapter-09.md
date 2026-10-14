@@ -15,13 +15,13 @@ Then comes a fourth wish: the team would like to represent a reservation request
 
 This is Week 8, supporting LO2 and LO4, with Chapters 7 and 8 as the entry. The module descriptor is not changed and no assessment rules are invented here. The Week 8 readings are the Strategy, Command, Observer and State chapters of Martin [6] and the behavioural patterns in Gamma et al. [1]. The same week carries the individual critical book review: follow the module leader's approved instructions and reading list, see [Section 9.12](#reading-checkpoint) and [Appendix E]({{< relref "appendix-e" >}}), and remember that evidence must come from the selected book and verified sources, not from an AI summary of an unread text.
 
-You start from Chapter 8's Java 17 application, its directory adapter and its complete Maven test suite. The code-and-solutions file supplies a complete new checkpoint. The original borrowing policies already demonstrate Strategy; a notification publisher is an optional cumulative collaborator; and the proposed lifecycle is a separate exercise that does not replace the running project's reservation or loan rules.
+You start from Chapter 8's Java 17 application, its directory adapter and its complete Maven test suite. The code-and-solutions file supplies a complete new version of the code. The original borrowing policies already demonstrate Strategy; a notification publisher is an optional collaborator in the running project; and the proposed lifecycle is a separate exercise that does not replace the project's reservation or loan rules.
 
-Strategy and State are the core reading (Sections 9.1 to 9.3, 9.6 and 9.7: Strategy, State, testing and selection). Observer and Command (Sections 9.4 and 9.5) are working-knowledge topics: understand the structure, the ordering and failure rules and the cost, and see each pattern work in the supplied examples, but you do not implement either on your own. The minimum lab is steps 1 to 4 and 6 of the practical activity in Section 9.10: steps 1 and 2 cover State, step 3 covers Observer and Command, and step 4 covers Strategy and the choice among patterns. Steps 1 to 4 run on the **Book project** and step 6 on your **Team project**. The Section 9.8 AI activity (step 5), the review questions and the transfer challenge are optional.
+Strategy and State are the core reading (Sections 9.1 to 9.3, 9.6 and 9.7: Strategy, State, testing and selection). Observer and Command (Sections 9.4 and 9.5) are working-knowledge topics: understand the structure, the ordering and failure rules and the cost, and see each pattern work in the supplied examples, but you do not implement either on your own. What you must do is steps 1 to 4 and 6 of the practical activity in Section 9.10: steps 1 and 2 cover State, step 3 covers Observer and Command, and step 4 covers Strategy and the choice among patterns. Steps 1 to 4 run on the book's project and step 6 on your team's project. If you want more, try the AI activity in Section 9.8 (step 5), the questions and the transfer challenge in Section 9.11.
 
-## 9.1 Variation in behaviour
+## 9.1 What changes, and why? Variation in behaviour
 
-### Ask what changes and what remains responsible
+### Ask what changes and what stays responsible
 
 The existing `BorrowingPolicy` interface answers whether a count and duration are permitted. The coordinator selects a policy by category and uses its answer alongside identifier validation and conflict checking. Changing the policy does not change what a reservation is or whether a camera is already reserved.
 
@@ -44,15 +44,15 @@ The same application can use all four, but it need not. A two-branch conditional
 
 Avoid the claim that all conditionals violate good design. The question is whether decisions are duplicated, mixed with unrelated responsibilities or difficult to extend safely. Pattern-based code still contains conditions; it relocates particular decisions so their ownership is clearer.
 
-### Keep structural and behavioural changes distinct
+### Keeping structural and behavioural changes apart
 
 The State exercise compares two implementations of the same proposed transition table. That is a structural comparison within an isolated example. Integrating those transitions into the current lending application would instead introduce new lifecycle behaviour and require new decisions about counts, availability and existing loans.
 
 The optional publisher adds several observers behind the existing notification boundary. Its ordering and failure policy are new, explicit behaviour. The coordinator still makes one call to its selected sender after storage, and the publisher makes no automatic retries. Treat each claim at the appropriate boundary rather than saying that every change is “only refactoring.”
 
-## 9.2 Strategy
+## 9.2 Strategy: swapping one rule for another
 
-### Recognise the structure already present
+### You already have a Strategy
 
 Strategy supplies interchangeable implementations of a behaviour through a shared contract. The existing student and staff policies already serve that role. `ReservationRules` permits a student count below three and a duration from one through seven days. `StaffReservationRules` uses the illustrative limits below five and up to fourteen days.
 
@@ -60,15 +60,15 @@ The coordinator depends on `BorrowingPolicy`, not on the calculations inside tho
 
 A strategy need not be replaced while an operation is running. The supplied policy map is fixed for a coordinator instance, while each request selects an entry by category. Configuration-time selection and per-request lookup are enough to demonstrate the role.
 
-### Compare with the conditional starting point
+### Comparing with the plain conditional
 
 The teaching test includes a small conditional implementation: if student, evaluate the student limits; otherwise, for the supported enum values, evaluate the staff limits. This can be understandable for two rules in one place. The pressure for Strategy appears when algorithms acquire distinct reasons to change or repeated callers need consistent selection.
 
 The comparison uses independently written expected results at the boundaries. It checks both the conditional and policy objects against those results. Testing only that the two implementations agree would be weaker: both could contain the same mistaken maximum.
 
-The conditional is retained only as a teaching fixture. No duplicate policy engine is added to the cumulative application. The complete student/staff policy tests from earlier chapters continue to run.
+The conditional is kept only as a teaching example. No duplicate policy engine is added to the running application. The complete student/staff policy tests from earlier chapters continue to run.
 
-### State the common contract
+### The contract every strategy shares
 
 Every policy accepts the same two integers and returns a deterministic boolean without changing application state. Negative counts and nonpositive durations return false. A true answer means the count/duration rule permits a request; it says nothing about identity, physical stock or interval conflicts.
 
@@ -76,7 +76,7 @@ That last distinction matters. If a new strategy performs directory lookup, send
 
 The new test supplies a temporary staff strategy permitting at most one counted reservation and at most two days. The coordinator itself is unchanged. Three days are rejected; two days are accepted; another request for that borrower is rejected; student behaviour still follows its supplied strategy. This is an isolated configuration test, not a change to the book's default staff policy.
 
-### Trade-off and simpler alternatives
+### What it costs, and simpler alternatives
 
 Strategy separates variation from the surrounding use case and makes the chosen behaviour easy to supply in a test. It adds a selection responsibility: someone must choose a compatible policy, and the constructor must reject an incomplete map. Those responsibilities do not disappear because the interface is small.
 
@@ -84,13 +84,13 @@ If the only difference is two numeric limits, one parameterised policy class may
 
 Do not add a `setPolicy` method just to make the pattern look more dynamic. Mutable policy selection can create questions about requests in progress and reproducibility. Use the narrowest variation mechanism the requirement needs.
 
-## 9.3 State and transitions
+## 9.3 State: behaviour that depends on where you are in a lifecycle
 
-### Start with the proposed rules
+### Start with the rules
 
 The separate lifecycle exercise begins at REQUESTED. It may be confirmed or cancelled. A confirmed reservation may be checked out or cancelled. An on-loan reservation may be returned. RETURNED and CANCELLED are terminal for the four supported actions.
 
-These are teaching rules for an isolated model. The cumulative system currently confirms accepted reservations immediately and tracks loans separately. It has no implemented cancellation operation. The proposed lifecycle therefore cannot be silently attached to existing records as if it were already agreed behaviour.
+These are rules invented for an isolated teaching model. The running system currently confirms accepted reservations immediately and tracks loans separately. It has no implemented cancellation operation. The proposed lifecycle therefore cannot be silently attached to existing records as if it were already agreed behaviour.
 
 | Current status | Confirm | Check out | Return | Cancel |
 |---|---|---|---|---|
@@ -117,7 +117,7 @@ stateDiagram-v2
 
 **Figure 9.1.** The proposed reservation lifecycle. The diagram shows permitted paths only. An action with no arrow from a state is not allowed there, which is why the table remains the complete specification: it also states the absent edges, and those are essential for testing. Terminal means no supported outgoing action; it does not mean deleting a persisted record.
 
-### Conditional implementation and change pressure
+### A conditional version, and where it strains
 
 `ConditionalReservation` stores a status enum and switches on it inside four operations. The repeated selection is easy to inspect at this size. As operations and state-specific rules grow, however, understanding one state's complete behaviour requires visiting several methods.
 
@@ -173,17 +173,17 @@ The state objects contain no reservation-specific mutable data. Two contexts can
 
 No caller can assign a new phase directly. A public setter would let a caller skip confirmation or resurrect a returned reservation without passing through the transition rules. Read-only status is sufficient for observation.
 
-### Test, trade-off and integration boundary
+### Testing it, what it costs, and where it stops
 
 Twenty parameter rows cover five statuses and four actions. Each row runs against both implementations and checks an independently specified outcome. There are five permitted transitions and fifteen rejected combinations. The tests also check that rejected actions preserve state.
 
-This is comprehensive for the small status/action table, not for a real reservation process. Time windows, permissions, conflicts, cancellation effects and loan storage are outside the exercise. Chapter 7's clock-controlled checkout rules remain in the cumulative `LoanService`.
+This is comprehensive for the small status/action table, not for a real reservation process. Time windows, permissions, conflicts, cancellation effects and loan storage are outside the exercise. Chapter 7's clock-controlled checkout rules remain in the `LoanService` of the running project.
 
 State groups behaviour by lifecycle position but introduces indirection. With this small fixed table, keeping the conditional implementation is defensible. If integration is proposed later, first decide whether completed or cancelled reservations stop counting, whether intervals become available, and how existing loan records stay consistent. Those are requirements, not consequences automatically supplied by State.
 
-## 9.4 Observer and notification
+## 9.4 Observer: telling interested parties without knowing who they are
 
-### Problem and simple attempt
+### The problem, and the simple attempt
 
 After a reservation is accepted, several local components may need to react. Hard-coding each observer inside the coordinator would couple reservation decisions to the changing recipient list. A direct call remains simpler when there is only one fixed collaborator; the existing sender interface already supports that case.
 
@@ -191,7 +191,7 @@ The optional `NotificationPublisher` implements `NotificationSender`. Observers 
 
 Java provides listener-management examples such as `PropertyChangeSupport` [2]. (The older `java.util.Observable` class is deprecated and should not be used as a model.) This chapter implements a deliberately smaller publisher with its own documented contract. It does not inherit another library's ordering, concurrency or failure guarantees merely because both use listeners.
 
-### Define observable behaviour before dispatching
+### Deciding what observers can count on, before dispatching
 
 The selected publisher is synchronous, sequential and in memory. It calls observers in registration order using a snapshot taken at the start of publication. Each observer in that snapshot is attempted once unless an unexpected exception stops dispatch. There are no retries.
 
@@ -209,7 +209,7 @@ Observer identity uses the same object reference, not custom equality. Separate 
 
 A subscription handle owns one registration. Closing an old handle again must not remove a later registration of the same observer. The implementation retains a distinct entry object per registration to make that ownership precise.
 
-### Publication occurs after storage
+### Publishing happens after storage
 
 The coordinator stores the accepted reservation before calling its sender. If a publisher observer fails with the expected notification exception, the publisher continues, collects failures and finally throws one aggregate `NotificationException`. The coordinator then returns its existing suffix: the notification failed and the reservation was retained.
 
@@ -244,15 +244,15 @@ The publisher resets its recursion guard in a `finally` block. This avoids leavi
 
 Keep subscription handles where their lifetime can be managed. Otherwise, a long-lived publisher can retain observers longer than intended. Snapshot iteration defines callback-time registration changes; it does not make this ArrayList-based publisher safe for concurrent calls.
 
-### Trade-off and non-use case
+### What it costs, and when not to use it
 
 Observer reduces direct knowledge of recipients but makes execution less obvious: work happens inside registered callbacks. Ordering dependencies can become hidden. If one observer must complete a business step before another begins, explicit orchestration may express that requirement better than a loosely described event.
 
 Use the publisher only where a changing set of local observers is useful. Keep a single sender for a fixed output. The example establishes no durable delivery, broker, asynchronous execution or exactly-once guarantee. Adding those mechanisms is outside this chapter, not an automatic next step.
 
-## 9.5 Command
+## 9.5 Command: a request you can carry before running it
 
-### Problem: carry a request before executing it
+### The problem: carrying a request before running it
 
 A direct call to `DirectoryReservationService.reserve` immediately performs lookup and reservation processing. A user interface action or small invoker may instead need an object containing the request to be executed when selected. Command separates that request representation from the caller that triggers it.
 
@@ -260,7 +260,7 @@ The example defines `Command<R>` with `R execute()`. `ReserveEquipmentCommand` c
 
 The receiver remains responsible for the use case. On execution, the command delegates to the directory-backed service. It neither reproduces borrowing policy nor stores its own reservation list. A method reference or lambda can be sufficient when no named request data is needed; Java's `Runnable` is a familiar no-result action interface, though using it does not itself make a whole Command architecture [4].
 
-### Time of execution changes the outcome
+### When you run it changes the outcome
 
 Between constructing and executing a command, another request may reserve the item. The command must evaluate the current receiver state when executed. Capturing an earlier “available” result and using it as permission would bypass the actual conflict check.
 
@@ -276,7 +276,7 @@ Undo requires its own semantics. Deleting a record would not necessarily undo an
 
 The test suite checks lazy construction, execution-time state, repeated execution and failure propagation. Use a direct call when there is no reason to represent the action separately. Introduce the command object when carrying the request itself makes an invoker or interaction clearer, and retain the receiver's responsibility for all meaningful validation.
 
-## 9.6 Testing pattern-based behaviour
+## 9.6 Testing behaviour that patterns organise
 
 ### Let the requirement supply the expected result
 
@@ -284,9 +284,9 @@ A test that checks only that an object implements `BorrowingPolicy` cannot estab
 
 For Strategy, use independent boundary examples for each supported policy. For State, use the transition table, including rejected edges. For Observer, use ordered event histories and state checks after both expected and unexpected failures. For Command, distinguish construction from execution and observe the real receiver's outcome.
 
-These examples use manual fixtures and the existing JUnit setup. No real university data, remote delivery service or system-clock wait is needed. The unchanged earlier suite remains in the build so new demonstrations do not silently replace regression evidence.
+These examples use hand-written test data and the existing JUnit setup. No real university data, remote delivery service or system-clock wait is needed. The unchanged earlier suite remains in the build so new demonstrations do not silently replace regression evidence.
 
-### Compare before and after without circular proof
+### Comparing before and after without circular proof
 
 The lifecycle tests send the same action to the conditional and State implementations, but both are checked against a fixed table. Equality between the two alone would be insufficient. If both accidentally allowed cancellation on loan, they would agree while violating the requirement.
 
@@ -294,7 +294,7 @@ The table covers this exercise's complete state/action space. It still does not 
 
 State identity is deliberately hidden. Tests observe `status()` and operations, not the private enum field. They can survive replacing enum-based states with separate state classes as long as the public contract remains the same.
 
-### Test partial effects explicitly
+### Testing partial effects directly
 
 The publisher's unexpected-exception test checks that earlier callbacks ran, later callbacks did not, and the coordinator retained its record. That is more informative than checking only the thrown exception. The expected-failure test checks that later observers still run and the recorded aggregate retains both failures in order.
 
@@ -302,9 +302,9 @@ Subscription tests also examine time: removal during a callback affects the next
 
 The command replay test documents one concrete repeated execution. It makes no guarantee about future commands or alternate receiver states. Passing evidence should narrow uncertainty about the selected promise, not expand into an unsupported general assurance.
 
-## 9.7 Pattern selection and limits
+## 9.7 Choosing a pattern, and knowing its limits
 
-### Compare alternatives by their costs
+### Compare the options by what they cost
 
 | Situation | Reasonable first option | Pattern when justified |
 |---|---|---|
@@ -315,15 +315,15 @@ The command replay test documents one concrete repeated execution. It makes no g
 
 No row says that increasing class count is progress. A useful explanation identifies where a future edit will occur, which contract stays stable and which new obligations arise. For example, Observer centralises registration but requires decisions about order and failure. State centralises each state's actions but requires consistency between the model and its tests.
 
-### Be precise about this checkpoint
+### Being precise about what this chapter changed
 
-The cumulative project retains Chapter 8's directory boundary and all previous application sources. `NotificationPublisher` is an additional sender option; the existing factory still accepts whichever sender the caller supplies. The new demonstration explicitly chooses the publisher. No previous demonstration is silently rewired.
+The running project retains Chapter 8's directory boundary and all previous application sources. `NotificationPublisher` is an additional sender option; the existing factory still accepts whichever sender the caller supplies. The new demonstration explicitly chooses the publisher. No previous demonstration is silently rewired.
 
 The command exercise calls the existing application service. The State model remains in the separate `behaviour` package and never updates real reservation or loan storage. The existing borrowing policies are recognised as strategies rather than rewritten for presentation.
 
 The inherited limitations remain visible: in-memory storage, trusted internal APIs, no authenticated identity enforcement, and reservation records that still count and block intervals after loan return. Solving any of those requires a reviewed behaviour change, not another pattern label.
 
-### A design decision must be challengeable
+### Write a decision others can challenge
 
 Record the concrete problem, selected mechanism, simpler alternative and consequences. “Several local observers need to react; a publisher owns registration and dispatch; one fixed sender remains simpler where recipients do not vary; failures can leave partial effects.” Another developer can test or challenge that statement.
 
@@ -331,20 +331,20 @@ Record the concrete problem, selected mechanism, simpler alternative and consequ
 
 A pattern is a way to organise responsibilities under a particular pressure. It is neither a substitute for requirements nor evidence that operational reliability has been solved.
 
-## 9.8 AI in practice: Strategy or State?
+## 9.8 Strategy or State? Judging AI proposals
 
-Chapter 15 collects the recurring AI workflows; this activity is self-contained, and the fictional proposals below are all you need.
+Chapter 15 gathers the AI workflows that recur in this book. This activity is complete on its own, and the fictional proposals below are all you need.
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide whether each proposal fits a policy-selection problem or a lifecycle problem, and what each allows a caller to do |
-| Input | The lifecycle table in Section 9.3, the existing borrowing strategies, and the failure and replay behaviour in Sections 9.4 and 9.5 |
-| Permitted scope | Compare the proposals and qualify the reliability claim; do not adopt any of them without the table |
-| Independent checks | The transition table, the Strategy and State tests, and the publisher and command tests |
-| Accept or reject | A verdict with evidence for each claim |
-| No-account route | The fixtures below are sufficient |
+| Your goal | Decide whether each proposal fits a policy-selection problem or a lifecycle problem, and what each allows a caller to do |
+| You start with | The lifecycle table in Section 9.3, the existing borrowing strategies, and the failure and replay behaviour in Sections 9.4 and 9.5 |
+| What is in bounds | Compare the proposals and qualify the reliability claim; do not adopt any of them without the table |
+| How to check | The transition table, the Strategy and State tests, and the publisher and command tests |
+| How to decide | A verdict with evidence for each claim |
+| No AI account? | The ready-made proposals below are enough |
 
-Use these two **author-written fictional AI-output fixtures**, constructed for offline comparison:
+Use these two **fictional AI proposals written by the author** for offline comparison:
 
 **Proposal A:** “Implement `RequestedPolicy`, `ConfirmedPolicy` and `ReturnedPolicy` as strategies. Expose `setPolicy` so callers can choose any policy before each operation. Calling a return method should simply select the returned policy.”
 
@@ -354,9 +354,9 @@ For the lifecycle requirement, compare what each proposal permits a caller to do
 
 A third fictional claim says: “Observer guarantees that all recipients receive the event once, and Command makes retries safe.” Refute or qualify it using this chapter's partial-failure and replay tests.
 
-A live AI service is optional. If used, provide synthetic inputs, retain relevant actual output and document independent checks. Do not fabricate a transcript or use generated implementation and generated expectations as mutual proof.
+A live AI service is optional. If you use one, give it synthetic inputs, keep the relevant actual output and document your independent checks. Do not fabricate a transcript or use generated implementation and generated expectations as mutual proof.
 
-## 9.9 Common mistakes
+## 9.9 Behaviour-pattern habits that mislead
 
 | Mistake | Consequence | Better action |
 |---|---|---|
@@ -369,39 +369,37 @@ A live AI service is optional. If used, provide synthetic inputs, retain relevan
 | Treat a captured command as earlier permission | Bypasses current receiver state | Validate the use case at execution |
 | Assume a pattern supplies retries or undo | Invents unimplemented guarantees | Define those semantics separately |
 
-## 9.10 Practical activity
+## 9.10 Try it yourself: lifecycle, publisher and command
 
-**Input:** the Chapter 8 checkpoint, the lifecycle transition table, the conditional and State examples, and the publisher contract. Steps 1–5 run on the **Book project**; step 6 runs on your **Team project**.
+You start from Chapter 8's finished code, the lifecycle transition table, the conditional and State examples, and the publisher contract. Steps 1 to 5 run on the book's project; step 6 runs on your team's project.
 
-**Instructor demonstration:** locate the existing strategies; then trace permitted and rejected lifecycle actions before showing the two implementations. Run one expected observer failure and show the retained reservation and later callback.
+If your instructor demonstrates the task, they will locate the existing strategies, trace permitted and rejected lifecycle actions before showing the two implementations, and run one expected observer failure to show the retained reservation and the later callback. For guided practice, choose a row of the transition table and explain its expected result independently of the code, predict the effect of unsubscribing during dispatch, and compare a direct service call with constructing and executing a command.
 
-**Guided practice:** choose a transition-table row and explain its expected result independently of the code. Predict the effect of unsubscribing during dispatch. Compare a direct service call with constructing and executing a command.
-
-**Independent work:**
+Then work through these steps:
 
 1. Replace the repeated conditional structure in the isolated lifecycle example with State delegation, preserving the agreed table.
 2. Show both permitted and rejected actions, including unchanged status on failure and independent contexts.
 3. Demonstrate the publisher's order and its expected-failure continuation rule. Then construct a `ReserveEquipmentCommand` without executing it, show that construction performs no reservation, and execute it.
 4. Choose a second scenario and justify adopting or declining Strategy, Observer or Command compared with a simpler implementation.
 5. Evaluate the fictional AI proposals and retain independent evidence for your conclusions.
-6. On your **Team project**, find one conditional that selects behaviour by type or tracks a lifecycle. Write a test that protects its current behaviour, then decide whether Strategy, State or neither is justified. Record what you would decline to build and why.
+6. On your team's project, find one conditional that selects behaviour by type or tracks a lifecycle. Write a test that protects its current behaviour, then decide whether Strategy, State or neither is justified. Record what you would decline to build and why.
 
-**Expected artefacts:** before/after source; a reviewed transition table; runnable tests; a reproducible demonstration; a concise problem–solution–consequence note; and the step 6 decision for your Team project.
+What you should end up with is: the before and after source; a reviewed transition table; runnable tests; a reproducible demonstration; a concise problem–solution–consequence note; and the step 6 decision for your team's project.
 
-**Acceptance conditions:**
+You are done when these things hold:
 
-- no unrestricted phase setter;
-- correct terminal behaviour;
+- there is no unrestricted phase setter;
+- terminal states behave correctly;
 - transition outcomes match independently stated expectations;
-- observer failure does not imply rollback;
-- command construction performs no reservation;
+- an observer failure does not imply a rollback;
+- constructing a command performs no reservation;
 - the old regression suite still runs.
 
-This exercise does not require wiring the proposed lifecycle into the cumulative application.
+This exercise does not ask you to wire the proposed lifecycle into the running application.
 
-**Optional extension:** propose cancellation for the real project. Specify effects on reservation counts, availability, active loans, identifiers and notifications before changing any code. Keep that proposal separate from the behaviour-preserving State exercise.
+If you want more, propose cancellation for the real project. Specify its effects on reservation counts, availability, active loans, identifiers and notifications before you change any code, and keep that proposal separate from the behaviour-preserving State exercise.
 
-## 9.11 Review and transfer
+## 9.11 Questions to think with, and a transfer challenge
 
 ### Concept questions
 
@@ -419,21 +417,21 @@ This exercise does not require wiring the proposed lifecycle into the cumulative
 
 A document workflow has draft, approved and published stages. Review policy differs by department, several local views react after publication, and a user interface can hold a publish request before executing it. Identify the four variation pressures, choose only the justified patterns, and specify one invalid transition, one observer failure and one stale-command outcome. State which requirements need clarification before implementation.
 
-## 9.12 Reading checkpoint: the critical book review {#reading-checkpoint}
+## 9.12 The critical book review {#reading-checkpoint}
 
 Your individual critical review of a book from the approved list is due in Week 8. The current assignment brief is the authority on length, sources, format and deadline, and **Appendix E** develops the review method in full (a reading record, a question for each part of the task, and prompts for checking sources). This chapter's patterns give you one concrete angle for a pattern discussion: ask whether the book's example establishes the extension benefit it claims, which simpler alternative the author considered and what cost the author acknowledges.
 
 Read the selected book directly. Keep three things apart: what the author claims, what you infer, and what an AI tool suggested. Reading this textbook does not satisfy the assignment, and an AI summary of a book you have not read is not evidence about it.
 
-## Summary and next chapter
+## What to take away, and what comes next
 
-Strategy selects a behaviour; State governs behaviour through transitions; Observer connects interested recipients to an occurrence; Command represents an action for later invocation. Each structure creates obligations as well as opportunities, especially around state, ordering and partial effects.
+Strategy selects a behaviour. State governs behaviour through transitions. Observer connects interested recipients to an occurrence, and Command represents an action for later invocation. Each structure brings obligations as well as opportunities, especially around state, ordering and partial effects.
 
-The project now has an optional tested local notification publisher and a request-action example, while the proposed lifecycle remains clearly separated. Chapter 10 examines how these responsibilities fit into application structure and dependency direction.
+The project now has an optional tested local notification publisher and a request-action example, while the proposed lifecycle stays clearly separate. Chapter 10 looks at how these responsibilities fit into application structure and dependency direction.
 
 ## Sources and further reading
 
-Checked 12 and 13 October 2026. Code, fixtures, transition rules and publisher policies are original teaching examples. The behavioural patterns used here are treated in this chapter.
+Checked 12 and 13 October 2026. Code, test data, transition rules and publisher policies are original teaching examples. The behavioural patterns used here are treated in this chapter.
 
 1. Gamma, E., Helm, R., Johnson, R. and Vlissides, J. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. [Publisher catalogue](https://www.informit.com/store/design-patterns-elements-of-reusable-object-oriented-software-9780201633610). Read the Strategy, State, Observer and Command entries in an authorised copy.
 2. Oracle, [Java SE 17 PropertyChangeSupport](https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/beans/PropertyChangeSupport.html). A concrete listener-management API; its documented guarantees should not be assumed for the chapter's custom publisher.

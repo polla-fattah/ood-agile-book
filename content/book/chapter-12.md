@@ -15,13 +15,13 @@ A metric cannot make these decisions for us. What it can do is make part of the 
 
 This is Week 11, supporting LO5 and LO6. The required reading is the descriptor's Martin (2002), planning review; the recommended reading is selected chapters of *Accelerate* [7–8]. The required practical activity includes repository-metrics analysis. The requirement change is introduced in this chapter, implemented and verified in Chapter 13 for Milestone 4, and evaluated during handover in Chapter 14. The module leader releases your team's assessed variant, and the book's worked change does not replace it.
 
-You need the backlog and Definition of Done from Chapters 3 and 4, the tested boundaries and structure of Chapter 10, and Chapter 11's distinction between refactoring, suspected defects and changed behaviour. The cumulative application stays at Chapter 11's verified Java checkpoint: this chapter adds an isolated metrics exercise and planning records, and it does not implement the visiting-researcher feature. The companion contains all the calculator code, data, commands, worked answers and templates, so there is no need to copy another full cumulative application for this process chapter.
+You need the backlog and Definition of Done from Chapters 3 and 4, the tested boundaries and structure of Chapter 10, and Chapter 11's distinction between refactoring, suspected defects and changed behaviour. The running project stays at Chapter 11's verified Java version: this chapter adds an isolated metrics exercise and planning records, and it does not implement the visiting-researcher feature. The companion contains all the calculator code, data, commands, worked answers and templates, so there is no need to copy another full application for this process chapter.
 
-Sections 12.1 to 12.7 are the core, with the measurement contract and the worked change specification as the parts to keep. The minimum lab is to reproduce the synthetic calculations, inspect actual repository evidence, challenge the AI summary, and preserve the pre-change checkpoint with a change-impact note. The supplied Java calculator and the repository extraction method are working knowledge. Richer visualisation, larger cohorts and probabilistic forecasting, once you have suitable data, are optional.
+Sections 12.1 to 12.7 are the core, with the measurement contract and the worked change specification as the parts to keep. What you must do is to reproduce the synthetic calculations, inspect actual repository evidence, challenge the AI summary, and keep the version from before the change together with a change-impact note. The supplied Java calculator and the repository extraction method are working knowledge. Richer visualisation, larger cohorts and probabilistic forecasting, once you have suitable data, are for those who want more.
 
 ## 12.1 What decision needs a measure?
 
-### Begin with a question that could change an action
+### Start with a question that could change what you do
 
 “Collect more metrics” is a weak objective. “Should we finish the two open items before pulling the sponsor-approval story?” points to a decision. We need to know which items remain, how long they have been open, whether they are blocked and how comparable they are with past work. A count of commits cannot answer all of that.
 
@@ -29,7 +29,7 @@ For each measure, state the question, population, unit, time window and intended
 
 The flow vocabulary below follows the Kanban Guide's emphasis on explicit started and finished points [1]. Our lead-time boundary is an additional local choice. Other teams may choose different boundaries, so compare definitions before comparing numbers.
 
-| Contract field | Definition for the synthetic Book project history |
+| Contract field | Definition for the book's synthetic history |
 |---|---|
 | Unit | One uniquely identified backlog item; IDs A–H |
 | Accepted | Item admitted to the tracked scope |
@@ -40,13 +40,13 @@ The flow vocabulary below follows the Kanban Guide's emphasis on explicit starte
 | Duration | Elapsed 24-hour days; waiting and weekends remain included |
 | Snapshot | State immediately after events at the stated timestamp |
 | Completion cohort | Items whose Done event falls within the reporting interval |
-| Exclusions | No reopened, split, merged or re-estimated items in this deliberately small fixture |
+| Exclusions | No reopened, split, merged or re-estimated items in this deliberately small dataset |
 
 The half-open interval includes completions at the starting instant and excludes completions at the ending instant. Adjacent windows then cannot count the same completion twice. A snapshot is a different question: a completion exactly at its timestamp has already left work in progress. The companion tests both conventions. These are reporting choices, not new reservation-period rules.
 
-### Keep data and interpretation distinct
+### Keeping data and interpretation apart
 
-Here is the complete issue history in day-of-month form. Every date is October 2026 at 00:00 UTC. A dash means that the event has not occurred in this fixture, not a duration of zero.
+Here is the complete issue history in day-of-month form. Every date is October 2026 at 00:00 UTC. A dash means that the event has not occurred in this dataset, not a duration of zero.
 
 | ID | Illustrative work | Points | Accepted | Started | Done | Removed |
 |---|---|---:|---:|---:|---:|---:|
@@ -63,11 +63,11 @@ B is additionally recorded as blocked from 03 October to 05 October while a mapp
 
 A sound observation is “B spent four elapsed days between Started and Done.” A possible explanation is “waiting for the mapping decision contributed to B's delay.” A stronger claim, such as “the directory adapter caused all delays,” needs evidence this table does not contain.
 
-## 12.2 Estimation revisited
+## 12.2 Estimates revisited: what they can and cannot tell us
 
 An estimate is a planning judgement made with incomplete knowledge. It is useful when it exposes uncertainty or supports a choice between smaller and larger slices. It becomes misleading when the team treats it as a measured physical property of the work.
 
-The points in this fixture are a local relative scale. They are neither hours nor a universal exchange rate between teams. B's five points and C's two points express the imagined team's relative judgement before delivery. B taking four days does not establish that one point equals 0.8 days; that duration includes waiting, and another item may have different risks.
+The points in this dataset are a local relative scale. They are neither hours nor a universal exchange rate between teams. B's five points and C's two points express the imagined team's relative judgement before delivery. B taking four days does not establish that one point equals 0.8 days; that duration includes waiting, and another item may have different risks.
 
 For the approval change, start with a concrete example: a recognised visitor requests CAM1 for two days with matching approval. Compare that slice with the failure case where the approval register is unavailable. They share code, but the second raises a distinct delivery risk. Splitting work by useful behaviour makes uncertainty easier to discuss than dividing it mechanically into “write classes,” “write tests” and “write documentation.”
 
@@ -79,7 +79,7 @@ Do not rewrite the old point estimates after seeing the duration merely to make 
 
 ## 12.3 Velocity and its limits
 
-For a team that uses points, **velocity** here means the sum of estimates attached to items completed within a defined iteration. The five finished items A, B, C, D and G total:
+Many teams that use points quote a number called velocity, so let us define it and then see how far it can be trusted. **Velocity** here means the sum of estimates attached to items completed within a defined iteration. The five finished items A, B, C, D and G total:
 
 `3 + 5 + 2 + 3 + 3 = 16 points`.
 
@@ -89,7 +89,7 @@ E and H contribute no completed points yet. Calling E “80% done” does not ad
 
 Velocity can help one team inspect its own planning history when its estimation scale, Definition of Done and work mix are sufficiently consistent. It cannot fairly rank teams that estimate differently. It also cannot reveal an individual's contribution: reviewing a colleague's difficult change may increase team completion without producing a separate story or commit under the reviewer's name. Scrum allows contextual forecasting practices; it does not turn a burn chart into a substitute for inspecting actual results [2].
 
-### Make forecasts conditional
+### Making forecasts conditional
 
 There are two remaining items totalling seven points at the snapshot. Dividing seven by the observed 16 points gives 0.4375 iterations. That arithmetic does **not** establish a delivery date. It assumes comparable work, capacity, dependencies, scope and completion behaviour. One observed iteration offers little evidence about variation, and unfinished work may be precisely the work with unresolved risk.
 
@@ -97,9 +97,9 @@ A defensible planning statement is: “We have completed five items in ten elaps
 
 Preserve forecasts as dated predictions and compare them with later outcomes. If a forecast misses, inspect assumptions and changed scope before blaming effort. Do not fit a confident percentile or statistical model to this tiny classroom sample. Advanced forecasting is useful only when its inputs and interpretation justify the additional machinery.
 
-## 12.4 Burn-down and burn-up
+## 12.4 Burn-down and burn-up: reading the lines
 
-A burn-down displays remaining work. A burn-up displays completed work, normally alongside the current scope total. In this fixture, points are held fixed and removed items were never Done, so at each snapshot:
+A burn-down displays remaining work. A burn-up displays completed work, normally alongside the current scope total. In this dataset, points are held fixed and removed items were never Done, so at each snapshot:
 
 `remaining points = current scope points − completed points`.
 
@@ -136,7 +136,7 @@ xychart-beta
 
 An ideal diagonal burn-down can be a reference for a fixed initial scope. It is not evidence that real work should finish in equal daily increments. Review, integration and acceptance can produce uneven completions. Do not move Done timestamps to make a curve attractive. Ask whether the team can explain the change and whether the remaining work still serves the goal.
 
-## 12.5 Lead time, cycle time, throughput and WIP
+## 12.5 How long do things take? Lead time, cycle time, throughput and WIP
 
 For this history, lead time runs from Accepted to Done; cycle time runs from Started to Done. The difference is the recorded wait before starting. Neither measures hands-on effort. The following calculations use the completion cohort, not every row in the backlog.
 
@@ -157,17 +157,17 @@ Throughput for `[01,06)` is two items, A and C. For `[06,11)` it is three, B, D 
 
 Equal throughput can conceal different delay. Imagine two separate five-day periods, each finishing two items. In one, both items started one day before completion; in the other, both started seven days before completion and carried in from earlier work. Both periods have throughput two, while their completed cycle times are one and seven days. Counting completions does not reveal how long the recipients waited.
 
-### Use actual repository events carefully
+### Using real repository events carefully
 
-The required lab supplements this fixture with real issue or pull-request history. The companion pins **Repository Metrics Method RM-12 v1.0**, using exact event timestamps and the supplied Java 17 calculator. In the PR route, Started means PR opened, Done means merged, and the unit is a PR. Call the resulting duration **PR open-to-merge elapsed time**. It is not issue cycle time, developer effort, deployment lead time or time since coding began.
+The required lab supplements this dataset with real issue or pull-request history. The companion pins **Repository Metrics Method RM-12 v1.0**, using exact event timestamps and the supplied Java 17 calculator. In the PR route, Started means PR opened, Done means merged, and the unit is a PR. Call the resulting duration **PR open-to-merge elapsed time**. It is not issue cycle time, developer effort, deployment lead time or time since coding began.
 
 Choose the population before looking for an attractive result. For throughput, enumerate every qualifying merge in the chosen repository, target branch and interval, including all result pages. A convenient sample of five PRs supports a sample-duration description, not the repository's throughput. Include PRs already open at the start, and record open PRs at the final snapshot if reporting WIP. Avoid mixing code changes with automated dependency updates without stating the chosen inclusion rule.
 
 Keep URLs or IDs, original timestamps and the extraction date in the evidence record. Local Git can cross-check commit identity, but author and committer dates are not reliable substitutes for PR-open or server merge events. Squashing, rebasing and workflow choices change the relationship. If only Git history is available, report what it actually measures and obtain the required issue/PR timestamps from the team or an instructor-provided real export. Synthetic rehearsal alone does not complete this part of the lab.
 
-## 12.6 Technical health and metric misuse
+## 12.6 Technical health, and how metrics get misused
 
-A useful technical-health discussion combines a concrete risk with evidence and a proposed response. “There are 159 passing tests in the Chapter 11 checkpoint” records a build result. It does not say every rule is correct, that every important boundary has a test or that more tests would automatically produce a better design.
+A useful technical-health discussion combines a concrete risk with evidence and a proposed response. “There are 159 passing tests in the Chapter 11 version” records a build result. It does not say every rule is correct, that every important boundary has a test or that more tests would automatically produce a better design.
 
 Chapter 11 supplies stronger evidence for one narrow claim: the selected tests detect a deliberately changed equality boundary. That is relevant when deciding whether a report refactoring is protected. It says nothing about sponsor approval, which does not exist yet. Similarly, a high line-coverage percentage can identify unexecuted areas, but it cannot tell us whether assertions distinguish correct and incorrect outcomes.
 
@@ -184,7 +184,7 @@ Goodhart's Law is a useful caution: pressure to maximise a proxy can encourage b
 
 Use measures for team learning and system improvement, not individual rankings. A review, a careful deletion or help given to another person may be valuable without increasing the chosen count. Pair quantitative observations with a short account of what happened. Investigate suspicious numbers without assuming misconduct, and avoid presenting a tiny correlation as a causal explanation.
 
-## 12.7 Changed requirement and impact analysis
+## 12.7 A changed requirement, and what it touches
 
 The first six sections taught how to read evidence about a team's work. This section uses the same habits on a new request: before estimating a change, say what it must do, what it touches and what evidence will show it works. The request is the visiting-researcher change from the opening problem, and it is the change that Chapters 13 and 14 implement and review.
 
@@ -198,9 +198,9 @@ The full contract and acceptance matrix are in the companion. For this small cha
 
 This data-dependent component is distinct from asking an AI assistant to explain metrics. It gives the running project another concrete contract and failure boundary; it does not claim to cover every aspect of external AI or data integration.
 
-### Trace the change through the current design
+### Tracing the change through the current design
 
-`BorrowerCategory` currently contains STUDENT and STAFF. The legacy directory recognises `S` and `T`. The coordinator requires a policy for every enum value. Adding a category therefore affects more than one enum: directory mapping, composition, exhaustive test fixtures and the new visitor path must agree.
+`BorrowerCategory` currently contains STUDENT and STAFF. The legacy directory recognises `S` and `T`. The coordinator requires a policy for every enum value. Adding a category therefore affects more than one enum: directory mapping, composition, exhaustive test examples and the new visitor path must agree.
 
 `BorrowingPolicy.mayRequest(count, days)` deliberately answers only a count/duration question. It has no borrower identity, item, approval record or clock. Passing approval data through hidden global state to avoid changing the application boundary would defeat that contract. Keep the simple duration decision separate from obtaining and validating approval for a particular request.
 
@@ -217,57 +217,57 @@ The current coordinator counts every retained reservation for a borrower, despit
 
 A missing approval is an expected rejection; an unreadable or malformed register is an operational failure. Both prevent a new visitor reservation, but the response should not falsely say that a sponsor rejected something when no valid decision could be read. Keep these outcomes visible in the application contract.
 
-### Plan the smallest checked response
+### Planning the smallest checked response
 
-First preserve the passing Chapter 11 checkpoint. Next record the requirement, accepted examples, assumptions and affected files. Then order a thin valid visitor path, the genuine register boundary and failure paths, old-path regression, and delivery/demo evidence. Each item should have an observable exit condition.
+First keep the passing Chapter 11 version safe. Next record the requirement, accepted examples, assumptions and affected files. Then order a thin valid visitor path, the genuine register boundary and failure paths, old-path regression, and delivery/demo evidence. Each item should have an observable exit condition.
 
 Do not copy the synthetic history's points onto these new tasks. Estimate with the team's own knowledge and capacity. Resolve the approval-record format early because it affects both orchestration and integration tests. Plan a short review after the first vertical slice; use its evidence to revise the rest of the forecast.
 
-Chapter 12 finishes with a plan and preserved comparison point. Chapter 13 must still implement the feature, test the actual boundary and demonstrate a pipeline run. A design note is not a delivered capability, and a green pre-change build is not evidence that the new rule works.
+Chapter 12 finishes with a plan and a comparison point you have kept. Chapter 13 must still implement the feature, test the actual boundary and demonstrate a pipeline run. A design note is not a delivered capability, and a green build from before the change is not evidence that the new rule works.
 
-## 12.8 AI in practice: check the explanation, not its confidence
+## 12.8 Checking an AI's explanation, not its confidence
 
-**Book project activity.** The following is **author-written fictional AI output**, constructed for offline review. It is not a recorded service response.
+This activity is for the book's project. The text below is **fictional AI output written by the author** for offline review. It is not a recorded service response.
 
-**Input:** the eight-row history, blocked interval, measurement contract and chart table. **Task:** verify every arithmetic or causal claim independently. **Permitted scope:** explain the data and identify questions; do not change timestamps, estimates or requirements to fit the explanation.
+You start with the eight-row history, the blocked interval, the measurement contract and the chart table. Your task is to verify every arithmetic or causal claim independently: explain the data and identify questions, but do not change timestamps, estimates or requirements to fit the explanation.
 
 > The team delivered six items and 18 points because F left the backlog. Mean cycle time is two days after subtracting B's blocked days. The rise on 4 October proves productivity declined, while the fall on 8 October proves five points were delivered. The legacy architecture caused the waiting. At 16 points per iteration, the remaining seven points will definitely finish in 0.44 iterations. Rank team members by commits to remove the bottleneck.
 
 Mark each claim as supported, contradicted or not established. Recalculate the completed cohort and show why even subtracting two blocked days would not produce the claimed mean. Explain what additional evidence would be needed for a causal conclusion. Produce a corrected paragraph with one actionable next step and at least one limitation. The companion supplies the reasoning path; another AI opinion is not verification.
 
-An optional live prompt may request the same bounded analysis using synthetic or appropriately authorised project data. Follow the module leader's assessment rules. A live service is unnecessary for the lab.
+If you like, you can ask a live assistant for the same bounded analysis, using synthetic or appropriately authorised project data, as long as you follow the module leader's assessment rules. A live service is unnecessary for the lab.
 
-## 12.9 Common mistakes
+## 12.9 Measurement habits that mislead
 
 | Mistake | Consequence | Correction |
 |---|---|---|
 | Treat removed work as Done | Inflates delivery and hides scope decisions | Retain a separate removal event |
 | Divide by all accepted items when averaging completed duration | Treats unfinished cases as if their duration were known | Use the completed cohort and report open ages separately |
 | Drop waiting from cycle time without saying so | Changes the question and makes delay disappear | Keep elapsed time; define any additional measure separately |
-| Infer work-item completion from commits | Counts workflow artefacts as delivered value | Match the unit and event to the evidence |
+| Infer work-item completion from commits | Counts workflow traces as delivered value | Match the unit and event to the evidence |
 | Use an incomplete PR sample as repository throughput | Understates or selectively counts completions | Enumerate the full qualifying interval or label a sample |
 | Convert one velocity observation into a deadline | Hides variation, new scope and uncertainty | State conditional assumptions and revisit with new evidence |
 | Add visitors by defaulting unknown categories to students | Bypasses the explicit new rule | Preserve rejection of unknown categories and test mapping |
 
-## 12.10 Practical activity: measure, interpret and prepare the change
+## 12.10 Try it yourself: measure, interpret and prepare the change
 
-**Supplied input:** synthetic issue history and blocked-event note; Java calculator and checks; RM-12 v1.0 repository method; CR-12 contract and acceptance examples; backlog and impact templates; the Chapter 11 checkpoint.
+You start from the synthetic issue history and the blocked-event note; the Java calculator and its checks; the RM-12 v1.0 repository method; the CR-12 contract and acceptance examples; the backlog and impact templates; and the Chapter 11 version of the code.
 
-**Instructor demonstration:** calculate B's lead and cycle time; explain day 08's five-point drop; trace the count/duration policy boundary in the current code. **Guided practice:** pairs reconcile the final scope and trace the interval-edge completion. **Independent work:** complete both the Book and Team project tasks below.
+If your instructor demonstrates the task, they will calculate B's lead and cycle time, explain day 08's five-point drop, and trace the count/duration policy boundary in the current code. For guided practice, pairs reconcile the final scope and trace the completion that falls exactly on an interval edge. Then complete both the book's project tasks and your team's project tasks below.
 
-1. **Book project: calculate.** Reproduce the duration table, completed count/points, final WIP and ages. Run the Java exercise and explain one boundary check.
-2. **Book project: interpret.** Explain the scope additions and removal. Write a cautious forecast paragraph and reject the unsupported AI claims.
-3. **Team project: required repository lab.** Apply RM-12 to real PR or issue timestamps from the team's repository, or an instructor-supplied real repository export. Produce an auditable duration result and, if the population is complete, throughput for a fixed interval. State missing evidence honestly. The synthetic table is rehearsal, not a replacement.
-4. **Book project: preserve and plan.** Retain the pre-change checkpoint; review CR-12's acceptance matrix; identify code/data/test boundaries; order a small backlog for Chapter 13. Do not implement the feature as part of this minimum lab.
-5. **Team project: transfer.** Apply the same impact method to the released team variant. Record one dependency or policy question and how its answer would change the plan. Another domain need not copy lending classes.
+1. **The book's project: calculate.** Reproduce the duration table, completed count/points, final WIP and ages. Run the Java exercise and explain one boundary check.
+2. **The book's project: interpret.** Explain the scope additions and removal. Write a cautious forecast paragraph and reject the unsupported AI claims.
+3. **Your team's project: the required repository lab.** Apply RM-12 to real PR or issue timestamps from the team's repository, or an instructor-supplied real repository export. Produce an auditable duration result and, if the population is complete, throughput for a fixed interval. State missing evidence honestly. The synthetic table is rehearsal, not a replacement.
+4. **The book's project: keep and plan.** Keep the version from before the change; review CR-12's acceptance matrix; identify code/data/test boundaries; order a small backlog for Chapter 13. Do not implement the feature as part of this required work.
+5. **Your team's project: transfer.** Apply the same impact method to the released team variant. Record one dependency or policy question and how its answer would change the plan. Another domain need not copy lending classes.
 
-**Expected artefacts:** calculations; source and measurement contract; cautious interpretation; reviewed AI claims; preserved checkpoint reference; updated backlog; change-impact note. Keep actual repository evidence separate from the synthetic sample. Obtain real peer feedback where possible and label solo review accurately.
+What you should end up with is: your calculations; the source and measurement contract; a cautious interpretation; the reviewed AI claims; a reference to the version you kept from before the change; the updated backlog; and the change-impact note. Keep actual repository evidence separate from the synthetic sample. Obtain real peer feedback where possible and label a solo review accurately.
 
-**Completion checks:** arithmetic reconciles; event boundaries and population are explicit; open items and removals remain visible; repository results have traceable real sources; no individual ranking is made; new behaviour has acceptance examples; existing behaviour and unresolved defects have a preservation plan. These are learning checks, not new official assessment weights.
+You are done when the arithmetic reconciles, the event boundaries and population are explicit, open items and removals stay visible, repository results trace back to real sources, no individual is ranked, new behaviour has acceptance examples, and existing behaviour and unresolved defects have a plan for being preserved. These are learning checks, not new official assessment weights.
 
-**Optional extension:** compare two complete repository intervals using the same inclusion rule, inspect the longest open item, or add support for reopened items with a clearly revised data model. Do not silently extend the supplied calculator's assumptions.
+If you want more, compare two complete repository intervals using the same inclusion rule, inspect the longest open item, or add support for reopened items with a clearly revised data model. Do not silently extend the supplied calculator's assumptions.
 
-## 12.11 Review and transfer
+## 12.11 Questions to think with, and a transfer challenge
 
 ### Concept questions
 
@@ -285,11 +285,11 @@ An optional live prompt may request the same bounded analysis using synthetic or
 
 An ML model-serving team receives a change: only approved model versions may be served to external callers. Its dashboard counts successful builds and reports that “all requested releases are complete.” Define a useful unit and Done event; identify the missing approval and serving evidence; plan a narrow change with an unavailable-registry case. Explain why model accuracy, build success and release approval are different observations. Use synthetic model identifiers; no model training is required.
 
-## Summary and next chapter
+## What to take away, and what comes next
 
 A measurement becomes useful when its definition supports a concrete decision. The synthetic history shows why scope, elapsed time, unfinished work and completion counts must be read together. Repository evidence adds traceability but does not reveal every cause of delay or every valuable contribution.
 
-The application remains at the pre-change checkpoint. CR-12 and the ordered backlog now provide a precise basis for Chapter 13's implementation, genuine boundary tests and delivery evidence.
+The application remains at the version from before the change. CR-12 and the ordered backlog now give Chapter 13 a precise basis for its implementation, genuine boundary tests and delivery evidence.
 
 ## Sources and further reading
 

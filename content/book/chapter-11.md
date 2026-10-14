@@ -17,9 +17,9 @@ Along the way you will learn to diagnose a smell from a concrete difficulty of c
 
 This is Week 10, supporting LO3 and LO4. The weekly reading is the refactoring chapter of Martin [13]; Feathers [14] is the recommended companion on legacy code. The Week 10 lab is refactoring untested legacy code with regression tests. The chapter creates no new deadlines, weights or marking rules. Quiz 2 is held in Week 10 and covers dependency injection, TDD and test doubles, design patterns and layered architecture (Weeks 5 to 9); the legacy lab in this chapter is separate from that scope, and Section 11.11 gives revision pointers for the quiz.
 
-You start from Chapter 10's Java 17 project and its package structure. This chapter adds one isolated package, `legacy`, which stands for the old records system's overdue report. It is not part of the lending layers: production code must not refer to it, just as it must not refer to `patterns` or `behaviour`, and the dependency test from Chapter 10 now checks that. Only bootstrap launches it or feeds it rows. The companion holds the complete checkpoint, every refactoring stage, the tests, model answers and teaching notes.
+You start from Chapter 10's Java 17 project and its package structure. This chapter adds one isolated package, `legacy`, which stands for the old records system's overdue report. It is not part of the lending layers: production code must not refer to it, just as it must not refer to `patterns` or `behaviour`, and the dependency test from Chapter 10 now checks that. Only bootstrap launches it or feeds it rows. The companion holds the complete code, every refactoring stage, the tests, model answers and teaching notes.
 
-Sections 11.1 to 11.6 are the core reading. Section 11.7 (technical debt and evidence) is working knowledge: learn to describe debt with evidence and to separate defects from preferences; you do not manage a debt register for a real project. The minimum lab is steps B1 to B3 and T1 to T4 of the practical activity in Section 11.10. Steps B1 to B3 run on the **Book project**, where the legacy report and its tests are supplied and you extend the tests and take the first refactoring steps; steps T1 to T4 run on your **Team project**, whose provided starter codebase contains intentional smells, so that you characterise one untested method and refactor it in small commits. Steps B4 to B7 (break the boundary on purpose, make the separate functional correction, do the AI activity, and connect the report to the live loans), the review questions, the transfer challenge and the optional extension are optional.
+Sections 11.1 to 11.6 are the core reading. Section 11.7 (technical debt and evidence) is working knowledge: learn to describe debt with evidence and to separate defects from preferences; you do not manage a debt register for a real project. What you must do is steps B1 to B3 and T1 to T4 of the practical activity in Section 11.10. Steps B1 to B3 run on the book's project, where the legacy report and its tests are supplied and you extend the tests and take the first refactoring steps; steps T1 to T4 run on your team's project, whose provided starter codebase contains intentional smells, so that you characterise one untested method and refactor it in small commits. If you want more, there are steps B4 to B7 (break the boundary on purpose, make the separate functional correction, do the AI activity, and connect the report to the live loans), the questions and the transfer challenge in Section 11.11, and the extension at the end of Section 11.10.
 
 ## 11.1 Working with unfamiliar code
 
@@ -120,7 +120,7 @@ Reading is evidence only when you record how sure you are. A reading note keeps 
 
 “Unknown whether intended” is an honest status. It is not your job at this stage to decide that the behaviour is wrong.
 
-## 11.2 Smells as investigation prompts
+## 11.2 Smells: prompts to investigate, not verdicts
 
 A code smell is, in Fowler's words, a surface indication that usually corresponds to a deeper problem, and it is not always a problem [5]. Chapter 5 introduced smells and the principles behind them, so this chapter does not repeat the definitions. What matters here is the use you make of a smell: it is a prompt to investigate, and it is only worth acting on when you can name a **concrete difficulty of change** that it causes.
 
@@ -136,7 +136,7 @@ A code smell is, in Fowler's words, a surface indication that usually correspond
 
 The last row is a deliberate counter-example. Not every smell needs repair. A smell in code that nobody changes costs very little, and the value of repairing it depends on how often the code changes and how much the difficulty costs [4]. Decide where to spend effort by asking which changes are coming. Here the office has just asked for a change to a grace period, so the duplicated branches and the magic numbers are worth fixing now. The `String +=` loop is not.
 
-## 11.3 Characterisation and regression tests
+## 11.3 Pinning what the code does: characterisation tests
 
 A **regression test** protects behaviour that everyone agrees is correct. A **characterisation test** records what the code does today, whatever that is, so that you will notice if a change alters it [3]. The two look the same in the test framework, but they make different promises. A passing characterisation test means “unchanged”. It does not mean “correct”.
 
@@ -180,7 +180,7 @@ The observed fines for one loan, run on the supplied code with today fixed at 20
 
 Four further observations belong in the suite: a loan due today or later is not listed; a returned loan is ignored; a null kind throws `NullPointerException` (and only for a loan that is actually overdue); and under a German locale the amounts print with a comma. The list shows one example of each class that is not simply expected: the grace listing and the comma are *surprising*, the unknown kinds are *suspected defects*, and the null-kind failure is *unknown*.
 
-### One test, written in the style
+### One test, in the style used here
 
 ```java
 // SUSPECTED DEFECT, pinned on purpose: any other kind pays 1.00 a day with no grace and no cap.
@@ -197,7 +197,7 @@ The comment is part of the test. In six months someone will see this test fail w
 
 A table of examples covers only the inputs you thought of. A *differential* check adds a different kind of cover: keep a copy of the original code as an oracle (a trusted source of expected results), generate thousands of inputs with a fixed seed and compare the old and new output. The companion contains such a test. It is stronger than the examples for the kinds of input it generates, and it says nothing about inputs outside them. Neither net proves that the new code is equivalent to the old. They show that a chosen set of behaviours is unchanged, and the right amount of testing depends on how risky the change is. Add more where you are about to change more.
 
-## 11.4 Seams and dependency isolation
+## 11.4 Seams: getting hidden dependencies out of the way
 
 A **seam**, in Feathers's term, is a place where you can change what the program does without editing the code at that place, and Fowler describes it the same way [6]. To use a seam you need an **enabling point**: somewhere you can choose the other behaviour. The report has three hidden dependencies, and each needs a different answer.
 
@@ -226,7 +226,7 @@ public static String build(List<LoanRow> rows, LocalDate today) {
 
 The edit moves one expression from the body to a call, and deletes one line. The compiler checks that nothing else changed, and a reader can check the rest by eye. Existing callers see no difference. Fowler's catalogue calls this move Change Function Declaration, and lists Add Parameter among its aliases [2]. This is the same idea as the injected `Clock` in Chapter 7, at the smallest possible scale: a parameter is enough here, because the report is a static method with no object to inject into.
 
-### Check the enabling edit by running it
+### Checking the enabling edit by running it
 
 Compiling and reading are good checks, but this edit has no test yet, so run the evidence that is available. The companion supplies a small **probe**: it contains the original report with only its class name changed (`OriginalUnseamed`) and a program that calls the original and the seamed report through their public one-argument entry points. It compares their output for a handful of rows (a late student, a late staff member, a row due today, an unknown kind, a returned loan and an empty list) and checks one literal result. It refuses to run if the date changes while it executes.
 
@@ -238,15 +238,15 @@ The report now takes a date, so the *caller* decides which calendar date “toda
 
 ### The locale and the output stream
 
-The other two dependencies are left alone, because changing them would be a bigger edit than the tests justify. Instead the tests deal with them. One fixture sets the default locale to `Locale.ROOT` before each test and restores it afterwards. One test sets it to `Locale.GERMANY` and records the comma. One test replaces `System.out` and restores it in a `finally` block. Both are global, process-wide state. Tests that change them cannot safely run in parallel, and a test that forgets to restore them will break an unrelated test far away, so the restoring is part of the technique.
+The other two dependencies are left alone, because changing them would be a bigger edit than the tests justify. Instead the tests deal with them. One test setup step sets the default locale to `Locale.ROOT` before each test and restores it afterwards. One test sets it to `Locale.GERMANY` and records the comma. One test replaces `System.out` and restores it in a `finally` block. Both are global, process-wide state. Tests that change them cannot safely run in parallel, and a test that forgets to restore them will break an unrelated test far away, so the restoring is part of the technique.
 
-A better seam would be a `PrintStream` parameter on `print`, and a locale argument to the formatting. They are worth adding when you have a reason to change those lines. Without a reason, the test fixture is enough.
+A better seam would be a `PrintStream` parameter on `print`, and a locale argument to the formatting. They are worth adding when you have a reason to change those lines. Without a reason, the test setup is enough.
 
 ### Other seams
 
 Two other seams appear in legacy code and are worth knowing by name. In **subclass and override** you make a class non-final, and a test subclass replaces one method. In **extract interface** you put a dependency behind an interface, which is exactly the move of Chapter 6. Both change more code than a parameter does, so choose the smallest seam that gets the code under test.
 
-## 11.5 Extract Method, Extract Class, Move Method and Rename
+## 11.5 Reshaping the report: Extract Method, Extract Class, Move Method and Rename
 
 Refactorings have names so that a team can say what it did and a reviewer can check it. Fowler's catalogue calls the first one Extract Function and the second Move Function; the first edition called them Extract Method and Move Method, and the names are used interchangeably [2][15]. The companion lists the full file for every step. The steps below follow the order in which they were applied, and the characterisation tests and the differential test passed after each one.
 
@@ -351,7 +351,7 @@ public static String build(List<LoanRow> rows, LocalDate today) {
 
 The request that started the chapter is now a one-number change: `new FinePolicy(7, 0.25, 5.00)` for staff. It is a functional change, so it waits for its own commit and its own test change.
 
-## 11.6 Incremental changes and rollback
+## 11.6 Small steps, and how to step back
 
 ### One step, one check, one commit
 
@@ -367,7 +367,7 @@ The stages above were not applied at once. Each was a separate commit with the t
 
 Mixing a refactoring and a behaviour change in one commit is the most common way to lose control, because a failing test no longer says which of the two caused it. Chapter 5 made the same point with its two-stage change.
 
-### Decide what a difference means
+### Deciding what a difference means
 
 When a check reports a difference, ask one question before touching anything: was this behaviour change agreed? The answer decides what you do next.
 
@@ -387,11 +387,11 @@ flowchart TD
 
 If a test fails after a step, you have a precise failing change and a green state one step behind. Undo the step (`git restore` for uncommitted work, `git revert` for a commit) and redo it more carefully. Debugging forward from a failing refactoring, with the structure half-changed, is slower and riskier. The failing test is evidence about what the step got wrong: keep its name and message in your notes.
 
-### Separate the functional correction
+### Making the functional correction separately
 
-When the structure is clean, the questions that were parked can be answered. Suppose the records office confirms that only the kinds `"S"` and `"T"` exist and that anything else is a data error. That is a functional change, so it gets its own branch and commit. The code change is small: `policyFor` throws `IllegalArgumentException("Unknown borrower kind: ...")` instead of returning the odd policy, and the `ANY_OTHER_KIND` constant disappears. The tests that pinned the suspected defect are **replaced deliberately**, in the same commit, with tests of the new rule, and the commit message says so. The differential test can no longer compare the unknown kinds with the original, so it is limited to the kinds that did not change. The companion contains this stage as a separate checkpoint. The rule itself is illustrative: in a real project the records office decides it, not the developer.
+When the structure is clean, the questions that were parked can be answered. Suppose the records office confirms that only the kinds `"S"` and `"T"` exist and that anything else is a data error. That is a functional change, so it gets its own branch and commit. The code change is small: `policyFor` throws `IllegalArgumentException("Unknown borrower kind: ...")` instead of returning the odd policy, and the `ANY_OTHER_KIND` constant disappears. The tests that pinned the suspected defect are **replaced deliberately**, in the same commit, with tests of the new rule, and the commit message says so. The differential test can no longer compare the unknown kinds with the original, so it is limited to the kinds that did not change. The companion contains this stage as a separate version of the code. The rule itself is illustrative: in a real project the records office decides it, not the developer.
 
-## 11.7 Technical debt and evidence
+## 11.7 Technical debt: say it with evidence
 
 “Technical debt” is a metaphor, attributed to Ward Cunningham, for the accumulated cruft that makes a system harder to change [4]. The extra effort of every later change is the interest, and cleaning up is paying down the principal. The metaphor helps in conversations with people who do not read code. It misleads when it is used to excuse neglect, and Fowler also notes that the cost cannot be measured objectively, only estimated [4].
 
@@ -413,20 +413,20 @@ The companion contains two model records for this report: **ADR-011**, a decisio
 
 Keep four kinds of statement apart in your notes: a **known defect** (confirmed wrong), a **suspected defect** (looks wrong, unconfirmed), **accepted behaviour** (confirmed as intended, however odd) and a **question** (unknown). Only the owner of the requirement can move an item between them. Mixing them is how a refactoring turns into an unreviewed behaviour change, and how a developer's taste turns into a defect report.
 
-## 11.8 AI in practice: review a refactoring patch
+## 11.8 Reviewing an AI refactoring patch
 
-Chapter 15 collects the recurring AI workflows; this activity is self-contained, and the fixture below is all you need.
+Chapter 15 gathers the AI workflows that recur in this book. This activity is complete on its own, and the ready-made patch below is all you need.
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide whether a proposed refactoring patch preserves behaviour, using evidence rather than the patch's own claims |
-| Input | The refactored `OverdueReport` from Section 11.5, the characterisation suite and the differential test |
-| Permitted scope | Evaluate and, if worthwhile, repair the patch; do not change the tests to make it pass |
-| Independent checks | Trace the boundary case by hand; apply each claim to a scratch copy; run the suite; read each failing test |
-| Accept or reject | A verdict on each claim, with the failing tests as evidence |
-| No-account route | The fixture below is sufficient |
+| Your goal | Decide whether a proposed refactoring patch preserves behaviour, using evidence rather than the patch's own claims |
+| You start with | The refactored `OverdueReport` from Section 11.5, the characterisation suite and the differential test |
+| What is in bounds | Evaluate and, if worthwhile, repair the patch; do not change the tests to make it pass |
+| How to check | Trace the boundary case by hand; apply each claim to a scratch copy; run the suite; read each failing test |
+| How to decide | A verdict on each claim, with the failing tests as evidence |
+| No AI account? | The ready-made patch below is enough |
 
-Use this **author-written fictional AI-output fixture**, constructed for offline comparison:
+Use this **fictional AI answer written by the author** for offline comparison:
 
 > I tidied `build`. The overdue test is now `!row.due.isAfter(today)`, which reads better and is equivalent to `daysLate > 0`. I also choose the fine policy before the check, so the loop has one path. Unknown kinds fall back to the student policy, since students are the only borrowers who should ever be fined. All formatting is unchanged, so behaviour is preserved.
 
@@ -445,7 +445,7 @@ There are three claims. **Trace the first one before running anything.** On the 
 
 A repair is possible for the first two claims: keep the neater structure but restore the original test and the original lookup. The third is a functional change, so it needs a decision from the records office and its own commit with replaced tests. The patch's own summary was confident and wrong in all three places. Passing tests and your own trace are the evidence here. A live AI service is optional: give it synthetic data, keep its actual output, apply any patch to a scratch copy and treat its explanation as a claim to check.
 
-## 11.9 Common mistakes
+## 11.9 Refactoring habits that mislead
 
 | Mistake | Consequence | Better action |
 |---|---|---|
@@ -461,37 +461,35 @@ A repair is possible for the first two claims: keep the neater structure but res
 | Trust the seam edit because it compiled | The one untested edit could still have changed behaviour | Run the original beside the seamed version on a few rows, then pin |
 | Accept “equivalent” for a boundary rewrite | `isAfter` and a day count differ exactly on the due date | Trace the equality case by hand, then run the tests |
 
-## 11.10 Practical activity
+## 11.10 Try it yourself: pin, seam and refactor the report
 
-**Input:** the Chapter 10 checkpoint plus the `legacy` package from the companion (`LoanRow`, the stage 1 `OverdueReport`, the characterisation suite, the differential test and the probe), and your Team project's repository. Steps B1–B7 use the **Book project**; steps T1–T4 use your **Team project**.
+You start from the Chapter 10 code plus the `legacy` package from the companion (`LoanRow`, the stage 1 `OverdueReport`, the characterisation suite, the differential test and the probe), and your team's repository. Steps B1 to B7 use the book's project; steps T1 to T4 use your team's project.
 
-**Instructor demonstration:** run the legacy report on one day and then on the next (or with two dates through the seam) to show why the clock must be isolated. Run the probe. Pin one surprising result live, with its comment.
+If your instructor demonstrates the task, they will run the legacy report on one day and then on the next (or with two dates through the seam) to show why the clock must be isolated, run the probe, and pin one surprising result live, with its comment. For guided practice, classify five pinned results from Section 11.3 as expected, surprising, suspected defect or unknown, and explain what you would ask the records office about each one.
 
-**Guided practice:** classify five pinned results from Section 11.3 as expected, surprising, suspected defect or unknown. Explain what you would ask the records office about each one.
-
-**Minimum required lab: Book project**
+**What you must do: the book's project**
 
 - **B1. Observe and characterise.** Run the probe to check the enabling edit, then run the supplied suite against stage 1 (the original code with the date seam). Add three characterisation tests of your own for inputs the suite does not cover (for example, a borrower with many loans, two loans for the same item, or a due date far in the past). For each, record the actual result, classify it, and add a comment if it is surprising.
 - **B2. Refactor in small steps.** Starting from stage 1, apply the Extract Method and Extract Class refactorings of Section 11.5 (stages 2 and 3), one commit each, running the suite after each. If a test fails, roll back the step and redo it.
 - **B3. Report your findings.** Write a short before-and-after rationale: what changed structurally, what you checked after each step, what did not change on purpose (and why), and which questions remain for the records office. Add one entry to a suspected-defect register in the form of the companion's model.
 
-**Minimum required lab: Team project**
+**What you must do: your team's project**
 
 - **T1. Choose.** In your team's provided starter codebase, choose one method that has a smell and no tests, and that you have a reason to change. Write down what you observed and how sure you are, in the three-column form of Section 11.1.
 - **T2. Pin.** Make the smallest edit that lets you test it, if it has hidden dependencies, and run the original beside the edited version on a few inputs. Write characterisation tests for at least six inputs, including a boundary and an odd case. Classify each result.
 - **T3. Refactor.** Apply at least three small refactorings from this chapter, each in its own commit, with the tests run before each commit. Keep any behaviour change out of these commits.
 - **T4. Rationale.** Write the before-and-after rationale: which structural change you made and why, what you protected, and which suspected defects and questions you found but did not fix. Ask a teammate to review the commits and record their feedback.
 
-**Optional extension (Book project)**
+**If you want more (the book's project)**
 
 - **B4. Break the boundary on purpose.** In a scratch copy, change the overdue test from `daysLate > 0` to `daysLate >= 0`. Predict which tests fail before you run them, read the failure messages, and restore the original.
 - **B5. A separate functional change.** Make the correction of Section 11.6 on its own branch: unknown kinds are rejected. Replace the pinned tests deliberately, restrict the differential test to known kinds, and write the commit message to say what behaviour changed and why.
 - **B6. AI activity.** Complete the Section 11.8 activity.
 - **B7. Connect the report to the live loans.** The companion supplies a small bridge in bootstrap: `LoanSnapshotRows` joins the loan and reservation snapshots into report rows, and `OverdueReportService` reads one date from a `Clock` and one snapshot per call. Trace why the last permitted day is the day *before* a reservation's exclusive end, why a failure to read must not become “0 overdue”, and why a loan without a matching reservation is an error. Run its tests and add one of your own.
 
-**Expected artefacts:** B1–B3 as above, with the commits or stage files; for the Team project, the observation notes, the characterisation tests, at least three refactoring commits, the rationale and the review record. A pull request is a good vehicle where your course workflow permits it.
+What you should end up with is: B1 to B3 as described, with the commits or stage files; for your team's project, the observation notes, the characterisation tests, at least three refactoring commits, the rationale and the review record. A pull request is a good vehicle where your course workflow permits it.
 
-**Acceptance conditions:**
+You are done when these things hold:
 
 - every characterisation test was run before its expectation was recorded;
 - surprising and suspect results are commented;
@@ -503,9 +501,9 @@ A repair is possible for the first two claims: keep the neater structure but res
 
 Do not claim a review or CI run that has not happened. A passing suite is evidence for the behaviours it covers, not a proof of equivalence.
 
-**Optional extension:** extend the differential test to generate null items and borrowers, and say what a difference would mean. Keep this separate from the refactoring steps.
+If you want more, extend the differential test to generate null items and borrowers, and say what a difference would mean. Keep this separate from the refactoring steps.
 
-## 11.11 Review and transfer
+## 11.11 Questions to think with, a transfer challenge, and Quiz 2 revision
 
 ### Concept questions
 
@@ -538,7 +536,7 @@ Quiz 2 is held in Week 10, and the module descriptor says that it covers **depen
 
 Use the module leader's confirmed quiz guidance if it provides more detail. These pointers do not add assessment rules or predict particular questions.
 
-## Summary and next chapter
+## What to take away, and what comes next
 
 Changing code you do not understand is a sequence, not a leap: observe it, make the smallest edit that lets you test it, pin its behaviour with tests that record what it does, reshape the structure in small steps with a check and a way back after each, and keep every correction of behaviour apart from every improvement of structure. Smells say where to look, debt claims need evidence, and a green suite is evidence for the behaviours it covers.
 

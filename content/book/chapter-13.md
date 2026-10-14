@@ -17,9 +17,9 @@ This is Week 12, supporting LO3 and LO6 and Milestone 4 (Sprint 3: the change ab
 
 You start from the Chapter 11 project and Chapter 12's change specification CR-12, its acceptance matrix (examples AC1 to AC18) and its ordered backlog. This chapter implements the change. The Chapter 11 listings are not repeated, and the companion lists only the files that are new or changed, along with the tests, the scripts, the model answers and teaching notes.
 
-Sections 13.1 to 13.5, 13.7 and 13.8 are the core reading. Section 13.6 (feature flags, configuration and rollback) is working knowledge: learn to run one flag safely; you do not build a flag platform. The minimum lab is steps B1 to B4 and T1 to T5 of the practical activity in Section 13.11. Steps B1 to B4 run on the **Book project** and are running, tracing and diagnosis, because the finished checkpoint is supplied and there is nothing to rebuild; steps T1 to T5 run on your **Team project** and produce your Milestone 4 evidence. Steps B5 to B7 (deliver and roll back a simulated release, do the AI activity, break a boundary on purpose), the review questions, the transfer challenge and the optional extension are optional.
+Sections 13.1 to 13.5, 13.7 and 13.8 are the core reading. Section 13.6 (feature flags, configuration and rollback) is working knowledge: learn to run one flag safely; you do not build a flag platform. What you must do is steps B1 to B4 and T1 to T5 of the practical activity in Section 13.11. Steps B1 to B4 run on the book's project and are running, tracing and diagnosis, because the finished version is supplied and there is nothing to rebuild; steps T1 to T5 run on your team's project and produce your Milestone 4 evidence. If you want more, there are steps B5 to B7 (deliver and roll back a simulated release, do the AI activity, break a boundary on purpose), the questions and the transfer challenge in Section 13.12, and the extension at the end of Section 13.11.
 
-## 13.1 Boundary risks and test scope
+## 13.1 What can go wrong at a boundary? Risks and test scope
 
 ### Start from the risk, then pick the check
 
@@ -60,7 +60,7 @@ Fowler distinguishes *narrow* integration tests, which cover only the code in ou
 
 Our own classes answer the same way every time. A file may be missing today. A network call may not return. A setting may differ between the machine that built the program and the machine that runs it. Each boundary needs two kinds of evidence: what happens when the other side behaves, and what happens when it does not. In this chapter the second kind is not an afterthought. The most important design decision in the change is how a failure at a boundary is reported.
 
-## 13.2 Integration and contract tests
+## 13.2 Testing where our code meets the outside: integration and contract tests
 
 ### The file boundary: use a real file
 
@@ -79,7 +79,7 @@ Nothing replaces the file system or the parser, because those are the boundary u
 
 A few words of HTTP for readers who have not used it directly. A client sends a request to an address. The server answers with a status code (200 means success, 404 means the thing asked about does not exist, 500 means the server itself failed), then headers (information about the answer) and then a body (the data). A timeout can in principle apply to each of those stages, which matters below. A loopback address is the local machine only, and an ephemeral port is one that the operating system picks because it is free, so a test can start a server without clashing with anything else.
 
-The directory used to be an in-memory fixture. It is now reachable over HTTP. `HttpLegacyDirectoryClient` asks `GET /borrowers/<key>` and understands one line, the provider's kind and status separated by a tab. To test it we need a service that we control: the JDK includes a simple HTTP server API for building embedded servers [9], which is enough for a stub that answers known keys, returns an error, never answers, or sends nonsense. A real service on the network would make the tests slow and dependent on someone else's availability.
+The directory used to be an in-memory stand-in. It is now reachable over HTTP. `HttpLegacyDirectoryClient` asks `GET /borrowers/<key>` and understands one line, the provider's kind and status separated by a tab. To test it we need a service that we control: the JDK includes a simple HTTP server API for building embedded servers [9], which is enough for a stub that answers known keys, returns an error, never answers, or sends nonsense. A real service on the network would make the tests slow and dependent on someone else's availability.
 
 The stub is a stand-in, not the provider. Every test that uses it shows how *our client* behaves when a service behaves in these ways. It does not show that the real service behaves in these ways.
 
@@ -112,13 +112,13 @@ A new stub scenario, `SLOWBODY`, sends the headers and the first byte and then h
 
 A **contract test** states what callers may rely on and checks that an implementation honours it. The chapter uses the term in two ways, and they have different scopes.
 
-First, an *interface contract*: `DirectoryClientContract` is a test class that is written once and run against every implementation of `LegacyDirectoryClient`. It says that a known key returns its row, an unknown key returns nothing and is not a failure, and a provider that cannot answer fails and never returns an empty answer. It runs against the in-memory fixture that earlier chapters used, and against the real HTTP client talking to the stub. Two implementations pass the same test, so a caller can swap one for the other.
+First, an *interface contract*: `DirectoryClientContract` is a test class that is written once and run against every implementation of `LegacyDirectoryClient`. It says that a known key returns its row, an unknown key returns nothing and is not a failure, and a provider that cannot answer fails and never returns an empty answer. It runs against the in-memory stand-in that earlier chapters used, and against the real HTTP client talking to the stub. Two implementations pass the same test, so a caller can swap one for the other.
 
 Second, a *provider contract test*, as Fowler describes it: a separate suite, run periodically against the real external service, that checks that your test doubles still return what the real service returns. It checks the structure of the response rather than exact data, and it follows the provider's rate of change, so it is not part of every pipeline run [2]. This book has no real provider, so no such suite exists here. That is a limit to record, not hide: the stub's fidelity to the real directory is an **assumption**, written in the decision record and tested only when someone has a real service to test against.
 
-## 13.3 Focused end-to-end journeys
+## 13.3 A few end-to-end journeys
 
-### Find the real boundary of a command-line program
+### Finding the real boundary of a command-line program
 
 A web application has a browser and a server. This program has none of them. Its real boundary is the **process**: how it is started, which settings it reads, what it prints, how it exits, and the network and files it touches. An end-to-end journey therefore starts `Chapter13Demo` as a separate Java process, exactly as a user would, with a directory service on the loopback address and a real approval file, and checks what the user sees.
 
@@ -141,7 +141,7 @@ The second runs with the flag on and shows an approved visitor served and an una
 
 End-to-end journeys are slow, because they start a process, and brittle, because they check output text. Keep the number small. Check the lines that carry the meaning of the journey, fix the clock and the ports so that a run is repeatable, and let the narrower tests carry the detail. A journey that duplicates every unit test is cost without evidence.
 
-## 13.4 CI stages and quality gates
+## 13.4 Pipeline stages and quality gates
 
 ### A pipeline orders the checks by cost
 
@@ -153,7 +153,7 @@ A deployment pipeline splits an automated build into stages. Early stages give f
 | 2 Unit tests and architecture checks | Everything not tagged `integration` or `e2e` | Fast, controlled, no outside resources | A rule or a boundary in our own code is wrong |
 | 3 Integration tests | Tests tagged `integration` | Real file system, real HTTP client, local stub | An adapter does not meet its boundary |
 | 4 End-to-end journeys | Tests tagged `e2e` | Needs compiled classes and a free port | The pieces are not joined correctly |
-| 5 Package | `mvn package`, tests skipped because stages 2–4 passed | Produces the release candidate | The artefact cannot be built |
+| 5 Package | `mvn package`, tests skipped because stages 2–4 passed | Produces the release candidate | The package cannot be built |
 
 ```mermaid
 flowchart LR
@@ -183,11 +183,11 @@ A **gate** is a rule that stops the pipeline. Here the gates are: every selected
 
 A pipeline is evidence about the checks it contains. It does not establish that the program is secure, that every rule is right or that real users will be served. Say what each gate checks, and what it does not.
 
-### Read a failure
+### Reading a failure
 
 A failing pipeline is information, so learn to read one. A deliberate fault was introduced: the register parser's header check was removed, so that a file with a wrong header is accepted. Stage 1 passed. Stage 2 passed, because no unit test reads the real file. Stage 3 failed at the test named for the wrong or missing header, with the message of the assertion that did not throw. The companion shows the real output. Three habits help. Find the first failing stage and ignore everything after it. Read the name of the first failing test before the stack trace, because the name says what the test promised. And ask whether the earlier stages *should* have caught it: here they could not, which is the reason stage 3 exists.
 
-## 13.5 Delivery and deployment
+## 13.5 Delivery is not deployment
 
 **Continuous delivery** is a discipline in which software is built so that it can be released to production at any time; **continuous deployment** goes further, and puts every change that passes the pipeline into production automatically [5]. You can do delivery without deployment, and you must do delivery to do deployment. Our pipeline ends with a release candidate, a jar that has passed every stage. That is delivery. Nothing here deploys it to production.
 
@@ -213,7 +213,7 @@ The directory address, the timeout and the register path are *configuration*: th
 
 To stop new visitor reservations, turn the flag off. To go back to an earlier build, redeliver the previous release. Neither removes a reservation that already exists, undoes a notice already sent, or restores a decision a person already made on the strength of it. AC16 pins one consequence: a visitor reservation made before the flag was switched off can still be checked out and returned. A rollback plan is only a plan when it says what stays behind.
 
-## 13.7 Changed behaviour verification
+## 13.7 Did the change do what it should? Verifying the changed behaviour
 
 ```mermaid
 flowchart TD
@@ -236,9 +236,9 @@ flowchart TD
 
 The order is observable when more than one thing is wrong. A four-day visitor request with an unreadable register does **not** get the duration rejection: it fails with the register's error, because the gate reads the register before the coordinator applies the duration rule. A zero-day request is the opposite: the gate leaves it alone, the register is not read and the coordinator rejects it. A test pins both. If your team needs a different precedence, such as duration before register, that is a change to the contract, the implementation and the tests together, and not a change to the picture.
 
-### Map every acceptance example to evidence
+### Mapping every acceptance example to evidence
 
-Chapter 12 specified eighteen acceptance examples. Each has a test, and the companion lists them. Every example builds its own fixture, so one failure cannot hide another. A short excerpt:
+Chapter 12 specified eighteen acceptance examples. Each has a test, and the companion lists them. Every example builds its own setup, so one failure cannot hide another. A short excerpt:
 
 ```java
 @Test void ac9_theRequestInstantAtValidUntilOrBeforeValidFromIsRejected() {
@@ -267,12 +267,12 @@ Adding `VISITOR` to the category enum has a deliberate consequence: the coordina
 
 AC18 deserves attention. A visitor who returns a loan late appears in the overdue report, and the report knows only student and staff kinds, so it applies its “any other kind” rule: one unit a day with no grace and no cap. That is the suspected defect SD-11-1 from Chapter 11, and it now has a real consequence. The change does not fix it: only the records office can say what a visitor's late fine should be. The count rule SD-12 also stays as it is. Naming these items, and showing in a test what each does today, is more useful than silently resolving them.
 
-## 13.8 Milestone 4 evidence
+## 13.8 Preparing the Milestone 4 evidence
 
-Milestone 4 falls in this week. By your demonstration you should be able to show, on your **Team project**:
+Milestone 4 falls in this week. By your demonstration you should be able to show, on your team's project:
 
 1. your released requirement change, implemented from the smallest vertical slice outwards and behind one flag, with acceptance examples;
-2. regression evidence from your existing suite, with any necessary fixture changes disclosed;
+2. regression evidence from your existing suite, with any necessary changes to test setups disclosed;
 3. integration evidence for at least one genuine boundary, including its failure cases;
 4. an observed pipeline run, and a failing run that you have read;
 5. a delivery step, simulated or real, with a smoke test and a rollback;
@@ -282,10 +282,10 @@ Milestone 4 falls in this week. By your demonstration you should be able to show
 
 The approved Milestone 4 instructions decide what is submitted, and this list is preparation, not a rubric.
 
-| Item | Artefact | What it should establish |
+| Item | What to produce | What it should establish |
 |---|---|---|
 | 1 | Change record and acceptance examples | The requirement and each example are traceable to a test |
-| 2 | Regression result | Old behaviour is intact; changed fixtures are listed |
+| 2 | Regression result | Old behaviour is intact; changed test setups are listed |
 | 3 | Boundary tests | The real file, service or store was used, and both outcomes were checked |
 | 4 | Pipeline output | Which stage ran which checks; one real failure read correctly |
 | 5 | Delivery record | A release candidate was smoke-tested, and a rollback was tried |
@@ -295,20 +295,20 @@ The approved Milestone 4 instructions decide what is submitted, and this list is
 
 Do not claim a hosted pipeline run, a public deployment or a peer review that did not happen. A local pipeline run is evidence of a local run.
 
-## 13.9 AI in practice: an integration test that mocks its boundary
+## 13.9 An integration test that mocks its boundary: judging an AI's proposal
 
-Chapter 15 collects the recurring AI workflows; this activity is self-contained, and the fixture below is all you need.
+Chapter 15 gathers the AI workflows that recur in this book. This activity is complete on its own, and the ready-made proposal below is all you need.
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide what a proposed integration test actually verifies, and repair it so that it verifies what its name claims |
-| Input | The approval adapter, the visitor gate and the integration tests of Section 13.2 |
-| Permitted scope | Judge and repair the proposed test; do not weaken the adapter or its other tests |
-| Independent checks | Introduce one fault into the parser in a scratch copy and see which tests notice it |
-| Accept or reject | A verdict on the test, a repaired test and an explanation of what each verifies |
-| No-account route | The fixture below is sufficient |
+| Your goal | Decide what a proposed integration test actually verifies, and repair it so that it verifies what its name claims |
+| You start with | The approval adapter, the visitor gate and the integration tests of Section 13.2 |
+| What is in bounds | Judge and repair the proposed test; do not weaken the adapter or its other tests |
+| How to check | Introduce one fault into the parser in a scratch copy and see which tests notice it |
+| How to decide | A verdict on the test, a repaired test and an explanation of what each verifies |
+| No AI account? | The ready-made proposal below is enough |
 
-Use this **author-written fictional AI-output fixture**, constructed for offline comparison. An assistant was asked for an integration test of the approval register and produced this:
+Use this **fictional AI answer written by the author** for offline comparison. An assistant was asked for an integration test of the approval register and produced this:
 
 > I added an integration test for the approval register. It builds a visitor approval, makes the register return it, and checks that the gate accepts the visitor and that the register was consulted.
 
@@ -334,7 +334,7 @@ Repair it. Write a real register file in a temporary directory, read it with the
 
 A secondary activity: take the real failure output in the companion's pipeline run and say, for each stage, what passed and why the earlier stages could not have caught the fault. A live AI service is optional. If you use one, give it synthetic data, keep its actual output, and treat its description of its own test as a claim to check.
 
-## 13.10 Common mistakes
+## 13.10 Delivery habits that mislead
 
 | Mistake | Consequence | Better action |
 |---|---|---|
@@ -350,52 +350,50 @@ A secondary activity: take the real failure output in the companion's pipeline r
 | Treat a green pipeline as proof | Security and unseen behaviour are not examined | State what the stages check and what they do not |
 | Switch a flag on by default or never remove it | The old path rots and the code keeps both | Default off, test both paths, name a removal condition |
 
-## 13.11 Practical activity
+## 13.11 Try it yourself: run the pipeline and deliver a flagged change
 
-**Input:** the Chapter 11 checkpoint with the Chapter 13 files from the companion, Chapter 12's CR-12 specification, and your Team project's repository. Steps B1–B7 use the **Book project**; steps T1–T5 use your **Team project**.
+You start from the Chapter 11 code with the Chapter 13 files from the companion, Chapter 12's CR-12 specification, and your team's repository. Steps B1 to B7 use the book's project; steps T1 to T5 use your team's project.
 
-**Instructor demonstration:** run `scripts/pipeline.sh` and read each stage's output. Break the register parser on purpose and run it again to show which stage notices. Run the flag-off and flag-on journeys.
+If your instructor demonstrates the task, they will run `scripts/pipeline.sh` and read each stage's output, break the register parser on purpose and run it again to show which stage notices, and run the flag-off and flag-on journeys. For guided practice, classify four risks of your choice as unit, integration or end-to-end checks and say what each check cannot show, then read the directory policy table in Section 13.2 and predict the outcome for a response the table does not list.
 
-**Guided practice:** classify four risks of your choice as unit, integration or end-to-end checks, and say what each check cannot show. Read the directory policy table in Section 13.2 and predict the outcome for a response the table does not list.
-
-**Minimum required lab: Book project (run, trace and diagnose; nothing to rebuild)**
+**What you must do: the book's project (run, trace and diagnose; nothing to rebuild)**
 
 - **B1. Run the pipeline.** Run `scripts/pipeline.sh`, or the five Maven commands in it. Record each stage, the number of tests it ran and its time. Say what a failure in each stage would mean.
 - **B2. Trace three acceptance examples.** Choose AC8 or AC9 (the window boundary), AC10 (the operational failure) and AC12 (the flag). For each, name the test, the production class that decides the outcome and the observable result, and say which stage runs it.
 - **B3. Make a test bite.** In a scratch copy, introduce one fault into `FileApprovalSource` or `HttpLegacyDirectoryClient`. Predict which stage fails first, run the pipeline, and compare. Restore the original.
 - **B4. Complete the evidence table.** Fill in a table for the whole change in the form of Section 13.1: the risk, the check that covers it, the test's name and what that check cannot show. Mark at least one risk that nothing here covers.
 
-**Minimum required lab: Team project (your Milestone 4 evidence)**
+**What you must do: your team's project (your Milestone 4 evidence)**
 
 - **T1. Implement your released change.** Start with the thinnest vertical slice that behaves correctly, put it behind one flag that defaults to off, and record the acceptance examples. Keep expected rejections apart from operational failures.
 - **T2. Test one genuine boundary.** Choose a boundary in your project (a file, a service, a store) and test it without replacing it: a real temporary file, a local stub service or a throw-away database. Cover at least one failure case.
-- **T3. Protect the old behaviour and both flag settings.** Run your existing suite, disclose any fixture you had to change, and add tests for the flag on and off.
+- **T3. Protect the old behaviour and both flag settings.** Run your existing suite, disclose any test setup you had to change, and add tests for the flag on and off.
 - **T4. Build and read a pipeline.** Configure at least three stages (for example compile and unit, integration, and a smoke or end-to-end stage). Capture one observed run and one failing run, and read the failing one: first failing stage, first failing test, and why earlier stages could not have caught it.
 - **T5. Prepare the Milestone 4 evidence.** Record a flag removal plan and a rollback step, run your demonstration, write the retrospective with one next action, and complete the eight items of Section 13.8, marking each as complete or a gap.
 
-**Optional extension (Book project)**
+**If you want more (the book's project)**
 
 - **B5. Deliver and roll back.** Run `scripts/simulate-release.sh` twice with different `RELEASE_LABEL` values, then `rollback`, and record which release is current after each step.
 - **B6. AI activity.** Complete the Section 13.9 activity.
 - **B7. Break a boundary on purpose.** Make the directory timeout twenty seconds in a scratch copy and run the slow-provider test, then explain what the test shows and why a pipeline that waits this long is itself a problem.
 
-**Expected artefacts:** B1–B4 as above; for the Team project, the implemented change with its acceptance examples, the boundary tests, the pipeline output (one passing and one failing), the delivery and rollback record, the flag evidence, and the Milestone 4 checklist. A pull request is a good vehicle where your course workflow permits it.
+What you should end up with is: B1 to B4 as described; for your team's project, the implemented change with its acceptance examples, the boundary tests, the pipeline output (one passing and one failing), the delivery and rollback record, the flag evidence, and the Milestone 4 checklist. A pull request is a good vehicle where your course workflow permits it.
 
-**Acceptance conditions:**
+You are done when these things hold:
 
 - the change is behind a flag that defaults to off;
 - expected rejections and operational failures are distinguishable;
 - one boundary is tested without being replaced, and its failure cases are tested;
-- old behaviour is protected and any changed fixture is disclosed;
+- old behaviour is protected and any changed test setup is disclosed;
 - a stage that selects no tests fails;
 - the delivery step is labelled as a simulation unless it is real;
 - the limits statement says what was not run.
 
 Do not claim a hosted run, a public deployment or a review that did not happen.
 
-**Optional extension:** add a third flag setting only if you can say what “on”, “off” and the new setting each mean and how each is tested. Otherwise remove a flag you no longer need.
+If you want more, add a third flag setting, but only if you can say what “on”, “off” and the new setting each mean and how each is tested. Otherwise remove a flag you no longer need.
 
-## 13.12 Review and transfer
+## 13.12 Questions to think with, and a transfer challenge
 
 ### Concept questions
 
@@ -414,7 +412,7 @@ Do not claim a hosted run, a public deployment or a review that did not happen.
 
 An ML model-serving team adds a rule: only approved model versions may be served to external callers. The approval list is a file produced by another team, and the model registry is queried over the network. Design the checks: which risks are unit, integration or end-to-end checks, how a registry timeout is handled and what it must not default to, what the one flag does, and what the rollback does not undo. Name one thing that your evidence would not show about the model's accuracy. Use synthetic model identifiers: no model needs to be trained.
 
-## Summary and next chapter
+## What to take away, and what comes next
 
 A change is only as safe as the checks at the places where our code meets something else. Test the real file and a controlled service without replacing them, write down what happens when they fail, order the checks in a pipeline from cheap to broad, release behind a flag that defaults to off, and say what a rollback cannot undo. A green pipeline is evidence about the checks it contains and nothing more.
 
