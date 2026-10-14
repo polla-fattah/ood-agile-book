@@ -590,25 +590,58 @@ def assemble_final_pdf():
     title_doc.close()
 
     # 3. Main Content Pages (TOC + Chapters 1-15 + Appendices A-F)
-    print(f"Applying publication running headers and footers to content pages ({CONTENT_PDF})...")
+    print(f"Structuring recto (two-sided) chapter openings and blank pages ({CONTENT_PDF})...")
     content_doc = pymupdf.open(CONTENT_PDF)
 
     # Extract starting page for each chapter from TOC links on page 0
-    chapter_map = {}
+    starts = []
     p0_src = content_doc[0]
     for link in p0_src.get_links():
-        if link.get("kind") == 4 or link.get("nameddest"):
-            src_target = link.get("page")
-            if src_target is not None and src_target >= 0:
-                rect = pymupdf.Rect(link["from"])
-                title_text = p0_src.get_text("text", clip=rect).strip().replace("\n", " ")
-                if title_text and src_target not in chapter_map:
-                    chapter_map[src_target] = title_text
+        page = link.get("page")
+        if page is not None and page not in [s[0] for s in starts]:
+            rect = pymupdf.Rect(link["from"])
+            title = p0_src.get_text("text", clip=rect).strip().replace("\n", " ")
+            starts.append((page, title))
 
-    # Apply headers and footers across all content pages
-    p_ref = content_doc[0]
-    c_width = p_ref.rect.width
-    c_height = p_ref.rect.height
+    starts.sort(key=lambda x: x[0])
+    sections = [(0, "Table of Contents")] + starts
+
+    # Build recto document with intentional blank pages so every chapter starts on a right-hand (odd) page
+    orig_to_new = {}
+    new_chapter_starts = {}
+    chapter_first_pages = set()
+    blank_pages = set()
+
+    recto_doc = pymupdf.open()
+    c_width = p0_src.rect.width
+    c_height = p0_src.rect.height
+
+    new_page_idx = 0
+
+    for idx in range(len(sections)):
+        orig_start, title = sections[idx]
+        orig_end = sections[idx + 1][0] if idx + 1 < len(sections) else len(content_doc)
+        page_count = orig_end - orig_start
+
+        new_chapter_starts[new_page_idx] = title
+        chapter_first_pages.add(new_page_idx)
+
+        for p_offset in range(page_count):
+            orig_p = orig_start + p_offset
+            orig_to_new[orig_p] = new_page_idx
+            recto_doc.insert_pdf(content_doc, from_page=orig_p, to_page=orig_p)
+            new_page_idx += 1
+
+        # If section ends on an ODD page number (new_page_idx % 2 != 0), the next page is an EVEN page (verso).
+        # Insert a blank page so the following chapter opens on a fresh ODD page (recto).
+        if idx < len(sections) - 1:
+            if new_page_idx % 2 != 0:
+                recto_doc.new_page(width=c_width, height=c_height)
+                blank_pages.add(new_page_idx)
+                new_page_idx += 1
+
+    # Apply publication headers and footers across all recto pages
+    print("Applying publication running headers and footers to recto pages...")
     left_x = 56.7  # 20mm
     right_x = c_width - 56.7  # page width minus 20mm
     y_header_line = 46.0
@@ -623,24 +656,32 @@ def assemble_final_pdf():
 
     curr_chapter = "Table of Contents"
 
-    for pno in range(len(content_doc)):
-        page = content_doc[pno]
+    for pno in range(len(recto_doc)):
+        page = recto_doc[pno]
         page_num = pno + 1  # 1-based page number within content
-        if pno in chapter_map:
-            curr_chapter = chapter_map[pno]
+
+        # Intentional blank pages receive NO headers and NO footers
+        if pno in blank_pages:
+            continue
+
+        if pno in new_chapter_starts:
+            curr_chapter = new_chapter_starts[pno]
 
         is_even = (page_num % 2 == 0)
+        is_first_page = (pno in chapter_first_pages)
 
         # Header: alternate book name (even pages) and chapter name (odd pages)
-        if is_even:
-            header_text = book_title
-            page.insert_text(pymupdf.Point(left_x, y_header_text), header_text, fontname="helv", fontsize=8, color=text_color)
-        else:
-            header_text = curr_chapter
-            tw = pymupdf.get_text_length(header_text, fontname="helv", fontsize=8)
-            page.insert_text(pymupdf.Point(right_x - tw, y_header_text), header_text, fontname="helv", fontsize=8, color=text_color)
+        # Suppressed on chapter opening pages for clean typography
+        if not is_first_page:
+            if is_even:
+                header_text = book_title
+                page.insert_text(pymupdf.Point(left_x, y_header_text), header_text, fontname="helv", fontsize=8, color=text_color)
+            else:
+                header_text = curr_chapter
+                tw = pymupdf.get_text_length(header_text, fontname="helv", fontsize=8)
+                page.insert_text(pymupdf.Point(right_x - tw, y_header_text), header_text, fontname="helv", fontsize=8, color=text_color)
 
-        page.draw_line(pymupdf.Point(left_x, y_header_line), pymupdf.Point(right_x, y_header_line), color=line_color, width=0.5)
+            page.draw_line(pymupdf.Point(left_x, y_header_line), pymupdf.Point(right_x, y_header_line), color=line_color, width=0.5)
 
         # Footer: author on bottom-left, page number on bottom-right
         page.insert_text(pymupdf.Point(left_x, y_footer_text), author_name, fontname="helv", fontsize=8, color=text_color)
@@ -652,7 +693,7 @@ def assemble_final_pdf():
         page.draw_line(pymupdf.Point(left_x, y_footer_line), pymupdf.Point(right_x, y_footer_line), color=line_color, width=0.5)
 
     print("Inserting Book Content pages into final publication...")
-    final_doc.insert_pdf(content_doc)
+    final_doc.insert_pdf(recto_doc)
 
     # 4. Back Cover (Full Bleed)
     print(f"Adding Back Cover from {BACK_COVER_IMG}...")
@@ -675,7 +716,8 @@ def assemble_final_pdf():
         if link.get("kind") == 4 or link.get("nameddest"):
             src_target = link.get("page")
             if src_target is not None and src_target >= 0:
-                final_target = src_target + PAGE_OFFSET
+                new_target = orig_to_new.get(src_target, src_target)
+                final_target = new_target + PAGE_OFFSET
                 new_link = {
                     "kind": pymupdf.LINK_GOTO,
                     "from": link["from"],
@@ -691,14 +733,18 @@ def assemble_final_pdf():
                     pdf_toc.append([1, title_text, final_target + 1])
 
     # Also restore any other internal links across the rest of the content pages
-    for page_num in range(1, len(content_doc)):
-        src_page = content_doc[page_num]
-        final_page = final_doc[page_num + PAGE_OFFSET]
+    for orig_page_num in range(1, len(content_doc)):
+        src_page = content_doc[orig_page_num]
+        new_page_num = orig_to_new.get(orig_page_num)
+        if new_page_num is None:
+            continue
+        final_page = final_doc[new_page_num + PAGE_OFFSET]
         for link in src_page.get_links():
             if link.get("kind") == 4:
                 src_target = link.get("page")
                 if src_target is not None and src_target >= 0:
-                    final_target = src_target + PAGE_OFFSET
+                    target_new = orig_to_new.get(src_target, src_target)
+                    final_target = target_new + PAGE_OFFSET
                     new_link = {
                         "kind": pymupdf.LINK_GOTO,
                         "from": link["from"],
@@ -709,6 +755,7 @@ def assemble_final_pdf():
 
     # Set PDF bookmarks outline
     final_doc.set_toc(pdf_toc)
+    recto_doc.close()
     content_doc.close()
 
     # Save
