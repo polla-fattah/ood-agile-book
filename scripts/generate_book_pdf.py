@@ -606,11 +606,63 @@ def assemble_final_pdf():
     print(f"Inserting Book Content pages ({CONTENT_PDF})...")
     content_doc = pymupdf.open(CONTENT_PDF)
     final_doc.insert_pdf(content_doc)
-    content_doc.close()
 
     # 4. Back Cover (Full Bleed)
     print(f"Adding Back Cover from {BACK_COVER_IMG}...")
     add_cover(final_doc, BACK_COVER_IMG)
+
+    # 5. Restore clickable Table of Contents links and generate PDF Bookmarks / Outline
+    print("Re-linking Table of Contents and internal links in final PDF...")
+    PAGE_OFFSET = 3  # (1 front cover + 2 title/colophon pages)
+    pdf_toc = [
+        [1, "Cover", 1],
+        [1, "Title Page", 2],
+        [1, "Colophon and License", 3],
+        [1, "Table of Contents", 4],
+    ]
+
+    p0_src = content_doc[0]
+    final_toc_page = final_doc[PAGE_OFFSET]  # Page index 3
+
+    for link in p0_src.get_links():
+        if link.get("kind") == 4 or link.get("nameddest"):
+            src_target = link.get("page")
+            if src_target is not None and src_target >= 0:
+                final_target = src_target + PAGE_OFFSET
+                new_link = {
+                    "kind": pymupdf.LINK_GOTO,
+                    "from": link["from"],
+                    "page": final_target,
+                    "to": pymupdf.Point(0, 0),
+                }
+                final_toc_page.insert_link(new_link)
+
+                # Extract title for the PDF bookmarks outline
+                rect = pymupdf.Rect(link["from"])
+                title_text = p0_src.get_text("text", clip=rect).strip().replace("\n", " ")
+                if title_text:
+                    pdf_toc.append([1, title_text, final_target + 1])
+
+    # Also restore any other internal links across the rest of the content pages
+    for page_num in range(1, len(content_doc)):
+        src_page = content_doc[page_num]
+        final_page = final_doc[page_num + PAGE_OFFSET]
+        for link in src_page.get_links():
+            if link.get("kind") == 4:
+                src_target = link.get("page")
+                if src_target is not None and src_target >= 0:
+                    final_target = src_target + PAGE_OFFSET
+                    new_link = {
+                        "kind": pymupdf.LINK_GOTO,
+                        "from": link["from"],
+                        "page": final_target,
+                        "to": link.get("to", pymupdf.Point(0, 0)),
+                    }
+                    final_page.insert_link(new_link)
+
+    # Set PDF bookmarks outline
+    final_doc.set_toc(pdf_toc)
+    content_doc.close()
 
     # Save
     final_doc.save(OUTPUT_PDF, garbage=4, deflate=True)
