@@ -146,6 +146,14 @@ def get_base_css():
       border-inline-start: 3pt solid #0284c7;
       border-radius: 4px;
     }
+    /* Heading & Section Orphan Prevention */
+    h1, h2, h3, h4, h5, h6 {
+      break-after: avoid !important;
+      break-after: avoid-page !important;
+      page-break-after: avoid !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
     h2 {
       font-size: 14pt !important;
       font-weight: 700 !important;
@@ -154,7 +162,6 @@ def get_base_css():
       margin-bottom: 10px !important;
       border-bottom: 0.5pt solid #e2e8f0 !important;
       padding-bottom: 4px !important;
-      break-after: avoid-page !important;
     }
     h3 {
       font-size: 11.5pt !important;
@@ -162,12 +169,31 @@ def get_base_css():
       color: #334155 !important;
       margin-top: 16px !important;
       margin-bottom: 8px !important;
-      break-after: avoid-page !important;
     }
-    p {
+    h4 {
+      font-size: 10.5pt !important;
+      font-weight: 600 !important;
+      color: #475569 !important;
+      margin-top: 14px !important;
+      margin-bottom: 6px !important;
+    }
+    /* Keep headings and their immediate introductory lines/blocks together */
+    h2 + p, h3 + p, h4 + p,
+    h2 + ul, h3 + ul, h4 + ul,
+    h2 + ol, h3 + ol, h4 + ol,
+    h2 + div, h3 + div, h4 + div,
+    h2 + .lead, h3 + .lead {
+      break-before: avoid !important;
+      page-break-before: avoid !important;
+      break-after: avoid !important;
+      page-break-after: avoid !important;
+    }
+    p, li, dd {
       margin-bottom: 10px !important;
       text-align: justify;
       hyphens: auto;
+      orphans: 4 !important;
+      widows: 4 !important;
     }
 
     /* Code Blocks */
