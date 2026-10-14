@@ -21,6 +21,7 @@ FRONT_COVER_IMG = os.path.join(WORKSPACE_DIR, "images", "cover-front.png")
 BACK_COVER_IMG = os.path.join(WORKSPACE_DIR, "images", "cover-back.png")
 MAIN_CSS = os.path.join(WORKSPACE_DIR, "public", "scss", "main.css")
 FA_CSS = os.path.join(WORKSPACE_DIR, "public", "scss", "fontawesome.css")
+MERMAID_JS_PATH = os.path.join(WORKSPACE_DIR, "assets", "third_party", "mermaid", "mermaid.min.js")
 
 os.makedirs(SCRATCH_DIR, exist_ok=True)
 os.makedirs(os.path.join(WORKSPACE_DIR, "static", "downloads"), exist_ok=True)
@@ -406,7 +407,26 @@ def prepare_documents():
     }
     </style>
     """
-    content_raw = content_raw.replace("</head>", f"{base_css}\n{page_white_css}</head>")
+    mermaid_script_tag = f'<script src="file:///{MERMAID_JS_PATH.replace(os.sep, "/")}"></script>'
+    mermaid_diagram_css = """
+    <style>
+    .mermaid-rendered-diagram {
+      display: block !important;
+      text-align: center !important;
+      margin: 24px auto !important;
+      max-width: 100% !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+    .mermaid-rendered-diagram svg {
+      display: inline-block !important;
+      max-width: 95% !important;
+      height: auto !important;
+      margin: 0 auto !important;
+    }
+    </style>
+    """
+    content_raw = content_raw.replace("</head>", f"{base_css}\n{page_white_css}\n{mermaid_script_tag}\n{mermaid_diagram_css}</head>")
 
     with open(CONTENT_HTML, "w", encoding="utf-8") as f:
         f.write(content_raw)
@@ -425,6 +445,8 @@ async def render_pdfs():
             "--disable-gpu",
             "--disable-extensions",
             "--disable-dev-shm-usage",
+            "--allow-file-access-from-files",
+            "--disable-web-security",
             "--force-color-profile=srgb",
             "--blink-settings=forceDarkModeEnabled=false",
         ],
@@ -464,22 +486,61 @@ async def render_pdfs():
     content_url = f"file:///{CONTENT_HTML.replace('\\', '/')}"
     await page.goto(content_url, {"waitUntil": "networkidle0", "timeout": 120000})
 
-    # Wait for Mermaid diagrams to render (they produce SVG inside .td-diagram--mermaid)
-    print("Waiting for Mermaid diagrams to render...")
+    # Render all Mermaid diagrams directly to SVGs
+    print("Rendering all Mermaid diagrams to SVGs...")
+    render_diagrams_script = """
+    async () => {
+      if (!window.mermaid) {
+        console.error("Mermaid library is not loaded!");
+        return { success: false, reason: "Mermaid not loaded" };
+      }
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        securityLevel: 'loose',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        themeVariables: {
+          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+          fontSize: '13px',
+          primaryColor: '#f0f9ff',
+          primaryBorderColor: '#0284c7',
+          primaryTextColor: '#0f172a',
+          lineColor: '#334155'
+        }
+      });
+
+      const blocks = Array.from(document.querySelectorAll('pre.td-mermaid-source, pre[class*="td-mermaid-source"]'));
+      let rendered = 0;
+      let failed = 0;
+      for (let i = 0; i < blocks.length; i++) {
+        const pre = blocks[i];
+        const codeEl = pre.querySelector('code') || pre;
+        const source = codeEl.textContent.trim();
+        if (!source) continue;
+
+        const id = 'mermaid-pdf-diagram-' + (i + 1);
+        try {
+          const res = await mermaid.render(id, source);
+          const container = document.createElement('div');
+          container.className = 'mermaid-rendered-diagram';
+          container.innerHTML = res.svg;
+          pre.parentNode.replaceChild(container, pre);
+          rendered++;
+        } catch (err) {
+          console.warn("Failed to render diagram " + (i + 1) + ":", err);
+          failed++;
+          const stray = document.getElementById('d' + id) || document.getElementById(id);
+          if (stray && stray.parentNode) stray.parentNode.removeChild(stray);
+        }
+      }
+      return { total: blocks.length, rendered: rendered, failed: failed };
+    }
+    """
     try:
-        await page.waitForFunction(
-            """
-            () => {
-                const containers = document.querySelectorAll('.td-diagram--mermaid');
-                if (containers.length === 0) return true;  // no diagrams, proceed
-                return Array.from(containers).every(el => el.querySelector('svg') !== null);
-            }
-            """,
-            {"timeout": 60000, "polling": 500}
-        )
-        print("Mermaid diagrams rendered.")
+        diag_stats = await page.evaluate(render_diagrams_script)
+        print(f"Mermaid rendering result: {diag_stats}")
     except Exception as e:
-        print(f"Warning: Mermaid wait timed out or errored ({e}). Proceeding anyway.")
+        print(f"Warning: Mermaid rendering exception: {e}")
 
     # Extra settle time for fonts and layout reflow
     await asyncio.sleep(2)
