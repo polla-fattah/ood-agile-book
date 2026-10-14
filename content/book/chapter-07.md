@@ -212,7 +212,7 @@ This inherited limitation is explicit and tested. A production lifecycle would n
 
 The demonstration uses one coordinator and one loan service for the session. Multiple independent loan services would have independent loan maps; the example provides no shared persistent or concurrent protection. It is a bounded in-memory MVP flow, not a complete lending operation.
 
-## 7.5 Standing in for collaborators: dummies, stubs, fakes, spies and mocks
+## 7.5 Test doubles: dummies, stubs, fakes, spies and mocks
 
 ### Naming the role a substitute plays
 
@@ -373,7 +373,7 @@ A paid AI service is unnecessary. If you use a live service, give it only synthe
 | Remove old checks during tool migration | Loses existing evidence | Bridge or migrate them explicitly |
 | Call the bounded demo production-ready | Conceals lifecycle and integration gaps | State what the MVP actually demonstrates |
 
-## 7.11 Try it yourself: a test-first change and the Milestone 2 evidence
+## 7.11 Try it yourself: a test-first change and Milestone 2 evidence
 
 You start from Chapter 6's finished code, the reviewed query criteria, the new loan-flow rules and the companion's Maven and JUnit setup. Steps 1 to 7 run on the book's project; steps 8 and 9 run on your team's project.
 

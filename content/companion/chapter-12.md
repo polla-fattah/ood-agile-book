@@ -22,7 +22,7 @@ The complete files appear under `File: lab/...` headings in the appendix. Create
 | Java | Full JDK 17; locally checked with 17.0.20 |
 | Build/test | Plain JDK compilation and explicit Java checks; no new dependencies |
 | Optional Git provenance command | Git 2.51.1 syntax and locally inspected version |
-| Cumulative lending project | Chapter 11's Java 17 / Maven 3.9.11 checkpoint, unchanged |
+| Running lending project | Chapter 11's Java 17 / Maven 3.9.11 version, unchanged |
 
 From `lab`:
 
@@ -62,7 +62,7 @@ at,scope_points,done_points,remaining_points,wip
 2026-10-11T00:00:00Z,23,16,7,2
 ```
 
-The `--scope` output samples every 24 hours from `from` through `until` when aligned. It is suitable for this midnight-UTC fixture. It is not a business-calendar or local-midnight plotting engine. Real PR data normally uses the summary without `--scope` because point estimates are unavailable or inappropriate.
+The `--scope` output samples every 24 hours from `from` through `until` when aligned. It is suitable for this midnight-UTC example. It is not a business-calendar or local-midnight plotting engine. Real PR data normally uses the summary without `--scope` because point estimates are unavailable or inappropriate.
 
 ## 2. Data contract and code explanation
 
@@ -73,7 +73,7 @@ Each TSV line has exactly six fields. There is no quoting or escaping syntax; us
 | Field | Meaning | Missing value |
 |---|---|---|
 | `id` | Unique work-item ID within this input | Invalid |
-| `points` | Nonnegative integer estimate held fixed in this fixture | Blank means unknown, not zero |
+| `points` | Nonnegative integer estimate held fixed in this example | Blank means unknown, not zero |
 | `accepted` | Timestamp admitted to tracked scope | Invalid |
 | `started` | Timestamp at the chosen start boundary | Blank means not started |
 | `done` | Timestamp at the chosen finish boundary | Blank means not completed |
@@ -95,11 +95,11 @@ The model permits a removed item to have been started; that item leaves WIP at r
 
 An empty completion cohort yields zero completions and `NA` durations, because an average over no observations is not a measured zero-day average. Completed points for that empty cohort are zero as a sum. The median sorts completed cycle times and uses the middle value, or the average of the two central values for an even-sized cohort.
 
-`scopePoints` and `donePointsAt` support this fixture's fixed estimates and explicit removals. The first includes accepted items not removed as of the snapshot; the second includes completion events at or before it. They do not infer scope from Git commits.
+`scopePoints` and `donePointsAt` support this example's fixed estimates and explicit removals. The first includes accepted items not removed as of the snapshot; the second includes completion events at or before it. They do not infer scope from Git commits.
 
 ### Meaningful checks
 
-The 17 checks protect independently useful properties: correct fixture totals and durations; scope addition/removal; completion-window boundaries; WIP at a completion instant; fractional elapsed days; empty-cohort handling; unknown estimates; and invalid event order. They are plain-Java teaching checks, not additions to the cumulative application's JUnit count.
+The 17 checks protect independently useful properties: correct example totals and durations; scope addition/removal; completion-window boundaries; WIP at a completion instant; fractional elapsed days; empty-cohort handling; unknown estimates; and invalid event order. They are plain-Java teaching checks, not additions to the running application's JUnit count.
 
 For an optional fault experiment, use a separate copy. In `completed`, replace:
 
@@ -164,7 +164,7 @@ Example command shape, using your actual interval:
 java -cp out FlowMetrics repository.tsv 2026-10-01T00:00:00Z 2026-10-11T00:00:00Z
 ```
 
-Those dates are the book fixture's window, not a required window for a real repository. Replace them if they do not match your selection. If the input contains only merged sample PRs, do not interpret the displayed WIP as repository WIP: open PRs were not supplied.
+Those dates are the book example's window, not a required window for a real repository. Replace them if they do not match your selection. If the input contains only merged sample PRs, do not interpret the displayed WIP as repository WIP: open PRs were not supplied.
 
 ### Route B: complete-window throughput and open work
 
@@ -236,7 +236,7 @@ Choose a local UTF-8 TSV file with exactly eight columns:
 borrowerId	itemId	start	endExclusive	sponsorId	status	validFrom	validUntil
 ```
 
-Each column is separated by a tab; the fixture below contains actual tabs. IDs cannot contain tabs or newlines. Dates are ISO local dates; validity timestamps are ISO instants. Status is exactly APPROVED or DENIED. Require `start < endExclusive` and `validFrom < validUntil`. Reject a malformed register as a whole, including an invalid unrelated row; do not silently skip bad records. Require unique request keys within one read. The file is treated as a trusted, sequential fixture, not an atomic concurrent approval database.
+Each column is separated by a tab; the example data below contains actual tabs. IDs cannot contain tabs or newlines. Dates are ISO local dates; validity timestamps are ISO instants. Status is exactly APPROVED or DENIED. Require `start < endExclusive` and `validFrom < validUntil`. Reject a malformed register as a whole, including an invalid unrelated row; do not silently skip bad records. Require unique request keys within one read. The file is treated as a trusted, sequential example, not an atomic concurrent approval database.
 
 **Synthetic valid example for the future implementation:**
 
@@ -245,13 +245,13 @@ borrowerId	itemId	start	endExclusive	sponsorId	status	validFrom	validUntil
 V1	CAM1	2026-10-20	2026-10-22	S1	APPROVED	2026-10-18T00:00:00Z	2026-10-20T00:00:00Z
 ```
 
-At request instant `2026-10-19T12:00:00Z`, this approves V1's two-day CAM1 request starting 20 October. At `2026-10-20T00:00:00Z`, the same approval has expired. The row is a specification fixture, not input to `FlowMetrics`, and there is no approval parser implemented in Chapter 12.
+At request instant `2026-10-19T12:00:00Z`, this approves V1's two-day CAM1 request starting 20 October. At `2026-10-20T00:00:00Z`, the same approval has expired. The row is a specification example, not input to `FlowMetrics`, and there is no approval parser implemented in Chapter 12.
 
 A candidate application port can obtain the approval decision for a request; its file adapter performs actual I/O and validation. Keep deterministic membership/duration rules apart from source access and time. Do not force identity/approval information into `BorrowingPolicy.mayRequest(count, days)` through a global flag. Chapter 13 should decide the smallest interface shape that satisfies these examples and fits the existing orchestration.
 
 ### Acceptance matrix
 
-In visitor success/rejection rows assume a recognised active V1, flag enabled, fewer than three retained reservations, available equipment, valid identifiers and an ordinary working notification sender, except where the row changes one condition. Construct every fixture independently so one failure does not mask another.
+In visitor success/rejection rows assume a recognised active V1, flag enabled, fewer than three retained reservations, available equipment, valid identifiers and an ordinary working notification sender, except where the row changes one condition. Construct every example independently so one failure does not mask another.
 
 | Example | Input difference | Expected observation |
 |---|---|---|
@@ -274,7 +274,7 @@ In visitor success/rejection rows assume a recognised active V1, flag enabled, f
 | AC17 | Unknown directory code or inactive visitor | Existing unknown/inactive semantics; never default to student |
 | AC18 | Report generated after a visitor loan exists | Existing report mapping and SD-11 boundary retained |
 
-These are planned examples, not claims that new tests have run. Existing policy tests, directory tests, command tests and the 159-test Chapter 11 suite remain relevant. Some test fixtures that enumerate every category will require explicit updates because adding an enum value changes their setup; document that necessary fixture change without weakening old assertions.
+These are planned examples, not claims that new tests have run. Existing policy tests, directory tests, command tests and the 159-test Chapter 11 suite remain relevant. Some test setups that enumerate every category will require explicit updates because adding an enum value changes their setup; document that necessary example change without weakening old assertions.
 
 ### Ordered backlog and impact note
 
@@ -293,7 +293,7 @@ Status of C12-2–6 in this chapter: **planned, not implemented**. C12-1's sourc
 
 **Flag plan:** default off; enable only for the controlled demonstration after both paths pass. Disabling prevents new visitor reservations, but does not erase existing data or roll back arbitrary side effects. Keep the pre-change revision for code comparison. Record a removal decision during Chapter 14 once the intended release path is accepted; do not let an unnamed temporary flag become permanent by default. No public production deployment is required.
 
-## 6. Preserve the pre-change checkpoint
+## 6. Preserve the pre-change version
 
 The supplied Chapter 11 code is the baseline; this chapter makes no edits to its production classes, tests or build file. Its last delivered full run passed 159 JUnit invocations. The metrics tool lives outside that Maven project and has its own checks; do not add its check count to the baseline's count.
 
@@ -352,7 +352,7 @@ A corrected response can use the cautious interpretation in Section 3. A useful 
 
 **3. Equal throughput.** Two periods can each finish two items whose earlier start dates differ. A carried-in seven-day item and a newly completed one-day item can contribute equally to the period's count. Recipients experience different waiting even when completion totals match.
 
-**4. Old versus new behaviour.** The existing tests describe selected existing contracts. They do not contain sponsor-approval requirements and cannot establish those requirements by passing. Keep them, add new acceptance/unit/integration checks for CR-12, and examine any fixture changes required by the new category.
+**4. Old versus new behaviour.** The existing tests describe selected existing contracts. They do not contain sponsor-approval requirements and cannot establish those requirements by passing. Keep them, add new acceptance/unit/integration checks for CR-12, and examine any changes to test setups required by the new category.
 
 ### Chapter 12.11: applied diagnosis
 
@@ -368,7 +368,7 @@ Plan a narrow valid activation path, mismatched/expired/denied approval outcomes
 
 ### Chapter 12.10: lab completion reasoning
 
-The Book project produces the calculations, corrected interpretation, CR-12 plan and baseline reference. The Team project contributes real repository evidence and an impact note for its actual released change. Accept different task splits and interfaces when they preserve the observation boundaries and have defensible dependencies. Do not assess by number of commits, charts or AI prompts.
+the book's project produces the calculations, corrected interpretation, CR-12 plan and baseline reference. your team's project contributes real repository evidence and an impact note for its actual released change. Accept different task splits and interfaces when they preserve the observation boundaries and have defensible dependencies. Do not assess by number of commits, charts or AI prompts.
 
 A good impact note identifies the concrete touchpoints, uncertainty and first experiment. A weak note merely lists class names or repeats “add tests.” A good repository result includes traceable timestamps and honest population scope; an attractive chart with guessed timestamps is not an acceptable replacement.
 
@@ -384,7 +384,7 @@ Sources and assigned reading are listed in the main chapter. All sample records,
 
 ## Appendix: Complete isolated Java exercise
 
-Keep these files outside the cumulative lending application's source roots. The two Java classes have no package declaration so the plain-JDK commands above work as written.
+Keep these files outside the running lending application's source roots. The two Java classes have no package declaration so the plain-JDK commands above work as written.
 
 ### File: lab/issues.tsv
 

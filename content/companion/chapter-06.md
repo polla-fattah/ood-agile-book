@@ -7,13 +7,13 @@ description: "Code explanations and solutions for Chapter 6 Companion: Code, Exp
 *Interfaces, Dependencies and Composition*  
 *OO Development and Agile Practices*
 
-## 1. Checkpoints and reconstruction
+## 1. Versions and reconstruction
 
-This file accompanies Chapter 6, Interfaces, Dependencies, and Composition. It supplies a complete cumulative Java checkpoint, the starting and deliberately coupled coordinator versions, a small educational container and model solutions.
+This file accompanies Chapter 6, Interfaces, Dependencies, and Composition. It supplies a complete running Java version, the starting and deliberately coupled coordinator versions, a small educational container and model solutions.
 
 | Stage | Purpose | How to use it |
 |---|---|---|
-| Chapter 5 baseline | Policies and formatter, no notification output | Use the complete Chapter 5 `after` checkpoint |
+| Chapter 5 baseline | Policies and formatter, no notification output | Use the complete Chapter 5 `after` version |
 | Coupled teaching version | Add local notification with direct provider construction | In a copy of Chapter 5, replace the coordinator with Section 2.2 and add the three indicated sender files |
 | Chapter 6 result | Supply notification, formatting and policy mapping from outside | Reconstruct the complete `after` directory from Sections 3–5 |
 
@@ -21,11 +21,11 @@ Adding notification is a feature change. The next structural step separates cons
 
 ### 1.1 Reconstruct the complete result
 
-Every listing beginning with `after/` belongs in one directory named `after`. Create its intermediate directories and copy only the content of each fence. Do not add the two Section 2 coordinator alternatives to that directory. Their paths beginning with `before/` and `coupled/` identify different teaching checkpoints.
+Every listing beginning with `after/` belongs in one directory named `after`. Create its intermediate directories and copy only the content of each fence. Do not add the two Section 2 coordinator alternatives to that directory. Their paths beginning with `before/` and `coupled/` identify different teaching versions.
 
 Section 3 contains every application source file. Section 4 contains all four check runners. Section 5 contains the build script, ignore file and README. Section 6 contains the optional container program, which is excluded from the normal application gate.
 
-The result uses Java 17, Bash and the standard library. It has no external dependencies, Maven configuration or JUnit dependency at this checkpoint. The existing unnamed-package layout remains. A framework container is not required.
+The result uses Java 17, Bash and the standard library. It has no external dependencies, Maven configuration or JUnit dependency at this version. The existing unnamed-package layout remains. A framework container is not required.
 
 ### 1.2 Commands and expected results
 
@@ -58,7 +58,7 @@ The Chapter 4 and Chapter 5 demonstrations retain their earlier output because t
 
 ## 2. Starting and deliberately coupled coordinator versions
 
-These two listings are alternatives to the completed coordinator. For either one, use the complete Chapter 5 checkpoint's other files and gate. Do not mix the Chapter 6 composition root or migrated check runners into these older-constructor checkpoints.
+These two listings are alternatives to the completed coordinator. For either one, use the complete Chapter 5 version's other files and gate. Do not mix the Chapter 6 composition root or migrated check runners into these older-constructor versions.
 
 ### 2.1 Starting coordinator
 
@@ -1086,9 +1086,9 @@ The Chapter 4 hosted workflow can still call bash scripts/check.sh when
 this checkpoint is the repository root. A local pass is not a hosted run.
 ````
 
-The Chapter 4 hosted workflow can keep invoking `bash scripts/check.sh` when the completed checkpoint is the repository root. If the team stores `after` as a subdirectory, change the invoked path deliberately. The workflow template's presence is not evidence of hosted execution.
+The Chapter 4 hosted workflow can keep invoking `bash scripts/check.sh` when the completed version is the repository root. If the team stores `after` as a subdirectory, change the invoked path deliberately. The workflow template's presence is not evidence of hosted execution.
 
-The gate deletes generated class files, compiles all direct `.java` children in the application/check source directories and runs four checking programs. Its final success marker is only reached if each command succeeds. Optional examples are compiled separately because they are teaching programmes outside the cumulative application.
+The gate deletes generated class files, compiles all direct `.java` children in the application/check source directories and runs four checking programs. Its final success marker is only reached if each command succeeds. Optional examples are compiled separately because they are teaching programmes outside the running application.
 
 ## 6. Educational container walkthrough
 
@@ -1201,7 +1201,7 @@ The application gate clears generated class files. Recompile the optional exampl
 
 A framework container similarly needs configuration, resolution rules and lifetime decisions. Spring's official introduction describes its role in creating, configuring and assembling application objects. A framework adds substantial facilities beyond this example; it does not remove the need to decide what is shared and which contracts the application uses.
 
-No Spring dependencies, annotations or framework-run claims are included in this checkpoint. In an instructor-led framework lab, map each registration to the manual constructor graph first. Find the actual policy mapping and sender choice, then determine whether the coordinator is reused or recreated. If business methods look up services through the container, discuss that service-location choice explicitly.
+No Spring dependencies, annotations or framework-run claims are included in this version. In an instructor-led framework lab, map each registration to the manual constructor graph first. Find the actual policy mapping and sender choice, then determine whether the coordinator is reused or recreated. If business methods look up services through the container, discuss that service-location choice explicitly.
 
 ## 7. Model design rationale
 
@@ -1251,7 +1251,7 @@ A runtime trace has a different order: the coordinator evaluates eligibility and
 
 Removing the no-argument constructor prevents the coordinator from hiding default provider choices. The price is source migration for callers. Existing setup expressions now use the application factory with a recorder, while the old reservation assertions remain unchanged.
 
-An alternative compatibility constructor could delegate to a fixed default graph. That would preserve source compatibility but retain a default assembly decision inside or reachable from the coordinator. It may be justified in a published API with real callers; this teaching checkpoint has known source callers, so the migration is explicit and manageable.
+An alternative compatibility constructor could delegate to a fixed default graph. That would preserve source compatibility but retain a default assembly decision inside or reachable from the coordinator. It may be justified in a published API with real callers; this teaching version has known source callers, so the migration is explicit and manageable.
 
 Do not call the entire chapter a behaviour-preserving refactoring. Notification is new observable behaviour, expected notification failure has a new result, and constructor compatibility changes. The subsequent separation of construction preserves the agreed feature semantics under equivalent output configuration.
 
@@ -1265,7 +1265,7 @@ Unexpected programming failures can still propagate after storage. The coordinat
 
 ## 8. AI activity: model critique
 
-The fixture is author-written fictional AI output. A useful response evaluates concrete dependencies and observable behaviour instead of judging the number of interface declarations.
+The example is author-written fictional AI output. A useful response evaluates concrete dependencies and observable behaviour instead of judging the number of interface declarations.
 
 | Fixture claim or change | Verdict | Reason |
 |---|---|---|
@@ -1348,7 +1348,7 @@ For this week's lab, begin with manual assembly. Ask learners to trace reference
 
 Keep the hand-written recorder and failing sender vocabulary modest. They preview controlled collaborators, but Chapter 7 owns the full comparison of test-double roles and the introduction of a mocking framework. This chapter's checks are supplied evidence, not a claim that a complete TDD cycle has been demonstrated.
 
-The source remains a sequential in-memory checkpoint. Authoritative category lookup, loans and returns, cancellation and availability enquiry remain visible future work. Notification here is a local output port; later chapters can extend integration behaviour when there is a reason.
+The source remains a sequential in-memory version. Authoritative category lookup, loans and returns, cancellation and availability enquiry remain visible future work. Notification here is a local output port; later chapters can extend integration behaviour when there is a reason.
 
 ## 13. Fault experiment and container notes
 

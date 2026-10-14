@@ -9,7 +9,7 @@ description: "Code explanations and solutions for Chapter 7 Companion: Code, Exp
 
 ## 1. Read this before reconstructing the examples
 
-This file accompanies Chapter 7, Testing as a Design Practice. It contains the complete cumulative project, JUnit tests, a Maven build, two deliberately staged coordinator alternatives, model solutions and teaching notes.
+This file accompanies Chapter 7, Testing as a Design Practice. It contains the complete running project, JUnit tests, a Maven build, two deliberately staged coordinator alternatives, model solutions and teaching notes.
 
 **New behaviour:** US-02 reservation availability enquiry and a bounded in-memory checkout/return flow. **Retained behaviour:** student/staff rules, reservation results, rejection state effects and Chapter 6's local notification contract. **Explicit limitation:** a returned loan does not cancel its reservation, release its reserved interval or remove it from the inherited reservation count.
 
@@ -28,7 +28,7 @@ The TDD record covers the first availability test, its green implementation and 
 
 These are fixed chapter choices, not a newest-release recommendation. Install a normal Java 17 JDK and Maven 3.9.11. Confirm `java -version` and `mvn -version`. The first build needs access to the configured Maven repository. A dependency-resolution failure is an environment failure, not a TDD assertion failure.
 
-### 1.2 Reconstruct the cumulative project
+### 1.2 Reconstruct the running project
 
 Create a directory named `after`. Save every listing whose path begins with `after/` in the indicated location, preserving case and creating intermediate directories. Copy only code-fence contents. Sections 2–4 contain all application, test and configuration files.
 
@@ -1671,7 +1671,7 @@ mvn --batch-mode -Dtest=AvailabilityTest#adjacentPeriodAndDifferentItemAreAvaila
 
 The observed result is one failure, zero errors and nonzero build exit. The assertion expects true but receives false. This is a behavioural failure in the adjacency example, not a missing tool or compilation issue.
 
-Restore the original `LoanPeriod` and rerun the same selected test. The observed restored run passes. The correct cumulative project is kept separate from the experiment throughout.
+Restore the original `LoanPeriod` and rerun the same selected test. The observed restored run passes. The correct running project is kept separate from the experiment throughout.
 
 This is one manual mutation experiment. It supports the claim that the adjacency test detects this particular defect. It does not measure a mutation score or establish that every possible error would be rejected. Never change the correct expected value to accommodate the mutant.
 
@@ -1770,7 +1770,7 @@ Classify them as the chapter does: all three are stubs. The first and second ret
 
 ## 9. AI activity: model critique
 
-The fixture is author-written fictional AI output. A useful review identifies defects and proposes independent evidence.
+The example is author-written fictional AI output. A useful review identifies defects and proposes independent evidence.
 
 | Fixture claim | Verdict | Independent check or correction |
 |---|---|---|
@@ -1783,7 +1783,7 @@ The fixture is author-written fictional AI output. A useful review identifies de
 
 The wrong-boundary experiment supplies a concrete verification step. An adjacency example with the correct independently chosen expectation fails against the mutant, then passes after restoration. It is unnecessary to ask another AI model whether the mutant is wrong.
 
-For a live AI exercise, retain the actual prompt and evaluated output, the decisions made and the observed tests. If no live service is used, label the fixture-based work as such. Do not invent a model transcript or retrofit a fictional TDD history around completed code.
+For a live AI exercise, retain the actual prompt and evaluated output, the decisions made and the observed tests. If no live service is used, label the example data-based work as such. Do not invent a model transcript or retrofit a fictional TDD history around completed code.
 
 ## 10. Review-question solutions
 
@@ -1803,7 +1803,7 @@ For a live AI exercise, retain the actual prompt and evaluated output, the decis
 
 ### 11.1 Suggested evidence packet
 
-| Artefact | Useful content |
+| Document | Useful content |
 |---|---|
 | Scope note | Selected query and loan rules; synthetic inputs; lifecycle limitations |
 | TDD record | Actual red message, same test at green, refactoring diff and regression result |
@@ -1820,7 +1820,7 @@ For feedback, ask whether a test can reject a plausible wrong result. Ask what d
 
 ### 11.2 Retrospective example, explicitly hypothetical
 
-**Hypothetical observation:** the team spent a review session diagnosing different dates on two laptops because the first loan test used the default zone. **Proposed action:** require an explicit clock and zone in future date-sensitive fixtures, then review the next set of tests for hidden real-time calls. **Evidence to collect later:** whether those tests run consistently on both environments.
+**Hypothetical observation:** the team spent a review session diagnosing different dates on two laptops because the first loan test used the default zone. **Proposed action:** require an explicit clock and zone in future date-sensitive examples, then review the next set of tests for hidden real-time calls. **Evidence to collect later:** whether those tests run consistently on both environments.
 
 This is a teaching example, not a report that the author's or learner's team experienced that event. Replace it with an actual observation in assessed work. A retrospective should record something learned and a testable improvement, not manufacture a success narrative.
 
@@ -1842,7 +1842,7 @@ The transfer demonstrates the reasoning pattern (reviewed examples, independent 
 
 ### 11.5 Midterm practice set: supplied files and solutions
 
-The practice set in Section 7.12 of the student chapter mirrors the four components the module descriptor lists for the midterm: UML modelling, smell and SOLID diagnosis, refactoring with an interface and dependency injection, and unit tests with a test double. It is separate from the cumulative project. Do not add these files to `after`.
+The practice set in Section 7.12 of the student chapter mirrors the four components the module descriptor lists for the midterm: UML modelling, smell and SOLID diagnosis, refactoring with an interface and dependency injection, and unit tests with a test double. It is separate from the running project. Do not add these files to `after`.
 
 **Supplied files for Tasks 2–4.** Save both in an empty directory. `MailClient` stands in for a real network client and always fails, so the original class cannot run its main path here.
 
@@ -2038,7 +2038,7 @@ The Maven report establishes local results for the supplied source and configura
 
 ## References
 
-Sources checked 12 October 2026. The application policies, fixtures and solutions are original teaching material.
+Sources checked 12 October 2026. The application policies, examples and solutions are original teaching material.
 
 1. [JUnit 5.13.4 User Guide](https://docs.junit.org/5.13.4/user-guide/).
 2. Apache Maven, [Surefire and JUnit Platform](https://maven.apache.org/surefire/maven-surefire-plugin/examples/junit-platform.html), [Maven 3.9.11 release notes](https://maven.apache.org/docs/3.9.11/release-notes.html) and [Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/).

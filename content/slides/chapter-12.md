@@ -18,26 +18,26 @@ layout: page
 
 * **12.1 What decision needs a measure?**
   * A measurement contract, and a synthetic issue history.
-* **12.2 Estimation revisited**
+* **12.2 Estimates revisited: what they can and cannot tell us**
 * **12.3 Velocity and its limits**
   * Velocity versus throughput; conditional forecasts.
-* **12.4 Burn-down and burn-up**
+* **12.4 Burn-down and burn-up: reading the lines**
   * Reconciling scope additions and removals.
-* **12.5 Lead time, cycle time, throughput and WIP**
+* **12.5 How long do things take? Lead time, cycle time, throughput, WIP**
   * And real repository evidence.
 
 ---
 
 ## Chapter Roadmap (2 of 2)
 
-* **12.6 Technical health and metric misuse**
-* **12.7 Changed requirement and impact analysis**
+* **12.6 Technical health, and how metrics get misused**
+* **12.7 A changed requirement, and what it touches**
   * CR-12: visiting-researcher reservations.
-* **12.8 AI in practice:** check the explanation, not its confidence.
-* **12.9 Common mistakes**
-* **12.10 Practical activity**
-* **12.11 Review and transfer**
-* **Summary and next chapter**
+* **12.8 Checking an AI's explanation, not its confidence** check the explanation, not its confidence.
+* **12.9 Measurement habits that mislead**
+* **12.10 Try it yourself: measure, interpret and prepare the change**
+* **12.11 Questions to think with, and a transfer challenge**
+* **What to take away, and what comes next**
   * Chapter 13: implement CR-12 and deliver it.
 
 ---
@@ -60,20 +60,20 @@ After this chapter, you should be able to:
 
 ---
 
-## Module Connection and Checkpoint
+## Where This Chapter Fits and Where You Start
 
 * Supports **LO5 and LO6**. Required reading: the descriptor's Martin (2002) planning review; recommended: selected chapters of *Accelerate*.
 * The required practical activity includes **repository-metrics analysis**.
 * The requirement change is **introduced in this chapter**, **implemented and verified in Chapter 13** (Milestone 4), and **evaluated during handover in Chapter 14**.
 * The module leader releases your team's assessed variant. **The book's worked change does not replace it.**
-* **Checkpoint:** Chapter 11's verified Java project. This chapter adds an isolated metrics exercise and planning records. **It does not implement the feature.**
+* **Version:** Chapter 11's verified Java project. This chapter adds an isolated metrics exercise and planning records. **It does not implement the feature.**
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core:** 12.1 to 12.7, with the measurement contract and the worked change specification.
-* **Minimum lab:** reproduce the synthetic calculations; inspect **actual repository evidence**; challenge the AI summary; **preserve the pre-change checkpoint** with a change-impact note.
+* **Minimum lab:** reproduce the synthetic calculations; inspect **actual repository evidence**; challenge the AI summary; **preserve the pre-change version** with a change-impact note.
 * **Working knowledge:** the supplied Java calculator and the repository extraction method.
 * **Optional:** richer visualisation, larger cohorts, probabilistic forecasting (after obtaining suitable data).
 
@@ -146,7 +146,7 @@ After this chapter, you should be able to:
 
 | Field | Definition for the synthetic history |
 |---|---|
-| Exclusions | No reopened, split, merged or re-estimated items in this small fixture |
+| Exclusions | No reopened, split, merged or re-estimated items in this small setup |
 
 * The **half-open interval** includes completions at the starting instant and excludes the ending instant: adjacent windows **cannot count the same completion twice**.
 * A **snapshot** is different: a completion exactly at its timestamp has **already left** work in progress.
@@ -269,8 +269,8 @@ After this chapter, you should be able to:
 
 ---
 
-# 12.2 Estimation Revisited
-### A judgement, not a measurement
+# 12.2 Estimates Revisited
+### What they can and cannot tell us
 
 ---
 
@@ -356,7 +356,7 @@ After this chapter, you should be able to:
 ---
 
 # 12.4 Burn-Down and Burn-Up
-### Scope moves too
+### Reading the lines
 
 ---
 
@@ -478,8 +478,8 @@ After this chapter, you should be able to:
 
 ---
 
-# 12.5 Lead Time, Cycle Time, Throughput and WIP
-### The completion cohort
+# 12.5 How Long Do Things Take?
+### Lead time, cycle time, throughput, WIP
 
 ---
 
@@ -545,7 +545,7 @@ After this chapter, you should be able to:
 
 ## Use Actual Repository Events Carefully
 
-* The lab supplements the fixture with **real issue or PR history**, using **Repository Metrics Method RM-12 v1.0**, exact timestamps and the supplied Java 17 calculator.
+* The lab supplements the example data with **real issue or PR history**, using **Repository Metrics Method RM-12 v1.0**, exact timestamps and the supplied Java 17 calculator.
 * In the PR route: **Started = PR opened; Done = merged; unit = a PR**. Call the result **PR open-to-merge elapsed time**.
 * It is **not** issue cycle time, developer effort, deployment lead time or time since coding began.
 
@@ -611,14 +611,14 @@ Age H: 3.00 days
 
 ---
 
-# 12.6 Technical Health and Metric Misuse
+# 12.6 Technical Health, and How Metrics Get Misused
 ### Evidence, not activity
 
 ---
 
 ## Combine a Risk, Evidence and a Response
 
-* "There are 159 passing tests in the Chapter 11 checkpoint" records **a build result**.
+* "There are 159 passing tests in the Chapter 11 version" records **a build result**.
 * It does **not** say every rule is correct, every important boundary has a test, or more tests would produce a better design.
 * Chapter 11 supports **one narrow claim**: the selected tests detect a deliberately changed equality boundary.
 * A high **line-coverage** percentage can identify unexecuted areas but **cannot tell whether assertions distinguish correct from incorrect outcomes**.
@@ -670,7 +670,7 @@ Age H: 3.00 days
 
 ---
 
-# 12.7 Changed Requirement and Impact Analysis
+# 12.7 A Changed Requirement, and What It Touches
 ### CR-12: visiting-researcher reservations
 
 ---
@@ -701,7 +701,7 @@ Age H: 3.00 days
 ## Trace the Change Through the Design
 
 * `BorrowerCategory` has STUDENT and STAFF; the directory knows `S` and `T`; the coordinator **requires a policy for every enum value**.
-* Adding a category affects **more than one enum**: directory mapping, composition, exhaustive test fixtures and the visitor path **must agree**.
+* Adding a category affects **more than one enum**: directory mapping, composition, exhaustive test setups and the visitor path **must agree**.
 * `BorrowingPolicy.mayRequest(count, days)` answers **only count and duration**: no identity, item, approval or clock.
 * Passing approval data through **hidden global state** would defeat that contract.
 
@@ -831,7 +831,7 @@ V1  CAM1  2026-10-20  2026-10-22  S1  APPROVED  2026-10-18T00:00:00Z  2026-10-20
 
 ## Plan the Smallest Checked Response
 
-* **Preserve the passing Chapter 11 checkpoint** first.
+* **Preserve the passing Chapter 11 version** first.
 * Record the requirement, accepted examples, assumptions and affected files.
 * Order: a **thin valid visitor path**; the **genuine register boundary and failure paths**; **old-path regression**; delivery and demo evidence.
 * Each item gets **an observable exit condition**. Resolve the approval-record format early. **Do not copy the synthetic history's points** onto these tasks.
@@ -860,10 +860,10 @@ V1  CAM1  2026-10-20  2026-10-22  S1  APPROVED  2026-10-18T00:00:00Z  2026-10-20
 
 ---
 
-## Preserve the Pre-Change Checkpoint
+## Keep the Version From Before the Change
 
 ```text
-Baseline: Chapter 11 cumulative project
+Baseline: Chapter 11 running project
 Source revision or complete-copy location:
 Uncommitted/untracked source accounted for:
 Java and Maven versions:
@@ -878,21 +878,21 @@ Reviewer or explicitly labelled solo review:
 
 ---
 
-# 12.8 AI in Practice: Check the Explanation
+# 12.8 Checking an AI's Explanation, Not Its Confidence
 ### Not its confidence
 
 ---
 
 ## The Task
 
-* **Input:** the eight-row history, the blocked interval, the measurement contract and the chart table.
-* **Task:** verify **every arithmetic or causal claim independently**.
-* **Permitted scope:** explain the data and identify questions; **do not change timestamps, estimates or requirements to fit the explanation.**
+* **You start with:** the eight-row history, the blocked interval, the measurement contract and the chart table.
+* **Your task:** verify **every arithmetic or causal claim independently**.
+* **What is in bounds:** explain the data and identify questions; **do not change timestamps, estimates or requirements to fit the explanation.**
 * Mark each claim **supported, contradicted or not established**.
 
 ---
 
-## The Fixture
+## The Ready-Made Example
 
 **Author-written fictional AI output.**
 
@@ -923,7 +923,7 @@ Reviewer or explicitly labelled solo review:
 
 ---
 
-# 12.9 Common Mistakes
+# 12.9 Measurement Habits That Mislead
 ### Seven to avoid
 
 ---
@@ -935,7 +935,7 @@ Reviewer or explicitly labelled solo review:
 | Treat removed work as Done | Inflates delivery and hides scope decisions | Retain a separate removal event |
 | Divide by all accepted items when averaging completed duration | Treats unfinished cases as if their duration were known | Use the completed cohort; report open ages separately |
 | Drop waiting from cycle time without saying so | Changes the question; delay disappears | Keep elapsed time; define any extra measure separately |
-| Infer work-item completion from commits | Counts workflow artefacts as delivered value | Match the unit and event to the evidence |
+| Infer work-item completion from commits | Counts workflow traces as delivered value | Match the unit and event to the evidence |
 
 ---
 
@@ -949,14 +949,14 @@ Reviewer or explicitly labelled solo review:
 
 ---
 
-# 12.10 Practical Activity
+# 12.10 Try It Yourself
 ### Measure, interpret and prepare the change
 
 ---
 
-## Input and Demonstration
+## What You Start With, and the Demonstration
 
-* **Supplied:** synthetic issue history and blocked-event note; Java calculator and checks; **RM-12 v1.0**; **CR-12** contract and examples; backlog and impact templates; the Chapter 11 checkpoint.
+* **Supplied:** synthetic issue history and blocked-event note; Java calculator and checks; **RM-12 v1.0**; **CR-12** contract and examples; backlog and impact templates; the Chapter 11 version.
 * **Demonstration:** calculate **B's lead and cycle time**; explain **day 08's five-point drop**; trace the count/duration policy boundary in the current code.
 * **Guided practice:** pairs **reconcile the final scope** and trace the interval-edge completion.
 
@@ -964,28 +964,28 @@ Reviewer or explicitly labelled solo review:
 
 ## Steps 1 and 2: Calculate and Interpret
 
-1. **Book project: calculate.** Reproduce the duration table, completed count and points, final WIP and ages. Run the Java exercise and **explain one boundary check**.
-2. **Book project: interpret.** Explain the scope additions and removal. Write a **cautious forecast paragraph** and reject the unsupported AI claims.
+1. **The book's project: calculate.** Reproduce the duration table, completed count and points, final WIP and ages. Run the Java exercise and **explain one boundary check**.
+2. **The book's project: interpret.** Explain the scope additions and removal. Write a **cautious forecast paragraph** and reject the unsupported AI claims.
 
 ---
 
 ## Steps 3 to 5
 
-3. **Team project: required repository lab.** Apply RM-12 to **real PR or issue timestamps**, or an instructor-supplied real export. Produce an auditable duration result and, if the population is complete, throughput. **State missing evidence honestly.** The synthetic table is rehearsal.
-4. **Book project: preserve and plan.** Retain the pre-change checkpoint; review CR-12's matrix; order a small backlog for Chapter 13. **Do not implement the feature.**
-5. **Team project: transfer.** Apply the impact method to your released variant. Record **one dependency or policy question** and how its answer would change the plan.
+3. **Your team's project: required repository lab.** Apply RM-12 to **real PR or issue timestamps**, or an instructor-supplied real export. Produce an auditable duration result and, if the population is complete, throughput. **State missing evidence honestly.** The synthetic table is rehearsal.
+4. **The book's project: preserve and plan.** Retain the pre-change version; review CR-12's matrix; order a small backlog for Chapter 13. **Do not implement the feature.**
+5. **Your team's project: transfer.** Apply the impact method to your released variant. Record **one dependency or policy question** and how its answer would change the plan.
 
 ---
 
-## Expected Artefacts and Completion Checks
+## What You Should End Up With, and When You Are Done
 
-* **Artefacts:** calculations; source and contract; cautious interpretation; reviewed AI claims; checkpoint reference; updated backlog; change-impact note. Keep **real repository evidence separate** from the synthetic sample.
+* **What you should end up with:** calculations; source and contract; cautious interpretation; reviewed AI claims; version reference; updated backlog; change-impact note. Keep **real repository evidence separate** from the synthetic sample.
 * **Complete when:** the arithmetic reconciles; **event boundaries and population are explicit**; open items and removals stay visible; repository results have **traceable real sources**; **no individual ranking**; new behaviour has acceptance examples; old behaviour and unresolved defects have a preservation plan.
 * **Optional:** compare two complete intervals with the same inclusion rule, or add reopened-item support with a **clearly revised data model**.
 
 ---
 
-# 12.11 Review and Transfer
+# 12.11 Questions to Think with, and a Transfer Challenge
 ### Concept, diagnosis, transfer
 
 ---
@@ -1043,7 +1043,7 @@ An ML model-serving team: **only approved model versions may be served to extern
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---
@@ -1058,7 +1058,7 @@ An ML model-serving team: **only approved model versions may be served to extern
 
 ## Where the Project Stands
 
-* The application remains at the **pre-change checkpoint**.
+* The application remains at the **pre-change version**.
 * **CR-12** and the ordered backlog give a precise basis for **Chapter 13**: implementation, genuine boundary tests and delivery evidence.
 
 ---

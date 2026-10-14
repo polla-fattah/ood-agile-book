@@ -11,11 +11,11 @@ description: "Code explanations and solutions for Chapter 11 Companion: Code, Ex
 
 This file accompanies Chapter 11, Refactoring and Legacy Code. It contains the legacy overdue report, every stage of its refactoring, a probe that checks the enabling edit, the characterisation and differential tests, a separate functional change, an optional bridge that feeds the report from the live loans, two model records (a decision record and a suspected-defect register), the build files that changed, model solutions and teaching notes.
 
-**Input checkpoint.** The starting point is the Chapter 10 companion: its 64 listings, its tests and the assertions carried forward from Chapters 3–9 (its Section 2.5). To keep those older, verified listings from being copied a second time, this file lists **only the files that are new or changed**. Every other file is exactly as in the Chapter 10 companion. The sections below say which is which.
+**Input version.** The starting point is the Chapter 10 companion: its 64 listings, its tests and the assertions carried forward from Chapters 3–9 (its Section 2.5). To keep those older, verified listings from being copied a second time, this file lists **only the files that are new or changed**. Every other file is exactly as in the Chapter 10 companion. The sections below say which is which.
 
 The chapter adds one isolated package, `legacy`. Production code under `edu.se506.lending` does not use it, and the dependency test now checks that. Only bootstrap launches it or feeds it rows. No lending behaviour changes.
 
-### 1.1 Reconstruct the checkpoint
+### 1.1 Reconstruct the version
 
 1. Create the directory `after` and save every listing of the Chapter 10 companion at its path.
 2. Save every listing in Sections 3–5 of this file at its path. Where a path already exists (`pom.xml`, `README.md`, `DependencyRulesTest.java`, `PackageMetrics.java`), the listing here **replaces** it.
@@ -82,7 +82,7 @@ Expected: `Original and seamed reports agree on 5 rows and on an empty list.` It
 | `src/test/java/edu/se506/lending/bootstrap/OverdueBridgeTest.java` | New (optional bridge) | Clock zone, one snapshot per report, failure, and the join |
 | `src/test/java/edu/se506/lending/structure/DependencyRulesTest.java` | Changed | Production code must not refer to `legacy.` |
 | `tools/PackageMetrics.java` | Changed | Counts `legacy` as one of the project's own packages |
-| `pom.xml`, `README.md` | Changed | Version 0.11.0; description of the checkpoint |
+| `pom.xml`, `README.md` | Changed | Version 0.11.0; description of the version |
 | `stages/…` | New | The report at each step, and the separate functional change |
 | `probe/…` | New | Runs the original beside the seamed report |
 | `docs/ADR-011-legacy-overdue-report.md`, `docs/SUSPECTED-DEFECTS-legacy-overdue-report.md` | New | Model decision record and suspected-defect register |
@@ -101,7 +101,7 @@ Every expectation in the characterisation suite was run on the original code fir
 | A null kind throws `NullPointerException`, but only for a loan that is overdue and unreturned | Unknown | SD-11-3 | Can the export contain a null kind? |
 | Amounts use the default locale: `0,50` under `Locale.GERMANY`, `0.50` otherwise | Surprising | SD-11-4 | Should the separator follow the machine or the office? |
 | The report uses whichever date the caller passes, so the zone is the caller's choice | Known design consequence of the seam | | None |
-| `build(rows)` uses the system date; `print(rows)` writes to standard output | Known hidden dependencies | | None; isolated by the seam and the test fixtures |
+| `build(rows)` uses the system date; `print(rows)` writes to standard output | Known hidden dependencies | | None; isolated by the seam and the test setups |
 
 ### 2.3 Why the refactorings preserve behaviour
 
@@ -614,7 +614,7 @@ class OverdueReportCharacterisationTest {
 }
 ```
 
-The fixture `pinTheLocale` and `restoreTheLocale` is part of the test design: the default locale is process-wide state, so the suite sets it before every test and restores it after. The suite therefore cannot safely run in parallel with other tests that format numbers.
+The example `pinTheLocale` and `restoreTheLocale` is part of the test design: the default locale is process-wide state, so the suite sets it before every test and restores it after. The suite therefore cannot safely run in parallel with other tests that format numbers.
 
 ### 4.2 `after/src/test/java/legacy/OriginalOverdueReport.java`
 
@@ -1861,7 +1861,7 @@ The report was written for the old records system, and it knows nothing about th
 
 ## 8. Suggested practical solution
 
-### 8.1 Book project, steps B1–B3
+### 8.1 the book's project, steps B1–B3
 
 **B1. Probe and three further characterisation tests.** A good answer runs the probe first and reports its single line of output, then adds three inputs that the suite does not cover, each with a recorded actual result and a classification. Examples with answers on stage 1:
 
@@ -1875,7 +1875,7 @@ The report was written for the old records system, and it knows nothing about th
 
 **B3. Rationale and register entry.** A good rationale says what changed structurally (the grace number and the rates now appear once each, in a named policy), what was checked after each step, what was deliberately *not* changed (the odd third policy, the locale-dependent formatting, `LoanRow`, the public signatures), and which questions remain (Section 2.2). The register entry names evidence, cost and decision as in Section 11.7 of the chapter.
 
-### 8.1a Book project, optional steps B4–B7
+### 8.1a the book's project, optional steps B4–B7
 
 **B4. Break the boundary on purpose.** Changing `daysLate > 0` to `daysLate >= 0` includes a loan due today, with 0 days late. The tests that fail are `loansDueTodayDueLaterOrReturnedAreNotListed`, the differential test and the bridge test that follows a real checkout; the failing messages show an extra line and a count that is one higher. Restore the original and rerun. A good answer predicts the failures before running them.
 
@@ -1885,7 +1885,7 @@ The report was written for the old records system, and it knows nothing about th
 
 **B7. Connect the report to the live loans.** See Section 7.6. A good answer traces `[20 October, 22 October)` to a due date of 21 October, explains why `source.rows()` is not wrapped in a `try` that returns an empty list, and adds a test (for example a loan whose borrower kind is `"T"`, checked at the staff grace boundary).
 
-### 8.2 Team project, steps T1–T4
+### 8.2 your team's project, steps T1–T4
 
 These are not model answers, because the code is your team's. A good answer shows:
 
@@ -1898,7 +1898,7 @@ A weak answer lists smells without a change that they block, pins only the happy
 
 ## 9. AI activity solution
 
-The fixture makes four statements: the new overdue test is equivalent to `daysLate > 0`; the policy can be chosen before the check; unknown kinds can fall back to the student policy; and behaviour is preserved because formatting is unchanged. The first three are claims about behaviour, and each was applied **to its own copy** of the final code and run against the suite, then all three together.
+The example makes four statements: the new overdue test is equivalent to `daysLate > 0`; the policy can be chosen before the check; unknown kinds can fall back to the student policy; and behaviour is preserved because formatting is unchanged. The first three are claims about behaviour, and each was applied **to its own copy** of the final code and run against the suite, then all three together.
 
 | Claim | Finding | Evidence (report and bridge tests that fail) |
 |---|---|---|
@@ -1960,7 +1960,7 @@ This is a better design and the wrong first move. The method changed shape, and 
 }
 ```
 
-Every later test in the same process now formats with a comma. The chapter's fixture restores the locale in `@AfterEach`.
+Every later test in the same process now formats with a comma. The chapter's example restores the locale in `@AfterEach`.
 
 ### 10.5 A boundary rewrite taken as equivalent
 
@@ -1993,7 +1993,7 @@ if (!row.due.isAfter(today)) { ... }
 
 ### 11.3 ML-serving transfer
 
-An analysis script that formats prediction scores has the same three kinds of hidden dependency: the current time (a date in the summary), the locale (number formatting) and standard output. Add a date parameter to the entry point as the seam; pin the locale in the fixture; capture standard output once. Pin six or seven inputs: a score at each boundary of a model type's rule, one at the maximum, an unknown model type, an empty list, a null, and the locale case. Apply Extract Method for the formatting, Extract Class for the three near-identical branches (a small value object holding what differs), and Rename. Record as a question, not a fix, whatever an unknown model type does today.
+An analysis script that formats prediction scores has the same three kinds of hidden dependency: the current time (a date in the summary), the locale (number formatting) and standard output. Add a date parameter to the entry point as the seam; pin the locale in the example data; capture standard output once. Pin six or seven inputs: a score at each boundary of a model type's rule, one at the maximum, an unknown model type, an empty list, a null, and the locale case. Apply Extract Method for the formatting, Extract Class for the three near-identical branches (a small value object holding what differs), and Rename. Record as a question, not a fix, whatever an unknown model type does today.
 
 ### 11.4 Quiz 2 revision pointers
 
@@ -2009,7 +2009,7 @@ Review the commits as a reviewer would: for each refactoring commit, ask for the
 
 Keep the legacy lab outside Quiz 2. The chapter lists the quiz scope (Weeks 5–9) and the revision pointers.
 
-**Book project and Team project.** The supplied report is the Book project: students extend its tests and take the first refactoring steps. The Team project is the team's own method from the provided starter codebase, which contains intentional smells. A team on another provided domain applies the same steps to its starter codebase; the transfer challenge gives an orientation for an ML-serving tool. The bridge of Section 7.6 is optional: it is useful for a team that wants to see the report fed from live data, and a second-week task for most groups.
+**The book's project and your team's project. The supplied report is the book's project: students extend its tests and take the first refactoring steps. your team's project is the team's own method from the provided starter codebase, which contains intentional smells. A team on another provided domain applies the same steps to its starter codebase; the transfer challenge gives an orientation for an ML-serving tool. The bridge of Section 7.6 is optional: it is useful for a team that wants to see the report fed from live data, and a second-week task for most groups.
 
 ### 12.2 Do the tests detect faults?
 

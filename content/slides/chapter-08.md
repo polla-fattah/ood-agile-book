@@ -16,37 +16,37 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **8.1 Why object creation can become a design problem**
+* **8.1 When does creating an object become a design problem?**
   * Creation, compatibility and added behaviour are different problems.
-* **8.2 Factory Method**
+* **8.2 Factory Method: letting subclasses choose what to create**
   * An overridable creation hook inside an inherited workflow.
-* **8.3 Abstract Factory**
+* **8.3 Abstract Factory: products that must belong together**
   * Related product roles that must vary together.
-* **8.4 Builder**
+* **8.4 Builder: configuring a value you can trust**
   * Configure, validate, publish an immutable value.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **8.5 Adapter**
+* **8.5 Adapter: translating an outside system into your own terms**
   * The one pattern wired into the project: a directory adapter.
-* **8.6 Decorator**
+* **8.6 Decorator: adding behaviour around an operation**
   * Optional behaviour around an operation; order and failure matter.
-* **8.7 Choosing the simpler alternative**
+* **8.7 When the simpler option is the better one**
   * A decision another developer can challenge.
-* **8.8 AI in practice:** classify before accepting.
+* **8.8 Classifying an AI's pattern suggestions before accepting them** classify before accepting.
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **8.9 Common mistakes**
-* **8.10 Practical activity**
-  * Nine steps; step 9 is on your Team project.
-* **8.11 Review and transfer**
+* **8.9 Pattern habits that mislead**
+* **8.10 Try it yourself: the directory boundary and pattern exercises**
+  * Nine steps; step 9 is on your team's project.
+* **8.11 Questions to think with, and a transfer challenge**
   * A library application with numeric category codes.
-* **Summary and next chapter**
+* **What to take away, and what comes next**
   * Chapter 9: changing behaviour with behavioural patterns.
 
 ---
@@ -78,12 +78,12 @@ By the end of this chapter, you should be able to:
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core reading:** 8.1, 8.2, 8.5 and 8.7. **Factory Method** and **Adapter** are the two suggested live demonstrations.
 * **Working-knowledge reading:** 8.3 (Abstract Factory), 8.4 (Builder), 8.6 (Decorator). Read each, run its example and, for the decorator, **predict both audit histories before you run the tests**. Working knowledge is not optional, but asks for understanding, not independent implementation.
 * **Minimum lab:** steps 1 to 3, 5 and 9. This is midterm week: **do the minimum lab first**.
-* **Optional extension:** steps 4 and 6 to 8.
+* **If you want more:** steps 4 and 6 to 8.
 
 ---
 
@@ -100,11 +100,11 @@ By the end of this chapter, you should be able to:
 * **Proposal 1:** put these details inside `ReservationCoordinator`. It spreads **external conventions into reservation behaviour**.
 * **Proposal 2:** a factory, builder, adapter and decorator **around every class**. It introduces structures **before identifying what must vary**.
 * The useful question: **which responsibility needs a boundary, and what is the smallest design that makes that boundary clear?**
-* The answer adds **one justified Adapter** to the cumulative project.
+* The answer adds **one justified Adapter** to the running project.
 
 ---
 
-# 8.1 Why Object Creation Can Become a Design Problem
+# 8.1 When Does Creating an Object Become a Design Problem?
 ### Three problems that all get called "factory"
 
 ---
@@ -163,7 +163,7 @@ A useful design note names:
 3. the **selected boundary**,
 4. the **cost** of adding it.
 
-* Here: passing a trusted category worked for local fixtures; provider codes now need **central translation**; an **application-owned directory interface** isolates it; additional types and mapping tests are the cost.
+* Here: passing a trusted category worked for local examples; provider codes now need **central translation**; an **application-owned directory interface** isolates it; additional types and mapping tests are the cost.
 
 ---
 
@@ -177,7 +177,7 @@ A useful design note names:
 ---
 
 # 8.2 Factory Method
-### An overridable creation hook
+### Letting subclasses choose what to create
 
 ---
 
@@ -306,14 +306,14 @@ PatternExamples.simpleExporter(false).export("R1");
 ## When to Decline It
 
 * A constructor accepting an `Exporter` can be **simpler** when callers already know the product and need no creation hook.
-* So the cumulative project **keeps `ReservationApplication.create(sender)`** as a simple assembly function.
+* So the running project **keeps `ReservationApplication.create(sender)`** as a simple assembly function.
 * We do not convert it into a creator hierarchy **solely to display the pattern**.
 * The separate example demonstrates the mechanism; the design decision **explains when to decline it**.
 
 ---
 
 # 8.3 Abstract Factory
-### Products must belong together
+### Products that must belong together
 
 ---
 
@@ -408,13 +408,13 @@ PatternExamples.simpleExporter(false).export("R1");
 
 * A **clock** and a **borrower directory** constructed near each other do not form a compatible product family.
 * One sender with two implementations does not justify **two product roles invented for the diagram**.
-* In the lending checkpoint, the small assembly function remains sufficient.
+* In the lending version, the small assembly function remains sufficient.
 * If the real receipt stays this small, **one formatter per output style** is a reasonable conclusion.
 
 ---
 
 # 8.4 Builder
-### Configure, validate, publish
+### Configuring a value you can trust
 
 ---
 
@@ -528,7 +528,7 @@ columns = List.copyOf(builder.columns);
 ---
 
 # 8.5 Adapter
-### Translate a mismatched contract
+### Translating an outside system into your own terms
 
 ---
 
@@ -544,7 +544,7 @@ columns = List.copyOf(builder.columns);
 ## An Object Adapter
 
 * It **implements the application interface** while **holding the incompatible provider** collaborator.
-* The provider interface here is a **local model of an external contract**, not an HTTP client. A map-backed fixture makes every case reproducible.
+* The provider interface here is a **local model of an external contract**, not an HTTP client. A map-backed example makes every case reproducible.
 * A real client later needs **provider-specific integration tests**.
 
 ---
@@ -763,7 +763,7 @@ Notices: 1
 
 * **The directory is the book's data-backed collaborator**: the component that stands outside the application and answers from its own data.
 * Chapter 1 promised it; Chapter 6 previewed its contract; Chapter 7 showed three doubles; **this chapter builds the adapter**; Chapter 10 places it in the application structure; Chapter 13 adds timeouts and an explicit **fallback-or-failure policy**.
-* Here the provider is a **synthetic in-process fixture**: no transport, timeout or storage to fail.
+* Here the provider is a **synthetic in-process example**: no transport, timeout or storage to fail.
 
 ---
 
@@ -843,7 +843,7 @@ Notices: 1
 ---
 
 # 8.6 Decorator
-### Optional behaviour, explicit order
+### Adding behaviour around an operation
 
 ---
 
@@ -926,9 +926,9 @@ catch (DeliveryFailure failure) { delegate.send(message); }
 
 ---
 
-## What the Fixture Does Not Promise
+## What the Stand-In Does Not Promise
 
-* The audit list is an **in-memory observation fixture**, not durable audit storage.
+* The audit list is an **in-memory observation example**, not durable audit storage.
 * If a real audit sink can fail, decide whether to propagate that failure, preserve the original delivery failure, or report it separately.
 * A real sender may deliver and then **lose the acknowledgement**: a retry can **duplicate the effect**. This toy has no idempotency key.
 * "Sent" means only that **the delegate returned normally**.
@@ -944,7 +944,7 @@ catch (DeliveryFailure failure) { delegate.send(message); }
 
 ---
 
-# 8.7 Choosing the Simpler Alternative
+# 8.7 When the Simpler Option Is the Better One
 ### A decision aid, not a rule
 
 ---
@@ -970,11 +970,11 @@ catch (DeliveryFailure failure) { delegate.send(message); }
 
 ---
 
-## Review the Cumulative Checkpoint
+## What the Running Project Gained
 
 * Chapter 8 adds the directory-backed reservation service, domain borrower and provider adapter.
 * The Chapter 7 **coordinator, policies, availability query, loan service and notification implementations remain unchanged**. The original test suite stays in the build.
-* New claims: a staff fixture can request ten days through a **category-free entry point**; a student cannot; missing or inactive borrowers are rejected **before storage**; provider failures are **identifiable** and leave state untouched.
+* New claims: a staff example can request ten days through a **category-free entry point**; a student cannot; missing or inactive borrowers are rejected **before storage**; provider failures are **identifiable** and leave state untouched.
 
 ---
 
@@ -1002,36 +1002,36 @@ catch (DeliveryFailure failure) { delegate.send(message); }
 * The core value objects **do not need builders**.
 * Retry **would change the notification promise**.
 * Declining those structures is **part of the design outcome**.
-* If the only explanation is "this chapter teaches the pattern", keep it **in the teaching examples**, not the cumulative system.
+* If the only explanation is "this chapter teaches the pattern", keep it **in the teaching examples**, not the running system.
 
 ---
 
-# 8.8 AI in Practice: Classify Before Accepting
+# 8.8 Classifying an AI's Pattern Suggestions Before Accepting Them
 ### Names do not make patterns
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Classify each suggested structure by what it actually does, and decide which are justified |
-| Input | The isolated pattern examples, the directory contract in 8.5 and the Chapter 6 notification contract |
-| Permitted scope | Classify, correct and decline; wire no pattern into the application without a requirement |
+| Your goal | Classify each suggested structure by what it actually does, and decide which are justified |
+| You start with | The isolated pattern examples, the directory contract in 8.5 and the Chapter 6 notification contract |
+| What is in bounds | Classify, correct and decline; wire no pattern into the application without a requirement |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | The source (is there a subclass hook?), the mapping table, tests for unknown codes, outage, immutability and decorator order |
-| Accept or reject | A verdict with a structural or behavioural reason for each claim |
-| No-account route | The fixture is sufficient |
+| How to check | The source (is there a subclass hook?), the mapping table, tests for unknown codes, outage, immutability and decorator order |
+| How to decide | A verdict with a structural or behavioural reason for each claim |
+| No AI account? | The ready-made example is enough |
 
 ---
 
-## The Fixture (1 of 2)
+## The Ready-Made Example (1 of 2)
 
 **Author-written fictional AI output.**
 
@@ -1039,7 +1039,7 @@ catch (DeliveryFailure failure) { delegate.send(message); }
 
 ---
 
-## The Fixture (2 of 2)
+## The Ready-Made Example (2 of 2)
 
 > Wrap all senders in retry decorators; order does not matter. A builder means the finished object is immutable even if it retains the builder's mutable list.
 
@@ -1086,7 +1086,7 @@ columns = builder.columns;
 
 ---
 
-# 8.9 Common Mistakes
+# 8.9 Pattern Habits That Mislead
 ### Eight to avoid
 
 ---
@@ -1120,14 +1120,14 @@ columns = builder.columns;
 
 ---
 
-# 8.10 Practical Activity
-### Integrate the directory boundary
+# 8.10 Try It Yourself
+### The directory boundary and pattern exercises
 
 ---
 
 ## Input and Demonstrations
 
-* **Input:** the Chapter 7 checkpoint, the synthetic provider contract and mapping table, and the Chapter 8 code file. Steps 1 to 8: Book project; **step 9: Team project**.
+* **You start with:** the Chapter 7 version, the synthetic provider contract and mapping table, and the Chapter 8 code file. Steps 1 to 8: the book's project; **step 9: your team's project.
 * **Demonstrations:** first compare the **simple factory and the overridden creation hook**; then trace an **active borrower and a failed lookup** through the adapter boundary.
 * **Guided practice:** add an independently chosen **malformed provider case** and explain why it produces failure, not absence. Run the decorator tests and **predict both audit histories first**.
 
@@ -1153,7 +1153,7 @@ columns = builder.columns;
 
 7. **Builder exercise:** in the isolated `patterns` package, add an optional **maximum-row** setting. Absent by default; rejects zero and negative; does not change an already built request. **Write the tests first.**
 8. **Decorator exercise:** add a third decorator that **counts attempts**. Predict the count for one failure then success when it sits **outside** the retry and **inside** it; check with tests.
-9. On your **Team project**, find a place where your code uses an **external or mismatched interface directly**. Decide whether an adapter is justified using problem-solution-consequence, and say **what you would decline to build**.
+9. On your team's project, find a place where your code uses an **external or mismatched interface directly**. Decide whether an adapter is justified using problem-solution-consequence, and say **what you would decline to build**.
 
 ---
 
@@ -1189,11 +1189,11 @@ public static final class CountingSender implements Sender {
 
 ---
 
-## Expected Artefacts and Acceptance
+## What You Should End Up With, and When You Are Done
 
-* **Artefacts:** runnable source and tests; a mapping table; a reproducible demonstration; a short design decision; the AI claims record; the two exercise solutions with tests; the step 9 note.
+* **What you should end up with:** runnable source and tests; a mapping table; a reproducible demonstration; a short design decision; the AI claims record; the two exercise solutions with tests; the step 9 note.
 * **Accept when:** known codes map correctly; **unknown codes never grant a category**; provider outage is **distinct from absence**; legacy behaviour remains tested; the second comparison identifies **costs, not counts of classes**.
-* **Optional extension:** a changed provider code for staff, or a second provider. Do not add automatic fallback between providers without defining conflict, outage and identity semantics.
+* **If you want more:** a changed provider code for staff, or a second provider. Do not add automatic fallback between providers without defining conflict, outage and identity semantics.
 
 ---
 
@@ -1201,12 +1201,12 @@ public static final class CountingSender implements Sender {
 
 * **Problem:** the directory's `lookup`, raw codes, null absence and provider exception differ from the application's needs.
 * **Solution:** an application-owned `BorrowerDirectory` and an object adapter; a service looks up a borrower **before** invoking the coordinator with the mapped category.
-* **Consequences:** translation in **one tested boundary**; **several small types and mapping tests**; local fixtures cannot establish real-provider compatibility.
+* **Consequences:** translation in **one tested boundary**; **several small types and mapping tests**; local examples cannot establish real-provider compatibility.
 * **Revisit when:** a real SDK contract exists, an authenticated entry point is designed, or a requirement adds a **related family** of integration products.
 
 ---
 
-# 8.11 Review and Transfer
+# 8.11 Questions to Think with, and a Transfer Challenge
 ### Concept, diagnosis, transfer
 
 ---
@@ -1267,7 +1267,7 @@ A library application receives patron records from an external system using **nu
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---

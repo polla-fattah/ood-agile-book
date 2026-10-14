@@ -272,7 +272,7 @@ Discussed at the team meeting. No independent review has taken place.
 A selected outcome requires a session to survive a restart, or two users need the same data at once.
 ```
 
-The numbers in the examples belong to the example team. They are not the book project's ADR-010, ADR-013 and ADR-014. Once a record is accepted, change only its status. A new decision gets a new record that says which one it supersedes.
+The numbers in the examples belong to the example team. They are not the book's project's ADR-010, ADR-013 and ADR-014. Once a record is accepted, change only its status. A new decision gets a new record that says which one it supersedes.
 
 **A smaller form.** For a small choice, such as accepting or rejecting a proposed criterion, a one-row table can be enough:
 
@@ -621,7 +621,7 @@ Save as `examples/known-issues.md`:
 Read by the team at each retrospective. A row without a decision is not finished.
 ```
 
-A table that was true once rots. The cheapest way to keep a statement true is a script that fails when it stops being true, as the book project's traceability test does. Even then, a script can check that a named test exists; only a reviewer can check that it is the right test. The example says so.
+A table that was true once rots. The cheapest way to keep a statement true is a script that fails when it stops being true, as the book's project's traceability test does. Even then, a script can check that a named test exists; only a reviewer can check that it is the right test. The example says so.
 
 **Common mistakes.** A known-issues row with a description and no decision. Listing a test that exists but checks something else. Deleting a known issue to make the list shorter instead of resolving it.
 
@@ -756,7 +756,7 @@ Save as `templates/ai-assistance-record.md`:
 {{What was asked, in one or two sentences, and who owns the requirement.}}
 
 ## Tool and model
-{{The tool and model, or "none: constructed fixture", and the date. If no tool was available, how the exercise was done instead.}}
+{{The tool and model, or "none: constructed example", and the date. If no tool was available, how the exercise was done instead.}}
 
 ## Context given
 {{What the assistant was shown, and what was left out and why. No secrets or personal data.}}
@@ -787,7 +787,7 @@ Save as `examples/ai-assistance-record.md`:
 Ask for an explanation of `LoanPeriod.overlaps`, so that a teammate can review it. The developer owns the rule: a period includes its start and excludes its end.
 
 ## Tool and model
-None: constructed fixture. The candidate below was written by the author of this example and stands in for an assistant's answer.
+None: constructed example. The candidate below was written by the author of this example and stands in for an assistant's answer.
 
 ## Context given
 The source of `LoanPeriod` and one sentence about the half-open convention. The existing checks were not shown, so that they could be used to judge the answer.
@@ -830,7 +830,7 @@ Do these in a copy of the kit, in a throwaway folder.
 
 > Hosted passing run: run 1432, passed on revision a3f9c21 on 12 October. Independent review: reviewed and approved by the team. Deliberate failure: introduced and fixed, all checks green. Known limitations: none.
 
-Run the script on it. Does it pass? Which entries could a reviewer verify, and how? Which entries look like inventions? A live assistant may produce a different candidate if your course allows one, but it is not required. Record the claim, your check and your conclusion. The exit artefact is your filled note; it adds no assessment requirement.
+Run the script on it. Does it pass? Which entries could a reviewer verify, and how? Which entries look like inventions? A live assistant may produce a different candidate if your course allows one, but it is not required. Record the claim, your check and your conclusion. What you hand in at the end is your filled note; it adds no assessment requirement.
 
 ## Sources and further reading
 

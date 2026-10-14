@@ -15,9 +15,9 @@ It is vendor-neutral: it does not teach prompt tricks, model internals, retrieva
 
 This is a reference chapter that belongs to no teaching week. It supports the module's outcomes wherever an assistant is used and adds no separate assessed AI outcome. It creates no new deadlines, weights or marking rules, and whether and how AI tools may be used in an assessment follows the module leader's current rules.
 
-No entry checkpoint is required. The worked example is a small separate project (the **lab**) that stands alone, compiles for Java 17 and needs only the pinned Maven toolchain of the earlier chapters; the lending project is not changed, and its handover version 0.14.0 stays as Chapter 14 left it. The companion contains the lab, the constructed outputs, the experiments, the model answers and teaching notes.
+You need no earlier code to start. The worked example is a small separate project (the **lab**) that stands alone, compiles for Java 17 and needs only the pinned Maven toolchain of the earlier chapters; the lending project is not changed, and its handover version 0.14.0 stays as Chapter 14 left it. The companion contains the lab, the constructed outputs, the experiments, the model answers and teaching notes.
 
-Sections 15.1, 15.2, 15.4, 15.6 and 15.8 are the core reading; 15.3, 15.5 and 15.7 are working knowledge, where you learn the method and need not memorise tools. The minimum lab is steps B1 to B4 and T1 to T3 of the practical activity in Section 15.11. Steps B1 to B4 run on the **Book project** (the lab) and are running, tracing and diagnosis, with everything supplied; steps T1 to T3 apply the method to your **Team project**. Because this chapter has no teaching week, these steps are not a separate weekly task: they consolidate what the “AI in practice” activities of Chapters 1 to 14 already ask. Do B1 to B4 once, at the point where you first need them, alongside the first AI activity you do or before your final handover (Chapter 14), and satisfy T1 to T3 with the AI-assisted work your team actually does, recorded as described here. They create no additional submission and no new assessed item unless your approved instructions say otherwise. Steps B5 to B7 and T4, the review questions and the transfer challenge are optional. Section 15.9 explains how to do every AI activity in this book without a live service, and nothing required depends on a paid account.
+Sections 15.1, 15.2, 15.4, 15.6 and 15.8 are the core reading; 15.3, 15.5 and 15.7 are working knowledge, where you learn the method and need not memorise tools. What you must do is steps B1 to B4 and T1 to T3 of the practical activity in Section 15.11. Steps B1 to B4 run on the book's project (the lab) and are running, tracing and diagnosis, with everything supplied; steps T1 to T3 apply the method to your team's project. Because this chapter has no teaching week, these steps are not a separate weekly task: they consolidate what the “AI in practice” activities of Chapters 1 to 14 already ask. Do B1 to B4 once, at the point where you first need them, alongside the first AI activity you do or before your final handover (Chapter 14), and satisfy T1 to T3 with the AI-assisted work your team actually does, recorded as described here. They create no additional submission and no new assessed item unless your approved instructions say otherwise. If you want more, there are steps B5 to B7 and T4, the questions and the transfer challenge in Section 15.12. Section 15.9 explains how to do every AI activity in this book without a live service, and nothing required depends on a paid account.
 
 ## Before you start: five rules
 
@@ -29,7 +29,7 @@ Read these with Chapter 1. They are the short version of everything below.
 4. **Share the minimum.** No secrets and no personal data. Use synthetic data.
 5. **Follow the current rules.** Whether a given tool may be used on coursework or in an assessment is decided by the module leader's current rules, not by this book.
 
-## 15.1 Assistance and accountability
+## 15.1 What an assistant gives you, and who stays accountable
 
 ### What an assistant gives you
 
@@ -84,7 +84,7 @@ The book's AI activities were all instances of this workflow. They are the recur
 
 Read the right-hand column. The checks vary, and none of them is “ask another assistant”.
 
-## 15.2 Defining task and context
+## 15.2 Telling the assistant what you want: task and context
 
 ### A prompt is a work order, not a requirement
 
@@ -116,7 +116,7 @@ In the lab the examples were not shared, so they could be used both ways. The po
 
 The lab's first prompt says the search is “within `searchDays` days”. That sentence can mean “up to and including `from + searchDays`” or “`searchDays` candidate start dates, starting with `from`”. The developer meant the second. The assistant chose the first, and its tests chose the same, so the code and the tests agreed with each other and disagreed with the developer. The acceptance examples were the only thing that did not share the misreading, and the record shows that the requirement sentence was rewritten afterwards. When an assistant guesses wrong, ask what in your requirement allowed the guess.
 
-## 15.3 Requirements and code explanation
+## 15.3 Asking an assistant to explain: requirements and code
 
 ### Explanations: ask for claims, then check them
 
@@ -140,7 +140,7 @@ Eight statements, and they are mixed. Most are right, and three are not: there i
 
 An assistant can help you find gaps in a requirement: what happens at the boundary, what is not said, which cases conflict. Use it to produce questions, and take the questions to whoever owns the requirement. Do not let it supply the rules. Chapter 3's exercise on a story and Chapter 11's suspected defects had the same shape: the right output of an assistant there was a question for an owner, and not an answer.
 
-## 15.4 Candidate code and test generation
+## 15.4 Candidate code and tests: a worked task
 
 ### The worked task
 
@@ -221,7 +221,7 @@ Ten single faults were applied to the accepted finder, and each was run against 
 
 The two faults that survive the acceptance examples let an invalid argument slip past the finder's own check, but the same exception type is then thrown one line later by `LoanPeriod` or `LocalDate`, which is all the example asserts. They cannot be told apart from correct code by any test of the exception type. The generated tests miss more: they miss the very fault the assistant made, a window one step too long, because they were built to agree with it. These counts come from ten faults chosen by the author on one small class. They say nothing about assistants in general.
 
-## 15.5 Refactoring and review
+## 15.5 Asking for a refactoring or a review
 
 ### Ask for a review as questions, not as a verdict
 
@@ -237,7 +237,7 @@ Chapter 11 defined refactoring as a change that preserves intended observable be
 
 A reviewer can check that a dependency points the right way (the compiled dependencies of Chapter 10), that a boundary is covered (Chapter 13), that a number in a document matches a run (Chapter 14), or that an explanation is consistent with the code. These are checks that someone can repeat. “The assistant reviewed it and found no issues” is not one of them.
 
-## 15.6 Failure modes
+## 15.6 How assistants fail: the patterns to recognise
 
 These are the failures this book has met, with where. Recognising the pattern is quicker than diagnosing each instance.
 
@@ -257,7 +257,7 @@ These are the failures this book has met, with where. Recognising the pattern is
 
 Two of these are worth a sentence more. **Silent policy change** is dangerous because the code can be better, and the commit is no longer a refactoring: reviewers cannot tell which failures were intended. **Self-reported verification** is a special case of confident wrongness. An assistant that cannot run your build cannot have tested it under your settings, and one that can run something still ran what it chose.
 
-## 15.7 Privacy, dependencies and provenance
+## 15.7 Privacy, dependencies and where work came from
 
 ### What not to send
 
@@ -283,7 +283,7 @@ A constructed suggestion in the lab proposes two dependencies for a trivial help
 
 Provenance is where a piece of work came from. For AI-assisted work it means: that an assistant was used, what for, what you gave it, what you took from it and what you changed. It matters because a reviewer or a successor needs it to judge the work, and because your institution may require it. Say so plainly and follow the module leader's rules and your team agreement. Whatever the rules, keep a record (Section 15.8) of tasks that mattered. Questions of licence and ownership of generated code are unsettled and depend on the tool, the jurisdiction and the terms. This book gives no legal advice: if it matters, ask the module leader or your institution.
 
-## 15.8 Verification records
+## 15.8 Writing down what you checked: verification records
 
 ### What evidence can show, and what it cannot
 
@@ -306,7 +306,7 @@ A record has eight parts. The lab holds a template and a filled example, and a s
 | Part | Contents |
 |---|---|
 | Task | What was asked and who owns the requirement |
-| Tool and model | The tool and model, or “none: constructed fixture”, and the date |
+| Tool and model | The tool and model, or “none: constructed example”, and the date |
 | Context given | What the assistant saw, and what was left out and why |
 | Output received | Each candidate in order, with accepted or rejected. Keep the rejected ones |
 | Decision | What was accepted or rejected, and why |
@@ -316,7 +316,7 @@ A record has eight parts. The lab holds a template and a filled example, and a s
 
 A useful record is short and honest. The ritual version says “reviewed and verified” and nothing else. The useful one says that attempt 1 failed to compile under `--release 17` with two errors, that attempt 2's seven generated tests passed while two acceptance examples failed, and that ten faults were applied. Write the record while you remember, and write it for someone who was not there.
 
-## 15.9 Offline alternatives
+## 15.9 Doing all of this without a live service
 
 Every AI activity in this book can be done without a live service, and the book supplies what you need.
 
@@ -327,7 +327,7 @@ Every AI activity in this book can be done without a live service, and the book 
 
 Constructed output is **not** a recording of a real model. It is written to illustrate a failure mode, and it should be labelled that way each time it is used. Where a real transcript is captured, record the tool, the model and the date.
 
-## 15.10 Common mistakes
+## 15.10 AI habits that mislead
 
 | Mistake | Consequence | Better action |
 |---|---|---|
@@ -342,37 +342,35 @@ Constructed output is **not** a recording of a real model. It is written to illu
 | Keeping only the accepted answer | A reviewer cannot see what was rejected, or why | Keep rejected attempts in the record |
 | Writing “AI-assisted” and no more | Nobody can judge the work | A record: what, with what, what changed, what was checked |
 
-## 15.11 Practical activity
+## 15.11 Try it yourself: the lab and your own task
 
-**Input:** the lab (Companion, Section 3), with its prompts, two constructed attempts, acceptance tests and record. Steps B1–B7 use the **Book project** (the lab); steps T1–T4 use your **Team project**.
+You start from the lab (Companion, Section 3), with its prompts, two constructed attempts, acceptance tests and record. Steps B1 to B7 use the book's project (the lab); steps T1 to T4 use your team's project.
 
-**Instructor demonstration:** compile attempt 1 with `javac --release 17` and, if a JDK of version 21 or later is available, once more with plain `javac`, and ask the class why the results differ. Then run attempt 2 against its own tests, and against the acceptance examples.
+If your instructor demonstrates the task, they will compile attempt 1 with `javac --release 17` and, if a JDK of version 21 or later is available, once more with plain `javac`, and ask the class why the results differ. Then they will run attempt 2 against its own tests, and against the acceptance examples. For guided practice, take one claim from the constructed explanation of `VisitorGate` and classify it, naming the evidence, and take one statement an assistant has made about itself and say how you would check it.
 
-**Guided practice:** take one claim from the constructed explanation of `VisitorGate` and classify it, naming the evidence. Take one statement an assistant has made about itself and say how you would check it.
-
-**Minimum required lab: Book project (run, trace and diagnose; nothing to build)**
+**What you must do: the book's project (run, trace and diagnose; nothing to build)**
 
 - **B1. Reject attempt 1.** Run `bash scripts/try-attempt.sh 1`. Then compile it by hand with `javac --release 17` and read both errors. If you also have a JDK of version 21 or later, compile it once more without `--release` and compare. List each defect and its category from Section 15.6, and say what the assistant's claim “I tested it with Java 17” can and cannot mean.
 - **B2. Diagnose attempt 2.** Run its own tests (`try-attempt.sh 2 generated`), then the acceptance examples (`try-attempt.sh 2 adapted`). Find the failing line, name the shared misunderstanding between the code and its tests, and explain why the acceptance examples were independent evidence (what made them so: how they were derived). Run the generated tests against the accepted finder and say what the one failure shows.
 - **B3. Make the tests bite.** Apply three faults of your choice to the accepted finder in a scratch copy. Predict which acceptance examples fail, run them, and compare. Find one fault that survives and say why.
 - **B4. Fill in a record.** Complete a record for a different, very small task of your own (a method you ask an assistant, or a constructed candidate from a classmate), using the template, and run the record checker on it.
 
-**Minimum required lab: Team project**
+**What you must do: your team's project**
 
 - **T1. Define one AI-assisted task before you prompt.** Pick a small, real task in your project. Write the requirement, the acceptance examples (derived from the requirement, before any candidate), the constraints and the scope. Decide which examples you will share and which you will keep undisclosed, and why.
 - **T2. Run it and keep everything.** Use a live assistant if the rules allow, or an offline route (Section 15.9). Keep each attempt, including the ones you reject. Compile and test with the project's own commands.
 - **T3. Record it.** Fill in the record, including the independent checks and the limits, and put it with the change. Run the record checker.
 
-**Optional extension (Book project and Team project)**
+**If you want more (the book's project and your team's project)**
 
 - **B5. Repeat the lab task with a live assistant**, if you may. Compare its output with the two constructed attempts: which failure modes did it show?
 - **B6. Verify two dependencies.** Look up the coordinates of the constructed suggestion, report the status of each and decide what to do about each.
 - **B7. Swap and find.** Do the classmate exercise of Section 15.9 on a task of your choice.
 - **T4. Agree your team's practice.** Write down, in a short note, what your team will do about: which tools may be used (following the module leader's rules), what may be shared with them, how work is disclosed and recorded, and who reviews AI-assisted changes.
 
-**Expected artefacts:** B1–B4 as above; for the Team project, one defined task with its acceptance examples, the attempts, a record and, if you did T4, a team note.
+What you should end up with is: B1 to B4 as described; for your team's project, one defined task with its acceptance examples, the attempts, a record and, if you did T4, a team note.
 
-**Acceptance conditions:**
+You are done when these things hold:
 
 - the acceptance examples were written before the candidate was requested;
 - every claim the assistant made about itself was checked or marked unchecked;
@@ -382,9 +380,9 @@ Constructed output is **not** a recording of a real model. It is written to illu
 - no secrets or personal data were shared;
 - no live tool was used where the rules forbid it.
 
-**Optional extension:** do the same task twice, once with the acceptance examples in the prompt and once without, and compare the outputs and what each tells you.
+If you want more, do the same task twice, once with the acceptance examples in the prompt and once without, and compare the outputs and what each tells you.
 
-## 15.12 Review and transfer
+## 15.12 Questions to think with, and a transfer challenge
 
 ### Concept questions
 
@@ -402,15 +400,15 @@ Constructed output is **not** a recording of a real model. It is written to illu
 
 A team building an ML model-serving service wants to use an assistant to write a data-validation function and its tests. Plan the task: the requirement and acceptance examples (with synthetic records), the context to share and not to share, what the independent checks are, how you would check any suggested dependency, and what the record would say about what the checks do not show about the model. Say what is different about AI **in** the product, such as the model itself, and why this chapter does not cover it.
 
-## Summary and where to go next
+## What to take away, and where to go next
 
 An assistant gives you candidates. Your job is to define the task, keep the requirement and the examples yours, check the output against evidence the assistant did not write, and record what you accepted and why. The failures are familiar: invented methods, APIs newer than the baseline, dependencies that do not exist, boundaries one step off, tests that repeat the code, abstractions nobody needs, policy changed in passing, claims of testing that nobody ran. Each has an inexpensive check. None of them requires a live service to practise.
 
-This is the last chapter of the book's main sequence. The appendices that follow collect material the chapters point to: notation and a programming refresher, tools and reproducible setup, engineering templates, project checkpoints and a glossary, and a guide to critical reading and project evidence.
+This is the last chapter of the book's main sequence. The appendices that follow collect material the chapters point to: notation and a programming refresher, tools and reproducible setup, engineering templates, the project versions and a glossary, and a guide to critical reading and project evidence.
 
 ## Sources and further reading
 
-Online sources 1–8 were opened on 13 October 2026. Tool and service behaviour changes quickly, so each source is dated by that opening. The lab, the constructed outputs, the experiments and the fixtures are original teaching material.
+Online sources 1–8 were opened on 13 October 2026. Tool and service behaviour changes quickly, so each source is dated by that opening. The lab, the constructed outputs, the experiments and the ready-made examples are original teaching material.
 
 1. GitHub Docs, [Application card: GitHub Copilot inline suggestions](https://docs.github.com/en/copilot/responsible-use/inline-suggestions). One vendor's account of one tool: suggestions can look valid and be incorrect; the user must review and validate them; users assume the risks of generated code, including security, bugs and intellectual property. Used as an example of tool-specific guidance, not as an endorsement.
 2. Oracle, [`List` (Java SE 21)](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html). `getFirst()` and `getLast()`, since 21.

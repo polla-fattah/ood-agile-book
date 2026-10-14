@@ -1,5 +1,5 @@
 ---
-title: "Appendix D: Project Checkpoints and Glossary"
+title: "Appendix D: Project Versions and Glossary"
 description: "Where each chapter's project stands, the counts to expect, the rules of the lending domain as the chapters state them, and a glossary of the book's terms."
 weight: 240
 ---
@@ -13,16 +13,16 @@ The chapters build one project, the Campus Equipment Lending System, and use it 
 
 Everything here is taken from the chapters and their companions. If this appendix and a chapter ever differ, the chapter's companion is the authority, because that is where the code and its checks are listed.
 
-* **D.1** shows how the cumulative project and the isolated examples fit together.
-* **D.2** is the table of checkpoints: version, location, count and command for each chapter.
+* **D.1** shows how the running project and the isolated examples fit together.
+* **D.2** is the table of versions: version, location, count and command for each chapter.
 * **D.3** explains what the counts mean and lists the open questions the chapters name.
 * **D.4** records the rules of the domain, with the chapter that states each.
 * **D.5** suggests how to carry the same questions to another domain.
 * **D.6** is the glossary.
 
-## D.1 The cumulative project and the isolated examples
+## D.1 The running project and the isolated examples
 
-The book keeps two kinds of code apart. The **cumulative project** grows from chapter to chapter and is the code a build must keep working. **Isolated examples** teach one idea in a corner of the repository and are never used by the project.
+The book keeps two kinds of code apart. The **running project** grows from chapter to chapter and is the code a build must keep working. **Isolated examples** teach one idea in a corner of the repository and are never used by the project.
 
 ```mermaid
 flowchart TD
@@ -49,7 +49,7 @@ flowchart TD
     M8 -.-> I15
 ```
 
-**Figure D.1.** Solid arrows are the cumulative project. Dashed arrows lead to examples that are kept apart from it.
+**Figure D.1.** Solid arrows are the running project. Dashed arrows lead to examples that are kept apart from it.
 
 The isolated examples are:
 
@@ -63,7 +63,7 @@ The isolated examples are:
 
 Until Chapter 10 the production code is in the unnamed package. From Chapter 10 it is under `edu.se506.lending`, in the packages `domain`, `application`, `application.port`, `infrastructure`, `presentation` and `bootstrap`.
 
-## D.2 Checkpoints
+## D.2 Versions
 
 The table gives, for each chapter, the project version, where the code lives, the count that the chapter's own build reports, what the chapter adds and the command that runs it. Chapters 1 to 6 report **checks**: the lines a plain-Java checking program prints. From Chapter 7 the build is Maven and the count is of JUnit **invocations** (see D.3). A count from a later chapter includes the earlier ones that it inherits.
 
@@ -80,12 +80,12 @@ The table gives, for each chapter, the project version, where the code lives, th
 | 9 | 0.9.0 | Maven; `behaviour` isolated | 107 invocations: 63 inherited and 44 new | Strategy selection, `NotificationPublisher`, `ReserveEquipmentCommand`, an isolated lifecycle exercise | `mvn --batch-mode verify` |
 | 10 | 0.10.0 | `edu.se506.lending.*`; `examples.structure` isolated | 121 invocations | Named packages, `ReservationRepository`, a console adapter, compiled dependency tests | `mvn --batch-mode verify` |
 | 11 | 0.11.0 | As Chapter 10, plus `legacy` isolated | 159 invocations: 121 inherited, 28 for the legacy report and 10 for the bridge | The legacy overdue report: characterisation, seams, small refactorings | `mvn --batch-mode verify` |
-| 12 | no new version | No code change; `FlowMetrics` in a separate `lab` folder | No new tests; the checkpoint stays at 159 | Flow metrics, the repository lab, the specified change (CR-12) | Plain JDK, as the companion lists |
+| 12 | no new version | No code change; `FlowMetrics` in a separate `lab` folder | No new tests; the version stays at 159 | Flow metrics, the repository lab, the specified change (CR-12) | Plain JDK, as the companion lists |
 | 13 | 0.13.1 | As Chapter 11, plus the visitor change | 232 invocations: 203 unit, 26 integration, 3 end-to-end | The visiting-researcher rules behind a flag, an approval-file adapter, an HTTP directory client, the pipeline | `mvn --batch-mode verify`, `bash scripts/pipeline.sh` |
 | 14 | 0.14.0 | As Chapter 13; no production change | 235 invocations: 206 unit, 26 integration, 3 end-to-end | `TraceabilityTest`, the handover documents, the handover check, a rehearsed flag removal | `mvn --batch-mode verify`, `bash scripts/handover-check.sh` |
 | 15 | 1.0.0 (`assist-lab`) | Separate project, package `assist` | 9 acceptance tests | The AI-assistance lab: two constructed attempts, a record and a record check | `mvn --batch-mode test` in the lab folder |
 
-Chapters 11, 13 and 14 list only the files that are new or changed. To reconstruct a checkpoint, start from the Chapter 10 companion and apply each later companion in order, as each says.
+Chapters 11, 13 and 14 list only the files that are new or changed. To reconstruct a version, start from the Chapter 10 companion and apply each later companion in order, as each says.
 
 ## D.3 What the counts mean, and the questions left open
 
@@ -146,7 +146,7 @@ Periods that meet at a boundary do not overlap. A reservation ending on 22 Octob
 
 ### Identifiers and equality
 
-Identifiers in the examples are `B1` for a borrower, `CAM1` for an item and `R1` for a reservation. The first checkpoints check only that an identifier is not blank; they do not look it up in a directory or catalogue. The coordinator allocates reservation identifiers in sequence, and a rejected request does not use one.
+Identifiers in the examples are `B1` for a borrower, `CAM1` for an item and `R1` for a reservation. The first versions check only that an identifier is not blank; they do not look it up in a directory or catalogue. The coordinator allocates reservation identifiers in sequence, and a rejected request does not use one.
 
 `LoanPeriod` and `Reservation` do not override `equals` or `hashCode`. Two separate objects with the same data are not equal through Java's inherited equality. The repository (Chapter 10) uses the reservation's identifier as its key and rejects a duplicate. Domain identity and Java object identity are different ideas (Chapter 2, Section 2.1, and Chapter 10, Section 10.6).
 
@@ -206,7 +206,7 @@ When a reservation is accepted, the coordinator stores it **before** it notifies
 
 ### The reservation lifecycle (an isolated exercise)
 
-Chapter 9's lifecycle exercise models a reservation as REQUESTED, CONFIRMED, ON_LOAN, RETURNED or CANCELLED. The cumulative system does not use it: it confirms accepted reservations immediately, tracks loans separately and has no cancellation operation.
+Chapter 9's lifecycle exercise models a reservation as REQUESTED, CONFIRMED, ON_LOAN, RETURNED or CANCELLED. The running system does not use it: it confirms accepted reservations immediately, tracks loans separately and has no cancellation operation.
 
 ```mermaid
 stateDiagram-v2
@@ -244,7 +244,7 @@ A method that returns a collection returns an unmodifiable snapshot, `List.copyO
 
 ## D.5 Carrying the questions to another domain
 
-The book builds on equipment lending and supplies no starter checkpoint for another domain. The descriptor names an ML model-serving tool as another possible starter domain. If your team works on one, the same questions apply. The table is a suggestion for reading the book, not a provided checkpoint.
+The book builds on equipment lending and supplies no starter version for another domain. The descriptor names an ML model-serving tool as another possible starter domain. If your team works on one, the same questions apply. The table is a suggestion for reading the book, not a provided version.
 
 | In the lending project | A possible counterpart in a model-serving service | The question to ask |
 |---|---|---|

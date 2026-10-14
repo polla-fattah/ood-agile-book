@@ -18,35 +18,35 @@ layout: page
 
 * **11.1 Working with unfamiliar code**
   * Observe, seam, pin, reshape, then change behaviour.
-* **11.2 Smells as investigation prompts**
+* **11.2 Smells: prompts to investigate, not verdicts**
   * A smell is only worth acting on when it blocks a change.
-* **11.3 Characterisation and regression tests**
+* **11.3 Pinning what the code does: characterisation tests**
   * Record what the code does, even when it looks wrong.
-* **11.4 Seams and dependency isolation**
+* **11.4 Seams: getting hidden dependencies out of the way**
   * Clock, locale and standard output.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **11.5 Extract Method, Extract Class, Move Method and Rename**
+* **11.5 Reshaping the report: Extract, Move and Rename**
   * Four stages of one overdue report.
-* **11.6 Incremental changes and rollback**
+* **11.6 Small steps, and how to step back**
   * One step, one check, one commit.
-* **11.7 Technical debt and evidence**
-* **11.8 AI in practice:** review a refactoring patch.
+* **11.7 Technical debt: say it with evidence**
+* **11.8 Reviewing an AI refactoring patch** review a refactoring patch.
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **11.9 Common mistakes**
-* **11.10 Practical activity**
-  * Book project B1 to B7; Team project T1 to T4.
-* **11.11 Review and transfer**
+* **11.9 Refactoring habits that mislead**
+* **11.10 Try it yourself: pin, seam and refactor the report**
+  * The book's project B1 to B7; your team's project T1 to T4.
+* **11.11 Questions to think with, transfer challenge and Quiz 2 revision**
   * An ML-serving analysis script.
   * **Quiz 2 revision pointers** (Chapters 6 to 10).
-* **Summary and next chapter**
+* **What to take away, and what comes next**
   * Chapter 12: measuring progress and flow.
 
 ---
@@ -69,20 +69,20 @@ By the end of this chapter, you should be able to:
 
 ---
 
-## Module Connection and Scope
+## Where This Chapter Fits
 
 * Supports **LO3 and LO4**. Readings: the refactoring chapter of Martin; **Feathers** on legacy code is the recommended companion. The Week 10 lab is refactoring untested legacy code with regression tests.
 * **Quiz 2** is held in Week 10 and covers dependency injection, TDD and test doubles, design patterns and layered architecture (**Weeks 5 to 9**). **The legacy lab is separate from that scope.**
-* **Entry:** Chapter 10's project and package structure. This chapter adds **one isolated package, `legacy`**, standing for the old records system's overdue report. Production code **must not refer to it**, and the dependency test now checks that.
+* **You start with:** Chapter 10's project and package structure. This chapter adds **one isolated package, `legacy`**, standing for the old records system's overdue report. Production code **must not refer to it**, and the dependency test now checks that.
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core reading:** Sections 11.1 to 11.6.
 * **Working knowledge:** 11.7 (technical debt and evidence): describe debt with evidence and separate defects from preferences. You do not manage a debt register for a real project.
-* **Minimum lab:** **B1 to B3** (Book project: extend the supplied tests, take the first refactoring steps) and **T1 to T4** (your Team project: characterise one untested method and refactor it in small commits).
-* **Optional extension:** B4 to B7, the review questions, the transfer challenge.
+* **Minimum lab:** **B1 to B3** (the book's project: extend the supplied tests, take the first refactoring steps) and **T1 to T4** (your team's project: characterise one untested method and refactor it in small commits).
+* **If you want more:** B4 to B7, the review questions, the transfer challenge.
 
 ---
 
@@ -124,7 +124,7 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 11.1 Working With Unfamiliar Code
+# 11.1 Working with Unfamiliar Code
 ### Legacy means no tests
 
 ---
@@ -284,8 +284,8 @@ public static String build(List<LoanRow> rows) {
 
 ---
 
-# 11.2 Smells as Investigation Prompts
-### A smell is a prompt, not a verdict
+# 11.2 Smells
+### Prompts to investigate, not verdicts
 
 ---
 
@@ -336,8 +336,8 @@ public static String build(List<LoanRow> rows) {
 
 ---
 
-# 11.3 Characterisation and Regression Tests
-### Record what the code does
+# 11.3 Pinning What the Code Does
+### Characterisation tests
 
 ---
 
@@ -481,8 +481,8 @@ void otherKindsPayTheFullRateWithNoGraceOrCap(String kind, int daysLate, String 
 
 ---
 
-# 11.4 Seams and Dependency Isolation
-### The smallest edit that lets you test
+# 11.4 Seams
+### Getting hidden dependencies out of the way
 
 ---
 
@@ -560,7 +560,7 @@ public static String build(List<LoanRow> rows, LocalDate today) {
 ## The Locale and the Output Stream
 
 * Left alone, because changing them would be **a bigger edit than the tests justify**. The tests deal with them instead:
-  * a fixture sets the default locale to `Locale.ROOT` before each test and **restores it**;
+  * a setup sets the default locale to `Locale.ROOT` before each test and **restores it**;
   * one test sets `Locale.GERMANY` and records the comma;
   * one test replaces `System.out` and **restores it in a `finally` block**.
 * Both are **global, process-wide state**. Such tests cannot safely run in parallel, and one that forgets to restore **breaks an unrelated test far away**.
@@ -576,8 +576,8 @@ public static String build(List<LoanRow> rows, LocalDate today) {
 
 ---
 
-# 11.5 Extract Method, Extract Class, Move Method and Rename
-### Four stages, each checked
+# 11.5 Reshaping the Report
+### Extract, Move and Rename
 
 ---
 
@@ -731,7 +731,7 @@ if (daysLate > 0) {
 
 ---
 
-# 11.6 Incremental Changes and Rollback
+# 11.6 Small Steps, and How to Step Back
 ### One step, one check, one commit
 
 ---
@@ -822,8 +822,8 @@ if (daysLate > 0) {
 
 ---
 
-# 11.7 Technical Debt and Evidence
-### A claim needs evidence
+# 11.7 Technical Debt
+### Say it with evidence
 
 ---
 
@@ -887,32 +887,32 @@ if (daysLate > 0) {
 
 ---
 
-# 11.8 AI in Practice: Review a Refactoring Patch
+# 11.8 Reviewing an AI Refactoring Patch
 ### "Equivalent" is a claim to trace
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide whether a proposed refactoring patch preserves behaviour, using evidence rather than the patch's own claims |
-| Input | The refactored `OverdueReport` from 11.5, the characterisation suite and the differential test |
-| Permitted scope | Evaluate and, if worthwhile, repair the patch; **do not change the tests to make it pass** |
+| Your goal | Decide whether a proposed refactoring patch preserves behaviour, using evidence rather than the patch's own claims |
+| You start with | The refactored `OverdueReport` from 11.5, the characterisation suite and the differential test |
+| What is in bounds | Evaluate and, if worthwhile, repair the patch; **do not change the tests to make it pass** |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | Trace the boundary case by hand; apply each claim to a scratch copy; run the suite; read each failing test |
-| Accept or reject | A verdict on each claim, with the failing tests as evidence |
-| No-account route | The fixture is sufficient |
+| How to check | Trace the boundary case by hand; apply each claim to a scratch copy; run the suite; read each failing test |
+| How to decide | A verdict on each claim, with the failing tests as evidence |
+| No AI account? | The ready-made example is enough |
 
 ---
 
-## The Fixture
+## The Ready-Made Example
 
 **Author-written fictional AI output.**
 
@@ -964,7 +964,7 @@ if (!row.due.isAfter(today)) {
 
 ---
 
-# 11.9 Common Mistakes
+# 11.9 Refactoring Habits That Mislead
 ### Eleven to avoid
 
 ---
@@ -1001,14 +1001,14 @@ if (!row.due.isAfter(today)) {
 
 ---
 
-# 11.10 Practical Activity
-### Book project B1 to B7; Team project T1 to T4
+# 11.10 Try It Yourself
+### Pin, seam and refactor the report
 
 ---
 
 ## Input and Demonstrations
 
-* **Input:** the Chapter 10 checkpoint plus the `legacy` package (`LoanRow`, the stage 1 report, the characterisation suite, the differential test, the probe) and your Team project's repository.
+* **You start with:** the Chapter 10 version plus the `legacy` package (`LoanRow`, the stage 1 report, the characterisation suite, the differential test, the probe) and your team's repository.
 * **Demonstration:** run the legacy report on one day and then another (or two dates through the seam) to show **why the clock must be isolated**. Run the probe. **Pin one surprising result live, with its comment.**
 * **Guided practice:** classify five pinned results from 11.3 and say what you would ask the records office about each.
 
@@ -1031,7 +1031,7 @@ if (!row.due.isAfter(today)) {
 
 ---
 
-## B3 and the Team Project Steps
+## B3 and Your Team's Project Steps
 
 * **B3. Report your findings.** What changed structurally, **what you checked after each step**, what **did not change on purpose** (and why), and which **questions remain**. Add one **suspected-defect register** entry.
 * **T1. Choose** one method in your starter codebase with a smell and no tests, that you have a reason to change. Reading note: observation, how you know, status.
@@ -1041,7 +1041,7 @@ if (!row.due.isAfter(today)) {
 
 ---
 
-## Optional Extension (Book Project)
+## If You Want More: The Book's Project
 
 * **B4. Break the boundary on purpose:** change `daysLate > 0` to `daysLate >= 0`. **Predict which tests fail before you run them**, read the messages, restore.
 * **B5. A separate functional change:** unknown kinds are rejected. Replace pinned tests deliberately; restrict the differential test; write the commit message to say what changed and why.
@@ -1059,9 +1059,9 @@ if (!row.due.isAfter(today)) {
 
 ---
 
-## Expected Artefacts and Acceptance
+## What You Should End Up With, and When You Are Done
 
-* **Artefacts:** B1 to B3 with the commits or stage files; for the Team project, observation notes, characterisation tests, **at least three refactoring commits**, the rationale and the review.
+* **What you should end up with:** B1 to B3 with the commits or stage files; for your team's project, observation notes, characterisation tests, **at least three refactoring commits**, the rationale and the review.
 * **Accept when:** every characterisation test was **run before its expectation was recorded**; surprising and suspect results are commented; **no refactoring commit changes behaviour**; tests pass after every commit; the seam edit is mechanical and was checked against the original; questions are recorded, **not silently fixed**; signatures others depend on are unchanged.
 * A passing suite is evidence for the behaviours it covers, **not a proof of equivalence**.
 
@@ -1109,7 +1109,7 @@ if (!row.due.isAfter(today)) {
 
 ---
 
-# 11.11 Review and Transfer
+# 11.11 Questions to Think with, Transfer Challenge and Quiz 2 Revision
 ### Concept, diagnosis, transfer, Quiz 2
 
 ---
@@ -1166,7 +1166,7 @@ An analysis script in an ML model-serving tool formats prediction scores for a d
 
 ## Transfer Guidance
 
-* **Seams:** a date parameter on the entry point; pin the locale in the fixture; capture standard output once.
+* **Seams:** a date parameter on the entry point; pin the locale in the example data; capture standard output once.
 * **Pin first:** a score at **each boundary** of a model type's rule; one at the **maximum**; an **unknown model type**; an **empty list**; a **null**; the **locale** case.
 * **Refactor:** Extract Method for the formatting; Extract Class for the three near-identical branches (a small value object holding **what differs**); Rename.
 * **Question, not fix:** whatever **an unknown model type does today**.
@@ -1202,7 +1202,7 @@ An analysis script in an ML model-serving tool formats prediction scores for a d
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---

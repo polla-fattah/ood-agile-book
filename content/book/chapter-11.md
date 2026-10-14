@@ -246,7 +246,7 @@ A better seam would be a `PrintStream` parameter on `print`, and a locale argume
 
 Two other seams appear in legacy code and are worth knowing by name. In **subclass and override** you make a class non-final, and a test subclass replaces one method. In **extract interface** you put a dependency behind an interface, which is exactly the move of Chapter 6. Both change more code than a parameter does, so choose the smallest seam that gets the code under test.
 
-## 11.5 Reshaping the report: Extract Method, Extract Class, Move Method and Rename
+## 11.5 Reshaping the report: Extract, Move and Rename
 
 Refactorings have names so that a team can say what it did and a reviewer can check it. Fowler's catalogue calls the first one Extract Function and the second Move Function; the first edition called them Extract Method and Move Method, and the names are used interchangeably [2][15]. The companion lists the full file for every step. The steps below follow the order in which they were applied, and the characterisation tests and the differential test passed after each one.
 
@@ -503,7 +503,7 @@ Do not claim a review or CI run that has not happened. A passing suite is eviden
 
 If you want more, extend the differential test to generate null items and borrowers, and say what a difference would mean. Keep this separate from the refactoring steps.
 
-## 11.11 Questions to think with, a transfer challenge, and Quiz 2 revision
+## 11.11 Questions to think with, transfer challenge and Quiz 2 revision
 
 ### Concept questions
 

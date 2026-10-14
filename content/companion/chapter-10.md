@@ -9,13 +9,13 @@ description: "Code explanations and solutions for Chapter 10 Companion: Code, Ex
 
 ## 1. Scope and execution
 
-This file accompanies Chapter 10, From Classes to Application Structure. It contains the complete restructured checkpoint, migration instructions, an architecture decision, tests and model solutions. The starting implementation is the Chapter 9 companion.
+This file accompanies Chapter 10, From Classes to Application Structure. It contains the complete restructured version, migration instructions, an architecture decision, tests and model solutions. The starting implementation is the Chapter 9 companion.
 
-The change introduces named application packages, a focused reservation repository boundary and a thin console adapter. It preserves the demonstrated use-case outcomes. Package names, imports, constructor wiring and launcher names change; source and binary compatibility with the unnamed-package checkpoint are not claimed.
+The change introduces named application packages, a focused reservation repository boundary and a thin console adapter. It preserves the demonstrated use-case outcomes. Package names, imports, constructor wiring and launcher names change; source and binary compatibility with the unnamed-package version are not claimed.
 
-### 1.1 Reconstruct a clean checkpoint
+### 1.1 Reconstruct a clean version
 
-Create a new directory named `after`. Save every labelled file listing in Sections 3–5 at its indicated path, including `.gitattributes` and `tools/PackageMetrics.java`. Copy only fence contents, preserving case and creating intermediate directories. README and ADR listings use four backticks where appropriate. Start with a clean directory: leaving the old unnamed-package source files beside the migrated files would create a misleading mixed checkpoint.
+Create a new directory named `after`. Save every labelled file listing in Sections 3–5 at its indicated path, including `.gitattributes` and `tools/PackageMetrics.java`. Copy only fence contents, preserving case and creating intermediate directories. README and ADR listings use four backticks where appropriate. Start with a clean directory: leaving the old unnamed-package source files beside the migrated files would create a misleading mixed version.
 
 Use a **full Java 17 JDK**, including the `jdk.jdeps` module, and Maven 3.9.11. JUnit Jupiter 5.13.4, Mockito 5.20.0, Compiler Plugin 3.14.1 and Surefire 3.5.4 remain pinned. The Maven project version becomes 0.10.0. Initial builds require dependency access.
 
@@ -42,7 +42,7 @@ This command reports dependencies; `DependencyRulesTest` applies this project's 
 
 ### 1.2 Expected output and earlier launchers
 
-The new demonstration prints the same five lines as Chapter 8's fixture, now through a thin console adapter:
+The new demonstration prints the same five lines as Chapter 8's example, now through a thin console adapter:
 
 ```text
 Confirmed: R1 for B2 on CAM1 [2026-10-20, 2026-10-30).
@@ -109,7 +109,7 @@ All package names in this table are beneath `edu.se506.lending` unless otherwise
 | `regression` in test sources | All formerly unnamed-package tests and legacy check runners |
 | `structure` in test sources | RepositoryBoundaryTest, ValueSemanticsTest, ReservationConsoleTest, DependencyRulesTest |
 | Existing top-level `patterns` and `behaviour` packages | Earlier isolated examples and their tests, unchanged |
-| New top-level `examples.structure` | PeriodValue equality demonstration, not part of the cumulative domain |
+| New top-level `examples.structure` | PeriodValue equality demonstration, not part of the running domain |
 
 Expected-failure types belong to the application ports because callers should not need provider-specific exception types. The adapter still translates the provider's declared failure to the application-facing exception.
 
@@ -117,7 +117,7 @@ Expected-failure types belong to the application ports because callers should no
 
 Previously, ReservationCoordinator owned an ArrayList directly and accepted policies, formatter and sender. It now accepts those three dependencies plus a ReservationRepository as its fourth argument. Its scans use repository snapshots, insertion uses `add`, and `reservations()` returns the repository's specified snapshot.
 
-ReservationApplication.create(sender) constructs a fresh InMemoryReservationRepository and passes it to the coordinator. Direct coordinator constructions in the earlier checks and Strategy fixture are updated with the same explicit adapter. Their assertions and expected outcomes remain intact.
+ReservationApplication.create(sender) constructs a fresh InMemoryReservationRepository and passes it to the coordinator. Direct coordinator constructions in the earlier checks and Strategy example are updated with the same explicit adapter. Their assertions and expected outcomes remain intact.
 
 No compatibility constructor instantiates infrastructure inside the application package. Such a shortcut would undermine the dependency boundary being demonstrated. Consumers update construction or use the factory in its new bootstrap package.
 
@@ -129,7 +129,7 @@ The factory supplies one new, empty repository for one sequential coordinator/se
 
 Storage still precedes notification. A repository that throws before adding does not trigger notification. A future implementation that writes and then loses acknowledgement presents a different failure case; this chapter does not claim to solve it.
 
-The existing cumulative LoanPeriod remains immutable but keeps inherited Java object equality. PeriodValue separately demonstrates record equality and hashing. No entity lifecycle, policy limit, availability rule or cancellation behaviour changes during this restructuring.
+The existing running LoanPeriod remains immutable but keeps inherited Java object equality. PeriodValue separately demonstrates record equality and hashing. No entity lifecycle, policy limit, availability rule or cancellation behaviour changes during this restructuring.
 
 ### 2.4 Declared production dependency rules
 
@@ -142,15 +142,15 @@ The existing cumulative LoanPeriod remains immutable but keeps inherited Java ob
 | Presentation | Domain, application and presentation |
 | Bootstrap | All application packages and explicitly demonstrated isolated examples |
 
-Ordinary production layers cannot depend on `patterns`, `behaviour` or `examples`. Bootstrap may launch an isolated demonstration; test fixtures may assemble whatever they need. The gate examines compiled production classes, not test classes. Standard-library dependencies are outside this local package matrix.
+Ordinary production layers cannot depend on `patterns`, `behaviour` or `examples`. Bootstrap may launch an isolated demonstration; test setups may assemble whatever they need. The gate examines compiled production classes, not test classes. Standard-library dependencies are outside this local package matrix.
 
 The test catches local bytecode dependency edges, including fully qualified references. A second test builds the package-to-package graph from the same edges and fails if it contains a cycle; the matrix alone would let two infrastructure packages refer to each other. The cycle check looks at the lending packages only. It is not an enforcement of all possible third-party-library policies, reflection, configuration or semantic responsibility. The permitted infrastructure-to-application edge accommodates ports and the retained shared ConfirmationFormatter.
 
 ### 2.5 Assertions and fixes carried forward from Chapters 3–9
 
-Several strengthened checks do not change the JUnit count, so a green total cannot show that a migration kept them. This table lists what must survive, and where it lives in this checkpoint.
+Several strengthened checks do not change the JUnit count, so a green total cannot show that a migration kept them. This table lists what must survive, and where it lives in this version.
 
-| Origin | Preserved item | Location in this checkpoint |
+| Origin | Preserved item | Location in this version |
 |---|---|---|
 | Chapter 3 | The AC-03 request that ends exactly where an existing reservation starts, as well as the request that starts where one ends (five acceptance groups) | `regression/Chapter03AcceptanceExamples.java` |
 | Chapter 4 | `.gitattributes` keeping `scripts/check.sh` in LF form | `.gitattributes` |
@@ -160,15 +160,15 @@ Several strengthened checks do not change the JUnit count, so a green total cann
 | Chapter 8 | `plain.run(null)` throws `NullPointerException` | `patterns/PatternExamplesTest.java` |
 | Chapter 9 | Command construction rejects a null receiver, a blank borrower, a null item and a null start, and the confirmation is compared exactly, period included | `regression/ReserveEquipmentCommandTest.java` |
 
-To check a migration yourself, compare each migrated file with its Chapter 9 original, ignoring `package` and `import` lines. In this checkpoint the only differences are the repository argument added to coordinator constructions (in `BehaviourStrategyTest`, `Chapter06Checks` and `ReservationApplication`) and the coordinator's own storage code.
+To check a migration yourself, compare each migrated file with its Chapter 9 original, ignoring `package` and `import` lines. In this version the only differences are the repository argument added to coordinator constructions (in `BehaviourStrategyTest`, `Chapter06Checks` and `ReservationApplication`) and the coordinator's own storage code.
 
 ### 2.6 What the package metrics do and do not show
 
-The table in Section 1.3 is a measurement of the compiled checkpoint, not a judgement. With one to eight classes per package a single added class moves a ratio by several hundredths. The one arrow that points to a slightly less stable package (`infrastructure.notification` at 0.30 to `application` at 0.31) is the concrete `ConfirmationFormatter` dependency that Section 6.2 already describes. The isolated packages `patterns` and `examples.structure` have no local references in either direction, so their instability is undefined; `behaviour` is referenced by `Chapter09Demo`, so Ca = 1 and I = 0.
+The table in Section 1.3 is a measurement of the compiled version, not a judgement. With one to eight classes per package a single added class moves a ratio by several hundredths. The one arrow that points to a slightly less stable package (`infrastructure.notification` at 0.30 to `application` at 0.31) is the concrete `ConfirmationFormatter` dependency that Section 6.2 already describes. The isolated packages `patterns` and `examples.structure` have no local references in either direction, so their instability is undefined; `behaviour` is referenced by `Chapter09Demo`, so Ca = 1 and I = 0.
 
 ## 3. Complete production and isolated example sources
 
-The following files reconstruct the complete checkpoint. Package declarations and directory paths are part of each listing and must be preserved.
+The following files reconstruct the complete version. Package declarations and directory paths are part of each listing and must be preserved.
 
 ### 3.1 `after/src/main/java/behaviour/LifecycleExamples.java`
 
@@ -3329,13 +3329,13 @@ ReservationConsole delegates a request to DirectoryReservationService and prints
 
 A separate test makes the directory fail. The same exception propagates and the output buffer remains empty. The console does not manufacture a success message or silently substitute a category.
 
-The class is intentionally small. It does not read input, manage authentication, catch every exception or implement a graphical interface. Those would be new product requirements. Bootstrap remains responsible for selecting fixtures and collaborators.
+The class is intentionally small. It does not read input, manage authentication, catch every exception or implement a graphical interface. Those would be new product requirements. Bootstrap remains responsible for selecting examples and collaborators.
 
 ### 6.4 Equality, identity and snapshot observations
 
 The repository duplicate-ID test creates two distinct Reservation objects with the same identifier and different item data. The second add rejects, and the original object remains stored. This uses explicit domain identity rather than relying on Reservation.equals.
 
-ValueSemanticsTest makes the separate PeriodValue record's behaviour visible through equals, hashCode and a set. It also deliberately checks that cumulative LoanPeriod objects with equal dates remain unequal under their inherited Java equality. That regression prevents the structural migration from silently adopting a new equality policy.
+ValueSemanticsTest makes the separate PeriodValue record's behaviour visible through equals, hashCode and a set. It also deliberately checks that running LoanPeriod objects with equal dates remain unequal under their inherited Java equality. That regression prevents the structural migration from silently adopting a new equality policy.
 
 The repository snapshot test takes an empty snapshot, appends one record, takes another snapshot, and appends a second record. Both earlier snapshots remain unchanged, the new snapshot preserves insertion order, and mutation through the returned list is rejected. This promise relies on immutable values as well as an unmodifiable list.
 
@@ -3344,21 +3344,21 @@ The repository snapshot test takes an empty snapshot, appends one record, takes 
 | Test class | Invocations | Purpose |
 |---|---:|---|
 | RepositoryBoundaryTest | 7 | Snapshot semantics, duplicate/null rejection, storage-before-notification, failed add, independent sessions and a required repository |
-| ValueSemanticsTest | 2 | Separate record equality and preserved cumulative period equality |
+| ValueSemanticsTest | 2 | Separate record equality and preserved running period equality |
 | ReservationConsoleTest | 3 | Existing output contract, a staff request above the student limit, and unhidden directory failure |
 | DependencyRulesTest | 2 | Compiled production references against the local package matrix; no package cycle |
 | Migrated earlier suite | 107 | Existing policies, directory, loan, notification, pattern and lifecycle examples |
-| Total | 121 | Complete checkpoint gate |
+| Total | 121 | Complete version gate |
 
 Three of these tests exist because the fault experiment in Section 11.2 found gaps. `coordinatorRequiresARepository` pins the constructor's null check. `staffRequestAboveTheStudentLimitIsDecidedByThePolicyNotTheConsole` sends a ten-day staff request through the console: a console test that used only a student would let a console that quietly enforced the seven-day rule itself pass. `productionPackagesHaveNoDependencyCycles` closes the gap that the layer matrix leaves inside one layer.
 
-The failing-add fixture throws before storing anything. It establishes that notification follows a successful add in this implementation path. It does not establish the outcome of a database write whose acknowledgement is lost. Likewise, the architecture check establishes observed static relationships, not semantic correctness or runtime transactionality.
+The failing-add example throws before storing anything. It establishes that notification follows a successful add in this implementation path. It does not establish the outcome of a database write whose acknowledgement is lost. Likewise, the architecture check establishes observed static relationships, not semantic correctness or runtime transactionality.
 
 ## 7. Suggested practical solution
 
 ### 7.1 A reviewable migration sequence
 
-Start from the tested Chapter 9 checkpoint. Identify each class's responsibility before moving it. Introduce the package layout and update imports and launcher names. Keep the separate pattern and lifecycle exercises separate.
+Start from the tested Chapter 9 version. Identify each class's responsibility before moving it. Introduce the package layout and update imports and launcher names. Keep the separate pattern and lifecycle exercises separate.
 
 Extract the reservation storage port with the minimum operations needed by the coordinator. Move the concrete collection into its adapter. Update bootstrap and direct test constructions to pass that adapter explicitly. Avoid an application constructor that secretly creates infrastructure to retain the old signature.
 
@@ -3388,7 +3388,7 @@ The worked decision declines a database, generic CRUD framework and dependency-i
 
 Replace validation statements with the results for the actual submitted revision. Do not present this draft as an independent review or a hosted CI run.
 
-### 7.4 Model answers: Book project steps B1–B3
+### 7.4 Model answers: the book's project steps B1–B3
 
 **B1. Classify.**
 
@@ -3412,7 +3412,7 @@ Replace validation statements with the results for the actual submitted revision
 
 **Experiment behind Option B in the chapter.** `NotificationException` was moved to `infrastructure.notification` in a copy and its imports changed. The direction test failed with `application.ReservationCoordinator -> infrastructure.notification.NotificationException`, and the cycle test failed with `application -> infrastructure.notification -> application`. Both tests together reject the placement.
 
-### 7.5 Guidance for the Team project steps T1–T5
+### 7.5 Guidance for your team's project steps T1–T5
 
 These are not model answers, because the content is your team's. They describe what a good answer shows.
 
@@ -3435,11 +3435,11 @@ These are not model answers, because the content is your team's. They describe w
 
 A dependency review should name the referencing type and referenced type. “Infrastructure coupling” without that trace is a claim to investigate. Conversely, legal imports do not prove appropriate responsibilities: a console can duplicate a policy using only standard Java types and still violate the intended design.
 
-The offline fixture is author-written fictional AI output. If a live assistant is used, retain relevant actual output, independently inspect references and record accepted/rejected claims. No account or paid service is needed for the supplied exercise.
+The offline example is author-written fictional AI output. If a live assistant is used, retain relevant actual output, independently inspect references and record accepted/rejected claims. No account or paid service is needed for the supplied exercise.
 
 ## 9. Intentionally flawed alternatives
 
-These fragments are **diagnostic alternatives**, not additional files to compile alongside the final checkpoint. Each of them corresponds to a fault that was run in the experiment in Section 11.2.
+These fragments are **diagnostic alternatives**, not additional files to compile alongside the final version. Each of them corresponds to a fault that was run in the experiment in Section 11.2.
 
 ### 9.1 Construct infrastructure inside the coordinator
 
@@ -3495,7 +3495,7 @@ A student request over seven days prints the right text, so the original console
 
 **5. Duplicated presentation policy:** the console and API can disagree if only one contains the copied seven-day check. Put the rule in the domain policy and delegate both entry points to the same application operation. A test can send the same student request through both entry points and compare outcomes and stored state. Also test an allowed staff duration to expose an over-general console rule that rejects every request above seven days.
 
-**6. Duplicate IDs do not prevent concurrent booking conflicts:** two requests can both observe a free interval and then append different IDs. Even unique identifiers do not make the preceding eligibility/conflict checks and insertion atomic. Define a transaction, locking or constraint strategy appropriate to the real store and test the relevant concurrent outcome before claiming safety. That implementation is beyond this sequential checkpoint.
+**6. Duplicate IDs do not prevent concurrent booking conflicts:** two requests can both observe a free interval and then append different IDs. Even unique identifiers do not make the preceding eligibility/conflict checks and insertion atomic. Define a transaction, locking or constraint strategy appropriate to the real store and test the relevant concurrent outcome before claiming safety. That implementation is beyond this sequential version.
 
 **7. Stability numbers at the extremes:** `bootstrap` has I = 1.00 because nothing depends on it, so it can change freely; that is appropriate for the place that chooses concrete classes. Changing it disturbs nobody else, but it must not accumulate business rules, which would then be hard to reuse or test. `domain` has I = 0.00 because sixteen classes depend on it and it depends on nothing else in the application. A change to it can ripple into every other package, so it is kept small and free of mechanisms. Neither number is a defect.
 
@@ -3521,7 +3521,7 @@ Run the thin console demonstration and the complete build. Ask students which te
 
 For Milestone 3, use the module leader's approved requirements. The chapter supplies a sample decision and PR description, but learners must obtain and record actual peer review. The sample is an example: it has no real reviewer and no hosted CI run behind it.
 
-**Book project and Team project.** Keep the two apart in class. The supplied checkpoint, ADR-010 and the sample PR description are the Book project: students read, trace and diagnose them (steps B1–B3) and are not asked to rebuild them. Milestone 3 evidence comes from each team's own repository (steps T1–T5). A team that copies ADR-010's decision has not shown its own architectural judgement; ask what problem in their code the decision solves. A team on another provided domain applies the same steps to that domain's starter codebase and uses the transfer challenge for orientation.
+**The book's project and your team's project. Keep the two apart in class. The supplied version, ADR-010 and the sample PR description are the book's project: students read, trace and diagnose them (steps B1–B3) and are not asked to rebuild them. Milestone 3 evidence comes from each team's own repository (steps T1–T5). A team that copies ADR-010's decision has not shown its own architectural judgement; ask what problem in their code the decision solves. A team on another provided domain applies the same steps to that domain's starter codebase and uses the transfer challenge for orientation.
 
 **Teaching the package-design material.** Start from the five change requests in Section 10.5 of the chapter and ask students to predict the packages that change before showing the answers. Then show the metrics table and ask which arrow is the odd one out. Resist the urge to turn the numbers into a score: the point is to decide what to examine. Show the `NotificationException` experiment only after students have argued for Option A or Option B.
 

@@ -16,38 +16,38 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **3.1 Uncertainty and feedback**
+* **3.1 What do we not know yet? Uncertainty and feedback**
   * Four kinds of uncertainty, and the evidence that reduces each.
-* **3.2 Agile values and principles**
+* **3.2 What the Agile values mean for real project decisions**
   * Preferences, not prohibitions, applied to project decisions.
-* **3.3 Iterations and increments**
+* **3.3 Iteration or increment? Two kinds of progress**
   * Related but different, and neither is a public release.
-* **3.4 Scrum accountabilities, events and artefacts**
+* **3.4 Scrum: who is accountable, what happens when, what it produces**
   * The November 2020 Scrum Guide, and what a classroom adapts.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **3.5 Kanban and an explicit workflow**
+* **3.5 Kanban: making the workflow visible**
   * A five-column board, a combined WIP limit, a provisional expectation.
-* **3.6 Epics, user stories and INVEST**
+* **3.6 From “manage equipment” to a story: epics, user stories and INVEST**
   * From "manage equipment" to a small, testable story and an ordered backlog.
-* **3.7 Acceptance criteria and Definition of Done**
+* **3.7 Is the story finished? Acceptance criteria and Definition of Done**
   * Behaviour of one item versus the standard for every increment.
-* **3.8 Relative estimation and uncertainty**
+* **3.8 Estimating without pretending to know: relative estimation**
   * Story points as a conversation, not a guarantee.
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **3.9 AI in practice: challenge a story without inventing policy**
+* **3.9 Challenging a story with AI without letting it invent policy**
   * Seven suggestions: accept, reject for this story, or clarify.
-* **3.10 Practical activity: create a draft backlog**
-  * Parts A to C on your Team project.
-* **3.11 Common mistakes** and **3.12 Review questions and transfer challenge**
-* **3.13 Chapter summary**
+* **3.10 Try it yourself: build a draft backlog**
+  * Parts A to C on your team's project.
+* **3.11 Habits that sound agile but are not** and **3.12 Questions to think with**
+* **What to take away, and what comes next**
   * Into Chapter 4: from requirements to an iteration.
 
 ---
@@ -70,13 +70,13 @@ After completing this chapter, you should be able to:
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core reading:** Sections 3.1 to 3.9.
-* **Minimum required lab:** Parts A to C of Section 3.10, on your **Team project**.
+* **What you must do:** Parts A to C of Section 3.10, on your team's project.
   * The equipment-lending backlog in this chapter is the **worked model, not your evidence**.
   * Evidence needs no code or tools beyond a text editor or a board.
-* **Optional extension:** the plain-Java acceptance check at the end of 3.10, then the review questions and the transfer challenge.
+* **If you want more:** the plain-Java acceptance check at the end of 3.10, then the questions and the transfer challenge.
 
 ---
 
@@ -86,7 +86,7 @@ After completing this chapter, you should be able to:
 * The chapter assumes Chapter 2's objects, date convention and basic review workflow.
 * It needs **no project-management platform and no new Java framework**.
 * The **companion** holds worked backlog items, board policies, exercise solutions and an optional executable bridge from acceptance examples to the existing Java.
-* The cumulative application **stays at Chapter 2's completed checkpoint**. This chapter plans future work; it does not claim features already exist.
+* The running application **stays at Chapter 2's completed version**. This chapter plans future work; it does not claim features already exist.
 
 ---
 
@@ -130,8 +130,8 @@ After completing this chapter, you should be able to:
 
 ---
 
-# 3.1 Uncertainty and Feedback
-### Naming the uncertainty before choosing the action
+# 3.1 What Do We Not Know Yet?
+### Uncertainty and feedback
 
 ---
 
@@ -177,7 +177,7 @@ After completing this chapter, you should be able to:
 
 ## A Discovery Is Not Automatically a Defect
 
-* The implementation currently **allows adjacent bookings**. That matches our teaching rule.
+* The implementation currently **allows adjacent bookings**. That matches our rule invented for this book.
 * If the officer asks for an **inspection day between loans**, the team has found a **possible policy change**, not a defect in the original comparison.
 * Record: **who proposed it**, **why it matters**, and **which examples would differ** if it were adopted.
 
@@ -191,7 +191,7 @@ After completing this chapter, you should be able to:
 
 ---
 
-# 3.2 Agile Values and Principles
+# 3.2 What the Agile Values Mean for Real Project Decisions
 ### Preferences, not prohibitions
 
 ---
@@ -247,8 +247,8 @@ After completing this chapter, you should be able to:
 
 ---
 
-# 3.3 Iterations and Increments
-### Related but different
+# 3.3 Iteration or Increment?
+### Two kinds of progress
 
 ---
 
@@ -303,8 +303,8 @@ After completing this chapter, you should be able to:
 
 ---
 
-# 3.4 Scrum Accountabilities, Events and Artefacts
-### The November 2020 Scrum Guide
+# 3.4 Scrum
+### Who is accountable, what happens when, what it produces
 
 ---
 
@@ -490,8 +490,8 @@ After completing this chapter, you should be able to:
 
 ---
 
-# 3.5 Kanban and an Explicit Workflow
-### Flow, limits and policies
+# 3.5 Kanban
+### Making the workflow visible
 
 ---
 
@@ -623,8 +623,8 @@ After completing this chapter, you should be able to:
 
 ---
 
-# 3.6 Epics, User Stories and INVEST
-### From "manage equipment" to a small, testable outcome
+# 3.6 From “Manage Equipment” to a Story
+### Epics, user stories and INVEST
 
 ---
 
@@ -733,8 +733,8 @@ After completing this chapter, you should be able to:
 
 ---
 
-# 3.7 Acceptance Criteria and Definition of Done
-### One item versus every increment
+# 3.7 Is the Story Finished?
+### Acceptance criteria and Definition of Done
 
 ---
 
@@ -770,7 +770,7 @@ After completing this chapter, you should be able to:
 
 ## What the Criteria Do Not Establish
 
-* They describe a **controlled demonstration** using non-blank, agreed fixture identifiers and representable dates.
+* They describe a **controlled demonstration** using non-blank, agreed sample identifiers and representable dates.
 * They do **not** establish catalogue membership, authentication, persistence or concurrency safety.
 * Those omissions must **remain visible** when judging what kind of product the story represents.
 
@@ -921,8 +921,8 @@ All 5 acceptance examples passed.
 
 ---
 
-# 3.8 Relative Estimation and Uncertainty
-### A conversation, not a guarantee
+# 3.8 Estimating Without Pretending to Know
+### Relative estimation
 
 ---
 
@@ -990,7 +990,7 @@ All 5 acceptance examples passed.
 
 | Item | Estimate | Assumption or uncertainty |
 |---|---:|---|
-| US-02 local availability enquiry | 3 points | Known fixture identifiers, existing date convention, no external catalogue |
+| US-02 local availability enquiry | 3 points | Known sample identifiers, existing date convention, no external catalogue |
 | US-03 one borrower's active records | 2 points | "Active" unchanged; officer-operated controlled demonstration |
 | US-04 cancellation | Not yet estimated | Authority, permitted lifecycle states and effect on counts unresolved |
 
@@ -998,7 +998,7 @@ All 5 acceptance examples passed.
 
 ---
 
-# 3.9 AI in Practice: Challenge a Story
+# 3.9 Challenging a Story with AI Without Letting It Invent Policy
 ### Without inventing policy
 
 ---
@@ -1012,29 +1012,29 @@ All 5 acceptance examples passed.
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide which suggestions belong in the story, which do not and which need a stakeholder |
-| Input | US-01, AC-01 through AC-05, and Chapter 2's scope |
-| Permitted scope | Classify the suggestions; do not change the policy, the code or the story's scope on your own |
+| Your goal | Decide which suggestions belong in the story, which do not and which need a stakeholder |
+| You start with | US-01, AC-01 through AC-05, and Chapter 2's scope |
+| What is in bounds | Classify the suggestions; do not change the policy, the code or the story's scope on your own |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | The stated rules, the Chapter 2 code and checks, the story's scope |
-| Accept or reject | **Accept**, **reject for this story**, or **clarify** with a named person or decision |
-| No-account route | The fixture is sufficient |
+| How to check | The stated rules, the Chapter 2 code and checks, the story's scope |
+| How to decide | **Accept**, **reject for this story**, or **clarify** with a named person or decision |
+| No AI account? | The ready-made example is enough |
 
 ---
 
-## The Teaching Fixture (1 of 2)
+## The Ready-Made Example (1 of 2)
 
-An **author-written teaching fixture**, not a captured response from a real model.
+An **ready-made example written by the author**, not a captured response from a real model.
 
 1. A request for the same item and an identical period must be refused.
 2. A request that begins exactly when an existing period ends must be refused.
@@ -1043,7 +1043,7 @@ An **author-written teaching fixture**, not a captured response from a real mode
 
 ---
 
-## The Teaching Fixture (2 of 2)
+## The Ready-Made Example (2 of 2)
 
 5. Specify how start dates that are already in the past are treated.
 6. A deposit payment must be taken before any reservation can be confirmed.
@@ -1094,15 +1094,15 @@ An **author-written teaching fixture**, not a captured response from a real mode
 
 ---
 
-# 3.10 Practical Activity: Create a Draft Backlog
-### Parts A, B and C on your Team project
+# 3.10 Try It Yourself
+### Build a draft backlog
 
 ---
 
 ## Context
 
-* The activity runs on your **Team project**.
-* Equipment lending teams start from the Chapter 2 coordinator, the three backlog entries in 3.6 and the teaching rules.
+* The activity runs on your team's project.
+* Equipment lending teams start from the Chapter 2 coordinator, the three backlog entries in 3.6 and the rule invented for this books.
 * Another provided domain? Apply the same steps to that domain's starter codebase and its first user-visible capability.
 * For an ML model-serving tool, for example: "as an analyst, I want a prediction for a supplied record so that I can check the result".
 * It is preparation for the Week 3 kickoff and does not change assessment dates or weights.
@@ -1164,14 +1164,14 @@ An **author-written teaching fixture**, not a captured response from a real mode
 * **US-02** answers the workflow gap found at demonstration. It need not wait for a production database.
 * **EN-01** supports reliable repeated work; coordinate with Chapter 4's kickoff.
 * **US-04** changes the meaning of "active", so it affects counts and availability.
-* **US-05** sits lower because early demonstrations use controlled fixture identifiers. Reorder if real users or uncontrolled input enter scope.
+* **US-05** sits lower because early demonstrations use controlled sample identifiers. Reorder if real users or uncontrolled input enter scope.
 
 ---
 
 ## US-02 Refined: The Card
 
 * **Actor and outcome:** as an equipment officer, I want to inspect whether a **known item** is available for a **proposed period** without reserving it, so that I can discuss options with a borrower.
-* **Scope:** the current coordinator's records, controlled known fixture identifiers.
+* **Scope:** the current coordinator's records, controlled sample identifiers.
 * It does **not** promise the item is operational, not under maintenance, or available in another application instance.
 * A successful enquiry never confirms a reservation and **never guarantees a later request will succeed**.
 
@@ -1200,7 +1200,7 @@ An **author-written teaching fixture**, not a captured response from a real mode
 
 ## US-02: Unknowns and Status
 
-* **Unknowns:** catalogue identifiers outside the controlled fixtures; maintenance rules; restrictions on past dates. Record them as questions.
+* **Unknowns:** catalogue identifiers outside the controlled examples; maintenance rules; restrictions on past dates. Record them as questions.
 * Do **not** add a hidden maintenance buffer: the interval convention allows adjacency.
 * **Status:** the query is **not implemented** by the Chapter 2 code.
 * `reserve` cannot be reused by calling it and undoing the result: that introduces a mutation and fails the story.
@@ -1311,7 +1311,7 @@ An **author-written teaching fixture**, not a captured response from a real mode
 
 ---
 
-## Optional Extension
+## If You Want More
 
 * Write a plain-Java check for your top story's examples, in the style of `Chapter03AcceptanceExamples`.
 * Confirm that it **fails when you introduce a deliberate fault**.
@@ -1319,7 +1319,7 @@ An **author-written teaching fixture**, not a captured response from a real mode
 
 ---
 
-# 3.11 Common Mistakes
+# 3.11 Habits That Sound Agile but Are Not
 ### Seven mistakes and their corrections
 
 ---
@@ -1352,7 +1352,7 @@ An **author-written teaching fixture**, not a captured response from a real mode
 
 ---
 
-# 3.12 Review Questions and Transfer Challenge
+# 3.12 Questions to Think with
 ### Concept, diagnosis, transfer
 
 ---
@@ -1425,7 +1425,7 @@ A laboratory room-booking team receives the request **"Make booking easier."**
 
 ---
 
-# 3.13 Chapter Summary
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---
@@ -1450,7 +1450,7 @@ A laboratory room-booking team receives the request **"Make booking easier."**
 ## Next: Chapter 4
 
 * **Chapter 4: From Requirements to an Iteration.**
-* Use these artefacts to **define project scope** and **slice features**.
+* Use these documents to **define project scope** and **slice features**.
 * Prepare the **kickoff milestone**.
 * Establish a **reproducible repository** and an **initial CI workflow**.
 

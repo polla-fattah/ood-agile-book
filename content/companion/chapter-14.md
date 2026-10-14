@@ -11,11 +11,11 @@ description: "Code explanations and solutions for Chapter 14 Companion: Code, Ex
 
 This file accompanies Chapter 14, Responding to Change and Handing Over. It contains the handover version of the visiting-researcher project (0.14.0): a requirements-to-evidence table with a test that keeps it true, a reproducible demonstration, a script that follows the handover in a fresh copy, the handover documents, a decision record about the flag, the prepared and tested removal of that flag, the AI activity files, model solutions, the experiments behind the chapter's figures and teaching notes.
 
-**No production code changed.** Every file under `src/main` is byte for byte as in the Chapter 13 checkpoint. What changed is tests, scripts, documents and the version.
+**No production code changed.** Every file under `src/main` is byte for byte as in the Chapter 13 version. What changed is tests, scripts, documents and the version.
 
-**Input checkpoint.** The starting point is the Chapter 13 checkpoint, which is the Chapter 10 companion, the new and changed files of the Chapter 11 companion and the new and changed files of the Chapter 13 companion. To keep verified listings from being copied again, this file lists **only the files that are new or changed**. Every other file is exactly as in those companions.
+**Input version.** The starting point is the Chapter 13 version, which is the Chapter 10 companion, the new and changed files of the Chapter 11 companion and the new and changed files of the Chapter 13 companion. To keep verified listings from being copied again, this file lists **only the files that are new or changed**. Every other file is exactly as in those companions.
 
-### 1.1 Reconstruct the checkpoint
+### 1.1 Reconstruct the version
 
 1. Create the directory `after`. Save every listing of the Chapter 10 companion, then the new and changed listings of the Chapter 11 companion, then those of the Chapter 13 companion, applying the hunks of the Chapter 13 companion with `patch -p1` from inside `after`.
 2. Save every listing in Sections 3 and 4 of this file at its path. Where a path already exists (`README.md`, `scripts/pipeline.sh`, `scripts/simulate-release.sh`), the listing here replaces it. Apply the hunk of Section 3.2 to `pom.xml` with `patch -p1`.
@@ -821,7 +821,7 @@ public final class DemoRun {
 
 ### 4.3 `after/rehearsal/remove-visitor-flag.patch`
 
-This is a unified diff against the finished 0.14.0 checkpoint. Apply it from inside `after` with `patch -p1 < rehearsal/remove-visitor-flag.patch`. It is the **rehearsal** of ADR-014: it is stored and tested, not applied.
+This is a unified diff against the finished 0.14.0 version. Apply it from inside `after` with `patch -p1 < rehearsal/remove-visitor-flag.patch`. It is the **rehearsal** of ADR-014: it is stored and tested, not applied.
 
 ```patch
 diff --git a/docs/HANDOVER.md b/docs/HANDOVER.md
@@ -1352,7 +1352,7 @@ No Java 17 run and no hosted CI run has been made. The directory and the approva
 
 ### 5.1 The change footprint
 
-The figures of Section 14.1 come from comparing the Chapter 11 and the Chapter 13 checkpoints with `diff -rq`, excluding build output, and counting lines.
+The figures of Section 14.1 come from comparing the Chapter 11 and the Chapter 13 versions with `diff -rq`, excluding build output, and counting lines.
 
 | Group | Files | Lines |
 |---|---|---|
@@ -1371,10 +1371,10 @@ Each was run in its own scratch copy.
 
 | Experiment | Starting point | Edit | Result |
 |---|---|---|---|
-| E1 | Chapter 11 checkpoint (159 invocations) | Add `VISITOR` to the enum only | 45 of 159 fail (1 failure, 44 errors). 89 lines of output say `Missing policy: VISITOR`; the one failure is `RepositoryBoundaryTest.coordinatorRequiresARepository`, which expects a `NullPointerException` and gets an `IllegalArgumentException` |
+| E1 | Chapter 11 version (159 invocations) | Add `VISITOR` to the enum only | 45 of 159 fail (1 failure, 44 errors). 89 lines of output say `Missing policy: VISITOR`; the one failure is `RepositoryBoundaryTest.coordinatorRequiresARepository`, which expects a `NullPointerException` and gets an `IllegalArgumentException` |
 | E2 | The same | The enum, `VisitorReservationRules` and the composition root | 5 of 159 fail, in the three files that build their own policy map: `LegacyRegressionTest.chapter06`, `BehaviourStrategyTest.injectedPolicyChangesDecisionWithoutChangingCoordinator`, and three tests in `RepositoryBoundaryTest`. With the four map entries added, all 159 pass |
-| E3 | Chapter 13 checkpoint (232 invocations) | `LegacyDirectoryAdapter` maps kind `V` to `BorrowerCategory.STAFF`; nothing else | 4 of 232 fail: the three end-to-end journeys and `DirectoryOutageIntegrationTest.aVisitorIsServedThroughTheRealDirectoryAndTheRealApprovalFile`. All 203 unit invocations pass. With the flag off, visitor V1 is **confirmed**; V2 is rejected only because CAM2 is already taken, with `Rejected: item unavailable.`, not because it is unapproved |
-| B1 | Chapter 14 checkpoint (235 invocations) | Remove the visitor policy from `ReservationApplication.create` | 73 of 235 fail (3 failures, 70 errors) in 14 test classes; 146 lines of output say `Missing policy: VISITOR` (each failure is reported more than once). The classes: `VisitorAcceptanceTest` 19, `DirectoryOutageIntegrationTest` 10, `LoanServiceTest` 9, `AvailabilityTest` 8, `ReserveEquipmentCommandTest` 4, `LegacyRegressionTest` 4, `DirectoryAdapterTest` 4, `ReservationConsoleTest` 3, `NotificationPublisherTest` 3, `NotificationMockitoTest` 3, `Chapter13JourneyE2ETest` 3, `RepositoryBoundaryTest` 1, `OverdueBridgeTest` 1, `AvailabilityTddTest` 1 |
+| E3 | Chapter 13 version (232 invocations) | `LegacyDirectoryAdapter` maps kind `V` to `BorrowerCategory.STAFF`; nothing else | 4 of 232 fail: the three end-to-end journeys and `DirectoryOutageIntegrationTest.aVisitorIsServedThroughTheRealDirectoryAndTheRealApprovalFile`. All 203 unit invocations pass. With the flag off, visitor V1 is **confirmed**; V2 is rejected only because CAM2 is already taken, with `Rejected: item unavailable.`, not because it is unapproved |
+| B1 | Chapter 14 version (235 invocations) | Remove the visitor policy from `ReservationApplication.create` | 73 of 235 fail (3 failures, 70 errors) in 14 test classes; 146 lines of output say `Missing policy: VISITOR` (each failure is reported more than once). The classes: `VisitorAcceptanceTest` 19, `DirectoryOutageIntegrationTest` 10, `LoanServiceTest` 9, `AvailabilityTest` 8, `ReserveEquipmentCommandTest` 4, `LegacyRegressionTest` 4, `DirectoryAdapterTest` 4, `ReservationConsoleTest` 3, `NotificationPublisherTest` 3, `NotificationMockitoTest` 3, `Chapter13JourneyE2ETest` 3, `RepositoryBoundaryTest` 1, `OverdueBridgeTest` 1, `AvailabilityTddTest` 1 |
 
 What E1 and E2 show is how far the fail-fast check reaches. Everything that is constructed through the composition root fails together when the policy is missing there, which is one fix; the tests that spell out their own map fail separately, which is four fixes. What E3 shows is that this suite has a gap, and that a smaller change can pass a whole stage and fail the next one. Notice what it does **not** show: that unit tests cannot see such a change. No unit test checks the adapter's mapping of the visitor code, so nothing in the unit stage goes through it. A focused adapter test would catch the change, and Section 6.2 (B8) says what it should check. The experiment found the hole by trying a change that goes through it, and Chapter 13's own tests do not close it: the exercise B8 asks the reader to.
 
@@ -1398,7 +1398,7 @@ This review is **author-written and fictional**, constructed for this chapter. N
 | R3 | “Is the old two-argument service constructor still safe for visitors?” | `ac12_...` builds a service with the two-argument constructor and asserts the disabled rejection. | Covered |
 | R4 | “The README says 230 tests. I count 233 after this change.” | The count appeared in both `README.md` and `HANDOVER.md`. | Valid. A number stated in two places rots. The README now states no number, and `scripts/handover-check.sh` checks the numbers in `HANDOVER.md` |
 
-R4 is the useful one: it led to a change in the checkpoint, and the change has a check.
+R4 is the useful one: it led to a change in the version, and the change has a check.
 
 ### 5.5 The dry run, in order
 
@@ -1412,7 +1412,7 @@ The handover was followed in a fresh folder, as a reader would, before the fixes
 
 ### 5.6 The rehearsal of the flag removal
 
-The rehearsal was produced by a script in a scratch copy of the 0.14.0 checkpoint, and then written out as `rehearsal/remove-visitor-flag.patch`. It was verified in three ways: the patch applies to a fresh copy and gives a tree identical to the scratch copy; the full build of that tree passed; and `scripts/handover-check.sh` passed in it.
+The rehearsal was produced by a script in a scratch copy of the 0.14.0 version, and then written out as `rehearsal/remove-visitor-flag.patch`. It was verified in three ways: the patch applies to a fresh copy and gives a tree identical to the scratch copy; the full build of that tree passed; and `scripts/handover-check.sh` passed in it.
 
 | File | Change |
 |---|---|
@@ -1431,7 +1431,7 @@ Eleven files; 87 lines added and 131 removed. The prose of `README.md`, the rest
 
 Two things worth noticing. `TraceabilityTest` is why the table edits are in the patch: without them, the build fails after the patch on the first stale test name, which is the check doing its job. And the specification changed, not just the code: AC12 as written (a disabled flag rejects explicitly) has no meaning without a flag.
 
-### 5.7 The contribution fixture
+### 5.7 The contribution example
 
 The numbers are **synthetic**. P1: 38 commits (17 formatting only), 410 lines changed, 4 reviews given (1 requested changes). P2: 9 commits, 1,150 lines, 11 reviews (5 requested changes). P3: 24 commits (3 formatting only), 620 lines, 7 reviews (0 requested changes). The team total is 71 commits and 2,180 changed lines.
 
@@ -1442,11 +1442,11 @@ The numbers are **synthetic**. P1: 38 commits (17 formatting only), 410 lines ch
 | Reviews given | P2, P3, P1 | |
 | Reviews that requested changes | P2, P1, P3 | |
 
-The four orders are three different orders. The sentences about what the people did (a pipeline, an adapter, a demonstration and documents, four pair sessions of which two were recorded) are also synthetic. They are included to show what a count leaves out. Nothing in this fixture justifies a ranking.
+The four orders are three different orders. The sentences about what the people did (a pipeline, an adapter, a demonstration and documents, four pair sessions of which two were recorded) are also synthetic. They are included to show what a count leaves out. Nothing in this example justifies a ranking.
 
 ## 6. Suggested practical solution
 
-### 6.1 Book project, steps B1–B4
+### 6.1 the book's project, steps B1–B4
 
 **B1. Predict and measure what breaks.** A good answer predicts before running: removing the one map entry in the composition root breaks everything built through it, which is most of the suite (the experiment gave 73 of 235, in 14 classes), and every message names the missing policy. It says what the result shows: the design fails fast and precisely, and the cost is breadth. It says what the result does not show: that the code is correct. Restore the file and rerun.
 
@@ -1466,17 +1466,17 @@ A good new item comes from reading the project, not from the list: for example, 
 
 **B4. Trace and break a row.** A good answer opens the test for each of its three rows and says whether it checks the claim. Example: C5 (valid at request time, start inclusive and end exclusive) is checked by `VisitorGateTest.theWindowIncludesItsStartAndExcludesItsEnd`, which tests exactly the two edges and one instant before the start. After renaming a named test, `TraceabilityTest` fails with the row's ID and the missing name. What it cannot catch: a row that names a different but existing test (Section 10.2, fault 6).
 
-### 6.2 Book project, optional steps B5–B7
+### 6.2 the book's project, optional steps B5–B7
 
 **B5. Rehearse the removal.** Apply the patch from inside a scratch copy of `after`: `patch -p1 < rehearsal/remove-visitor-flag.patch`. Run `mvn --batch-mode verify` (233 invocations) and `bash scripts/handover-check.sh` (passes). A good answer lists what still says the flag exists: `README.md` (the paragraph about the flag), `docs/HANDOVER.md` section 6 (the visitor flag), `docs/ADR-013-visiting-researchers.md` (the flag removal plan and the rollback), `docs/KNOWN-ISSUES.md` (KI-13) and `docs/REQUIREMENTS-TO-EVIDENCE.md` (the descriptions are updated; the contract text in Chapter 12 is not).
 
 **B6. AI activity.** See Section 7.
 
-**B7. Read a contribution fixture.** A good answer asks questions, for example “What are the seventeen formatting-only commits, and were they needed?” (read the commit list), “What did P2's two review findings say?” (read the review comments), “Which of P3's pair sessions were with P1, and what was produced?” (read the pull requests and the retrospective notes). It does not conclude that P1 contributed most because of 38 commits, and it does not conclude that P2 contributed least because of 9.
+**B7. Read a synthetic contribution table.** A good answer asks questions, for example “What are the seventeen formatting-only commits, and were they needed?” (read the commit list), “What did P2's two review findings say?” (read the review comments), “Which of P3's pair sessions were with P1, and what was produced?” (read the pull requests and the retrospective notes). It does not conclude that P1 contributed most because of 38 commits, and it does not conclude that P2 contributed least because of 9.
 
 **B8. Close the gap that E3 found.** A good answer adds a unit test class for `LegacyDirectoryAdapter` that uses an in-memory client (no network) and checks at least: a row with kind `V` and status `Y` maps to `BorrowerCategory.VISITOR` (and not to staff or student); a row with kind `V` and status `N` gives an empty result; and an unknown kind code throws `DirectoryException` and is never defaulted. Then it applies the one-line change of Section 14.1 and shows that the **unit** stage now fails. A weak answer adds a test that passes against the changed adapter too, for example one that only checks that a visitor is found. The new unit tests also raise the stage-2 count, so `scripts/handover-check.sh` and `docs/HANDOVER.md` need their numbers updated, which is the handover check doing its job.
 
-### 6.3 Team project, steps T1–T5
+### 6.3 your team's project, steps T1–T5
 
 These are not model answers, because the code is your team's. A good answer shows:
 
@@ -1490,7 +1490,7 @@ A weak answer describes the code instead of the change, lists defects with no de
 
 ## 7. AI activity solution
 
-The fixture makes sixteen statements. Each was checked by running the command or reading the code and tests it depends on.
+The example makes sixteen statements. Each was checked by running the command or reading the code and tests it depends on.
 
 | # | Statement | Verdict | Evidence and correction |
 |---|---|---|---|
@@ -1556,7 +1556,7 @@ It looks like a repair of SD-11-1. It is a new rule, it hides the question and i
 Contribution: P1 54%, P3 34%, P2 13%   (by commits)
 ```
 
-Habits are not contributions, and the same team has three other orders by other counts (Section 5.7). Use a count to choose which artefact to read.
+Habits are not contributions, and the same team has three other orders by other counts (Section 5.7). Use a count to choose which piece of work to read.
 
 ### 8.5 A claim that did not happen
 
@@ -1608,7 +1608,7 @@ None. This chapter adds no assessed content beyond the descriptor's final projec
 
 Run `scripts/handover-check.sh`, then break one thing (add a trivial test, or edit a number in `HANDOVER.md`) and run it again. Rename one test named in the requirements table and run `TraceabilityTest`. Show experiment E3: a one-line change that passes the whole unit stage. Ask the class which stage should have caught it and why. Let students predict B1's failure count before running it.
 
-For the Team project, the review is of the bundle and not of the code: ask for the dry-run record, the person outside the team who followed it, the triage decisions and the statement of what was not run. Ask each student for one artefact that shows what they did. A weak answer to “what was not run?” is “nothing”.
+For your team's project, the review is of the bundle and not of the code: ask for the dry-run record, the person outside the team who followed it, the triage decisions and the statement of what was not run. Ask each student for one artefact that shows what they did. A weak answer to “what was not run?” is “nothing”.
 
 ### 10.2 Do the checks detect faults?
 

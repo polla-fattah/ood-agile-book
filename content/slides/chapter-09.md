@@ -16,38 +16,38 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **9.1 Variation in behaviour**
+* **9.1 What changes, and why? Variation in behaviour**
   * Four questions for one domain: which rule, which action, who reacts, what request.
-* **9.2 Strategy**
+* **9.2 Strategy: swapping one rule for another**
   * Already present in the borrowing policies.
-* **9.3 State and transitions**
+* **9.3 State: behaviour that depends on where you are in a lifecycle**
   * A transition table first, then two implementations.
-* **9.4 Observer and notification**
+* **9.4 Observer: telling interested parties without knowing who they are**
   * Order, subscription changes and failure, defined before dispatching.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **9.5 Command**
+* **9.5 Command: a request you can carry before running it**
   * A request as an object: when is it captured, and when do its effects happen?
-* **9.6 Testing pattern-based behaviour**
+* **9.6 Testing behaviour that patterns organise**
   * Let the requirement supply the expected result.
-* **9.7 Pattern selection and limits**
-* **9.8 AI in practice:** Strategy or State?
+* **9.7 Choosing a pattern, and knowing its limits**
+* **9.8 Strategy or State? Judging AI proposals** Strategy or State?
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **9.9 Common mistakes**
-* **9.10 Practical activity**
-  * Six steps; step 6 is on your Team project.
-* **9.11 Review and transfer**
+* **9.9 Behaviour-pattern habits that mislead**
+* **9.10 Try it yourself: lifecycle, publisher and command**
+  * Six steps; step 6 is on your team's project.
+* **9.11 Questions to think with, and a transfer challenge**
   * A document workflow: draft, approved, published.
-* **9.12 Reading checkpoint: the critical book review**
+* **9.12 The critical book review**
   * The critical book review is due in Week 8.
-* **Summary and next chapter**
+* **What to take away, and what comes next**
   * Chapter 10: application structure and dependency direction.
 
 ---
@@ -70,21 +70,21 @@ By the end of this chapter, you should be able to:
 
 ---
 
-## Module Connection and Reading Route
+## Module Connection and How to Use This Chapter
 
 * Supports **LO2 and LO4**. Entry: Chapters 7 and 8.
 * **Core reading:** 9.1 to 9.3, 9.6 and 9.7 (Strategy, State, testing, selection).
 * **Working-knowledge reading:** 9.4 and 9.5 (Observer, Command): understand the structure, ordering and failure rules and cost; see each work in the examples; **you do not implement either on your own**.
-* **Minimum lab:** steps 1 to 4 and 6. Steps 1 to 4: Book project. **Step 6: Team project.**
-* **Optional extension:** the AI activity (step 5), review questions and transfer challenge.
+* **Minimum lab:** steps 1 to 4 and 6. Steps 1 to 4: the book's project. **Step 6: your team's project.
+* **If you want more:** the AI activity (step 5), review questions and transfer challenge.
 
 ---
 
-## Starting Checkpoint
+## Starting Version
 
 * Chapter 8's Java 17 application, directory adapter and complete Maven suite.
 * The existing borrowing policies **already demonstrate Strategy**.
-* A **notification publisher** is an optional cumulative collaborator.
+* A **notification publisher** is an optional running collaborator.
 * The proposed **lifecycle is a separate exercise**: it does not replace the running project's reservation or loan rules.
 * The critical book review (Week 8) is governed by the module leader's instructions; **evidence must come from the selected book, not an AI summary**.
 
@@ -108,8 +108,8 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 9.1 Variation in Behaviour
-### What changes, and what stays responsible?
+# 9.1 What Changes, and Why?
+### Variation in behaviour
 
 ---
 
@@ -159,7 +159,7 @@ By the end of this chapter, you should be able to:
 ---
 
 # 9.2 Strategy
-### Interchangeable implementations behind a contract
+### Swapping one rule for another
 
 ---
 
@@ -186,7 +186,7 @@ By the end of this chapter, you should be able to:
 * The teaching test includes a small conditional: if student, student limits; otherwise (for the two supported enum values) staff limits.
 * Understandable for **two rules in one place**.
 * The pressure for Strategy appears when algorithms acquire **distinct reasons to change** or **repeated callers need consistent selection**.
-* The conditional is a **teaching fixture only**: no duplicate policy engine in the application.
+* The conditional is a **teaching example only**: no duplicate policy engine in the application.
 
 ---
 
@@ -224,8 +224,8 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 9.3 State and Transitions
-### A table before any code
+# 9.3 State
+### Behaviour that depends on where you are in a lifecycle
 
 ---
 
@@ -235,7 +235,7 @@ By the end of this chapter, you should be able to:
 * A **confirmed** reservation may be checked out or cancelled.
 * An **on-loan** reservation may be returned.
 * **RETURNED** and **CANCELLED** are terminal for the four supported actions.
-* Teaching rules for an **isolated model**. The cumulative system confirms accepted reservations immediately, tracks loans separately, and has **no cancellation operation**.
+* Teaching rules for an **isolated model**. The running system confirms accepted reservations immediately, tracks loans separately, and has **no cancellation operation**.
 
 ---
 
@@ -471,8 +471,8 @@ private enum Phase {
 
 ---
 
-# 9.4 Observer and Notification
-### Several local recipients
+# 9.4 Observer
+### Telling interested parties without knowing who they are
 
 ---
 
@@ -650,7 +650,7 @@ first, second, first, third
 ---
 
 # 9.5 Command
-### A request carried as an object
+### A request you can carry before running it
 
 ---
 
@@ -754,7 +754,7 @@ public record ReserveEquipmentCommand(DirectoryReservationService receiver,
 
 ---
 
-# 9.6 Testing Pattern-Based Behaviour
+# 9.6 Testing Behaviour That Patterns Organise
 ### The requirement supplies the expected result
 
 ---
@@ -799,7 +799,7 @@ public record ReserveEquipmentCommand(DirectoryReservationService receiver,
 
 ---
 
-# 9.7 Pattern Selection and Limits
+# 9.7 Choosing a Pattern, and Knowing Its Limits
 ### Compare alternatives by their costs
 
 ---
@@ -823,7 +823,7 @@ public record ReserveEquipmentCommand(DirectoryReservationService receiver,
 
 ---
 
-## Be Precise About This Checkpoint
+## Be Precise About This Version
 
 * The project keeps Chapter 8's directory boundary and all previous application sources.
 * `NotificationPublisher` is **an additional sender option**; no earlier demo is silently rewired.
@@ -841,28 +841,28 @@ public record ReserveEquipmentCommand(DirectoryReservationService receiver,
 
 ---
 
-# 9.8 AI in Practice: Strategy or State?
-### Which variation pressure is it?
+# 9.8 Strategy or State?
+### Judging AI proposals
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide whether each proposal fits a policy-selection problem or a lifecycle problem, and what each allows a caller to do |
-| Input | The lifecycle table in 9.3, the existing strategies, and the failure and replay behaviour in 9.4 and 9.5 |
-| Permitted scope | Compare the proposals and qualify the reliability claim; adopt none without the table |
+| Your goal | Decide whether each proposal fits a policy-selection problem or a lifecycle problem, and what each allows a caller to do |
+| You start with | The lifecycle table in 9.3, the existing strategies, and the failure and replay behaviour in 9.4 and 9.5 |
+| What is in bounds | Compare the proposals and qualify the reliability claim; adopt none without the table |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | The transition table, the Strategy and State tests, the publisher and command tests |
-| Accept or reject | A verdict with evidence for each claim |
-| No-account route | The fixtures are sufficient |
+| How to check | The transition table, the Strategy and State tests, the publisher and command tests |
+| How to decide | A verdict with evidence for each claim |
+| No AI account? | The ready-made example is enough |
 
 ---
 
@@ -900,7 +900,7 @@ public record ReserveEquipmentCommand(DirectoryReservationService receiver,
 
 ---
 
-# 9.9 Common Mistakes
+# 9.9 Behaviour-Pattern Habits That Mislead
 ### Eight to avoid
 
 ---
@@ -934,14 +934,14 @@ public record ReserveEquipmentCommand(DirectoryReservationService receiver,
 
 ---
 
-# 9.10 Practical Activity
-### State, publisher, command, and a decision
+# 9.10 Try It Yourself
+### Lifecycle, publisher and command
 
 ---
 
-## Input and Demonstration
+## What You Start With, and the Demonstration
 
-* **Input:** the Chapter 8 checkpoint, the lifecycle table, the conditional and State examples, the publisher contract. Steps 1 to 5: Book project. **Step 6: Team project.**
+* **You start with:** the Chapter 8 version, the lifecycle table, the conditional and State examples, the publisher contract. Steps 1 to 5: the book's project. **Step 6: your team's project.
 * **Demonstration:** locate the existing strategies; trace **permitted and rejected** lifecycle actions before showing the two implementations. Run one expected observer failure and show the **retained reservation** and the **later callback**.
 * **Guided practice:** choose a table row and explain its result **independently of the code**. Predict the effect of unsubscribing during dispatch. Compare a direct service call with constructing and executing a command.
 
@@ -959,15 +959,15 @@ public record ReserveEquipmentCommand(DirectoryReservationService receiver,
 
 4. Choose a **second scenario** and justify adopting or declining Strategy, Observer or Command against a simpler implementation.
 5. **Evaluate the fictional AI proposals** and retain independent evidence.
-6. On your **Team project**, find **one conditional that selects behaviour by type or tracks a lifecycle**. Write a test that **protects its current behaviour**, then decide whether Strategy, State or neither is justified. Record **what you would decline to build and why**.
+6. On your team's project, find **one conditional that selects behaviour by type or tracks a lifecycle**. Write a test that **protects its current behaviour**, then decide whether Strategy, State or neither is justified. Record **what you would decline to build and why**.
 
 ---
 
 ## Expected Output and Acceptance
 
-* **Artefacts:** before and after source; a reviewed transition table; runnable tests; a reproducible demo; a concise problem-solution-consequence note; the step 6 decision.
+* **What you should end up with:** before and after source; a reviewed transition table; runnable tests; a reproducible demo; a concise problem-solution-consequence note; the step 6 decision.
 * **Accept when:** **no unrestricted phase setter**; correct terminal behaviour; outcomes match independently stated expectations; **observer failure does not imply rollback**; **command construction performs no reservation**; the old regression suite still runs.
-* **Optional extension:** propose real cancellation. Specify effects on counts, availability, active loans, identifiers and notifications **before changing code**.
+* **If you want more:** propose real cancellation. Specify effects on counts, availability, active loans, identifiers and notifications **before changing code**.
 
 ---
 
@@ -1000,7 +1000,7 @@ public record ReserveEquipmentCommand(DirectoryReservationService receiver,
 
 ---
 
-# 9.11 Review and Transfer
+# 9.11 Questions to Think with, and a Transfer Challenge
 ### Concept, diagnosis, transfer
 
 ---
@@ -1062,12 +1062,12 @@ A document workflow has **draft, approved and published** stages. Review policy 
 
 ---
 
-# 9.12 Reading Checkpoint: The Critical Book Review
+# 9.12 The Critical Book Review
 ### Method in Appendix E
 
 ---
 
-## What the Checkpoint Says
+## What the Version Says
 
 * Your **individual critical review** of a book from the approved list is **due in Week 8**.
 * **Appendix E** develops the method: a reading record, questions for each part, prompts for checking sources.
@@ -1086,7 +1086,7 @@ A document workflow has **draft, approved and published** stages. Review policy 
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---

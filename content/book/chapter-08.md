@@ -361,7 +361,7 @@ If you use a live AI service, give it only synthetic contracts and examples. Kee
 | Install retries without revisiting the contract | Introduces duplicate attempts or effects | What outcome does the existing promise allow? |
 | Require all patterns in the semester project | Adds complexity without a problem | Which real change justifies this structure? |
 
-## 8.10 Try it yourself: the directory boundary and the pattern exercises
+## 8.10 Try it yourself: the directory boundary and pattern exercises
 
 You start from Chapter 7's finished code, the synthetic provider contract and mapping table, and the complete Chapter 8 code file. Steps 1 to 8 run on the book's project; step 9 runs on your team's project. Steps 4 and 6 to 8 are the extras described in the opening route.
 

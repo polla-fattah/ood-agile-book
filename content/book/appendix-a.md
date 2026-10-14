@@ -13,9 +13,9 @@ You can understand a design decision only if you can follow the code that expres
 
 Start with A.1. Revise the sections that address your gaps, then return to the chapter. Use A.8 beside Chapter 2's longer class-diagram exercises, and return to it when Chapters 8 to 10 introduce sequence, state and dependency diagrams. Records, streams and `Optional` can wait until a chapter uses them.
 
-The language and API baseline is **Java 17 without preview features**. The syntax here describes the book's examples, not permissions for an examination. Your approved assessment instructions decide what tools and notation you may use. Appendix B covers installation and the wider toolchain; Appendix D covers project checkpoints and domain terminology.
+The language and API baseline is **Java 17 without preview features**. The syntax here describes the book's examples, not permissions for an examination. Your approved assessment instructions decide what tools and notation you may use. Appendix B covers installation and the wider toolchain; Appendix D covers project versions and domain terminology.
 
-The Appendix A companion (in the Code, Explanations and Solutions companion) contains complete runnable files, diagnostic answers and a diagram solution. Its small lab is separate from the cumulative lending project. It neither changes the project nor depends on any of its checkpoints.
+The Appendix A companion (in the Code, Explanations and Solutions companion) contains complete runnable files, diagnostic answers and a diagram solution. Its small lab is separate from the running lending project. It neither changes the project nor depends on any of its versions.
 
 ## A.1 Readiness diagnostic
 
@@ -340,7 +340,7 @@ classDiagram
     Reservation --> "1" LoanPeriod : refers to
 ```
 
-**Figure A.1.** One coordinator uses one rules object and stores zero or more reservations; each reservation refers to one period. This is a diagram reference to Chapter 2, not another cumulative source-code checkpoint. The appendix lab uses `StudentRules` to demonstrate an interface separately.
+**Figure A.1.** One coordinator uses one rules object and stores zero or more reservations; each reservation refers to one period. This is a diagram reference to Chapter 2, not another running source-code version. The appendix lab uses `StudentRules` to demonstrate an interface separately.
 
 ### Read different diagram kinds differently
 
@@ -459,7 +459,7 @@ Complete D1–D9, then run the companion lab or trace it on paper. Select one mi
 
 Classify its three claims and correct each using the code or the stated modelling rule. A live assistant may produce a different candidate if permitted, but is not required. Record the claim, your check and your conclusion. Do not use another unsupported explanation as the final evidence.
 
-The exit artefact is a short personal readiness note: topics checked, one corrected explanation and any remaining revision. This is formative study guidance and adds no assessment requirement.
+What you hand in at the end is a short personal readiness note: topics checked, one corrected explanation and any remaining revision. This is formative study guidance and adds no assessment requirement.
 
 ## Sources and further reading
 

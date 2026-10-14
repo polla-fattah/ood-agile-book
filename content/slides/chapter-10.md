@@ -16,40 +16,40 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **10.1 Why class-level design is insufficient**
+* **10.1 Why designing good classes is not enough**
   * Responsibilities exist at more than one scale.
-* **10.2 Layers and separation of concerns**
+* **10.2 Layers: giving each boundary a reason**
   * Eight packages, each with a reason.
-* **10.3 Presentation, application, domain and infrastructure**
+* **10.3 What each layer does: the four layers in practice**
   * Where an outside collaborator sits.
-* **10.4 Dependency direction and its check**
+* **10.4 Which way do dependencies point, and how do we check?**
   * Source dependencies, runtime calls and a compiled dependency check.
-* **10.5 Package design: cohesion, coupling and stability**
+* **10.5 Cutting packages well: cohesion, coupling and stability**
   * CCP, CRP, REP, ADP, SDP, SAP and a worked placement comparison.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **10.6 Entities and value objects**
+* **10.6 Entities and value objects: identity or value?**
   * Identity, immutability and Java equality are three different things.
-* **10.7 Repositories and services**
+* **10.7 Repositories and services: a storage contract**
   * The smallest useful storage contract.
-* **10.8 A small architecture decision**
+* **10.8 Recording a small architecture decision**
   * ADR-010.
-* **10.9 Peer review and Milestone 3**
+* **10.9 Peer review and preparing Milestone 3**
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **10.10 AI in practice:** verify a dependency review.
-* **10.11 Common mistakes**
-* **10.12 Practical activity**
-  * Book project B1 to B6; Team project T1 to T5.
-* **10.13 Review and transfer**
+* **10.10 Checking an AI's dependency review** verify a dependency review.
+* **10.11 Structure habits that mislead**
+* **10.12 Try it yourself: restructure and check the dependencies**
+  * The book's project B1 to B6; your team's project T1 to T5.
+* **10.13 Questions to think with, and a transfer challenge**
   * A clinic appointment application.
-* **Summary and next chapter**
+* **What to take away, and what comes next**
   * Chapter 11: refactoring and legacy code.
 
 ---
@@ -77,14 +77,14 @@ By the end of this chapter, you should be able to:
 
 * Supports **LO2 and LO6**; **Milestone 3** preparation. Readings: Martin's **principles of package design** and selected chapters of Evans's **domain-driven design**.
 * **Starting point:** Chapter 9's tested Java 17 project, including the stronger assertions added when it was reviewed.
-* The completed checkpoint **preserves its use-case results and earlier demonstrations**.
+* The completed version **preserves its use-case results and earlier demonstrations**.
 * **Package names, imports, launcher names and direct coordinator construction change**: not a claim of source or binary compatibility.
 
 ---
 
 ## Milestone 3 Checklist (1 of 2)
 
-Milestone 3 falls in this week: design patterns and layered architecture, with a demonstration and a retrospective. On your **Team project**:
+Milestone 3 falls in this week: design patterns and layered architecture, with a demonstration and a retrospective. On your team's project:
 
 1. A **design pattern from Chapters 8 and 9** used where it removes a real problem, and **one place you declined** to use one.
 2. A **compact package diagram** saying which packages may depend on which.
@@ -105,11 +105,11 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core reading:** 10.1 to 10.5 (except the Ports and Adapters comparison), 10.7, 10.8, 10.9.
 * **Working knowledge:** 10.6 (entities and value objects): understand identity versus value meaning, and why Java equality is a separate decision. You do not implement either.
-* **Minimum lab:** **B1 to B3** (Book project: reading, tracing, diagnosis; **nothing to rebuild**) and **T1 to T5** (your Team project; your Milestone 3 evidence).
+* **Minimum lab:** **B1 to B3** (the book's project: reading, tracing, diagnosis; **nothing to rebuild**) and **T1 to T5** (your team's project; your Milestone 3 evidence).
 * **Optional:** Ports and Adapters, the AI activity, B4 to B6 (break the rules on purpose; reproduce the migration), review questions, transfer.
 
 ---
@@ -131,7 +131,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-# 10.1 Why Class-Level Design Is Insufficient
+# 10.1 Why Designing Good Classes Is Not Enough
 ### Responsibilities at more than one scale
 
 ---
@@ -184,12 +184,12 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 * Direct `ReservationCoordinator` construction **requires an additional repository argument**.
 * Command-line launchers use **fully qualified names**.
 * These must be documented **even when every user-facing transcript stays identical**.
-* Behaviour is protected **within the supplied sequential, in-memory checkpoint**, not for an unseen application that reflects on class names or depends on the old constructor.
+* Behaviour is protected **within the supplied sequential, in-memory version**, not for an unseen application that reflects on class names or depends on the old constructor.
 
 ---
 
-# 10.2 Layers and Separation of Concerns
-### Assign a reason for each boundary
+# 10.2 Layers
+### Giving each boundary a reason
 
 ---
 
@@ -233,7 +233,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 * A package is a **namespace**. Public Java types can still be imported from anywhere.
 * A folder named `domain` does **not** stop a developer constructing a console sender inside it.
 * So the chapter states **permitted production dependencies** and adds a **test that examines compiled class dependencies**.
-* Tests may cross boundaries to assemble fixtures; startup wiring has a **deliberate exception** because it must choose concrete implementations.
+* Tests may cross boundaries to assemble examples; startup wiring has a **deliberate exception** because it must choose concrete implementations.
 
 ---
 
@@ -266,8 +266,8 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-# 10.3 Presentation, Application, Domain and Infrastructure
-### What each layer does, and what it must not
+# 10.3 What Each Layer Does
+### The four layers in practice
 
 ---
 
@@ -347,7 +347,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-# 10.4 Dependency Direction and Its Check
+# 10.4 Which Way Do Dependencies Point, and How Do We Check?
 ### Arrows are source references
 
 ---
@@ -500,8 +500,8 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-# 10.5 Package Design: Cohesion, Coupling and Stability
-### Are the packages well cut?
+# 10.5 Cutting Packages Well
+### Cohesion, coupling and stability
 
 ---
 
@@ -604,7 +604,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 <!--svg:ch10-instability-->
 <div>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 362" role="img" aria-label="Instability I = Ce / (Ca + Ce) of the checkpoint&#x27;s packages: domain 0.00, application.port 0.18, infrastructure.notification 0.30, application 0.31, infrastructure.directory 0.33, infrastructure.persistence 0.50, presentation 0.50, bootstrap 1.00." style="display:block;width:100%;height:calc(var(--u) * 36.20);margin:0 auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 870 362" role="img" aria-label="Instability I = Ce / (Ca + Ce) of the version&#x27;s packages: domain 0.00, application.port 0.18, infrastructure.notification 0.30, application 0.31, infrastructure.directory 0.33, infrastructure.persistence 0.50, presentation 0.50, bootstrap 1.00." style="display:block;width:100%;height:calc(var(--u) * 36.20);margin:0 auto">
 <defs><marker id="ch10-instability-tri" viewBox="0 0 16 16" refX="15" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,1 L15,8 L1,15 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-instability-dia" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#f5f7fa" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-instability-diaf" viewBox="0 0 22 14" refX="1" refY="7" markerWidth="22" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M1,7 L11,1 L21,7 L11,13 Z" fill="#1d588c" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-instability-open" viewBox="0 0 16 16" refX="14" refY="8" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto"><path d="M2,2 L14,8 L2,14" fill="none" stroke="#1d588c" stroke-width="2"/></marker><marker id="ch10-instability-arr" viewBox="0 0 14 14" refX="13" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1 L13,7 L0,13 Z" fill="#1d588c"/></marker></defs>
 <text x="285.0" y="26.0" font-size="14.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#46586d" text-anchor="end">package</text>
 <text x="300.0" y="26.0" font-size="14.5" font-family="Inter, system-ui, sans-serif" font-weight="600" fill="#46586d" text-anchor="start">I = 0</text>
@@ -696,7 +696,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ---
 
-## Reading SAP on the Checkpoint
+## Reading SAP on the Version
 
 * `application.port`: contracts and their failure types, so **mostly abstract**, and stable (I = 0.18). **SAP satisfied.**
 * `bootstrap`: concrete and unstable (I = 1.00). **SAP satisfied**: nothing depends on it.
@@ -707,7 +707,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 
 ## Worked Comparison: Where Does `NotificationException` Live?
 
-* **Option A (the checkpoint's choice):** in `application.port`, with the `NotificationSender` contract.
+* **Option A (the version's choice):** in `application.port`, with the `NotificationSender` contract.
 * **Option B:** in `infrastructure.notification`, beside the senders that throw it ("implementations should own their failures").
 * Option B was tried on a copy.
 
@@ -723,14 +723,14 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 ---
 
 # 10.6 Entities and Value Objects
-### Identity, immutability and equality are separate
+### Identity or value?
 
 ---
 
 ## Identity Is a Domain Decision
 
 * A reservation has an identifier such as **R1**.
-* Whether two records with that identifier and different data mean **an update or an invalid duplicate** depends on the storage contract. This checkpoint is **append-only and rejects duplicate identifiers**.
+* Whether two records with that identifier and different data mean **an update or an invalid duplicate** depends on the storage contract. This version is **append-only and rejects duplicate identifiers**.
 * `Reservation` is immutable and **does not override `equals` or `hashCode`**: two objects with the same ID are **not equal** through inherited object equality.
 * The repository uses the **explicit identifier as its key**.
 
@@ -747,7 +747,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 ## Value Meaning vs. Java Value Equality
 
 * A `LoanPeriod` is characterised by its **start and exclusive end**, not by a generated identifier.
-* But the cumulative class **keeps inherited object equality**: two periods with equal dates are **distinct** by `equals`. The chapter preserves that rather than change equality during a package move.
+* But the running class **keeps inherited object equality**: two periods with equal dates are **distinct** by `equals`. The chapter preserves that rather than change equality during a package move.
 * `examples.structure.PeriodValue` is a **record** demonstrating component-based equality and hashing: two equal-date records are one logical value in a set.
 * Adopting it in the real model is **a separate, reviewed change**.
 
@@ -763,7 +763,7 @@ Milestone 3 falls in this week: design patterns and layered architecture, with a
 ---
 
 # 10.7 Repositories and Services
-### The smallest useful storage contract
+### A storage contract
 
 ---
 
@@ -818,7 +818,7 @@ public interface ReservationRepository {
 
 ---
 
-# 10.8 A Small Architecture Decision
+# 10.8 Recording a Small Architecture Decision
 ### ADR-010
 
 ---
@@ -842,7 +842,7 @@ public interface ReservationRepository {
 
 ## Your Decision Will Differ
 
-* ADR-010 is the worked model for the **Book project**. On your **Team project**: a different boundary, different alternatives, different costs.
+* ADR-010 is the worked model for the book's project. On your team's project: a different boundary, different alternatives, different costs.
 * **Do not copy ADR-010's decision** unless it is also yours.
 * An alternative of **"do nothing"** and a revisit trigger naming **an event you could observe** make a record more useful than one that only justifies what was already done.
 
@@ -852,11 +852,11 @@ public interface ReservationRepository {
 
 * Separate **package moves** from the **repository extraction** and from **newly added checks**.
 * Older tests move into a `regression` package; direct constructor calls receive the new repository; **expected behaviours are retained**.
-* The checkpoint is **not evidence of Git commits or an opened pull request**. Record your **actual sequence and review comments**.
+* The version is **not evidence of Git commits or an opened pull request**. Record your **actual sequence and review comments**.
 
 ---
 
-# 10.9 Peer Review and Milestone 3
+# 10.9 Peer Review and Preparing Milestone 3
 ### One scenario across boundaries
 
 ---
@@ -881,7 +881,7 @@ public interface ReservationRepository {
 
 ## Preparing Evidence (1 of 3)
 
-| Item | Artefact | What it should establish |
+| Item | What to produce | What it should establish |
 |---|---|---|
 | 1 | Pattern note | A pattern used where it removes a real problem, with the reason; one place you declined |
 | 2 | Compact package diagram | Actual responsibilities and declared dependency direction, matching your code |
@@ -891,7 +891,7 @@ public interface ReservationRepository {
 
 ## Preparing Evidence (2 of 3)
 
-| Item | Artefact | What it should establish |
+| Item | What to produce | What it should establish |
 |---|---|---|
 | 4 | Regression result and dependency report | Existing examples still pass; references follow the chosen rules; any cycle is reported |
 | 5 | ADR | Problem, alternatives (including doing nothing), decision, consequences, revisit triggers |
@@ -901,7 +901,7 @@ public interface ReservationRepository {
 
 ## Preparing Evidence (3 of 3)
 
-| Item | Artefact | What it should establish |
+| Item | What to produce | What it should establish |
 |---|---|---|
 | 7 | Demonstration and retrospective | What worked, what did not, one next action |
 | 8 | Limits statement | What the structure does not provide: persistence, concurrency safety, a cancellation lifecycle |
@@ -918,7 +918,7 @@ public interface ReservationRepository {
 
 ---
 
-# 10.10 AI in Practice: Verify a Dependency Review
+# 10.10 Checking an AI's Dependency Review
 ### A claim needs a trace
 
 ---
@@ -931,7 +931,7 @@ public interface ReservationRepository {
 
 ---
 
-## The Fixture
+## The Ready-Made Example
 
 > The coordinator calls an in-memory repository at runtime, so it must import infrastructure and violates dependency inversion. Move the repository interface into infrastructure. Every entity needs a repository and a service. Making the reservation list unmodifiable makes every future element immutable. The bootstrap imports adapters, so remove it and let services construct their dependencies. Since all tests pass, the pull request has been peer reviewed.
 
@@ -959,7 +959,7 @@ public interface ReservationRepository {
 
 ---
 
-# 10.11 Common Mistakes
+# 10.11 Structure Habits That Mislead
 ### Eleven to avoid
 
 ---
@@ -996,14 +996,14 @@ public interface ReservationRepository {
 
 ---
 
-# 10.12 Practical Activity
-### Book project B1 to B6; Team project T1 to T5
+# 10.12 Try It Yourself
+### Restructure and check the dependencies
 
 ---
 
-## Input and Demonstration
+## What You Start With, and the Demonstration
 
-* **Input:** the migrated checkpoint, the package responsibility table, the metrics table and your Team project's repository.
+* **You start with:** the migrated version, the package responsibility table, the metrics table and your team's repository.
 * **Demonstration:** trace the coordinator's storage access, then the port and adapter after extraction. Compare the **source diagram** with the **runtime sequence**. Run `tools/PackageMetrics.java` and `DependencyRulesTest`, and one demo under its **new fully qualified launcher name**.
 * **Guided practice:** classify a domain policy, directory adapter, application service and bootstrap class. Explain why the **same concrete import is right in bootstrap and forbidden in application code**.
 
@@ -1071,7 +1071,7 @@ For `StaffReservationRules`, `LegacyDirectoryAdapter`, `DirectoryReservationServ
 
 ---
 
-## Optional Extension (Book Project)
+## If You Want More: The Book's Project
 
 * **B4. Break the rules on purpose.** In a scratch copy, construct `InMemoryReservationRepository` **inside** `ReservationCoordinator`. Run the dependency test, record the violation, **restore the original**.
 * **B5. Reproduce the migration** from the Chapter 9 project: move classes into the declared packages, extract the repository contract, supply it through construction, update imports and launchers, preserve results.
@@ -1079,9 +1079,9 @@ For `StaffReservationRules`, `LegacyDirectoryAdapter`, `DirectoryReservationServ
 
 ---
 
-## Expected Artefacts and Acceptance
+## What You Should End Up With, and When You Are Done
 
-* **Artefacts:** answers to B1 to B3; for the Team project the **T1 diagram**, **T2 decision record**, **T3 diff or PR description**, **T4 dependency result**, **T5 review record with the checklist status**.
+* **What you should end up with:** answers to B1 to B3; for your team's project the **T1 diagram**, **T2 decision record**, **T3 diff or PR description**, **T4 dependency result**, **T5 review record with the checklist status**.
 * **Accept when:** your diagram **matches your code**; your decision states **a real alternative** and an **observable revisit trigger**; moves are apart from logic changes; dependency evidence covers **direction and cycles** and says **compiled or manual**; **the review is real**.
 * Do not claim review or hosted CI that has not occurred.
 
@@ -1154,15 +1154,15 @@ if (days > 7) { output.println("Rejected: borrower limit or duration."); return;
 | Test class | Invocations | Purpose |
 |---|---:|---|
 | `RepositoryBoundaryTest` | 7 | Snapshots, duplicate/null rejection, storage before notification, failed add, independent sessions, required repository |
-| `ValueSemanticsTest` | 2 | Record equality; preserved cumulative period equality |
+| `ValueSemanticsTest` | 2 | Record equality; preserved running period equality |
 | `ReservationConsoleTest` | 3 | Output contract, a staff request above the student limit, unhidden directory failure |
 | `DependencyRulesTest` | 2 | Compiled references against the matrix; no package cycle |
 | Migrated earlier suite | 107 | Existing policies, directory, loan, notification, pattern, lifecycle |
-| **Total** | **121** | Complete checkpoint gate |
+| **Total** | **121** | Complete version gate |
 
 ---
 
-# 10.13 Review and Transfer
+# 10.13 Questions to Think with, and a Transfer Challenge
 ### Concept, diagnosis, transfer
 
 ---
@@ -1227,7 +1227,7 @@ A clinic appointment application has **eligibility rules, an external patient di
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---
@@ -1235,7 +1235,7 @@ A clinic appointment application has **eligibility rules, an external patient di
 ## Summary
 
 * Application structure makes responsibilities and dependency decisions **visible beyond individual classes**.
-* The checkpoint adds **named packages**, a **narrow storage port**, **explicit assembly** and a **thin presentation adapter** while preserving tested outcomes.
+* The version adds **named packages**, a **narrow storage port**, **explicit assembly** and a **thin presentation adapter** while preserving tested outcomes.
 * Package design adds four questions: **what changes together and is released together**, **what clients depend on**, **whether dependencies point towards stability**, and **whether a stable package is abstract enough to extend**.
 
 ---

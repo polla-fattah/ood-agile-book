@@ -16,28 +16,28 @@ layout: page
 
 ## Chapter Roadmap (1 of 2)
 
-* **15.1 Assistance and accountability**
+* **15.1 What an assistant gives you, and who stays accountable**
   * The six-step workflow behind every AI activity in the book.
-* **15.2 Defining task and context**
+* **15.2 Telling the assistant what you want: task and context**
   * A prompt is a work order, not a requirement.
-* **15.3 Requirements and code explanation**
+* **15.3 Asking an assistant to explain: requirements and code**
   * Classify explanations claim by claim.
-* **15.4 Candidate code and test generation**
+* **15.4 Candidate code and tests: a worked task**
   * The worked task: two rejected attempts and an accepted version.
-* **15.5 Refactoring and review**
-* **15.6 Failure modes**
+* **15.5 Asking for a refactoring or a review**
+* **15.6 How assistants fail: the patterns to recognise**
 
 ---
 
 ## Chapter Roadmap (2 of 2)
 
-* **15.7 Privacy, dependencies and provenance**
-* **15.8 Verification records**
+* **15.7 Privacy, dependencies and where work came from**
+* **15.8 Writing down what you checked: verification records**
   * What evidence can and cannot show; a compact eight-part record.
-* **15.9 Offline alternatives**
-* **15.10 Common mistakes**
-* **15.11 Practical activity**
-* **15.12 Review and transfer**
+* **15.9 Doing all of this without a live service**
+* **15.10 AI habits that mislead**
+* **15.11 Try it yourself: the lab and your own task**
+* **15.12 Questions to think with, and a transfer challenge**
 * **Summary and where to go next**
   * The appendices collect what the chapters point to.
 
@@ -55,23 +55,23 @@ After this chapter, you should be able to:
 
 ---
 
-## Module Connection and Checkpoint
+## Where This Chapter Fits and Where You Start
 
 * This is a **reference chapter that belongs to no teaching week**. It supports the module's outcomes wherever an assistant is used and adds **no separate assessed AI outcome**.
 * It creates **no new deadlines, weights or marking rules**. Whether, and how, AI tools may be used in an assessment follows **the module leader's current rules**.
-* **Entry checkpoint: none.** The worked example is a small separate project, **the lab**, that stands alone, compiles for Java 17 and needs only the pinned Maven toolchain of the earlier chapters.
+* **Entry version: none.** The worked example is a small separate project, **the lab**, that stands alone, compiles for Java 17 and needs only the pinned Maven toolchain of the earlier chapters.
 * **The lending project is not changed:** its handover version 0.14.0 stays as Chapter 14 left it.
 * The chapter is **vendor-neutral**. It does not teach prompt tricks, model internals, retrieval or agents.
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core:** 15.1, 15.2, 15.4, 15.6 and 15.8.
 * **Working knowledge:** 15.3, 15.5 and 15.7. **Learn the method; you do not need to memorise tools.**
-* **Minimum required lab:** **B1 to B4** (Book project, the lab: running, tracing and diagnosis, everything supplied) and **T1 to T3** (Team project: apply the method to your own work).
+* **What you must do:** **B1 to B4** (the book's project, the lab: running, tracing and diagnosis, everything supplied) and **T1 to T3** (your team's project: apply the method to your own work).
 * These steps **consolidate** what the "AI in practice" activities of Chapters 1 to 14 already ask. Do B1 to B4 once, where you first need them: alongside the first AI activity, or before your final handover.
-* **Optional extension:** B5 to B7 and T4, the review questions and the transfer challenge. **Nothing required depends on a paid account.**
+* **If you want more:** B5 to B7 and T4, the questions and the transfer challenge. **Nothing required depends on a paid account.**
 
 ---
 
@@ -110,7 +110,7 @@ It is late. You ask an assistant for a small method, and it returns tidy code wi
 
 ---
 
-# 15.1 Assistance and Accountability
+# 15.1 What an Assistant Gives You, and Who Stays Accountable
 ### Candidates, not answers
 
 ---
@@ -224,8 +224,8 @@ It is late. You ask an assistant for a small method, and it returns tidy code wi
 
 ---
 
-# 15.2 Defining Task and Context
-### A work order, not a requirement
+# 15.2 Telling the Assistant What You Want
+### Task and context
 
 ---
 
@@ -309,8 +309,8 @@ Scope: do not change `LoanPeriod`. Do not reserve anything.
 
 ---
 
-# 15.3 Requirements and Code Explanation
-### Claim by claim
+# 15.3 Asking an Assistant to Explain
+### Requirements and code
 
 ---
 
@@ -378,8 +378,8 @@ Scope: do not change `LoanPeriod`. Do not reserve anything.
 
 ---
 
-# 15.4 Candidate Code and Test Generation
-### One small task, two rejected attempts
+# 15.4 Candidate Code and Tests
+### A worked task
 
 ---
 
@@ -695,7 +695,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-# 15.5 Refactoring and Review
+# 15.5 Asking for a Refactoring or a Review
 ### Questions, not verdicts
 
 ---
@@ -726,8 +726,8 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-# 15.6 Failure Modes
-### Recognise the pattern
+# 15.6 How Assistants Fail
+### The patterns to recognise
 
 ---
 
@@ -777,7 +777,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-# 15.7 Privacy, Dependencies and Provenance
+# 15.7 Privacy, Dependencies and Where Work Came from
 ### What not to send; what not to trust
 
 ---
@@ -883,8 +883,8 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-# 15.8 Verification Records
-### What evidence can show, and what it cannot
+# 15.8 Writing Down What You Checked
+### Verification records
 
 ---
 
@@ -916,7 +916,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 | Part | Contents |
 |---|---|
 | Task | What was asked and **who owns the requirement** |
-| Tool and model | The tool and model, or **"none: constructed fixture"**, and the date |
+| Tool and model | The tool and model, or **"none: constructed example"**, and the date |
 | Context given | What the assistant saw, and **what was left out and why** |
 | Output received | Each candidate in order, with accepted or rejected. **Keep the rejected ones** |
 
@@ -949,7 +949,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 ## The Filled Record: Task, Tool, Context
 
 * **Task:** add `AvailabilityFinder.earliestStart(from, days, searchDays)`. The requirement and its **nine acceptance examples** were written by the developer before any prompt. The developer owns the requirement.
-* **Tool and model:** *None: constructed fixture* (author-written, not a recorded service response), 13 October 2026.
+* **Tool and model:** *None: constructed example* (author-written, not a recorded service response), 13 October 2026.
 * **Context given:** prompt 1 (task sentence, `LoanPeriod` source, constraints, output format, scope); prompt 2 (the two compiler findings, the request to keep it small and add tests). **Not shared: the acceptance examples.**
 
 ---
@@ -971,7 +971,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-# 15.9 Offline Alternatives
+# 15.9 Doing All of This Without a Live Service
 ### No live service required
 
 ---
@@ -991,7 +991,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-# 15.10 Common Mistakes
+# 15.10 AI Habits That Mislead
 ### Ten to avoid
 
 ---
@@ -1030,20 +1030,20 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-# 15.11 Practical Activity
-### Reject, diagnose, make tests bite, record
+# 15.11 Try It Yourself
+### The lab and your own task
 
 ---
 
-## Input and Demonstration
+## What You Start With, and the Demonstration
 
-* **Input:** the lab (Companion, Section 3), with its prompts, two constructed attempts, acceptance tests and record. **B1 to B7** use the **Book project** (the lab); **T1 to T4** use your **Team project**.
+* **You start with:** the lab (Companion, Section 3), with its prompts, two constructed attempts, acceptance tests and record. **B1 to B7** use the book's project (the lab); **T1 to T4** use your team's project.
 * **Instructor demonstration:** compile attempt 1 with `javac --release 17` and, if a JDK 21 or later is available, once more with plain `javac`; ask the class **why the results differ**. Then run attempt 2 against its own tests, and against the acceptance examples.
 * **Guided practice:** take one claim from the constructed `VisitorGate` explanation and classify it, naming the evidence. Take one statement an assistant has made about itself and say **how you would check it**.
 
 ---
 
-## Book Project: B1 and B2
+## The Book's Project: B1 and B2
 
 * **B1. Reject attempt 1.** Run `bash scripts/try-attempt.sh 1`. Compile by hand with `javac --release 17`, read both errors; with a JDK 21 or later, compile once more without `--release` and compare. **List each defect and its category from 15.6**, and say what the claim "I tested it with Java 17" **can and cannot mean**.
 * **B2. Diagnose attempt 2.** Run its own tests (`try-attempt.sh 2 generated`), then the acceptance examples (`try-attempt.sh 2 adapted`). Find the failing line, **name the shared misunderstanding** between the code and its tests, and explain why the acceptance examples were independent evidence. Run the generated tests against the accepted finder and say **what the one failure shows**.
@@ -1064,7 +1064,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-## Book Project: B3 and B4
+## The Book's Project: B3 and B4
 
 * **B3. Make the tests bite.** Apply **three faults** of your choice to the accepted finder in a scratch copy. **Predict** which acceptance examples fail, run them, compare. Find **one fault that survives** and say why.
   * Examples: `offset < searchDays - 1`, `start.plusDays(days - 1)`, `allMatch`.
@@ -1073,7 +1073,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-## Team Project: T1 to T3
+## Your Team's Project: T1 to T3
 
 * **T1. Define one AI-assisted task before you prompt.** A small, real task in your project: the requirement, the **acceptance examples (derived from the requirement, before any candidate)**, the constraints and the scope. **Decide which examples you will share and which you will keep undisclosed, and why.**
 * **T2. Run it and keep everything.** A live assistant if the rules allow, or an offline route (15.9). **Keep each attempt, including the ones you reject.** Compile and test with the project's own commands.
@@ -1081,7 +1081,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-## Optional Extension: B5 to B7 and T4
+## If You Want More: B5 to B7 and T4
 
 * **B5. Repeat the lab task with a live assistant**, if you may. Which failure modes did it show? **An assistant that gets it right the first time is a valid result:** record that and the checks that showed it.
 * **B6. Verify two dependencies.** Look up the constructed suggestion's coordinates, report the status of each and decide what to do about each.
@@ -1090,9 +1090,9 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-## Expected Artefacts and Acceptance Conditions
+## What You Should End Up With, and When You Are Done
 
-* **Artefacts:** B1 to B4; for the Team project, one defined task with its acceptance examples, the attempts, a record, and a team note if you did T4.
+* **What you should end up with:** B1 to B4; for your team's project, one defined task with its acceptance examples, the attempts, a record, and a team note if you did T4.
 * **Acceptance:**
   * the acceptance examples were **written before the candidate was requested**;
   * every claim the assistant made about itself was **checked or marked unchecked**;
@@ -1105,7 +1105,7 @@ public Optional<LocalDate> earliestStart(LocalDate from, int days, int searchDay
 
 ---
 
-# 15.12 Review and Transfer
+# 15.12 Questions to Think with, and a Transfer Challenge
 ### Concept, diagnosis, transfer
 
 ---
@@ -1177,7 +1177,7 @@ A team building an ML model-serving service wants an assistant to write a **data
 
 ---
 
-# Summary and Where to Go Next
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---
@@ -1197,7 +1197,7 @@ A team building an ML model-serving service wants an assistant to write a **data
 ## Where to Go Next
 
 * This is the **last chapter of the book's main sequence**.
-* The appendices that follow collect material the chapters point to: **notation and a programming refresher, tools and reproducible setup, engineering templates, project checkpoints and a glossary, and a guide to critical reading and project evidence.**
+* The appendices that follow collect material the chapters point to: **notation and a programming refresher, tools and reproducible setup, engineering templates, project versions and a glossary, and a guide to critical reading and project evidence.**
 
 ---
 

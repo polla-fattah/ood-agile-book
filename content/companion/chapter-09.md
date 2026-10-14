@@ -9,9 +9,9 @@ description: "Code explanations and solutions for Chapter 9 Companion: Code, Exp
 
 ## 1. Scope and reproducible execution
 
-This file accompanies Chapter 9, Designing Changing Behaviour. It includes the complete cumulative checkpoint, separate before/after lifecycle examples, tests, model solutions and teaching notes. Use Java 17 and the same pinned dependencies as Chapter 8.
+This file accompanies Chapter 9, Designing Changing Behaviour. It includes the complete running version, separate before/after lifecycle examples, tests, model solutions and teaching notes. Use Java 17 and the same pinned dependencies as Chapter 8.
 
-**Starting point:** Chapter 8's directory-backed reservation flow. **Cumulative option:** `NotificationPublisher` can be supplied through the existing sender interface. **Action example:** `ReserveEquipmentCommand` invokes the real directory-backed service when executed. **Separate exercise:** `behaviour.LifecycleExamples` contains a proposed lifecycle, with conditional and State versions. It does not modify the actual reservation or loan model.
+**Starting point:** Chapter 8's directory-backed reservation flow. **Running option:** `NotificationPublisher` can be supplied through the existing sender interface. **Action example:** `ReserveEquipmentCommand` invokes the real directory-backed service when executed. **Separate exercise:** `behaviour.LifecycleExamples` contains a proposed lifecycle, with conditional and State versions. It does not modify the actual reservation or loan model.
 
 ### 1.1 Reconstruct from the listings
 
@@ -73,7 +73,7 @@ The full build executes 107 JUnit invocations. This includes 63 inherited cases 
 | `NotificationPublisherTest.java` | Dispatch, subscription and partial-failure behaviour |
 | `ReserveEquipmentCommandTest.java` | Lazy construction, execution state, replay and failure propagation |
 
-The existing `patterns` package remains Chapter 8's isolated material. The new `behaviour` package contains only the lifecycle exercise. Neither named package imports the cumulative application's unnamed-package classes. Chapter 10 will address application structure explicitly.
+The existing `patterns` package remains Chapter 8's isolated material. The new `behaviour` package contains only the lifecycle exercise. Neither named package imports the running application's unnamed-package classes. Chapter 10 will address application structure explicitly.
 
 ### 2.2 Strategy is already present
 
@@ -81,7 +81,7 @@ The existing `patterns` package remains Chapter 8's isolated material. The new `
 
 The conditional comparison exists only inside `BehaviourStrategyTest`. It assumes the two currently supported category enum values; its default branch is not a general policy for unknown future categories. Each implementation is tested against explicit expected values rather than only against the other implementation.
 
-The alternative staff lambda is a test fixture with limits of one counted reservation and two days. It obeys the common side-effect-free boolean contract. It is not adopted as the default staff rule.
+The alternative staff lambda is a test example with limits of one counted reservation and two days. It obeys the common side-effect-free boolean contract. It is not adopted as the default staff rule.
 
 ### 2.3 Proposed lifecycle contract
 
@@ -107,7 +107,7 @@ The record's fields are final, but its receiver is a mutable service. Constructi
 
 ## 3. Complete application and example sources
 
-Inherited files are included so the checkpoint can be reconstructed independently. New code is additional to the previous checkpoint rather than a rewrite of its contracts.
+Inherited files are included so the version can be reconstructed independently. New code is additional to the previous version rather than a rewrite of its contracts.
 
 ### 3.1 `after/src/main/java/Borrower.java`
 
@@ -2568,7 +2568,7 @@ Before integrating the lifecycle exercise, clarify whether cancellation is allow
 
 Then map those choices to `ReservationCoordinator`, `LoanService`, snapshots, count calculations, availability checks and tests. The current size-based identifier allocation assumes records are not removed. Deleting a cancelled reservation without revisiting identifiers could therefore introduce another defect.
 
-This proposal is an analysis exercise. The provided checkpoint implements none of those lifecycle changes, so all earlier reservation and loan rules remain testable as before.
+This proposal is an analysis exercise. The provided version implements none of those lifecycle changes, so all earlier reservation and loan rules remain testable as before.
 
 ## 9. AI activity solution
 
@@ -2590,7 +2590,7 @@ Command does not make replay safe. Repeated execution re-enters the receiver and
 
 For each AI claim, record the relevant requirement, the claimed structure, the confirming or rejecting test, and any remaining limitation. A useful entry is: “Model claims cancellation is legal from any state; transition table forbids ON_LOAN/CANCEL; test requires an exception and unchanged ON_LOAN; proposal rejected.”
 
-The provided fixture is author-written fictional text. Do not report it as an actual response from an AI provider. If conducting a live activity, keep the relevant real output and verify it independently using synthetic data.
+The provided example is author-written fictional text. Do not report it as an actual response from an AI provider. If conducting a live activity, keep the relevant real output and verify it independently using synthetic data.
 
 ## 10. Review answers and transfer solution
 
@@ -2622,13 +2622,13 @@ Clarify who can approve, whether a published document can be withdrawn, how revi
 
 ## 11. Instructor guidance and critical reading
 
-Use the existing policy code to show that a design can have a pattern role before anyone gives it that label. Compare it with the conditional fixture and ask when parameterisation would be simpler. Then put the lifecycle table before both implementations and trace one legal and one illegal action.
+Use the existing policy code to show that a design can have a pattern role before anyone gives it that label. Compare it with the conditional example and ask when parameterisation would be simpler. Then put the lifecycle table before both implementations and trace one legal and one illegal action.
 
 For Observer, predict the demonstration transcript first. Ask whether the failed display means the desk and audit also failed, and whether the reservation exists. Run the unexpected-failure test as a contrasting declared behaviour, not as a claim that the system automatically recovers.
 
 For Command, pause after construction and inspect the empty state. Execute once, then repeat. Ask students to separate the captured arguments from the evolving receiver state. Do not introduce queue infrastructure or CQRS to make the example appear more sophisticated.
 
-The module descriptor places the critical book review in Week 8. Refer students to the module leader's approved reading list and submission instructions. The student chapter refers to Appendix E, which develops the review method, and includes a short reading checkpoint that stands on its own. The review's own requirements (length, additional sources, reflection on AI-enabled systems) are in the current assignment brief, and the chapter points to that brief and does not restate it.
+The module descriptor places the critical book review in Week 8. Refer students to the module leader's approved reading list and submission instructions. The student chapter refers to Appendix E, which develops the review method, and includes a short reading point that stands on its own. The review's own requirements (length, additional sources, reflection on AI-enabled systems) are in the current assignment brief, and the chapter points to that brief and does not restate it.
 
 A review should identify an actual author claim, locate it precisely, examine the example and evaluate a limitation or alternative using verified evidence. An AI summary of an unread book is not source-based critical reading. This guidance adds no marking rubric, weight or new deadline.
 

@@ -229,7 +229,7 @@ The concrete `ConfirmationFormatter` is supplied in the constructor, but no inte
 
 Likewise, using Java's `Map` interface does not by itself demonstrate DIP. The useful design decision is that policy mappings are assembled outside the coordinator. The collection interface is an existing representation that makes this small mapping explicit.
 
-## 6.5 Handing collaborators in: constructor injection and the composition root
+## 6.5 Handing collaborators in: injection and the composition root
 
 ### Making required collaborators visible
 

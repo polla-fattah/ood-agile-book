@@ -73,7 +73,7 @@ An increment is also not the same as a public release. A small teaching applicat
 
 Chapter 4 will turn the chosen work into an iteration plan. For now, practise spotting small outcomes and asking what evidence would make each one believable.
 
-## 3.4 Scrum: who is accountable, what happens when, and what it produces
+## 3.4 Scrum: who is accountable, what happens when, what it produces
 
 Scrum is a framework with defined parts, and it is easy to describe loosely and get wrong. We use the November 2020 Scrum Guide as the formal reference [3]. Here is its basic structure in one table:
 
@@ -166,7 +166,7 @@ A board by itself is not yet a Kanban system. The team also needs workflow polic
 
 Resist the two easy summaries: “Scrum has meetings and Kanban has none”, and “Scrum is planned and Kanban is unplanned.” Neither is true. What we want right now is to make the work and its completion conditions visible. Whichever approach you pick should help the team decide things, and not just give it new labels.
 
-## 3.6 From “manage equipment” to a story you can build: epics, user stories and INVEST
+## 3.6 From “manage equipment” to a story: epics, user stories and INVEST
 
 “Manage equipment” is far too broad to tell anyone what to implement next. It could mean stock records, borrowing, maintenance, losses, reports or purchasing. To make progress, we need a particular person, a particular outcome and a reason.
 
@@ -199,7 +199,7 @@ Treat INVEST as a way to reason, not a six-point score that certifies a story. R
 
 For the availability story, a small version could look at the coordinator's current records for one known item and one period, and leave the records unchanged. If we also added live inventory, maintenance calendars, permissions and email delivery in the same story, nobody could say clearly what was being delivered.
 
-### A backlog is an ordered list, not a pile of equal priorities
+### A backlog is an ordered list, not equal priorities
 
 The Scrum Guide describes the Product Backlog as an emergent, ordered list, and refinement as the continuing work of breaking items into smaller, more precise ones [3]. Ordering and refinement together keep upcoming work understandable. Because the team inherits code from Chapter 2, we will also record what the code already supports next to what remains to be done.
 
@@ -211,7 +211,7 @@ The Scrum Guide describes the Product Backlog as an emergent, ordered list, and 
 
 This is the start of a draft backlog, not a report that three items are finished. Review what the code already does instead of pretending to build it a second time. Once a story's conditions are fully met, keep the evidence in the history of completed work and do not count it again as new work.
 
-## 3.7 How do we know a story is finished? Acceptance criteria and Definition of Done
+## 3.7 Is the story finished? Acceptance criteria and Definition of Done
 
 Two ideas answer that question, and they work at different levels. **Acceptance criteria** describe the behaviour expected from one particular item, and they should be precise enough that a second team could tell whether an implementation meets them. The **Definition of Done** describes the quality conditions that every increment must meet. Scrum makes that definition the commitment attached to the Increment [3].
 
@@ -260,7 +260,7 @@ AC-03 belongs to the reservation story, because it defines how dates behave. Rep
 
 “Ready” answers a different question: does the team understand an item well enough to start it? Our Ready-column policy is a local agreement. It is not an extra formal Scrum artefact or event.
 
-## 3.8 Estimating without pretending to know: relative estimation and uncertainty
+## 3.8 Estimating without pretending to know: relative estimation
 
 Teams estimate so they can talk about work and make forecasts. An estimate is not a guarantee that a particular person will finish at a precise time. Before anyone estimates, agree what is included: only the implementation, or also the review, checking and documentation needed to reach Done?
 

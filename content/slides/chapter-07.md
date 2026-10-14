@@ -16,37 +16,37 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **7.1 Behaviour and test evidence**
+* **7.1 What does a test actually show? Behaviour and test evidence**
   * Executable availability examples; observe result and state together.
-* **7.2 Test anatomy and Arrange-Act-Assert**
-  * Assertions that can be wrong; fresh, small fixtures.
-* **7.3 Red-green-refactor**
+* **7.2 What a test looks like: Arrange–Act–Assert**
+  * Assertions that can be wrong; fresh, small setup.
+* **7.3 Red, green, refactor: one cycle in detail**
   * One recorded cycle, and why the first failure must be the intended one.
-* **7.4 Boundaries, controlled time and a bounded lending flow**
+* **7.4 Edges, clocks and a small lending flow**
   * Boundary values, a controlled clock, a bounded lending flow.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **7.5 Dummies, stubs, fakes, spies and mocks**
+* **7.5 Test doubles: dummies, stubs, fakes, spies and mocks**
   * Name the role a substitute plays, then add Mockito for one interaction.
-* **7.6 Testability and design feedback**
-* **7.7 Weak or brittle tests**
+* **7.6 What testing tells you about design**
+* **7.7 Tests that look good but are weak or brittle**
   * Coverage is not correctness; a mutation experiment; a mutant that survives.
-* **7.8 Milestone 2 evidence**
+* **7.8 Preparing the Milestone 2 evidence**
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **7.9 AI in practice:** separate implementation from expected behaviour.
-* **7.10 Common mistakes**
-* **7.11 Practical activity**
-  * Steps 1 to 9; steps 8 and 9 on your Team project.
-* **7.12 Review questions and midterm practice**
+* **7.9 Keeping implementation and expected behaviour apart, with AI** separate implementation from expected behaviour.
+* **7.10 Testing habits that mislead**
+* **7.11 Try it yourself: a test-first change and Milestone 2 evidence**
+  * Steps 1 to 9; steps 8 and 9 on your team's project.
+* **7.12 Questions to think with, and midterm practice**
   * A five-task practice set for Chapters 2 to 7.
-* **Summary and next chapter**
+* **What to take away, and what comes next**
   * Chapter 8: construction and compatibility patterns.
 
 ---
@@ -103,12 +103,12 @@ Milestone 2 falls in this week. By your demonstration you need:
 
 ---
 
-## Entry Checkpoint and Tools
+## Where You Start and the Tools
 
-* **Entry:** Chapter 6's Java 17 application, explicit collaborator construction, student and staff policies, local notification outputs. The earlier executable checks remain available.
+* **You start with:** Chapter 6's Java 17 application, explicit collaborator construction, student and staff policies, local notification outputs. The earlier executable checks remain available.
 * **New tools:** **Maven, JUnit Jupiter and Mockito**, with an explicitly versioned configuration in the companion.
 * Core reading 7.1 to 7.8. Section 7.5 introduces **hand-written doubles before Mockito**.
-* Lab: steps 1 to 6, 8 and 9. Steps 1 to 6 on the Book project; **steps 8 and 9 on your Team project**.
+* Lab: steps 1 to 6, 8 and 9. Steps 1 to 6 on the book's project; **steps 8 and 9 on your team's project.
 
 ---
 
@@ -137,8 +137,8 @@ Milestone 2 falls in this week. By your demonstration you need:
 
 ---
 
-# 7.1 Behaviour and Test Evidence
-### Start from a promise, not an implementation
+# 7.1 What Does a Test Actually Show?
+### Behaviour and test evidence
 
 ---
 
@@ -164,7 +164,7 @@ Milestone 2 falls in this week. By your demonstration you need:
 
 | Example | Setup and action | Required observation |
 |---|---|---|
-| AQ-04 | Same booking; enquire about MIC1 for the same interval | Available for the different fixture item |
+| AQ-04 | Same booking; enquire about MIC1 for the same interval | Available for the different sample item |
 | AQ-05 | Equal or reversed interval | Identifiable invalid-input outcome; no side effects |
 
 * All dates are in 2026.
@@ -177,7 +177,7 @@ Milestone 2 falls in this week. By your demonstration you need:
 * **Blank or null item identifier:** `IllegalArgumentException`.
 * **Equal or reversed dates:** `IllegalArgumentException`.
 * **Null dates:** `NullPointerException` through `LoanPeriod`.
-* These choices **settle the earlier open API question** for this teaching checkpoint.
+* These choices **settle the earlier open API question** for this teaching version.
 
 ---
 
@@ -238,8 +238,8 @@ mvn --batch-mode verify
 
 ---
 
-# 7.2 Test Anatomy and Arrange-Act-Assert
-### A readable argument
+# 7.2 What a Test Looks Like
+### Arrange–Act–Assert
 
 ---
 
@@ -271,7 +271,7 @@ assertAll(
 ## A Name That Says What Broke
 
 * `overlappingEnquiryIsUnavailableWithoutChangingRecordsOrNotifying`
-* A precise name reduces the need to **reverse-engineer why a fixture contains particular values**.
+* A precise name reduces the need to **reverse-engineer why a setup contains particular values**.
 * Avoid `test1` or `worksCorrectly`: when the test fails, the name **should tell another developer which promise was broken**.
 
 ---
@@ -328,12 +328,12 @@ assertAll(
 
 * Each scenario constructs **fresh mutable collaborators** unless sharing is part of the behaviour.
 * A **static coordinator reused across tests** makes results depend on which test ran first: the same test may pass alone and fail in the suite.
-* Prefer **the smallest fixture** that makes the scenario meaningful, using real simple domain objects.
+* Prefer **the smallest setup** that makes the scenario meaningful, using real simple domain objects.
 
 ---
 
-# 7.3 Red-Green-Refactor
-### Make the missing behaviour visible
+# 7.3 Red, Green, Refactor
+### One cycle in detail
 
 ---
 
@@ -466,7 +466,7 @@ mvn --batch-mode -Dtest=AvailabilityTddTest test
 
 ---
 
-# 7.4 Boundaries, Controlled Time and a Bounded Lending Flow
+# 7.4 Edges, Clocks and a Small Lending Flow
 ### Edges that carry meaning, and time under control
 
 ---
@@ -489,7 +489,7 @@ mvn --batch-mode -Dtest=AvailabilityTddTest test
 
 ## Control Time Where Behaviour Depends on Today
 
-* Availability needs **no clock** in this checkpoint.
+* Availability needs **no clock** in this version.
 * The new **loan checkout** does: checkout is allowed only on a date **within the confirmed reservation's half-open period**.
 * `LoanService` receives a Java **`Clock`** and uses `LocalDate.now(clock)`.
 * Tests use **`Clock.fixed`**, or a small controlled clock when the scenario must advance.
@@ -630,8 +630,8 @@ loans.put(reservationId, returned);
 
 ---
 
-# 7.5 Dummies, Stubs, Fakes, Spies and Mocks
-### Name the role a substitute plays
+# 7.5 Test Doubles
+### Dummies, stubs, fakes, spies and mocks
 
 ---
 
@@ -755,7 +755,7 @@ BorrowerDirectory offline = id -> { throw new DirectoryException("provider offli
 
 ---
 
-# 7.6 Testability and Design Feedback
+# 7.6 What Testing Tells You About Design
 ### Difficult tests as information
 
 ---
@@ -793,7 +793,7 @@ BorrowerDirectory offline = id -> { throw new DirectoryException("provider offli
 
 ---
 
-# 7.7 Weak or Brittle Tests
+# 7.7 Tests That Look Good but Are Weak or Brittle
 ### Executing code is not asking a question
 
 ---
@@ -934,7 +934,7 @@ mvn --batch-mode -Dtest=AvailabilityTest#adjacentPeriodAndDifferentItemAreAvaila
 
 ---
 
-# 7.8 Milestone 2 Evidence
+# 7.8 Preparing the Milestone 2 Evidence
 ### Demonstrate an outcome with its boundaries
 
 ---
@@ -1003,7 +1003,7 @@ Accepted-reservation notices: 1
 
 ---
 
-# 7.9 AI in Practice: Implementation vs. Expected Behaviour
+# 7.9 Keeping Implementation and Expected Behaviour Apart, with AI
 ### Do not let outputs validate each other
 
 ---
@@ -1017,27 +1017,27 @@ Accepted-reservation notices: 1
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Separate a proposed implementation from the evidence that would accept or reject it |
-| Input | AQ-01 to AQ-05 as reviewed, and Chapter 6's coordinator |
-| Permitted scope | Evaluate the candidate implementation and its tests; do not treat either as proof of the other |
+| Your goal | Separate a proposed implementation from the evidence that would accept or reject it |
+| You start with | AQ-01 to AQ-05 as reviewed, and Chapter 6's coordinator |
+| What is in bounds | Evaluate the candidate implementation and its tests; do not treat either as proof of the other |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | The reviewed examples, the labelled wrong-boundary mutation, the build result |
-| Accept or reject | A verdict with independent evidence for each claim |
-| No-account route | The fixture is sufficient |
+| How to check | The reviewed examples, the labelled wrong-boundary mutation, the build result |
+| How to decide | A verdict with independent evidence for each claim |
+| No AI account? | The ready-made example is enough |
 
 ---
 
-## The Fixture
+## The Ready-Made Example
 
 **Author-written fictional AI output.**
 
@@ -1047,7 +1047,7 @@ Accepted-reservation notices: 1
 
 ## Model Critique (1 of 2)
 
-| Fixture claim | Verdict | Independent check or correction |
+| Claim | Verdict | Independent check or correction |
 |---|---|---|
 | Query by reserve-and-remove | Reject | `reserve` sends a notice and can be refused by limits; adding and removing directly leaves no trace sequential tests can see, so reject by reading |
 | Inclusive end means adjacency conflicts | Reject | The agreed interval is half-open; `[20,22)` and `[22,23)` do not overlap |
@@ -1057,7 +1057,7 @@ Accepted-reservation notices: 1
 
 ## Model Critique (2 of 2)
 
-| Fixture claim | Verdict | Independent check or correction |
+| Claim | Verdict | Independent check or correction |
 |---|---|---|
 | Implementation and tests mutually prove correctness | Reject | Both may share the same mistaken convention |
 | Coverage proves correctness | Reject | Execution does not validate expected values or sensitivity to defects |
@@ -1067,7 +1067,7 @@ Accepted-reservation notices: 1
 
 ---
 
-# 7.10 Common Mistakes
+# 7.10 Testing Habits That Mislead
 ### Eight to avoid
 
 ---
@@ -1101,14 +1101,14 @@ Accepted-reservation notices: 1
 
 ---
 
-# 7.11 Practical Activity
-### Test-first on your own code
+# 7.11 Try It Yourself
+### A test-first change and Milestone 2 evidence
 
 ---
 
-## Input and Demonstration
+## What You Start With, and the Demonstration
 
-* **Input:** Chapter 6's checkpoint, the reviewed query criteria, the new loan-flow rules and the companion's Maven/JUnit setup.
+* **You start with:** Chapter 6's version, the reviewed query criteria, the new loan-flow rules and the companion's Maven/JUnit setup.
 * **Demonstration:** run the labelled **red** stage, inspect the precise failure, apply the **green** implementation, extract conflict detection, rerun the new test **and** the legacy bridge.
 * **Guided practice:** convert one **policy boundary table** into parameterised examples and discuss which incorrect result each row distinguishes. Compare a hand-written recorder with the Mockito interaction test.
 
@@ -1133,8 +1133,8 @@ Accepted-reservation notices: 1
 ## Independent Work: Steps 7 to 9
 
 7. **Rehearse the MVP demonstration** from documented instructions, obtain actual review feedback and write a short retrospective with a next action.
-8. On your **Team project**, take one backlog behaviour and develop it **test-first**. Record the actual red failure, the green change and the refactoring. **Do not reconstruct a sequence afterwards.**
-9. On your **Team project**, work through the **Milestone 2 checklist**: rehearse your own demo, get review feedback, write a retrospective. Record which items are complete, which are gaps and **who will close each one**.
+8. On your team's project, take one backlog behaviour and develop it **test-first**. Record the actual red failure, the green change and the refactoring. **Do not reconstruct a sequence afterwards.**
+9. On your team's project, work through the **Milestone 2 checklist**: rehearse your own demo, get review feedback, write a retrospective. Record which items are complete, which are gaps and **who will close each one**.
 
 ---
 
@@ -1142,7 +1142,7 @@ Accepted-reservation notices: 1
 
 * **Output:** runnable source; focused tests; TDD and mutation evidence; double rationale; actual build result; demonstration notes; review and retrospective notes; explicit limitations; the step 8 and 9 records.
 * **Complete when:** the failure is **behavioural and understood**; query results and state effects match the examples; time-sensitive tests **do not depend on the actual day**; the **whole regression suite executes**; the demo includes reservation, checkout and return.
-* **Optional extension:** sketch how completed reservations should affect counts and early-return availability. Do **not** silently implement it.
+* **If you want more:** sketch how completed reservations should affect counts and early-return availability. Do **not** silently implement it.
 
 ---
 
@@ -1193,7 +1193,7 @@ Accepted-reservation notices: 1
 
 ## Suggested Evidence Packet (1 of 2)
 
-| Artefact | Useful content |
+| Document | Useful content |
 |---|---|
 | Scope note | Selected query and loan rules; synthetic inputs; lifecycle limitations |
 | TDD record | Actual red message, same test at green, refactoring diff, regression result |
@@ -1204,7 +1204,7 @@ Accepted-reservation notices: 1
 
 ## Suggested Evidence Packet (2 of 2)
 
-| Artefact | Useful content |
+| Document | Useful content |
 |---|---|
 | Mutation record | Isolated faulty comparison, selected failure and restored pass |
 | Build result | Executed revision, tool versions, actual report |
@@ -1215,7 +1215,7 @@ Accepted-reservation notices: 1
 
 ---
 
-# 7.12 Review Questions and Midterm Practice
+# 7.12 Questions to Think with, and Midterm Practice
 ### Concept, diagnosis, transfer, and the practice set
 
 ---
@@ -1232,7 +1232,7 @@ Accepted-reservation notices: 1
 ## Diagnosis Questions
 
 5. A test calculates its expected availability by calling the same overlap helper used by production code. Both treat adjacency as overlap. Explain why the green result is weak and replace it with an independent example.
-6. A loan test passes alone but fails after another test, and both use a static shared loan service. Diagnose the likely cause and propose a fixture strategy that still allows intentional multi-step scenarios.
+6. A loan test passes alone but fails after another test, and both use a static shared loan service. Diagnose the likely cause and propose a setup strategy that still allows intentional multi-step scenarios.
 
 ---
 
@@ -1463,7 +1463,7 @@ public final class OverdueReminder {
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---
@@ -1476,7 +1476,7 @@ public final class OverdueReminder {
 
 ---
 
-## Where the Checkpoint Stands
+## Where the Project Stands
 
 * Reservation **availability enquiry**.
 * A bounded **checkout and return flow**.

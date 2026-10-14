@@ -60,7 +60,7 @@ Fowler distinguishes *narrow* integration tests, which cover only the code in ou
 
 Our own classes answer the same way every time. A file may be missing today. A network call may not return. A setting may differ between the machine that built the program and the machine that runs it. Each boundary needs two kinds of evidence: what happens when the other side behaves, and what happens when it does not. In this chapter the second kind is not an afterthought. The most important design decision in the change is how a failure at a boundary is reported.
 
-## 13.2 Testing where our code meets the outside: integration and contract tests
+## 13.2 Where our code meets the outside: integration and contract tests
 
 ### The file boundary: use a real file
 
@@ -213,7 +213,7 @@ The directory address, the timeout and the register path are *configuration*: th
 
 To stop new visitor reservations, turn the flag off. To go back to an earlier build, redeliver the previous release. Neither removes a reservation that already exists, undoes a notice already sent, or restores a decision a person already made on the strength of it. AC16 pins one consequence: a visitor reservation made before the flag was switched off can still be checked out and returned. A rollback plan is only a plan when it says what stays behind.
 
-## 13.7 Did the change do what it should? Verifying the changed behaviour
+## 13.7 Did the change work? Verifying the changed behaviour
 
 ```mermaid
 flowchart TD
@@ -295,7 +295,7 @@ The approved Milestone 4 instructions decide what is submitted, and this list is
 
 Do not claim a hosted pipeline run, a public deployment or a peer review that did not happen. A local pipeline run is evidence of a local run.
 
-## 13.9 An integration test that mocks its boundary: judging an AI's proposal
+## 13.9 An integration test that mocks its boundary: judging an AI proposal
 
 Chapter 15 gathers the AI workflows that recur in this book. This activity is complete on its own, and the ready-made proposal below is all you need.
 

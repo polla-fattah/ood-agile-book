@@ -1456,7 +1456,7 @@ E1 and E11 deserve a second look. They replace the limit with one hour, so a mis
 
 **Part F.** Removing the limit (E1) makes `aStalledPrimaryIsGivenUpOnWithinTheLimitAndTheFallbackAnswers` and `aStalledPrimaryIsAskedToStop` fail at their deadline. It tells you that the bound is tested, and not only written.
 
-**The exit artefact.** A good note lists at least eight failures from part A (the table has ten), gives the count that passes, names one fault and the test that caught it, and names a limit: for example that no test says the model is accurate, that the stub is not the real service, or that nothing was run on a Java 17 runtime.
+**The closing note.** A good note lists at least eight failures from part A (the table has ten), gives the count that passes, names one fault and the test that caught it, and names a limit: for example that no test says the model is accurate, that the stub is not the real service, or that nothing was run on a Java 17 runtime.
 
 ## 9. Teaching and revision notes
 

@@ -16,36 +16,36 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **6.1 Dependencies that make change difficult**
+* **6.1 Why dependencies make change hard**
   * A real boundary: notification output, first built the coupled way.
-* **6.2 Client-specific contracts and ISP**
+* **6.2 Designing an interface around what the client needs**
   * Design the interface around what a particular client needs.
 * **6.3 Who decides what, and what happens when notification fails**
   * Three decisions, and the partial-success case made explicit.
-* **6.4 DIP**
+* **6.4 Who owns the abstraction? Dependency inversion**
   * Source dependency direction; DI can exist without DIP.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **6.5 Constructor injection and composition roots**
+* **6.5 Handing collaborators in: injection and the composition root**
   * Two views of one design: classes and objects.
-* **6.6 IoC and DI containers**
+* **6.6 Inversion of control and containers: what do they add?**
   * An educational container makes lifetime visible.
-* **6.7 Costs of abstraction**
-* **6.8 AI in practice: an interface that hides little**
+* **6.7 What abstraction costs**
+* **6.8 Reviewing an interface that hides very little, with AI**
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **6.9 Common mistakes**
-* **6.10 Practical activity: assemble a replaceable output**
-  * Nine steps; step 9 is on your Team project.
-* **6.11 Review questions**, **6.12 Transfer challenge**
-* **6.13 Quiz 1 revision pointers**
-* **Summary and next chapter**
+* **6.9 Dependency habits that mislead**
+* **6.10 Try it yourself: assemble a replaceable output**
+  * Nine steps; step 9 is on your team's project.
+* **6.11 Questions to think with**, **6.12 A different setting: the transfer challenge**
+* **6.13 Revising for Quiz 1: where to look**
+* **What to take away, and what comes next**
   * Chapter 7: test design, controlled substitutes, red-green-refactor.
 
 ---
@@ -67,19 +67,19 @@ By the end of this chapter, you should be able to:
 
 ---
 
-## Module Connection and Entry Checkpoint
+## Where This Chapter Fits and Where You Start
 
 * Supports LO1 and LO4. **Quiz 1** revision points appear later and refer to Chapters 2 to 5, matching its Weeks 1 to 4 coverage. This chapter's material is **not silently added** to that coverage.
-* **Entry:** Chapter 5's Java 17 code: student and illustrative staff policies, extracted formatter, the original **34 checks**, the **five acceptance groups** and the **44 Chapter 5 checks**.
+* **You start with:** Chapter 5's Java 17 code: student and illustrative staff policies, extracted formatter, the original **34 checks**, the **five acceptance groups** and the **44 Chapter 5 checks**.
 * Formatting a string has never meant sending email. **Notification output is a new, explicitly bounded teaching feature.**
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core reading:** Sections 6.1 to 6.6. Section 6.6 compares manual assembly with a small educational container.
-* **Minimum required lab:** steps 1 to 9 of Section 6.10, including step 7 (the container walkthrough). Steps 1 to 8: **Book project**. Step 9: **Team project**.
-* **Optional extension:** the AI activity, the optional extension in 6.10, the review questions and the transfer challenge.
+* **What you must do:** steps 1 to 9 of Section 6.10, including step 7 (the container walkthrough). Steps 1 to 8: the book's project. Step 9: your team's project.
+* **If you want more:** the AI activity, the extension in 6.10, the questions and the transfer challenge.
 * Readings: the DIP and ISP chapters of Martin, and Fowler's article on dependency injection.
 
 ---
@@ -112,7 +112,7 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 6.1 Dependencies That Make Change Difficult
+# 6.1 Why Dependencies Make Change Hard
 ### Begin with a real boundary
 
 ---
@@ -129,7 +129,7 @@ By the end of this chapter, you should be able to:
 
 * Two visible decisions inside the coordinator: **construction of concrete policies** and **selection of a policy by category**.
 * The formatter was also constructed there.
-* A deliberate intermediate checkpoint.
+* A deliberate intermediate version.
 * Now: **move assembly out of the request workflow** while introducing a notification boundary.
 
 ---
@@ -184,7 +184,7 @@ private final NotificationSender notifications =
 
 ---
 
-# 6.2 Client-Specific Contracts and ISP
+# 6.2 Designing an Interface Around What the Client Needs
 ### Design for the caller's role
 
 ---
@@ -325,7 +325,7 @@ public void send(Reservation reservation) {
 
 ## Separate Three Decisions
 
-| Decision | Owner in this checkpoint | Reason |
+| Decision | Owner in this version | Reason |
 |---|---|---|
 | Whether the request is acceptable | Coordinator and selected borrowing policy | Depends on reservation rules and current records |
 | How notification is represented locally | Sender implementation and formatter | Depends on the chosen output |
@@ -403,7 +403,7 @@ public void send(Reservation reservation) {
 
 ## Why the Rule Matters
 
-* An author-chosen **teaching rule**. Another application might choose differently, but must make storage and communication consequences explicit.
+* An author-chosen **rule invented for this book**. Another application might choose differently, but must make storage and communication consequences explicit.
 * A result that just says "failed" can encourage callers **to repeat a reservation request that already succeeded**.
 * Repeating it here normally gives an **overlap rejection**. It is **not** a notification retry.
 * There is **no queue or worker**: do not call a failed notification "pending".
@@ -449,8 +449,8 @@ public void send(Reservation reservation) {
 
 ---
 
-# 6.4 DIP
-### Who owns the abstraction?
+# 6.4 Who Owns the Abstraction?
+### Dependency inversion
 
 ---
 
@@ -558,7 +558,7 @@ public interface BorrowerDirectory {
 }
 ```
 
-* Chapter 8 builds this equipment-directory contract. **Not part of this checkpoint.**
+* Chapter 8 builds this equipment-directory contract. **Not part of this version.**
 * Empty means "no such active borrower"; an outage is a **different outcome** (an exception); the contract uses the **application's own types**.
 
 ---
@@ -571,8 +571,8 @@ public interface BorrowerDirectory {
 
 ---
 
-# 6.5 Constructor Injection and Composition Roots
-### Make required collaborators visible
+# 6.5 Handing Collaborators in
+### Injection and the composition root
 
 ---
 
@@ -739,8 +739,8 @@ ReservationCoordinator coordinator = ReservationApplication.create(inbox);
 
 ---
 
-# 6.6 IoC and DI Containers
-### Registration, resolution, lifetime
+# 6.6 Inversion of Control and Containers
+### What do they add?
 
 ---
 
@@ -774,7 +774,7 @@ ReservationCoordinator coordinator = ReservationApplication.create(inbox);
 
 ## The Educational Container
 
-* `DemoContainer`, in `ContainerWalkthrough.java`: **isolated from the cumulative application**, single-threaded.
+* `DemoContainer`, in `ContainerWalkthrough.java`: **isolated from the running application**, single-threaded.
 * It **registers a provider function** for a type and **lazily creates one instance** of each registered type.
 * It **caches** those instances, **reports a missing binding** and **detects a construction cycle**.
 * `ReservationCoordinator` has **no container import, field or lookup call**.
@@ -870,7 +870,7 @@ Dependency cycle: NotificationSender
 
 ---
 
-# 6.7 Costs of Abstraction
+# 6.7 What Abstraction Costs
 ### Give each boundary a job
 
 ---
@@ -919,32 +919,32 @@ Dependency cycle: NotificationSender
 
 ---
 
-# 6.8 AI in Practice: An Interface That Hides Little
+# 6.8 Reviewing an Interface That Hides Very Little, with AI
 ### Does the refactoring separate anything?
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Judge whether a generated refactoring really separates configuration and policy from the reservation workflow |
-| Input | The coupled coordinator from 6.1, the notification requirement and Figure 6.1 |
-| Permitted scope | Evaluate the proposal and draw a corrected object graph; do not apply it wholesale |
+| Your goal | Judge whether a generated refactoring really separates configuration and policy from the reservation workflow |
+| You start with | The coupled coordinator from 6.1, the notification requirement and Figure 6.1 |
+| What is in bounds | Evaluate the proposal and draw a corrected object graph; do not apply it wholesale |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | The coordinator's source (which concrete classes does it name?), the recorder-based checks, the failure case |
-| Accept or reject | A verdict with a concrete reason for each proposal, then a corrected constructor |
-| No-account route | The fixture is sufficient |
+| How to check | The coordinator's source (which concrete classes does it name?), the recorder-based checks, the failure case |
+| How to decide | A verdict with a concrete reason for each proposal, then a corrected constructor |
+| No AI account? | The ready-made example is enough |
 
 ---
 
-## The Fixture (1 of 2)
+## The Ready-Made Example (1 of 2)
 
 **Author-written fictional AI output.**
 
@@ -952,7 +952,7 @@ Dependency cycle: NotificationSender
 
 ---
 
-## The Fixture (2 of 2)
+## The Ready-Made Example (2 of 2)
 
 > Catch every runtime exception and still return the ordinary confirmation. Pass a global container into the coordinator so future dependencies can be found when needed. The new interface means DIP and DI are both complete.
 
@@ -963,7 +963,7 @@ Dependency cycle: NotificationSender
 
 ## Model Critique (1 of 3)
 
-| Fixture claim or change | Verdict | Reason |
+| Claim or change | Verdict | Reason |
 |---|---|---|
 | Type the field as `NotificationSender` | Useful but insufficient alone | It expresses a role, but concrete construction can remain |
 | Read provider settings inside the coordinator | Reject | Environmental configuration still changes the workflow's source |
@@ -973,7 +973,7 @@ Dependency cycle: NotificationSender
 
 ## Model Critique (2 of 3)
 
-| Fixture claim or change | Verdict | Reason |
+| Claim or change | Verdict | Reason |
 |---|---|---|
 | Add configure/export/delete to the sender role | Reject without a client need | They couple this client to unrelated capabilities |
 | Catch every runtime exception, return ordinary confirmation | Reject | It hides programming defects; expected failure becomes indistinguishable from success |
@@ -982,7 +982,7 @@ Dependency cycle: NotificationSender
 
 ## Model Critique (3 of 3)
 
-| Fixture claim or change | Verdict | Reason |
+| Claim or change | Verdict | Reason |
 |---|---|---|
 | Inject a global container for future lookups | Reject | Real required collaborators become hidden behind a registry |
 | Declare DIP and DI complete because an interface exists | Reject | Contract ownership, provider knowledge and actual assembly must be inspected |
@@ -1001,7 +1001,7 @@ Dependency cycle: NotificationSender
 
 ---
 
-# 6.9 Common Mistakes
+# 6.9 Dependency Habits That Mislead
 ### Eight misleading beliefs
 
 ---
@@ -1035,14 +1035,14 @@ Dependency cycle: NotificationSender
 
 ---
 
-# 6.10 Practical Activity: Assemble a Replaceable Output
-### Nine steps
+# 6.10 Try It Yourself
+### Assemble a replaceable output
 
 ---
 
-## Input and Demonstration
+## What You Start With, and the Demonstration
 
-* **Input:** Chapter 5's exit code, this chapter's requirement and companion listings. Java 17, the plain-Java gate. The container walkthrough is separate from the application.
+* **You start with:** Chapter 5's exit code, this chapter's requirement and companion listings. Java 17, the plain-Java gate. The container walkthrough is separate from the application.
 * **Demonstration:** compare the Chapter 5 baseline, the coupled notification version and the injected version. **Point to every concrete provider choice** and explain which belongs at the entry point.
 * **Guided practice:** inject a recorder, accept one reservation, reject an overlapping request and inspect both **stored reservations** and **recorded notifications**; then use an output that throws the documented exception.
 
@@ -1068,7 +1068,7 @@ Dependency cycle: NotificationSender
 
 7. Run the **educational container walkthrough** and explain shared state, missing registration and cycle detection.
 8. **Review the change** and write a rationale for every new boundary. Retain real review findings.
-9. On your **Team project**, find **one environment or provider choice** that a class constructs for itself (an output, storage, an external service, configuration). Sketch where it would be assembled instead, using both views.
+9. On your team's project, find **one environment or provider choice** that a class constructs for itself (an output, storage, an external service, configuration). Sketch where it would be assembled instead, using both views.
 
 ---
 
@@ -1076,7 +1076,7 @@ Dependency cycle: NotificationSender
 
 * **Output:** injected notification contract; two implementations; explicit assembly code; migrated and additional checks; the two diagrams; failure-policy explanation; a short rationale; the step 9 sketch.
 * **Complete when:** provider substitution **requires no edit to the reservation algorithm**; setup failures are **distinguishable from reservation rejections**; old rule expectations remain valid; expected notification failure **preserves the record and reports its outcome accurately**.
-* **Optional extension:** compare the supplied map with a dedicated policy-resolver in a design sketch. Explain the client benefit before adding another interface.
+* **If you want more:** compare the supplied map with a dedicated policy-resolver in a design sketch. Explain the client benefit before adding another interface.
 
 ---
 
@@ -1156,7 +1156,7 @@ Dependency cycle: NotificationSender
 
 ---
 
-# 6.11 Review Questions
+# 6.11 Questions to Think with
 ### Concept and diagnosis
 
 ---
@@ -1198,8 +1198,8 @@ Dependency cycle: NotificationSender
 
 ---
 
-# 6.12 Transfer Challenge
-### A document conversion service
+# 6.12 A Different Setting
+### The transfer challenge
 
 ---
 
@@ -1229,8 +1229,8 @@ A document conversion service validates a request, converts a file and sends a c
 
 ---
 
-# 6.13 Quiz 1 Revision Pointers
-### Chapters 2 to 5
+# 6.13 Revising for Quiz 1
+### Where to look
 
 ---
 
@@ -1260,7 +1260,7 @@ A document conversion service validates a request, converts a file and sends a c
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---
@@ -1273,7 +1273,7 @@ A document conversion service validates a request, converts a file and sends a c
 
 ---
 
-## Where the Checkpoint Stands
+## Where the Project Stands
 
 * Local **console and recording** outputs.
 * **Explicit construction** and **28 new checks**.

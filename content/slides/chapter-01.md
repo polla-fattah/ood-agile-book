@@ -16,37 +16,37 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **1.1 A working program meets a new requirement**
+* **1.1 When a working program meets a new request**
   * One small Java rule, and a change that the rule cannot absorb by editing numbers.
-* **1.2 Behaviour, quality and maintenance**
+* **1.2 What does “it works” actually mean?**
   * What "it works" leaves out, and the kinds of change a team makes.
-* **1.3 Object-oriented development and iterative delivery**
+* **1.3 How design and delivery fit together**
   * Responsibilities, iterations, increments, and how design meets process.
-* **1.4 Testing, review and feedback**
+* **1.4 How do we know a change is right?**
   * Acceptance examples, regressions and the evidence a reviewer can use.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **1.5 AI assistance and human judgement**
+* **1.5 Working with an AI assistant without giving up your judgement**
   * Activity 1A: separating the claims a code explanation gets right from the one it invents.
-* **1.6 The running example and the semester route**
+* **1.6 The project we will build, and the road ahead**
   * The Campus Equipment Lending System, its vocabulary and how the chapters build on each other.
-* **1.7 How to study and read critically**
+* **1.7 How to read this book, and any other**
   * Predicting before running, keeping a learning record, reading advice as a claim.
-* **1.8 Common mistakes**
+* **1.8 Easy mistakes, and how to spot them**
   * Five mistakes, each exposed by a small counterexample.
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **1.9 Readiness diagnostic and practical task**
+* **1.9 Try it yourself: a readiness check**
   * Tasks A, B and C: predict, find a fault, plan the staff change.
-* **1.10 Review questions and a transfer challenge**
+* **1.10 Questions to think with**
   * Six questions, then a room-booking change in a different domain.
-* **1.11 Chapter summary**
+* **What to take away, and what comes next**
   * What to carry into Chapter 2, which examines how objects protect their state.
 
 ---
@@ -63,13 +63,13 @@ After working through this chapter, you should be able to:
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core reading:** Sections 1.1 to 1.8.
-* **Minimum required lab:** Task A, Task B (the paper part), Task C and Activity 1A.
+* **What you must do:** Task A, Task B (the paper part), Task C and Activity 1A.
   * Together they produce every item in "What to produce".
   * Everything can be done by tracing the code on paper.
-* **Optional extension:** run the program and the deliberate fault (needs a Java Development Kit), then answer the review questions and the transfer challenge.
+* **If you want more:** run the program and the deliberate fault (needs a Java Development Kit), then answer the questions and the transfer challenge.
 
 ---
 
@@ -79,7 +79,7 @@ After working through this chapter, you should be able to:
 * **Not needed yet:** design patterns, a testing framework or an Agile project-management tool.
 * If Java syntax is unfamiliar, read the explanation beside each example, then the Java reading in the sources. Appendix A has a short Java refresher and a readiness diagnostic.
 * This is an **orientation chapter**. It adds no teaching week and previews ideas that later chapters teach in full.
-* Its code is a **Book project** orientation example: `ReservationRules` stays outside the cumulative Campus Equipment Lending code, which starts with the Chapter 2 starter.
+* Its code is an orientation example for the book's project: `ReservationRules` stays outside the running Campus Equipment Lending code, which starts with the Chapter 2 starter.
 
 ---
 
@@ -121,7 +121,7 @@ After working through this chapter, you should be able to:
 
 ---
 
-# 1.1 A Working Program Meets a New Requirement
+# 1.1 When a Working Program Meets a New Request
 ### One small rule and a change it cannot absorb
 
 ---
@@ -134,7 +134,7 @@ The equipment office gives us three rules:
 * A requested loan lasts from **one to seven days**, inclusive.
 * A request is **rejected** if the supplied active-reservation count is negative.
 
-These are fictional teaching rules for our project, not university policy.
+These are fictional rule invented for this books for our project, not university policy.
 
 ---
 
@@ -302,7 +302,7 @@ public final class ReservationRules {
 
 ---
 
-# 1.2 Behaviour, Quality and Maintenance
+# 1.2 What Does “It Works” Actually Mean?
 ### Does it work, and how hard will it be to change?
 
 ---
@@ -393,7 +393,7 @@ public final class ReservationRules {
 
 ---
 
-# 1.3 Object-Oriented Development and Iterative Delivery
+# 1.3 How Design and Delivery Fit Together
 ### Where design and process meet
 
 ---
@@ -515,7 +515,7 @@ public final class ReservationRules {
 
 ---
 
-# 1.4 Testing, Review and Feedback
+# 1.4 How Do We Know a Change Is Right?
 ### What would make us willing to accept the change?
 
 ---
@@ -629,7 +629,7 @@ public final class ReservationRules {
 
 ---
 
-# 1.5 AI Assistance and Human Judgement
+# 1.5 Working with an AI Assistant Without Giving Up Your Judgement
 ### Candidate contributions to examine
 
 ---
@@ -657,21 +657,21 @@ public final class ReservationRules {
 
 ## Activity 1A: Evaluate a Candidate Explanation (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide which statements the code actually supports |
-| Input | The class in Section 1.1 and its three stated rules |
-| Permitted scope | Judge this one method; do not rewrite it |
+| Your goal | Decide which statements the code actually supports |
+| You start with | The class in Section 1.1 and its three stated rules |
+| What is in bounds | Judge this one method; do not rewrite it |
 
 ---
 
 ## Activity 1A: Evaluate a Candidate Explanation (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | The code, a hand trace of two inputs, the stated rules |
-| Accept or reject | Accept what evidence supports, reject what it contradicts, mark the rest undetermined |
-| No-account route | The candidate output is all you need |
+| How to check | The code, a hand trace of two inputs, the stated rules |
+| How to decide | Accept what evidence supports, reject what it contradicts, mark the rest undetermined |
+| No AI account? | The candidate output is all you need |
 
 ---
 
@@ -776,7 +776,7 @@ For each claim, record:
 
 ---
 
-# 1.6 The Running Example and the Semester Route
+# 1.6 The Project We Will Build, and the Road Ahead
 ### The Campus Equipment Lending System
 
 ---
@@ -802,10 +802,10 @@ For each claim, record:
 
 ---
 
-## Orientation Code vs. the Cumulative Project
+## Orientation Code vs. the Running Project
 
 * `ReservationRules` is a **separate teaching example**.
-* The cumulative project begins with the **Chapter 2 starter**.
+* The running project begins with the **Chapter 2 starter**.
 * Each later chapter states whether its code **joins that project** or stays on a **separate teaching branch**.
 * Appendix D lists, for every chapter:
   * where the project stands,
@@ -878,10 +878,10 @@ For each claim, record:
 
 ---
 
-## Project Checkpoints
+## Project Versions
 
 * Chapters 2 to 14 follow the thirteen teaching weeks. This introduction and Chapter 15 add none.
-* Checkpoints for the team project:
+* Versions for the team project:
   * **Week 3:** kickoff.
   * **Week 6:** a minimum viable product.
   * **Week 9:** patterns and application structure.
@@ -890,10 +890,10 @@ For each claim, record:
 
 ---
 
-## Book Project and Team Project
+## The Book's Project and Your Team's Project
 
 * The book's worked system provides **shared examples**.
-* Each practical activity says whether it runs on the **Book project** or on your **Team project**.
+* Each practical activity says whether it runs on the book's project or on your team's project.
 * Teams choose a domain the module provides. Equipment lending and an ML model-serving tool are examples.
 * If your team uses another domain its change requests will differ, so each chapter ends with a **transfer note**.
 
@@ -937,7 +937,7 @@ For each claim, record:
 
 ---
 
-# 1.7 How to Study and Read Critically
+# 1.7 How to Read This Book, and Any Other
 ### Predict, record, evaluate
 
 ---
@@ -1028,7 +1028,7 @@ For each practical session, three entries:
 
 ---
 
-# 1.8 Common Mistakes
+# 1.8 Easy Mistakes, and How to Spot Them
 ### Each exposed by a small counterexample
 
 ---
@@ -1073,8 +1073,8 @@ For each practical session, three entries:
 
 ---
 
-# 1.9 Readiness Diagnostic and Practical Task
-### Tasks A, B and C
+# 1.9 Try It Yourself
+### A readiness check
 
 ---
 
@@ -1082,7 +1082,7 @@ For each practical session, three entries:
 
 * It helps identify what you need to **practise**.
 * It is **not** a new graded assessment.
-* It runs on the **Book project**: the Java class in Section 1.1, its stated rules and the staff change are your materials.
+* It runs on the book's project: the Java class in Section 1.1, its stated rules and the staff change are your materials.
 * No team code is needed.
 
 ---
@@ -1359,11 +1359,11 @@ Pick one item marked "Need practice" and state your next action:
 * **Syntax:** use the relevant Java tutorial (Appendix A has a refresher).
 * **Tracing:** work through another input with a partner.
 * **Requirements:** rewrite the rule as concrete examples and identify what remains unanswered.
-* Optional extension: once your team has chosen its domain, repeat Task C for **one numeric limit** in that domain.
+* If you want more: once your team has chosen its domain, repeat Task C for **one numeric limit** in that domain.
 
 ---
 
-# 1.10 Review Questions and a Transfer Challenge
+# 1.10 Questions to Think with
 ### Concept, diagnosis, transfer
 
 ---
@@ -1425,7 +1425,7 @@ A room-booking application allows each student society up to **two** active book
 
 ---
 
-# 1.11 Chapter Summary
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---

@@ -13,7 +13,7 @@ Two pieces of work in this module ask you to show your own thinking and your own
 
 > **This appendix is guidance, not a rule.** The module descriptor and your module leader's assignment brief decide the deadlines, lengths, formats, approved reading list, rubrics and the rules on the use of AI tools. Where they differ from this appendix, they are right. Nothing here adds a requirement or changes how any work is marked.
 
-Start the reading method in Week 1. Chapter 1 introduces the reading record and Chapter 9 gives a checkpoint to compare with your progress; this appendix develops both.
+Start the reading method in Week 1. Chapter 1 introduces the reading record and Chapter 9 gives a reading point to compare with your progress; this appendix develops both.
 
 ## E.1 What the review asks
 
@@ -180,7 +180,7 @@ Keep each document true by a check wherever you can: the book's project has a te
 1. **Week 13.** Finish. Run the retrospective (C.12) and decide what the handover must say.
 2. **Freeze.** Agree a time after which only fixes to the handover and blockers are allowed. Run your handover check on the frozen version.
 3. **Week 14.** There are no classes. Review the whole bundle as a stranger would, fix what the dry run finds, and ask someone outside the team to follow it.
-4. **Before Weeks 15 and 16.** Prepare the demonstration and the report from the evidence index, and write your reflection from your own artefacts.
+4. **Before Weeks 15 and 16.** Prepare the demonstration and the report from the evidence index, and write your reflection from your own work.
 
 The descriptor does not prescribe the format or length of the technical report. Follow the assignment brief. The evidence index above is a sound spine for it.
 
@@ -201,7 +201,7 @@ A reflection makes claims and gives the evidence for each. It does not say “I 
 
 > *(Constructed.)* I wrote the approval-file adapter. The pull request and its review thread are the evidence: nine commits, and two review comments from a teammate that changed my code. The first was that a row with an unknown status must be an operational failure and not a rejection; I had treated it as a rejection, which would have let a damaged register look like a sponsor's “no”. I changed the adapter and added a test for the damaged row. I did not write the pipeline script; P1 did, and I relied on it without reading it closely. Next time I will read the scripts that gate my own work.
 
-Notice what is in it: a named artefact, a specific fault and how it was found, what changed, and an honest limit. Notice also what is not in it: any count.
+Notice what is in it: a named piece of work, a specific fault and how it was found, what changed, and an honest limit. Notice also what is not in it: any count.
 
 ## E.7 Sources
 
@@ -209,4 +209,4 @@ Notice what is in it: a named artefact, a specific fault and how it was found, w
 2. GitHub Docs, [Creating a commit with multiple authors](https://docs.github.com/en/pull-requests/how-tos/commit-changes/creating-a-commit-with-multiple-authors). The `Co-authored-by` trailer.
 3. GitHub Docs, [About pull request reviews](https://docs.github.com/en/pull-requests/reference/pull-request-reviews). A review can be a comment, an approval or a request for changes.
 
-All three were opened on 13 October 2026. The module descriptor is the source for the assessments, deadlines and submission described in E.1, E.4 and E.5. Chapters 1, 9 and 14 are the source for the reading record, the reading checkpoint, the contribution table, the handover documents and the reflection prompts.
+All three were opened on 13 October 2026. The module descriptor is the source for the assessments, deadlines and submission described in E.1, E.4 and E.5. Chapters 1, 9 and 14 are the source for the reading record, the reading point, the contribution table, the handover documents and the reflection prompts.

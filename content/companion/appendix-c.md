@@ -353,7 +353,7 @@ Date: {{date}}
 {{What was asked, in one or two sentences, and who owns the requirement.}}
 
 ## Tool and model
-{{The tool and model, or "none: constructed fixture", and the date. If no tool was available, how the exercise was done instead.}}
+{{The tool and model, or "none: constructed example", and the date. If no tool was available, how the exercise was done instead.}}
 
 ## Context given
 {{What the assistant was shown, and what was left out and why. No secrets or personal data.}}
@@ -706,7 +706,7 @@ None. This was the first retrospective.
 Ask for an explanation of `LoanPeriod.overlaps`, so that a teammate can review it. The developer owns the rule: a period includes its start and excludes its end.
 
 ## Tool and model
-None: constructed fixture. The candidate below was written by the author of this example and stands in for an assistant's answer.
+None: constructed example. The candidate below was written by the author of this example and stands in for an assistant's answer.
 
 ## Context given
 The source of `LoanPeriod` and one sentence about the half-open convention. The existing checks were not shown, so that they could be used to judge the answer.

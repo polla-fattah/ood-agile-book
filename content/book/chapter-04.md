@@ -21,7 +21,7 @@ You will need the Java code as Chapter 2 left it, Chapter 3's ordered backlog an
 
 Read Sections 4.1 to 4.7 in order, and run the supplied checks while you read 4.6. What you must do is steps 1 to 8 of the practical activity in Section 4.10, on your team's project; together they produce the Milestone 1 evidence. The supplied lending repository is a worked model and a starting point, not evidence of your team's own work: your team's availability plan, board, review record and hosted CI runs are what count. Hosted CI needs a repository your team can use, so start steps 6 and 7 early. If you want more, try the AI activity in Section 4.8, the questions in Section 4.11, the transfer challenge in Section 4.12 and the extension at the end of Section 4.10.
 
-## 4.1 What are we building, and what are we leaving out? Vision, scope and constraints
+## 4.1 What are we building? Vision, scope and constraints
 
 ### Start with an outcome you can finish
 
@@ -118,7 +118,7 @@ For an availability enquiry, record both the answer shown and the unchanged stat
 
 Wireframes, examples and code are three descriptions of the same intended behaviour. When they disagree, that is useful evidence. Settle the disagreement openly and do not pick whichever description is easiest to implement.
 
-## 4.3 What to build first, and how to cut it thin: prioritisation and vertical slicing
+## 4.3 Prioritisation and vertical slicing: what first, how thin?
 
 ### Where the backlog stands now
 

@@ -16,11 +16,11 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **14.1 Reviewing the change outcome**
+* **14.1 Did the design absorb the change? Reviewing the outcome**
   * Four questions, each with its own evidence.
-* **14.2 Defects, polish and scope control**
+* **14.2 Fix, defer or accept: scope control in the last week**
   * Fix, defer or accept, and freeze.
-* **14.3 Documents, decision records and release notes**
+* **14.3 Writing it down: documents, decision records and release notes**
   * One document per question; the flag decision.
 * **14.4 Keeping the evidence true: rehearsal and traceability**
   * A rehearsed flag removal; requirements traced to tests.
@@ -29,21 +29,21 @@ layout: page
 
 ## Chapter Roadmap (2 of 3)
 
-* **14.5 Reproducible setup and demonstration**
+* **14.5 Setup and a demonstration that anyone can reproduce**
   * Follow your own instructions in a fresh copy.
 * **14.6 Retrospective and individual reflection**
   * Evidence-based retrospectives; contribution as claims with links.
-* **14.7 Final submission preparation**
-* **14.8 AI in practice:** validate a README that an assistant drafted.
+* **14.7 Getting ready for the final submission**
+* **14.8 Validating an AI-drafted README** validate a README that an assistant drafted.
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **14.9 Common mistakes**
-* **14.10 Practical activity**
-* **14.11 Review and transfer**
-* **Summary and next chapter**
+* **14.9 Handover habits that mislead**
+* **14.10 Try it yourself: hand the project over**
+* **14.11 Questions to think with, and a transfer challenge**
+* **What to take away, and what comes next**
   * Chapter 15: the recurring assistance workflows and their verification records.
 
 ---
@@ -66,22 +66,22 @@ After this chapter, you should be able to:
 
 ---
 
-## Module Connection and Checkpoint
+## Where This Chapter Fits and Where You Start
 
 * Supports **all learning outcomes, LO1 to LO6**: the final sprint and retrospective. Required reading: Martin (2002), a review of the chapters relevant to your project.
 * The descriptor says teams submit a **repository link, a technical report and an individual reflection**, give a **demonstration and presentation**, and that **marks are moderated by individual contribution**.
 * This chapter creates **no new deadlines, weights or marking rules**; the approved final-project instructions decide what you submit.
-* **Entry checkpoint:** the Chapter 13 checkpoint (the visitor change, version 0.13.1), or for your Team project a Milestone 4 outcome with its remaining defects named.
-* **Completed checkpoint: version 0.14.0. Its production code is unchanged**: the companion lists only new and changed files.
+* **Entry version:** the Chapter 13 version (the visitor change, version 0.13.1), or for your team's project a Milestone 4 outcome with its remaining defects named.
+* **Completed version: version 0.14.0. Its production code is unchanged**: the companion lists only new and changed files.
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core:** 14.1 to 14.5 and 14.7.
 * **Working knowledge:** 14.6 on contribution evidence. **You are not asked to measure anyone**; you are asked to know what each kind of evidence can and cannot show.
-* **Minimum required lab:** **B1 to B4** (Book project: running, tracing and diagnosis, the finished checkpoint is supplied) and **T1 to T5** (Team project: your handover bundle, retrospective and individual reflection).
-* **Optional extension:** B5 to B8 (rehearse removing the flag, validate an AI-drafted README, read a contribution fixture, close the gap the one-line experiment found), the review questions, the transfer challenge.
+* **What you must do:** **B1 to B4** (the book's project: running, tracing and diagnosis, the finished version is supplied) and **T1 to T5** (your team's project: your handover bundle, retrospective and individual reflection).
+* **If you want more:** B5 to B8 (rehearse removing the flag, validate an AI-drafted README, read a synthetic contribution table, close the gap the one-line experiment found), the review questions, the transfer challenge.
 
 ---
 
@@ -105,8 +105,8 @@ A classmate who was not on your team opens your repository link.
 
 ---
 
-# 14.1 Reviewing the Change Outcome
-### Four questions, in this order
+# 14.1 Did the Design Absorb the Change?
+### Reviewing the outcome
 
 ---
 
@@ -130,7 +130,7 @@ A classmate who was not on your team opens your repository link.
 
 ## Affected Responsibilities: The Numbers
 
-Between the Chapter 11 and Chapter 13 checkpoints, **23 files were added and 10 changed**.
+Between the Chapter 11 and Chapter 13 versions, **23 files were added and 10 changed**.
 
 | Group | Files | Lines |
 |---|---:|---|
@@ -224,7 +224,7 @@ Start the change in the smallest possible way and see what the tests say.
 
 | Experiment | Edit | Result |
 |---|---|---|
-| **E1** (Chapter 11 checkpoint, 159 invocations) | Add `VISITOR` to the enum only | **45 of 159 fail** (1 failure, 44 errors); 89 lines say `Missing policy: VISITOR` |
+| **E1** (Chapter 11 version, 159 invocations) | Add `VISITOR` to the enum only | **45 of 159 fail** (1 failure, 44 errors); 89 lines say `Missing policy: VISITOR` |
 | **E2** (the same) | The enum, `VisitorReservationRules` and the composition root | **5 of 159 fail**, only in the three test files that build their own policy map; with four map entries added, **all 159 pass** |
 
 ---
@@ -243,7 +243,7 @@ Start the change in the smallest possible way and see what the tests say.
 * **Both.** The design tells you, **at construction time and with a precise message**, everywhere that lists every category.
 * **A safety net:** the alternative would be a request that fails in production with a null policy.
 * **A cost:** every test that spells out the full policy map must be edited when a category is added.
-* **B1** in the practical activity runs it the other way: remove the visitor policy from the composition root of the finished checkpoint: **73 of 235 fail** (3 failures, 70 errors), in **14 test classes**; roughly three in ten tests.
+* **B1** in the practical activity runs it the other way: remove the visitor policy from the composition root of the finished version: **73 of 235 fail** (3 failures, 70 errors), in **14 test classes**; roughly three in ten tests.
 
 ---
 
@@ -270,7 +270,7 @@ Chapters 5 to 11 made statements that the change tested.
 | Assumption (where made) | What the change showed | Verdict |
 |---|---|---|
 | A policy answers a count and duration question and nothing else (Ch. 5, 6) | Approval needs borrower, item, period and time; widening the policy would give it hidden state, so a **separate gate** was added | **Held**, because the contract was not widened |
-| Every category has a policy in one place (Ch. 6) | True in production, but four test fixtures also spelled out the map | **Held, with a cost** |
+| Every category has a policy in one place (Ch. 6) | True in production, but four test setups also spelled out the map | **Held, with a cost** |
 | The directory is a synthetic provider with no transport (Ch. 8) | Chapter 13 added a real HTTP client and the failures a transport brings, including a timeout that must cover the whole answer | **Contract held**; behaviour extended |
 
 ---
@@ -288,7 +288,7 @@ Chapters 5 to 11 made statements that the change tested.
 ## A Small Diff Is Not Automatically a Better Design
 
 * The cheapest possible "implementation" of visitors: the directory adapter maps kind code `V` to the existing **staff** category. **No gate, no register, no new policy. The diff is one line.**
-* Experiment **E3** (Chapter 13 checkpoint, 232 invocations): **4 of 232 fail**, and **all 203 unit invocations pass**.
+* Experiment **E3** (Chapter 13 version, 232 invocations): **4 of 232 fail**, and **all 203 unit invocations pass**.
 * What fails are the tests that cross the real boundary: the **three end-to-end journeys** and `DirectoryOutageIntegrationTest.aVisitorIsServedThroughTheRealDirectoryAndTheRealApprovalFile`.
 
 ---
@@ -337,7 +337,7 @@ if (borrower.category() == BorrowerCategory.VISITOR) {
 ## Review Feedback
 
 * **Real review feedback is evidence; constructed feedback is not.** Use your team's actual review comments and the responses.
-* The Book project has no team, so the companion supplies a short, **author-written, fictional** review of the visitor change, labelled as such.
+* the book's project has no team, so the companion supplies a short, **author-written, fictional** review of the visitor change, labelled as such.
 * The task is to **check each comment against the code**, not to accept or reject it by tone.
 * **No real peer review of this book's project has taken place.**
 
@@ -352,12 +352,12 @@ if (borrower.category() == BorrowerCategory.VISITOR) {
 | R3 | "Is the old two-argument constructor safe for visitors?" | `ac12_...` builds one and asserts the disabled rejection | Covered |
 | R4 | "The README says 230 tests. I count 233." | The count appeared in both README and HANDOVER | **Valid**: a number stated in two places rots |
 
-* **R4 changed the checkpoint**: the README now states no number, and `handover-check.sh` checks the numbers in `HANDOVER.md`.
+* **R4 changed the version**: the README now states no number, and `handover-check.sh` checks the numbers in `HANDOVER.md`.
 
 ---
 
-# 14.2 Defects, Polish and Scope Control
-### The temptation of the last week
+# 14.2 Fix, Defer or Accept
+### Scope control in the last week
 
 ---
 
@@ -538,8 +538,8 @@ Fowler names four:
 
 ---
 
-# 14.3 Documents, Decision Records and Release Notes
-### One document per question
+# 14.3 Writing It Down
+### Documents, decision records and release notes
 
 ---
 
@@ -614,8 +614,8 @@ ADR-013 set three conditions for removing the flag. ADR-014 **checks each one**:
 
 ---
 
-# 14.4 Keeping the Evidence True: Rehearsal and Traceability
-### Rehearse, then check
+# 14.4 Keeping the Evidence True
+### Rehearsal and traceability
 
 ---
 
@@ -717,7 +717,7 @@ ADR-013 set three conditions for removing the flag. ADR-014 **checks each one**:
 
 ---
 
-# 14.5 Reproducible Setup and Demonstration
+# 14.5 Setup and a Demonstration That Anyone Can Reproduce
 ### Write for someone who is not you
 
 ---
@@ -841,10 +841,10 @@ Notices: 1
 
 ---
 
-## Bring the Artefacts
+## Bring the Records
 
-* Make it evidence-based by bringing **the sprint's artefacts**: the board, the pipeline runs (passing and failing), the review comments, the defect list, the time between starting and finishing items (Chapter 12).
-* For each thing the team wants to say, ask: **what artefact shows it?**
+* Make it evidence-based by bringing **the sprint's records**: the board, the pipeline runs (passing and failing), the review comments, the defect list, the time between starting and finishing items (Chapter 12).
+* For each thing the team wants to say, ask: **what record shows it?**
 * **Keep the number of actions small.** Two actions with owners that are done beat ten that are not.
 
 ---
@@ -917,13 +917,13 @@ A team of three finished its last sprint with these counts.
 | Reviews requesting changes | P2, P1, P3 | |
 
 * **Those numbers describe habits, not contributions.**
-* The underlying facts, which only people and artefacts can supply, might be: P1's commits include seventeen formatting-only commits and several that undo each other, and P1 built the pipeline; P2 wrote the approval-file adapter in nine substantial commits and found two defects in review; P3 wrote the demonstration and the documents and did four pair sessions with P1, only two recorded.
+* The underlying facts, which only people and the work itself can supply, might be: P1's commits include seventeen formatting-only commits and several that undo each other, and P1 built the pipeline; P2 wrote the approval-file adapter in nine substantial commits and found two defects in review; P3 wrote the demonstration and the documents and did four pair sessions with P1, only two recorded.
 
 ---
 
 ## No Ranking Is Offered, and None Could Be
 
-* The honest use of counts is **as a pointer to the artefact to read**.
+* The honest use of counts is **as a pointer to the work to read**.
 * **"Why did P2 have so few commits?"** is a question to ask; the answer is in **the diff and the review**.
 * A flawed alternative to avoid: `Contribution: P1 54%, P3 34%, P2 13% (by commits)`. **Habits are not contributions**, and the same team has three other orders by other counts.
 
@@ -954,7 +954,7 @@ A team of three finished its last sprint with these counts.
 
 ---
 
-# 14.7 Final Submission Preparation
+# 14.7 Getting Ready for the Final Submission
 ### What is submitted, and what it must show
 
 ---
@@ -971,7 +971,7 @@ A team of three finished its last sprint with these counts.
 
 ---
 
-## An Evidence Index for the Book Project (1 of 2)
+## An Evidence Index for the Book's Project (1 of 2)
 
 | Must show | Evidence | What it does not show |
 |---|---|---|
@@ -981,7 +981,7 @@ A team of three finished its last sprint with these counts.
 
 ---
 
-## An Evidence Index for the Book Project (2 of 2)
+## An Evidence Index for the Book's Project (2 of 2)
 
 | Must show | Evidence | What it does not show |
 |---|---|---|
@@ -996,7 +996,7 @@ A team of three finished its last sprint with these counts.
 2. **Freeze.** Decide a time after which **only fixes to the handover and blockers** are allowed.
 3. **Run the handover check** on the frozen version.
 4. **Review independently.** Use the free time before the demonstration to read the whole bundle **as a stranger**, fix what the dry run finds, and ask someone outside the team to follow it.
-5. **Prepare** the demonstration and the report from the evidence index, and write your reflection **from your own artefacts**.
+5. **Prepare** the demonstration and the report from the evidence index, and write your reflection **from your own work**.
 
 ---
 
@@ -1012,31 +1012,31 @@ A team of three finished its last sprint with these counts.
 ## A Preparation Checklist (Not a Rubric) (2 of 2)
 
 * **Every decision record has a true status. Every known issue has a decision.**
-* The limits statement says **what was not run**: for the Book project, a Java 17 runtime, a hosted CI run and any independent review.
+* The limits statement says **what was not run**: for the book's project, a Java 17 runtime, a hosted CI run and any independent review.
 * **Each person can say, with links, what they did.**
 * The demonstration works **from a fresh checkout with only the documented setup**.
 * **Do not claim a hosted run, a public deployment or a peer review that did not happen.** A local run is evidence of a local run.
 
 ---
 
-# 14.8 AI in Practice
+# 14.8 Validating an AI-drafted README
 ### Validate a README that an assistant drafted
 
 ---
 
 ## The Activity
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Decide which statements in an AI-drafted README are supported by the submitted version, and correct the rest |
-| Input | The README draft and the project at version 0.14.0 |
-| Permitted scope | Verify every command, every feature claim and every limitation; **edit only the draft** |
-| Independent checks | **Run each command**; read the code, tests and decision records each claim depends on |
-| Accept or reject | A verdict on each statement, and a corrected README |
+| Your goal | Decide which statements in an AI-drafted README are supported by the submitted version, and correct the rest |
+| You start with | The README draft and the project at version 0.14.0 |
+| What is in bounds | Verify every command, every feature claim and every limitation; **edit only the draft** |
+| How to check | **Run each command**; read the code, tests and decision records each claim depends on |
+| How to decide | A verdict on each statement, and a corrected README |
 
 ---
 
-## The Fixture (1 of 2)
+## The Ready-Made Example (1 of 2)
 
 **Author-written fictional AI output**, asked to "write a README for the project":
 
@@ -1054,7 +1054,7 @@ A Java 11 application for reserving campus equipment, with support for students,
 
 ---
 
-## The Fixture (2 of 2)
+## The Ready-Made Example (2 of 2)
 
 ```markdown
 ## Features
@@ -1140,7 +1140,7 @@ Run `bash scripts/demo.sh` to see visitors rejected and then approved.
 
 ---
 
-# 14.9 Common Mistakes
+# 14.9 Handover Habits That Mislead
 ### Ten to avoid
 
 ---
@@ -1163,7 +1163,7 @@ Run `bash scripts/demo.sh` to see visitors rejected and then approved.
 |---|---|---|
 | Editing an old decision record to match what happened | The reasons for the decision are lost | A new record that supersedes or applies it |
 | Removing a flag as tidy-up | The specification changes silently, and so does rollback | Rehearse, decide, update the examples that mention the flag |
-| Ranking teammates by commit counts | Habits mistaken for contribution | Counts point to an artefact; read the artefact |
+| Ranking teammates by commit counts | Habits mistaken for contribution | Counts point to the work; read the work |
 | "I contributed a lot" | Nothing can be checked | Claims with links, and honest limits |
 | Claiming a hosted run, a review or a Java 17 run that did not happen | The submission loses credibility, and so do the true claims | Say what was not run |
 
@@ -1198,20 +1198,20 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 
 ---
 
-# 14.10 Practical Activity
-### Run, trace, diagnose; then hand over your own
+# 14.10 Try It Yourself
+### Hand the project over
 
 ---
 
-## Input and Demonstration
+## What You Start With, and the Demonstration
 
-* **Input:** the Chapter 14 checkpoint (version 0.14.0) with the companion's files, the Chapter 13 material, and your Team project's repository. **B1 to B8** use the **Book project**; **T1 to T5** use your **Team project**.
+* **You start with:** the Chapter 14 version (version 0.14.0) with the companion's files, the Chapter 13 material, and your team's repository. **B1 to B8** use the book's project; **T1 to T5** use your team's project.
 * **Instructor demonstration:** run `scripts/handover-check.sh` and read it. **Break one thing** (add a test, or rename a word in the demonstration output) and run it again. Run `TraceabilityTest` after renaming a named test. **Show the one-line adapter change that passes the unit stage and fails the integration stage.**
 * **Guided practice:** classify four known issues of your choice as blocker, deferred or accepted, and say what evidence each decision rests on. Find the row of the requirements table **you trust least**.
 
 ---
 
-## Book Project: B1 and B2
+## The Book's Project: B1 and B2
 
 * **B1. Predict and measure what breaks.** In a scratch copy, remove the visitor policy from the map in `ReservationApplication.create`. **Predict** how many invocations fail, in how many classes, and what the message says. Run, compare, say what it shows. Restore the original.
   * Good answer: most of the suite fails (**73 of 235, 14 classes**), every message names the missing policy; the design **fails fast and precisely, and the cost is breadth**. It does **not** show the code is correct.
@@ -1233,7 +1233,7 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 
 ---
 
-## Book Project: B3 and B4
+## The Book's Project: B3 and B4
 
 * **B3. Follow the handover.** Run `scripts/handover-check.sh`. Then follow `docs/HANDOVER.md` **by hand** from a new folder, and list **every place where you had to guess** or where the text was wrong for your setup. Likely: where the project directory is, how to set `CHAPTER_MVN`, what the warnings mean, how long the build takes.
 * **B4. Trace and break a row.** Choose one contract clause, one acceptance example and one known gap. For each, **open the named test** and say whether it checks what the row claims. **Rename one named test** in a scratch copy, run `TraceabilityTest`, read the failure. Then name **something the check cannot catch**.
@@ -1241,14 +1241,14 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 
 ---
 
-## Team Project: T1 and T2
+## Your Team's Project: T1 and T2
 
 * **T1. Review your change.** Fill in the four questions of 14.1 **with real evidence**: files and responsibilities affected, what failed when you started, the assumptions overturned, **the review comments you actually received**. Say **where the design did not absorb the change cleanly**.
 * **T2. Triage your open items.** A known-issues list with a **decision for each item** (fix, defer, accept), a reason, and **an owner for the deferred ones**. **Fix only blockers. Freeze.**
 
 ---
 
-## Team Project: T3 to T5
+## Your Team's Project: T3 to T5
 
 * **T3. Build the handover bundle.** Setup instructions, a usage example, known limitations, test instructions, a requirements-to-evidence table and a demonstration outline. **Dry run in a fresh copy, then have someone outside your team follow it while you watch.** Record what they struggled with and fix it.
 * **T4. Decide and record.** At least **two decision records**: one about your flag or change (keep, remove or replace, with the conditions) and one other. Give each **a true status**.
@@ -1256,11 +1256,11 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 
 ---
 
-## Optional Extension: B5 to B7
+## If You Want More: B5 to B7
 
 * **B5. Rehearse the removal.** In a scratch copy apply `rehearsal/remove-visitor-flag.patch` (`patch -p1`), run the build (233 invocations) and the handover check; **list the documents whose prose the patch does not edit**: `README.md`, `HANDOVER.md` section 6, ADR-013, `KNOWN-ISSUES.md` (KI-13), and the descriptions in the requirements table.
 * **B6. AI activity.** Complete 14.8.
-* **B7. Read a contribution fixture.** Using the synthetic table, **write two questions you would ask each team member** and the artefact you would read to answer each. Say what you would **not** conclude from the counts.
+* **B7. Read a synthetic contribution table.** Using the synthetic table, **write two questions you would ask each team member** and what you would read to answer each. Say what you would **not** conclude from the counts.
 
 ---
 
@@ -1276,15 +1276,15 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 
 ---
 
-## Expected Artefacts and Acceptance Conditions
+## What You Should End Up With, and When You Are Done
 
-* **Artefacts:** B1 to B4; for the Team project, the change review, the triage list, the handover bundle with its dry-run record, the decision records, the retrospective with its actions, the individual reflection and the completed checklist.
+* **What you should end up with:** B1 to B4; for your team's project, the change review, the triage list, the handover bundle with its dry-run record, the decision records, the retrospective with its actions, the individual reflection and the completed checklist.
 * **Acceptance:** every number in a document **matches a run**; the handover has been **followed by someone other than its author in a fresh copy**; every known issue has a **decision**; **no feature added in the final sprint** to fix an issue that needs an owner; every decision record has a **true status**; contribution is described with **claims and links, not ranked by counts**; the limits statement says **what was not run**.
 * **Optional:** write a second handover for a different reader, such as the person who will operate the system.
 
 ---
 
-# 14.11 Review and Transfer
+# 14.11 Questions to Think with, and a Transfer Challenge
 ### Concept, diagnosis, transfer
 
 ---
@@ -1300,7 +1300,7 @@ private static final FinePolicy VISITOR = new FinePolicy(2, 0.50, 10.00);
 
 ## Diagnosis Questions
 
-5. A teammate has 40 commits and another has 8. Name **three questions** you would ask before saying anything about their contributions, and an artefact you would read for each.
+5. A teammate has 40 commits and another has 8. Name **three questions** you would ask before saying anything about their contributions, and something you would read for each.
 6. Your handover says "run `mvn verify`; expect a stated number of tests" and a colleague adds a test. List **two things that could have noticed** and the cost of each.
 
 ---
@@ -1356,7 +1356,7 @@ A small team has built an ML model-serving service. Its final sprint ends in a w
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---

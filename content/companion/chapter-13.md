@@ -11,13 +11,13 @@ description: "Code explanations and solutions for Chapter 13 Companion: Code, Ex
 
 This file accompanies Chapter 13, Integration, Delivery and Feedback. It contains the visiting-researcher change that Chapter 12 specified (CR-12), the two real boundaries it adds (an approval file and an HTTP directory client), the tests at three scopes, the pipeline and release scripts, a hosted-runner workflow, a decision record, the two tests of the AI activity, model solutions and teaching notes.
 
-**Input checkpoint.** The starting point is the Chapter 11 checkpoint: the Chapter 10 companion plus the new and changed files of the Chapter 11 companion. To keep verified listings from being copied a third time, this file lists **only the files that are new or changed**. Every other file is exactly as in those two companions. Chapter 12 changes no code: its companion is not part of the checkpoint.
+**Input version.** The starting point is the Chapter 11 version: the Chapter 10 companion plus the new and changed files of the Chapter 11 companion. To keep verified listings from being copied a third time, this file lists **only the files that are new or changed**. Every other file is exactly as in those two companions. Chapter 12 changes no code: its companion is not part of the version.
 
 **What the change does.** A visiting researcher (borrower category `VISITOR`) may reserve CAM1 or CAM2 for one to three days when a sponsor approval, read from a tab-separated register, matches the exact borrower, item and period and is valid at the request instant. The behaviour is behind one flag that defaults to off. A missing approval is an expected rejection; an unreadable register or an unreachable directory is an operational failure that stops the request. Student and staff behaviour is unchanged. The decision record is `docs/ADR-013-visiting-researchers.md`.
 
 **The two boundaries.** The chapter's two real boundaries are a local file and a local HTTP stub service built on the JDK. If a different boundary were chosen (an embedded database, for example), the policy table of Section 2.3 and the tests would stay, and the adapters would change.
 
-### 1.1 Reconstruct the checkpoint
+### 1.1 Reconstruct the version
 
 1. Create the directory `after`. Save every listing of the Chapter 10 companion at its path.
 2. Save the new and changed listings of the Chapter 11 companion (its Sections 3 to 6) at their paths. Where a path already exists, that listing replaces it.
@@ -123,7 +123,7 @@ This is a **simulation**: staging is the folder `build/staging`, delivering is c
 | `src/test/java/edu/se506/lending/integration/*` | New | Stub service, interface contract, directory outage (including a stalled body) and file tests (29 invocations) |
 | `src/test/java/edu/se506/lending/e2e/Chapter13JourneyE2ETest.java` | New | Three journeys against a separate process |
 | `src/test/java/edu/se506/lending/regression/BehaviourStrategyTest.java`, `Chapter06Checks.java`, `structure/RepositoryBoundaryTest.java` | Changed | The policy map gains the visitor entry; no assertion changed |
-| `pom.xml`, `README.md` | Changed | Version 0.13.1; description of the checkpoint |
+| `pom.xml`, `README.md` | Changed | Version 0.13.1; description of the version |
 | `scripts/pipeline.sh`, `scripts/simulate-release.sh` | New | Five-stage pipeline; simulated delivery and rollback |
 | `.github/workflows/pipeline.yml` | New | The same stages as a hosted-runner workflow (not run) |
 | `docs/ADR-013-visiting-researchers.md` | New | Decision, alternatives, flag removal plan, rollback |
@@ -133,7 +133,7 @@ This is a **simulation**: staging is the folder `build/staging`, delivering is c
 
 | Stage | Selection | Invocations | Contents |
 |---|---|---|---|
-| 2 Unit tests and architecture checks | Everything not tagged `integration` or `e2e` | 203 | The 159 inherited invocations, the 41 visitor tests and the 3 fixture contract invocations |
+| 2 Unit tests and architecture checks | Everything not tagged `integration` or `e2e` | 203 | The 159 inherited invocations, the 41 visitor tests and the 3 example contract invocations |
 | 3 Integration | `@Tag("integration")` | 26 | `FileApprovalSourceIntegrationTest` (13), `DirectoryOutageIntegrationTest` (10), `HttpDirectoryClientContractTest` (3) |
 | 4 End-to-end | `@Tag("e2e")` | 3 | `Chapter13JourneyE2ETest` |
 
@@ -2358,7 +2358,7 @@ The whole-file rule is a design choice, and it has a cost: one bad row stops eve
 
 ### 7.5 What the stub is, and what it is not
 
-`DirectoryStub` is a JDK `HttpServer` on the loopback address with an ephemeral port. It answers keys B1, T1, V1, V2, VOFF, ODD and GARBAGE with prepared bodies, BROKEN with status 500, SLOW by not answering until the test releases it, and SLOWBODY by sending the headers and the first byte of the body and then holding the rest until the test releases it. Closing the stub releases any waiting request, so a test never leaves a thread hanging. Its answers are the author's assumption of what a provider could say. Nothing in this book checks them against a real directory, which is why the chapter names a provider contract test as a limit and not as something done. The interface contract (`DirectoryClientContract`) is run against the in-memory fixture and the HTTP client, so a caller can substitute one for the other; that is a statement about our two implementations, not about the provider.
+`DirectoryStub` is a JDK `HttpServer` on the loopback address with an ephemeral port. It answers keys B1, T1, V1, V2, VOFF, ODD and GARBAGE with prepared bodies, BROKEN with status 500, SLOW by not answering until the test releases it, and SLOWBODY by sending the headers and the first byte of the body and then holding the rest until the test releases it. Closing the stub releases any waiting request, so a test never leaves a thread hanging. Its answers are the author's assumption of what a provider could say. Nothing in this book checks them against a real directory, which is why the chapter names a provider contract test as a limit and not as something done. The interface contract (`DirectoryClientContract`) is run against the in-memory example and the HTTP client, so a caller can substitute one for the other; that is a statement about our two implementations, not about the provider.
 
 ### 7.6 The failing pipeline, read
 
@@ -2412,7 +2412,7 @@ The pipeline and the tests show the selected behaviours on the supplied inputs i
 
 ## 8. Suggested practical solution
 
-### 8.1 Book project, steps B1–B4
+### 8.1 the book's project, steps B1–B4
 
 **B1. Run the pipeline.** A good answer reproduces the counts of Section 1.2 (203, 26, 3), notes the time of each stage, and says what a failure at each stage means: 1, the code does not build; 2, a rule or an architectural boundary of our own code is wrong; 3, an adapter does not meet its boundary; 4, the pieces are not joined or a setting is not read; 5, the artefact cannot be built.
 
@@ -2428,7 +2428,7 @@ The pipeline and the tests show the selected behaviours on the supplied inputs i
 
 **B4. The evidence table.** A good answer has one row per risk of Section 13.1, with the test's name and what it cannot show, and at least one risk that nothing here covers, for example: the real directory's behaviour; two concurrent writers of the register; a sponsor who is revoked after a reservation; and the effect of an unusual time zone on the request instant.
 
-### 8.1a Book project, optional steps B5–B7
+### 8.1a the book's project, optional steps B5–B7
 
 **B5. Deliver and roll back.** Run the commands of Section 1.4. A good answer records `current` and `previous` after each step (after the second delivery, v2 is current and v1 previous; after the rollback, v1 is current and nothing is previous), and says that the rollback in this simulation changes a folder and not any data.
 
@@ -2436,13 +2436,13 @@ The pipeline and the tests show the selected behaviours on the supplied inputs i
 
 **B7. Break a boundary on purpose.** In a scratch copy, change the timeout of `aSlowProviderTimesOutAfterTheBoundedWaitAndFailsTheRequest` from 300 milliseconds to twenty seconds and run `mvn test -Dtest=DirectoryOutageIntegrationTest -Dgroups=integration`. Observed: the test **fails** after 20.03 seconds with `the call must give up after its timeout, but took 20015 ms`, and the class takes 20.58 seconds instead of 1.01. The client did exactly what it was told, and the test's own bound (five seconds) caught that the wait is too long to be useful. A good answer explains two things: a test of a timeout should use a short, injected timeout, and a pipeline that waits for the real timeout of every failure case is itself a problem, because slow feedback gets skipped.
 
-### 8.2 Team project, steps T1–T5
+### 8.2 your team's project, steps T1–T5
 
 These are not model answers, because the code is your team's. A good answer shows:
 
 - **T1:** the change implemented from the smallest vertical slice outwards; one flag that defaults to off; acceptance examples that each have a test; expected rejections and operational failures that are different results.
 - **T2:** a boundary test that does not replace the boundary: a real temporary file, a local stub service or a throw-away database; at least one failure case (missing, malformed or slow); no mock standing in for the reader under test.
-- **T3:** the existing suite run first; every changed fixture listed with the reason; tests for the flag on and off.
+- **T3:** the existing suite run first; every changed example listed with the reason; tests for the flag on and off.
 - **T4:** at least three stages; a captured passing run; a captured failing run read in the form of Section 7.6 (first failing stage, first failing test, why the earlier stages could not have caught it); a stage that fails when it selects nothing.
 - **T5:** a removal plan for the flag with a named condition; a rollback step that says what it does not undo; a demonstration; a retrospective with one next action; a limits statement; and the eight items of Section 13.8, each marked complete or a gap.
 
@@ -2450,7 +2450,7 @@ A weak answer replaces the boundary with a mock and calls it an integration test
 
 ## 9. AI activity solution
 
-The fixture describes a test that “builds a visitor approval, makes the register return it, and checks that the gate accepts the visitor and that the register was consulted”. The code does that, and nothing more.
+The example describes a test that “builds a visitor approval, makes the register return it, and checks that the gate accepts the visitor and that the register was consulted”. The code does that, and nothing more.
 
 | Question | Answer |
 |---|---|
@@ -2468,7 +2468,7 @@ Both tests were run against two faults, each applied to its own scratch copy of 
 | Fault A: the `validFrom` and `validUntil` columns are read the wrong way round | **Passes** | **Fails**: `anApprovedVisitorIsAcceptedFromARealRegisterFile` throws `ApprovalSourceException: Row 2 is not a valid approval record.` |
 | Fault B: a broken row is skipped instead of rejecting the whole file | **Passes** | **Fails**: `Expected ApprovalSourceException to be thrown, but nothing was thrown` at the broken-row assertion |
 
-The fixture's description is accurate about what the test does, and the name and tag are misleading about what it verifies. The repaired test writes a real register into a temporary directory, reads it through the real `FileApprovalSource`, passes it to the real gate, and adds the failure case: a broken row appended to the file makes the gate throw the register's exception and not reject politely.
+The example's description is accurate about what the test does, and the name and tag are misleading about what it verifies. The repaired test writes a real register into a temporary directory, reads it through the real `FileApprovalSource`, passes it to the real gate, and adds the failure case: a broken row appended to the file makes the gate throw the register's exception and not reject politely.
 
 What the original is good for: it is a fair unit test of the gate's decision logic with a controlled source, and it belongs in the unit stage under an honest name (`VisitorGateTest` has several like it). **Accept it as a unit test; reject it as an integration test.**
 
@@ -2543,7 +2543,7 @@ Without `failIfNoTests`, a stage that runs zero tests passes. With it, the stage
 
 **1. Unit test and a file adapter.** A unit test controls everything the unit collaborates with, so it cannot show that the real parser reads the real file correctly: the file system, the encoding, the line endings and the parser are exactly what it has replaced. It shows that the logic that consumes a parsed record is right when given one.
 
-**2. The directory contract.** It says that a known key returns its row, an unknown key returns nothing and is not a failure, and a provider that cannot answer fails and never returns an empty answer. Two implementations (the in-memory fixture and the HTTP client against the stub) pass it, so they are interchangeable for a caller. It can never show how the real provider behaves: the stub's answers are the author's assumption, and a provider contract test run against the real service would be the evidence.
+**2. The directory contract.** It says that a known key returns its row, an unknown key returns nothing and is not a failure, and a provider that cannot answer fails and never returns an empty answer. Two implementations (the in-memory example and the HTTP client against the stub) pass it, so they are interchangeable for a caller. It can never show how the real provider behaves: the stub's answers are the author's assumption, and a provider contract test run against the real service would be the evidence.
 
 **3. Why not “not found”.** An empty answer tells a caller the borrower is absent. After a timeout we do not know that. Two other defaults the policy refuses: treating an unknown kind code as student or staff, and answering from a cached or earlier result when the provider is down.
 
@@ -2579,7 +2579,7 @@ None. Quiz 2 covers the earlier weeks; Section 13.11 of the chapter creates no n
 
 Run `pipeline.sh` on a clean copy and read each stage's counts aloud. Then make the header-check fault of Section 7.6 and run it again; ask students to predict which stage fails before they see it. Run the flag-off and flag-on journeys and ask what the first printed line is for. Run the simulated delivery twice and the rollback, and ask what the rollback did not change. Show the proposed AI test passing a parser fault before showing the repaired one failing.
 
-Review the Team project against the eight items of Section 13.8 of the chapter: ask for the first failing stage of the failing run, the name of the test, and a statement of what the pipeline did not check. A weak answer to the last question is “nothing”.
+Review your team's project against the eight items of Section 13.8 of the chapter: ask for the first failing stage of the failing run, the name of the test, and a statement of what the pipeline did not check. A weak answer to the last question is “nothing”.
 
 ### 12.2 Do the tests detect faults?
 

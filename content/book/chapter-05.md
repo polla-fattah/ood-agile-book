@@ -19,7 +19,7 @@ You start from Chapter 4's Java 17 reservation starter, its 34 regression checks
 
 Sections 5.1 to 5.7 are the core reading. What you must do is steps 1 to 8 of the practical activity in Section 5.10, including the review in step 6 (with another person, or labelled honestly as a solo self-review). Steps 1 to 7 run on the book's project and step 8 applies the diagnosis to your team's project. The Week 4 lab uses a static-analysis tool, PMD (version 7.28.0 in this edition), which needs a one-time download described in Section 5.1, and comparing its findings with your own reading is part of the lab. If you want more, try the AI activity in Section 5.8, the extension at the end of Section 5.10, the questions in Section 5.11 and the transfer challenge in Section 5.12.
 
-## 5.1 Why would this code have to change? Change pressure in a reservation service
+## 5.1 Why would this code change? Change pressure on the service
 
 ### Start from the code we have
 
@@ -60,7 +60,7 @@ Stage A succeeds when the formatting responsibility has moved and existing outpu
 
 All stored records still count as active. Storage remains in memory, calls remain sequential and intervals remain half-open. No cancellation, return processing, catalogue, email delivery or availability enquiry is added. Those boundaries stop a design exercise from turning by accident into an expansion of the system that nobody could review.
 
-### Gathering evidence: the compiler, your own reading and a static analyser
+### Evidence from three sources: compiler, reading, analyser
 
 The change pressures and the two-stage plan above say what we intend to do. Before changing anything, collect evidence about where the code is hard to change today, from three different sources.
 

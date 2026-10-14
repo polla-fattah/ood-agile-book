@@ -154,7 +154,7 @@ f974ba571f7bc01c73fffe11bade25fbc1f438698f9e9c00e416e8d65e9fbac2
 ```
 
 3. Unzip it into a new folder and set `PMD_HOME` to the `pmd-bin-7.28.0` folder inside it. PMD needs a Java runtime of version 8 or above.
-4. From each Chapter 5 checkpoint, run `bash scripts/pmd.sh`. Confirm the installation with `"$PMD_HOME/bin/pmd" --version` (`pmd.bat` on Windows), whose output includes `PMD 7.28.0`.
+4. From each Chapter 5 version, run `bash scripts/pmd.sh`. Confirm the installation with `"$PMD_HOME/bin/pmd" --version` (`pmd.bat` on Windows), whose output includes `PMD 7.28.0`.
 
 A static analyser reports patterns, not defects. Its output is specific to its version and ruleset, and a different version may report different findings. Treat a finding as a prompt for review.
 
@@ -295,7 +295,7 @@ Do these in a copy of the companion's starter project, in a throwaway folder.
 
 Check each sentence against the starter and this appendix, and say what evidence you used. A live assistant may produce a different candidate if your course allows one, but it is not required. Record the claim, your check and your conclusion; do not accept an unsupported explanation as the final evidence.
 
-The exit artefact is the short setup note. This is formative practice and adds no assessment requirement.
+What you hand in at the end is the short setup note. This is formative practice and adds no assessment requirement.
 
 ## Sources and further reading
 

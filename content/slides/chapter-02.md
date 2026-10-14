@@ -16,39 +16,39 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **2.1 Objects, identity, state and behaviour**
+* **2.1 Objects: their knowledge, behaviour and identity**
   * Four small classes, three kinds of identity, mutable and immutable objects.
-* **2.2 Responsibilities and invariants**
+* **2.2 Who is responsible for keeping things true?**
   * The half-open period convention and who protects which condition.
-* **2.3 Encapsulation and information hiding**
+* **2.3 Keeping state safe: encapsulation and information hiding**
   * Why `private` is not enough, and what `List.copyOf` does.
-* **2.4 Cohesion, coupling and dependencies**
+* **2.4 Is a long method the problem? Cohesion and coupling**
   * Diagnosing a method by its reasons to change, then one modest refactoring.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **2.5 Composition and inheritance**
+* **2.5 Has-a or is-a? Composition and inheritance**
   * Use versus subtype, and why a hierarchy is not the default.
-* **2.6 UML class diagrams: reading, drawing and checking**
+* **2.6 Drawing the design: UML class diagrams to read, write and check**
   * The notation the midterm assesses, so it gets the most time.
-* **2.7 Git history, branches and review**
+* **2.7 Making a change someone else can review**
   * A small, reviewable change and the commands that inspect it.
-* **2.8 AI in practice: tracing a coordinator**
+* **2.8 Checking an AI's explanation of the coordinator**
   * Classifying the claims of a plausible but flawed explanation.
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **2.9 Common mistakes**
+* **2.9 Mistakes that look like good design**
   * Eight misconceptions, each with a better question.
-* **2.10 Practical activity: one checked design improvement**
+* **2.10 Try it yourself: improve the design, with evidence**
   * Parts A to D: trace, diagnose, change, organise the team.
-* **2.11 Review questions and transfer challenge**
+* **2.11 Questions to think with**
   * Room-booking coordinator in a different domain.
-* **2.12 Chapter summary**
+* **What to take away, and what comes next**
   * What carries into Chapter 3 (Agile development and the nature of change).
 
 ---
@@ -71,13 +71,13 @@ By the end of the chapter, you should be able to:
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core reading:** Sections 2.1 to 2.9.
   * Section 2.6 (UML class diagrams) is the notation the midterm assesses, so give it the most time.
-* **Minimum required lab:** the Section 2.8 AI activity and Parts A to D of Section 2.10.
-  * Parts A to C run on the **Book project**; Part D concerns your **Team project**.
-* **Optional extension:** the optional investigation at the end of 2.10, then the review questions and transfer challenge.
+* **What you must do:** the Section 2.8 AI activity and Parts A to D of Section 2.10.
+  * Parts A to C run on the book's project; Part D concerns your team's project.
+* **If you want more:** the optional investigation at the end of 2.10, then the questions and the transfer challenge.
 
 ---
 
@@ -100,11 +100,11 @@ By the end of the chapter, you should be able to:
 
 ---
 
-## Weekly Reading and Project Checkpoint
+## Weekly Reading and the Project Version
 
 * **Reading:** Martin, *Agile Software Development: Principles, Patterns, and Practices*. The Part I introduction and the object-oriented design fundamentals. Sections 2.1 to 2.5 are the practical counterpart.
-* **Starting checkpoint:** the Chapter 2 starter in the companion.
-* **Resulting checkpoint:** the same code after the confirmation extraction. It becomes the **cumulative baseline** for later chapters.
+* **Starting version:** the Chapter 2 starter in the companion.
+* **Resulting version:** the same code after the confirmation extraction. It becomes the **running baseline** for later chapters.
 * The fault demonstrations and the notation examples in 2.6 are separate teaching material. They do not join the project.
 
 ---
@@ -140,8 +140,8 @@ By the end of the chapter, you should be able to:
 
 ---
 
-# 2.1 Objects, Identity, State and Behaviour
-### Four small classes
+# 2.1 Objects
+### Their knowledge, behaviour and identity
 
 ---
 
@@ -215,7 +215,7 @@ By the end of the chapter, you should be able to:
 
 * `ReservationRules` stays **unchanged**: at most three active reservations, one to seven days.
 * The staff variation remains a future design exercise.
-* This checkpoint applies the **student policy to every borrower identifier**.
+* This version applies the **student policy to every borrower identifier**.
 * The starter has four domain and application classes.
 
 ---
@@ -244,7 +244,7 @@ By the end of the chapter, you should be able to:
 
 ---
 
-# 2.2 Responsibilities and Invariants
+# 2.2 Who Is Responsible for Keeping Things True?
 ### Who protects which condition?
 
 ---
@@ -396,14 +396,14 @@ public boolean overlaps(LoanPeriod other) {
 ## Operating Assumptions of the Starter (2 of 2)
 
 * The coordinator checks availability **only against its own stored records**.
-* Maintenance schedules and other coordinators are outside this checkpoint.
+* Maintenance schedules and other coordinators are outside this version.
 * Within one sequential coordinator, checking conflicts before adding prevents the demonstrated overlap.
 * It does **not** establish safe concurrent booking by multiple processes. Later integration work revisits that boundary.
 
 ---
 
-# 2.3 Encapsulation and Information Hiding
-### Why `private` is not enough
+# 2.3 Keeping State Safe
+### Encapsulation and information hiding
 
 ---
 
@@ -499,13 +499,13 @@ public List<Reservation> reservations() {
 ## What Remains Exposed
 
 * The coordinator still exposes more representation than a mature system might require: callers know stored reservations can be inspected as a list.
-* That is acceptable for a small teaching checkpoint.
+* That is acceptable for a small teaching version.
 * If a caller later needs only a **count** or an **availability answer**, a narrower operation may reduce what the caller must understand.
 
 ---
 
-# 2.4 Cohesion, Coupling and Dependencies
-### Diagnose by reasons to change
+# 2.4 Is a Long Method the Problem?
+### Cohesion and coupling
 
 ---
 
@@ -686,8 +686,8 @@ public String reserve(String borrowerId, String itemId,
 
 ---
 
-# 2.5 Composition and Inheritance
-### Use, containment or subtype?
+# 2.5 Has-A or Is-A?
+### Composition and inheritance
 
 ---
 
@@ -729,7 +729,7 @@ public String reserve(String borrowerId, String itemId,
 * This does not prove inheritance is always unsuitable.
 * Ask: **what varies**, **what remains stable**, and **what a caller expects from the base type**.
 * Chapter 5 develops **behavioural substitutability** more formally.
-* For this checkpoint, constructors, fields and collaborators already express the relationships **without a custom hierarchy**.
+* For this version, constructors, fields and collaborators already express the relationships **without a custom hierarchy**.
 
 ---
 
@@ -751,8 +751,8 @@ public String reserve(String borrowerId, String itemId,
 
 ---
 
-# 2.6 UML Class Diagrams
-### Reading, drawing and checking
+# 2.6 Drawing the Design
+### UML class diagrams to read, write and check
 
 ---
 
@@ -1442,14 +1442,14 @@ A diagram that disagrees with its code is **worse than no diagram**, because rea
 
 ---
 
-# 2.7 Git History, Branches and Review
+# 2.7 Making a Change Someone Else Can Review
 ### A change a team can inspect
 
 ---
 
 ## Version Control Is Not Evidence of Good Design
 
-* A codebase becomes a shared engineering artefact when the team can **inspect its changes, reproduce its behaviour and explain its decisions**.
+* A codebase becomes a shared piece of work when the team can **inspect its changes, reproduce its behaviour and explain its decisions**.
 * Version control supports that work.
 * A commit **alone** is not evidence of a good design.
 
@@ -1558,7 +1558,7 @@ git diff --staged
 
 * State **the problem**, **the limited change**, and **the checks performed**.
 * Example: "The request method interleaves storage and confirmation text. This change moves the text assembly into a private helper. The existing messages and stored records remain unchanged in the supplied checks."
-* Add **limits**: persistence, concurrent booking, lifecycle operations and message delivery remain outside this checkpoint.
+* Add **limits**: persistence, concurrent booking, lifecycle operations and message delivery remain outside this version.
 
 ---
 
@@ -1587,42 +1587,42 @@ git diff --staged
 
 ---
 
-# 2.8 AI in Practice: Tracing a Coordinator
+# 2.8 Checking an AI's Explanation of the Coordinator
 ### Classifying claims against the code
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Compare an explanation of the coordinator with its actual control flow, state changes and side effects |
-| Input | The complete starting `ReservationCoordinator` and collaborators |
-| Permitted scope | Judge the explanation only; do not change the code |
+| Your goal | Compare an explanation of the coordinator with its actual control flow, state changes and side effects |
+| You start with | The complete starting `ReservationCoordinator` and collaborators |
+| What is in bounds | Judge the explanation only; do not change the code |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | Tracing the code, the three-request demonstration, the supplied checks |
-| Accept or reject | Keep supported claims, reject contradicted ones, mark claims the code does not establish |
-| No-account route | The fixture is sufficient |
+| How to check | Tracing the code, the three-request demonstration, the supplied checks |
+| How to decide | Keep supported claims, reject contradicted ones, mark claims the code does not establish |
+| No AI account? | The ready-made example is enough |
 
 * Chapter 15 collects the recurring AI workflows. This activity is **self-contained**.
 
 ---
 
-## The Teaching Fixture (1 of 2)
+## The Ready-Made Example (1 of 2)
 
-An **author-written teaching fixture** imitating a plausible AI explanation. Not a captured response from a real model.
+An **ready-made example written by the author** imitating a plausible AI explanation. Not a captured response from a real model.
 
 > The coordinator validates identifiers, counts the borrower's stored reservations and checks the numeric rule. It tests availability using existing reservations for the same item. On success, it adds a reservation before returning a confirmation.
 
 ---
 
-## The Teaching Fixture (2 of 2)
+## The Ready-Made Example (2 of 2)
 
 > It sends that confirmation by email and persists the reservation to a database. Because the list field is final, callers receive a deeply immutable copy and booking is safe under concurrent requests.
 
@@ -1675,7 +1675,7 @@ An **author-written teaching fixture** imitating a plausible AI explanation. Not
 
 ---
 
-# 2.9 Common Mistakes
+# 2.9 Mistakes That Look Like Good Design
 ### Eight misconceptions, eight better questions
 
 ---
@@ -1724,14 +1724,14 @@ An **author-written teaching fixture** imitating a plausible AI explanation. Not
 
 ---
 
-# 2.10 Practical Activity: One Checked Design Improvement
-### Parts A to D
+# 2.10 Try It Yourself
+### Improve the design, with evidence
 
 ---
 
 ## Inputs and Starting Point
 
-* Parts A to C use the **Book project**; Part D concerns your **Team project**.
+* Parts A to C use the book's project; Part D concerns your team's project.
 * Use the companion's common source files and the **starting** `ReservationCoordinator.java`.
 * Save all **six Java files in one directory**; compile and run them using the companion's instructions.
 * The check runner should report **34 passing checks** before you begin.
@@ -1978,7 +1978,7 @@ git status
 * **Problem:** the request method contains message formatting alongside the request workflow.
 * **Change:** move only the confirmation-string construction into `confirmationFor`, keeping record creation and storage order.
 * **Evidence:** identical demonstration output; the same 34 checks pass; the diff changes only internal organisation.
-* **Limits:** persistence, concurrent booking, lifecycle operations and message delivery remain outside this checkpoint.
+* **Limits:** persistence, concurrent booking, lifecycle operations and message delivery remain outside this version.
 
 ---
 
@@ -2052,7 +2052,7 @@ git status
 
 ---
 
-# 2.11 Review Questions and Transfer Challenge
+# 2.11 Questions to Think with
 ### Concept, diagnosis, transfer
 
 ---
@@ -2116,7 +2116,7 @@ A university room-booking coordinator stores bookings, checks room conflicts and
 
 ---
 
-# 2.12 Chapter Summary
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---

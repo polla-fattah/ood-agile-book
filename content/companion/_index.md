@@ -1,6 +1,6 @@
 ---
 title: Code, Explanations and Solutions Companion
-description: Java checkpoints, incremental deltas, lab solutions, and instructor verification records
+description: Java versions, incremental deltas, lab solutions, and instructor verification records
 type: book
 book_kind: book
 outputs: [HTML, print, markdown, BookManifest]
@@ -21,8 +21,8 @@ Every chapter's companion provides:
 2. **Step-by-Step Code Walkthroughs**: Line-by-line analyses of design decisions, type safety, invariants, and exception handling.
 3. **Lab Solutions & Exercises**: Model answers for both required core labs and optional team extensions.
 4. **Verification Records & Fault Experiments**: Documented test suite outputs (`mvn verify`), mutation/fault analysis records, and reproducible compiler checks.
-5. **Delta Checkpoints**: Clear listings of new or modified files built on top of preceding chapter checkpoints.
+5. **Delta Versions**: Clear listings of new or modified files built on top of preceding chapter versions.
 
 Select a chapter or appendix companion from the sidebar or table of contents to view its complete code listings and solutions.
 
-> 📘 **Note on Appendices:** Code companions are provided for Appendices A, B, C, and F (which contain runnable listings, diagnostic code, and validation tools). Appendix D (Project Checkpoints and Glossary) and Appendix E (Critical Reading and Project Evidence) are comprehensive non-code reference guides contained directly within the main textbook.
+> 📘 **Note on Appendices:** Code companions are provided for Appendices A, B, C, and F (which contain runnable listings, diagnostic code, and validation tools). Appendix D (Project Versions and Glossary) and Appendix E (Critical Reading and Project Evidence) are comprehensive non-code reference guides contained directly within the main textbook.

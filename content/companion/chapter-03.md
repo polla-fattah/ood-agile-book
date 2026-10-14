@@ -7,7 +7,7 @@ description: "Code explanations and solutions for Chapter 3 Companion: Code, Exp
 *Companion to Chapter 3: Agile Development and the Nature of Change*  
 *OO Development and Agile Practices*
 
-This chapter's main engineering artefacts are stories, acceptance examples, a backlog, completion conditions and workflow policies. This file provides worked versions and suggested answers, followed by an optional Java demonstration of how acceptance examples connect to the existing code.
+This chapter's main outputs are stories, acceptance examples, a backlog, completion conditions and workflow policies. This file provides worked versions and suggested answers, followed by an optional Java demonstration of how acceptance examples connect to the existing code.
 
 The examples are proposals for the controlled teaching project. They do not establish new university assessment rules or claim that planned features have been built. Keep this file separate from the student chapter until learners have attempted its activities.
 
@@ -42,7 +42,7 @@ US-01 prevents the team from building on a falsely reported baseline. Its remain
 
 US-02 answers the workflow gap discovered at demonstration. It depends on understanding the existing records and period convention, but it need not wait for a production database. EN-01 supports reliable repeated work and should be coordinated with Chapter 4's kickoff requirements; its place here does not forbid parallel preparation when capacity permits.
 
-US-03 may be a small useful improvement, although access rules matter outside the controlled officer-operated demonstration. US-04 changes the meaning of “active” and therefore affects counts and availability. US-05 matters before accepting arbitrary identifiers in a broader deployment. Its lower position assumes that early demonstrations use controlled fixture identifiers; change that ordering if real users or uncontrolled input enter scope.
+US-03 may be a small useful improvement, although access rules matter outside the controlled officer-operated demonstration. US-04 changes the meaning of “active” and therefore affects counts and availability. US-05 matters before accepting arbitrary identifiers in a broader deployment. Its lower position assumes that early demonstrations use controlled sample identifiers; change that ordering if real users or uncontrolled input enter scope.
 
 The backlog order is not a calendar schedule. Some items need policy decisions, and the six items are not a promise that all can be completed in one Sprint.
 
@@ -52,7 +52,7 @@ The backlog order is not a calendar schedule. Some items need policy decisions, 
 
 **Actor and outcome:** as an equipment officer, I want to record an eligible, non-conflicting student reservation so that the selected item is allocated for the requested period.
 
-**Scope:** one item per request, controlled non-blank fixture identifiers, whole-day durations and representable calendar dates. The initial student rules apply. Requests are processed sequentially by one coordinator. No real catalogue, identity provider, database, payment or email service is implied.
+**Scope:** one item per request, controlled non-blank sample identifiers, whole-day durations and representable calendar dates. The initial student rules apply. Requests are processed sequentially by one coordinator. No real catalogue, identity provider, database, payment or email service is implied.
 
 **Decisions carried from earlier chapters:** at most three active reservations; duration from one to seven days inclusive; start-inclusive/end-exclusive periods; all stored records remain active until a later lifecycle feature changes that assumption.
 
@@ -72,7 +72,7 @@ The backlog order is not a calendar schedule. Some items need policy decisions, 
 
 **Actor and outcome:** as an equipment officer, I want to inspect whether a known item is available for a proposed period without reserving it, so that I can discuss options with a borrower.
 
-**Scope:** enquiry against the current coordinator's records for controlled known fixture identifiers. It does not promise that the physical item is operational, not under maintenance, or available in another application instance.
+**Scope:** enquiry against the current coordinator's records for controlled sample identifiers. It does not promise that the physical item is operational, not under maintenance, or available in another application instance.
 
 **Core distinction:** a successful enquiry never confirms a reservation and never guarantees that a later request will succeed. The later request must perform its own checks against its then-current state.
 
@@ -86,7 +86,7 @@ The backlog order is not a calendar schedule. Some items need policy decisions, 
 
 AQ-05 intentionally states the user-observable meaning without prescribing an exception class or interface design. The team must make that technical contract explicit during implementation. It must not silently return “available” for an invalid period.
 
-**Unknowns:** the future behaviour for catalogue identifiers outside the controlled fixtures; maintenance rules; restrictions on past dates. Record these as questions or related work. Do not add a hidden maintenance buffer: the present interval convention allows adjacency.
+**Unknowns:** the future behaviour for catalogue identifiers outside the controlled examples; maintenance rules; restrictions on past dates. Record these as questions or related work. Do not add a hidden maintenance buffer: the present interval convention allows adjacency.
 
 **Status:** this query is not implemented by the Chapter 2 code. `reserve` cannot be reused as an enquiry by calling it and undoing the result; that would introduce a mutation and does not satisfy the story.
 
@@ -156,7 +156,7 @@ The following numbers are invented for a discussion; no empirical velocity or de
 
 | Item or remaining work | Example estimate | Assumption or uncertainty |
 |---|---:|---|
-| US-02 local availability enquiry | 3 points | Known fixture identifiers, existing date convention, no external catalogue, narrow agreed interaction |
+| US-02 local availability enquiry | 3 points | Known sample identifiers, existing date convention, no external catalogue, narrow agreed interaction |
 | US-03 inspect one borrower's active records | 2 points | Current definition of active remains unchanged; officer-operated controlled demonstration |
 | US-04 cancellation | Not yet estimated | Authority, permitted lifecycle states and consequences for counts remain unresolved |
 
@@ -196,7 +196,7 @@ A sufficient student record gives the suggestion, classification, relevant sourc
 
 The full source below runs AC-01 through AC-05 against the **completed Chapter 2 coordinator**. It introduces no new application behaviour and makes no claim to implement US-02. Plain Java checks are used so the relation between an example and an observation remains visible before formal testing techniques in Chapter 7.
 
-Copy these four inherited files from the Chapter 2 code-and-solutions file: `ReservationRules.java`, `LoanPeriod.java`, `Reservation.java`, and the completed `ReservationCoordinator.java`. Put them in one directory with the new file below. Preserve their content; the fixture rules and message contract have not changed.
+Copy these four inherited files from the Chapter 2 code-and-solutions file: `ReservationRules.java`, `LoanPeriod.java`, `Reservation.java`, and the completed `ReservationCoordinator.java`. Put them in one directory with the new file below. Preserve their content; the example data rules and message contract have not changed.
 
 **Filename: `Chapter03AcceptanceExamples.java`**
 
@@ -325,14 +325,14 @@ These five groups are examples, not exhaustive proofs. They do not check catalog
 
 ### RB-01 acceptance examples
 
-For the exercise, assume known fixture room identifiers and a declared start-inclusive/end-exclusive convention:
+For the exercise, assume known example room identifiers and a declared start-inclusive/end-exclusive convention:
 
 - With no existing booking, a valid enquiry reports available and creates no booking.
 - With a booking from 10:00 to 11:00, an enquiry for the same room from 10:30 to 11:30 reports unavailable and preserves the existing record.
 - An enquiry starting at 11:00 may report available when there is no other conflict, and it changes no records.
 - An invalid interval with end before start produces an identifiable invalid-input result and does not change records.
 
-These are proposed teaching rules, not a claim about institutional room policy. Confirm whether a cleaning or preparation buffer is required before accepting adjacency for a real system.
+These are proposed rule invented for this books, not a claim about institutional room policy. Confirm whether a cleaning or preparation buffer is required before accepting adjacency for a real system.
 
 ### Completion, flow and uncertainty
 
@@ -392,8 +392,8 @@ Suppose AC-03 contained only a request that starts at an existing end. The first
 
 Martin (2002) and Rubin (2012) are cited in the student chapter; this book treats Agile practices and Scrum in Chapter 3 and sprint planning in Chapter 4.
 
-The practical activity runs on the Team project, with the lending backlog as the worked model and a transfer note for other provided domains. The process note asks teams to separate Scrum as defined from classroom adaptations and optional practices. When marking the process note, accept any honest statement. A team that uses stories, points and a board but no designated Scrum Master has described a legitimate adaptation, whereas a team that calls an academic deadline a Sprint without naming that adaptation has not.
+The practical activity runs on your team's project, with the lending backlog as the worked model and a transfer note for other provided domains. The process note asks teams to separate Scrum as defined from classroom adaptations and optional practices. When marking the process note, accept any honest statement. A team that uses stories, points and a board but no designated Scrum Master has described a legitimate adaptation, whereas a team that calls an academic deadline a Sprint without naming that adaptation has not.
 
-This chapter adds planning and acceptance-example artefacts. The cumulative application code remains at the completed Chapter 2 checkpoint. Keep these backlog decisions available for Chapter 4's kickoff planning, and revise them explicitly when stakeholder answers arrive.
+This chapter adds planning documents and acceptance examples. The running application code remains at the completed Chapter 2 version. Keep these backlog decisions available for Chapter 4's kickoff planning, and revise them explicitly when stakeholder answers arrive.
 
 Authoritative concept references are provided in the student chapter. All worked project material and suggested solutions here are original examples.

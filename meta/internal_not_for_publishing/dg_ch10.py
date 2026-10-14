@@ -28,7 +28,7 @@ def layers():
 
 
 def instability():
-    s = Svg("ch10-instability", 362, label="Instability I = Ce / (Ca + Ce) of the checkpoint's packages: domain 0.00, application.port 0.18, infrastructure.notification 0.30, application 0.31, infrastructure.directory 0.33, infrastructure.persistence 0.50, presentation 0.50, bootstrap 1.00.")
+    s = Svg("ch10-instability", 362, label="Instability I = Ce / (Ca + Ce) of the version's packages: domain 0.00, application.port 0.18, infrastructure.notification 0.30, application 0.31, infrastructure.directory 0.33, infrastructure.persistence 0.50, presentation 0.50, bootstrap 1.00.")
     rows = [("domain", 0.00, 16, 0), ("application.port", 0.18, 14, 3), ("infrastructure.notification", 0.30, 7, 3),
             ("application", 0.31, 9, 4), ("infrastructure.directory", 0.33, 2, 1), ("infrastructure.persistence", 0.50, 1, 1),
             ("presentation", 0.50, 1, 1), ("bootstrap", 1.00, 0, 7)]

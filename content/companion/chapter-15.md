@@ -11,7 +11,7 @@ description: "Code explanations and solutions for Chapter 15 Companion: Code, Ex
 
 This file accompanies Chapter 15, AI as a Software Engineering Assistant. It contains the **lab**, a small stand-alone Maven project for the chapter's worked example; the two constructed AI attempts and the work orders that produced them; the AI assistance record, its template and a script that checks it; three further constructed outputs for the chapter's other activities; the model solutions; the experiments behind the chapter's figures; and teaching notes.
 
-**The lending project is not touched.** The lab does not depend on it, and its handover version 0.14.0 stays as Chapter 14 left it. The lab holds its own copy of `LoanPeriod`. Chapter 15 therefore has no entry checkpoint and no carry-forward to a later chapter. Because the code is not part of the lending project, the dependency rules, the handover check and the requirements table of Chapter 14 are unaffected.
+**The lending project is not touched.** The lab does not depend on it, and its handover version 0.14.0 stays as Chapter 14 left it. The lab holds its own copy of `LoanPeriod`. Chapter 15 therefore has no starting version and no carry-forward to a later chapter. Because the code is not part of the lending project, the dependency rules, the handover check and the requirements table of Chapter 14 are unaffected.
 
 **All AI output in this chapter is constructed.** Every attempt, chat response and explanation is author-written and labelled, in its own file, as *constructed to illustrate*. None is a recording of a real model. No live assistant was used to produce or check anything here.
 
@@ -603,7 +603,7 @@ class AvailabilityFinderGeneratedTest {
 Fixed both issues. The finder now delegates to an `AvailabilityRule`, so new rules can be added without changing it (open/closed principle). I added seven JUnit 5 tests and all of them pass. The behaviour matches your description.
 ```
 
-## 5. Records and fixtures
+## 5. Records and examples
 
 ### 5.1 `lab/docs/AI-RECORD-TEMPLATE.md`
 
@@ -614,7 +614,7 @@ Fixed both issues. The finder now delegates to an `AvailabilityRule`, so new rul
 What was asked, in one or two sentences, and who owns the requirement.
 
 ## Tool and model
-The tool and model, or "none: constructed fixture". The date. If the tool was not available, say how the exercise was done instead.
+The tool and model, or "none: constructed example". The date. If the tool was not available, say how the exercise was done instead.
 
 ## Context given
 What the assistant was shown (files, requirement text, constraints). Say what was left out and why. No secrets or personal data.
@@ -644,7 +644,7 @@ What the verification does not show. What was not run.
 Add `AvailabilityFinder.earliestStart(from, days, searchDays)` to the lab. The requirement and its nine acceptance examples (EX1 to EX9) were written by the developer before any prompt, in `AvailabilityFinderTest`. The developer owns the requirement.
 
 ## Tool and model
-None: constructed fixture (author-written, not a recorded service response). 13 October 2026. The two attempts stand in for the output of an assistant, so that the exercise needs no account.
+None: constructed example (author-written, not a recorded service response). 13 October 2026. The two attempts stand in for the output of an assistant, so that the exercise needs no account.
 
 ## Context given
 Prompt 1 (`prompts/prompt1.md`): the task sentence, the source of `LoanPeriod`, the constraints (Java 17, standard library only, no new dependencies), the output format and the permitted scope. Not shared in this exercise: the acceptance examples. They were derived from the requirement before the prompt, and were kept back so that they could also be used to judge whether the code generalises. Sharing reviewed examples would have been a legitimate choice, but a pass on examples the assistant has seen shows only that it satisfied those examples. Prompt 2 (`prompts/prompt2.md`): the two compiler findings and the request to keep the solution small and add tests.
@@ -826,7 +826,7 @@ The full tables are in Section 10.2.
 
 ## 7. Suggested practical solution
 
-### 7.1 Book project, steps B1–B4
+### 7.1 the book's project, steps B1–B4
 
 **B1. Reject attempt 1.** A good answer runs `try-attempt.sh 1` and reports two errors, then repeats by hand with `javac --release 17` and reads both errors (and, with a JDK of version 21 or later, shows that plain `javac` reports one). It lists the defects and categories: invented method (`intersects`); API newer than the baseline (`getFirst`, Java 21); self-reported verification (“I tested it with Java 17”). It says what the claim could mean: possibly that it compiled on some JDK, perhaps without `--release`; it cannot mean that it was checked under the project's settings, because the code does not compile under them.
 
@@ -836,7 +836,7 @@ The full tables are in Section 10.2.
 
 **B4. Fill in a record.** A good answer uses all eight headings, keeps rejected output, names at least one check that is independent of the assistant and at least one limit, and passes `check-record.sh`. A weak answer says “reviewed and verified” under Verification.
 
-### 7.2 Book project, optional steps B5–B7
+### 7.2 the book's project, optional steps B5–B7
 
 **B5. Repeat with a live assistant.** There is no model answer, because the output differs. A good answer keeps every attempt, compiles under `--release 17`, runs the acceptance examples, and names which failure modes from Section 15.6 appeared. An assistant that gets it right the first time is a valid result: record that and the checks that showed it.
 
@@ -844,7 +844,7 @@ The full tables are in Section 10.2.
 
 **B7. Swap and find.** A good answer lists the flaws it found, the flaws it missed and why. Missing a flaw of the invented-method kind (it looked like the real name) is common and instructive.
 
-### 7.3 Team project, steps T1–T3 (and T4)
+### 7.3 your team's project, steps T1–T3 (and T4)
 
 These are not model answers, because the task is your team's. A good answer shows:
 

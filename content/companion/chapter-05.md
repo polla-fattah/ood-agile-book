@@ -9,37 +9,37 @@ description: "Code explanations and solutions for Chapter 5 Companion: Code, Exp
 
 ## 1. How to use this file
 
-This file contains complete source listings, checkpoint instructions, explanations, exercise solutions and teaching notes for Chapter 5. Attempt the student activities before reading the model answers in Sections 8–11.
+This file contains complete source listings, version instructions, explanations, exercise solutions and teaching notes for Chapter 5. Attempt the student activities before reading the model answers in Sections 8–11.
 
-The running project remains the Campus Equipment Lending System. Its Java 17 code begins at Chapter 4. We distinguish three checkpoints:
+The running project remains the Campus Equipment Lending System. Its Java 17 code begins at Chapter 4. We distinguish three versions:
 
-| Checkpoint directory | Meaning | Behaviour |
+| Version directory | Meaning | Behaviour |
 |---|---|---|
 | `before` | Chapter 4 starting point | Existing student reservation rule and private confirmation method |
 | `refactored` | Stage A | Same behaviour; concrete formatter extracted |
-| `after` | Stage B; cumulative exit checkpoint | Student behaviour preserved; explicit staff policy added |
+| `after` | Stage B; running finishing version | Student behaviour preserved; explicit staff policy added |
 
-Only `after` is the cumulative Chapter 5 result. The separate LSP example is a teaching counterexample; it does not become a reservation collaborator. US-02 availability enquiry remains planned. No actual staff directory, authentication, catalogue, persistence, cancellation or notification delivery is introduced.
+Only `after` is the running Chapter 5 result. The separate LSP example is a teaching counterexample; it does not become a reservation collaborator. US-02 availability enquiry remains planned. No actual staff directory, authentication, catalogue, persistence, cancellation or notification delivery is introduced.
 
 ### 1.1 Assemble the directories
 
-For a fully independent reconstruction, create the three checkpoint directories above. The listings are divided as follows:
+For a fully independent reconstruction, create the three version directories above. The listings are divided as follows:
 
-1. Section 2 uses paths beginning with `shared/`. Save those files there, then copy the **contents** of `shared` into each checkpoint. For example, `shared/src/main/java/LoanPeriod.java` becomes `before/src/main/java/LoanPeriod.java`, `refactored/src/main/java/LoanPeriod.java` and `after/src/main/java/LoanPeriod.java`.
+1. Section 2 uses paths beginning with `shared/`. Save those files there, then copy the **contents** of `shared` into each version. For example, `shared/src/main/java/LoanPeriod.java` becomes `before/src/main/java/LoanPeriod.java`, `refactored/src/main/java/LoanPeriod.java` and `after/src/main/java/LoanPeriod.java`.
 2. Section 3 supplies `before`-specific files. Copy its `ReservationRules.java` and `scripts/check.sh` into the same relative locations in `refactored` too. Do **not** copy its coordinator into `refactored`.
 3. Section 4 supplies the extracted coordinator and formatter. Copy that formatter into `after/src/main/java/ConfirmationFormatter.java` too.
 4. Section 5 supplies the remaining `after` files, including its changed student rules and updated gate.
 5. Section 6 supplies the isolated LSP example under `after/examples/lsp`.
 
-Create intermediate directories as needed. Copy the content inside each code fence, not the fence or heading. Keep only one class with each name inside a checkpoint. Compile each checkpoint separately; do not compile every `.java` file beneath the parent directory at once.
+Create intermediate directories as needed. Copy the content inside each code fence, not the fence or heading. Keep only one class with each name inside a version. Compile each version separately; do not compile every `.java` file beneath the parent directory at once.
 
-The directory prefixes describe alternative teaching checkpoints, not Java packages. Classes remain in the unnamed package. The common application layout is `src/main/java`; executable checks are in `src/test/java`. These are plain Java programs, not JUnit tests, and this chapter does not introduce a Maven configuration.
+The directory prefixes describe alternative teaching versions, not Java packages. Classes remain in the unnamed package. The common application layout is `src/main/java`; executable checks are in `src/test/java`. These are plain Java programs, not JUnit tests, and this chapter does not introduce a Maven configuration.
 
 If you already have the Chapter 4 repository, you may instead make successive commits for Stage A and Stage B. The separate directories are a reconstruction aid, not a requirement to maintain duplicate application trees in your team's repository.
 
-### 1.2 Run each checkpoint
+### 1.2 Run each version
 
-Use Java 17 JDK and Bash. Confirm that `java -version` and `javac -version` refer to the intended installation. From the directory containing the three checkpoints:
+Use Java 17 JDK and Bash. Confirm that `java -version` and `javac -version` refer to the intended installation. From the directory containing the three versions:
 
 ```bash
 bash before/scripts/check.sh
@@ -49,7 +49,7 @@ java -cp after/build/classes Chapter04Demo
 java -cp after/build/classes Chapter05Demo
 ```
 
-The scripts change to their own checkpoint root, compile application and check sources, then run the relevant checks. Ordinary learner setup uses `javac`; no compiler override is needed with a normal JDK installation.
+The scripts change to their own version root, compile application and check sources, then run the relevant checks. Ordinary learner setup uses `javac`; no compiler override is needed with a normal JDK installation.
 
 ### 1.3 Run PMD
 
@@ -59,7 +59,7 @@ Install PMD once. Download `pmd-dist-7.28.0-bin.zip` from the project's GitHub r
 f974ba571f7bc01c73fffe11bade25fbc1f438698f9e9c00e416e8d65e9fbac2
 ```
 
-Compare it with the digest of your download (`sha256sum pmd-dist-7.28.0-bin.zip`), unzip the file into its own new folder, and set `PMD_HOME` to the `pmd-bin-7.28.0` folder inside it. PMD needs a Java runtime of version 8 or above. From each checkpoint directory:
+Compare it with the digest of your download (`sha256sum pmd-dist-7.28.0-bin.zip`), unzip the file into its own new folder, and set `PMD_HOME` to the `pmd-bin-7.28.0` folder inside it. PMD needs a Java runtime of version 8 or above. From each version directory:
 
 ```bash
 export PMD_HOME=/path/to/pmd-bin-7.28.0
@@ -67,7 +67,7 @@ bash scripts/check.sh
 bash scripts/pmd.sh
 ```
 
-Expected output for `before` is in Section 7.1b. The ruleset and script are listings 2.8 and 2.9 and are copied into every checkpoint with the other shared files.
+Expected output for `before` is in Section 7.1b. The ruleset and script are listings 2.8 and 2.9 and are copied into every version with the other shared files.
 
 The first two gates should report the original 34 checks and five acceptance example groups passing. The final gate additionally prints:
 
@@ -99,7 +99,7 @@ Stored reservations: 2
 
 The first request explicitly selects the illustrative staff policy. The second uses the original student operation and rejects fourteen days. The third is a valid-duration student request blocked by the staff reservation. The fourth begins at the staff reservation's exclusive end, so it can succeed. Rejections do not consume identifiers or add records.
 
-## 2. Shared files for all three checkpoints
+## 2. Shared files for all three versions
 
 These files are unchanged from Chapter 4. Their repetition makes the examples reconstructable from this Markdown file.
 
@@ -424,7 +424,7 @@ PMD_JAVA_DISABLE_AUX_CLASSPATH_WARNINGS=true \
 
 The script runs PMD on the application sources and prints the findings. It passes `--no-fail-on-violation` so that findings do not make the script fail, because the lab *expects* findings. Without that option PMD exits with status 4 when it reports violations. Run `scripts/check.sh` first if you want PMD to read the compiled classes. The setting `PMD_JAVA_DISABLE_AUX_CLASSPATH_WARNINGS` only silences a warning about the Java version of the compiler's own runtime image; other `[WARN]` lines, such as the advice to use incremental analysis, may still appear on the error stream.
 
-## 3. Starting checkpoint: before
+## 3. Starting version: before
 
 The coordinator and numeric rule below are the complete starting versions. Copy the rule and gate to `refactored` as directed in Section 1; the intermediate stage changes neither of them.
 
@@ -598,13 +598,13 @@ The private confirmation expression moved into `ConfirmationFormatter.format`. I
 
 The new formatter rejects a null reservation explicitly. That method is a new collaborator API; existing coordinator calls supply a valid reservation. The extraction does not change the existing public request method's validation or rejection behaviour.
 
-The coordinator still creates the formatter directly. No interface was added for it because this checkpoint has one presentation behaviour and no requirement to swap implementations. The formatter is also not a notification sender: returning a string does not send email.
+The coordinator still creates the formatter directly. No interface was added for it because this version has one presentation behaviour and no requirement to swap implementations. The formatter is also not a notification sender: returning a string does not send email.
 
 Compare the `before` and `refactored` coordinator listings. The only application changes are the new formatter field, the delegated return expression and removal of the old private method. Run the unchanged checks before beginning Stage B.
 
 ## 5. Stage B: explicit policy variation
 
-Use the shared files and the extracted formatter, then add the following files to `after`. This is the complete cumulative result. The staff limits are an illustrative teaching requirement: fewer than five existing active records and a requested duration from one to fourteen days. They are not approved institutional policy.
+Use the shared files and the extracted formatter, then add the following files to `after`. This is the complete running result. The staff limits are an illustrative teaching requirement: fewer than five existing active records and a requested duration from one to fourteen days. They are not approved institutional policy.
 
 ### 5.1 `after/src/main/java/BorrowingPolicy.java`
 
@@ -875,7 +875,7 @@ The original four-argument operation delegates with `STUDENT`. The five-argument
 
 The selector remains in the coordinator, and the concrete policies are still created there. Adding a new enum category requires another selection arm. The design isolates policy evaluation; it does not claim complete closure against adding categories. Chapter 6 will examine moving object selection and assembly outward.
 
-The category is supplied by trusted synthetic callers. The program does not authenticate it or remember it in a borrower profile. The mixed-category fixture in the checks intentionally documents this limitation: all records for a borrower ID count, while the category on the current request selects the limit. It is not a recommended real-world workflow for changing a borrower's authority.
+The category is supplied by trusted synthetic callers. The program does not authenticate it or remember it in a borrower profile. The mixed-category example in the checks intentionally documents this limitation: all records for a borrower ID count, while the category on the current request selects the limit. It is not a recommended real-world workflow for changing a borrower's authority.
 
 ### 5.10 What the new checks establish
 
@@ -963,7 +963,7 @@ public final class LspExample {
 
 ### 6.2 Compile and run the isolated example
 
-From the directory containing the three checkpoints:
+From the directory containing the three versions:
 
 ```bash
 javac --release 17 -d after/build/lsp after/examples/lsp/LspExample.java
@@ -1016,7 +1016,7 @@ Potential storage extraction is a reasonable observation, but persistence is not
 
 ### 7.1b Model PMD comparison
 
-PMD 7.28.0 was run on the `before` checkpoint with the lab rule set (`config/pmd-smells.xml`) after the gate had compiled the classes. The output is exactly what the chapter shows (with Windows path separators in the recorded run):
+PMD 7.28.0 was run on the `before` version with the lab rule set (`config/pmd-smells.xml`) after the gate had compiled the classes. The output is exactly what the chapter shows (with Windows path separators in the recorded run):
 
 ```text
 src\main\java\Reservation.java:3:	DataClass:	The class 'Reservation' is suspected to be a Data Class (WOC=0.000%, NOPA=0, NOAM=4, WMC=9)
@@ -1053,7 +1053,7 @@ This rationale says what changed, why, which behaviour was preserved and what co
 
 ### 7.3 Suggested Stage B rationale
 
-> Student and staff requests now have two documented count/duration policies. A small `BorrowingPolicy` contract lets the reservation workflow use either without duplicating overlap or storage logic. The existing overload explicitly keeps student behaviour. The policy selector still lives in the coordinator, so adding another category requires an edit there. Category comes from a trusted fixture and is not verified identity.
+> Student and staff requests now have two documented count/duration policies. A small `BorrowingPolicy` contract lets the reservation workflow use either without duplicating overlap or storage logic. The existing overload explicitly keeps student behaviour. The policy selector still lives in the coordinator, so adding another category requires an edit there. Category comes from a trusted example and is not verified identity.
 
 The new staff success cases mean this stage is a feature change. The fact that some restructuring occurs while adding it does not make the complete stage behaviour-preserving. Keep the requirements and checks for the feature visible in the change record.
 
@@ -1083,7 +1083,7 @@ A broader interface must still promise enough to be useful. If it permits arbitr
 
 ## 8. AI activity: model review
 
-The fixture in the student chapter is author-written fictional AI output. These verdicts illustrate a review method; they are not a record of a real model or reviewer.
+The example in the student chapter is author-written fictional AI output. These verdicts illustrate a review method; they are not a record of a real model or reviewer.
 
 | Proposed change | Verdict | Concrete reason |
 |---|---|---|
@@ -1125,7 +1125,7 @@ If counting evaluations becomes a genuine operational requirement, revisit the c
 
 ## 10. Practical activity: suggested solution and feedback
 
-A complete solution includes both stages and explains their different purposes. The before checkpoint runs. Stage A changes only the presentation boundary and retains the original expected results. Stage B states its new policy, preserves the original overload and checks the new cases. The learner can explain the invalid subtype using a valid client call sequence.
+A complete solution includes both stages and explains their different purposes. The before version runs. Stage A changes only the presentation boundary and retains the original expected results. Stage B states its new policy, preserves the original overload and checks the new cases. The learner can explain the invalid subtype using a valid client call sequence.
 
 A useful review follows the operation in order: validate identifiers and date; count all records for the borrower; apply the selected policy; create the period; check same-item overlap; store exactly one record; format the accepted record. Ask whether a structural edit changed that order or duplicated any rule.
 
@@ -1135,7 +1135,7 @@ Suggested evidence table:
 
 | Evidence | What to record |
 |---|---|
-| Starting point | Actual revision/checkpoint and passing original gate |
+| Starting point | Actual revision/version and passing original gate |
 | Stage A | Relevant diff; original checks with unchanged expectations; observed result |
 | Stage B | New rule table; policy contract; compatibility and staff-boundary results |
 | LSP example | Valid base call sequence; subtype outcome; precise violated promise |
@@ -1160,7 +1160,7 @@ Compare these outcomes:
 | Introduce a qualitatively different eligibility rule | New implementation may express it directly | May need a broader design beyond two numbers |
 | Trace the current rule in review | Read the concrete predicate | Read implementation plus selected configuration |
 
-No approach wins merely by having fewer files. A short report should say which anticipated changes matter and how the alternative handles them. Keep the alternative in a separate experiment so the cumulative checkpoint remains unambiguous.
+No approach wins merely by having fewer files. A short report should say which anticipated changes matter and how the alternative handles them. Keep the alternative in a separate experiment so the running version remains unambiguous.
 
 ## 11. Transfer challenge: one possible answer
 
@@ -1189,7 +1189,7 @@ Protect the existing policy and message with unchanged examples during extractio
 
 ### 12.1 Do the new checks detect faults?
 
-Fourteen deliberate faults were introduced one at a time into a copy of the `after` checkpoint, and the full gate was run on each.
+Fourteen deliberate faults were introduced one at a time into a copy of the `after` version, and the full gate was run on each.
 
 | Fault | Result |
 |---|---|
@@ -1214,9 +1214,9 @@ The plain Java check runners throw `AssertionError` explicitly; they do not depe
 
 ### 12.2 Reuse of the Chapter 4 workflow
 
-When the `after` checkpoint becomes the root of a team's normal application repository, retain the Chapter 4 `.github/workflows/java-check.yml`. It still runs `bash scripts/check.sh`; the updated script now includes `Chapter05Checks`. No pipeline rewrite is needed for this application change.
+When the `after` version becomes the root of a team's normal application repository, retain the Chapter 4 `.github/workflows/java-check.yml`. It still runs `bash scripts/check.sh`; the updated script now includes `Chapter05Checks`. No pipeline rewrite is needed for this application change.
 
-If the team stores all three teaching directories in one repository instead, its workflow must explicitly invoke the intended checkpoint's script, such as `bash after/scripts/check.sh`. Do not assume that a root-level command will find a script inside a subdirectory. Keep hosted results tied to the actual tested path and revision.
+If the team stores all three teaching directories in one repository instead, its workflow must explicitly invoke the intended version's script, such as `bash after/scripts/check.sh`. Do not assume that a root-level command will find a script inside a subdirectory. Keep hosted results tied to the actual tested path and revision.
 
 The isolated LSP example is intentionally outside the application gate. It can be run as a teaching demonstration with the commands in Section 6. The fact that it contains a deliberately invalid subtype is clearly documented rather than hidden among application classes.
 

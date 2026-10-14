@@ -16,37 +16,37 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **4.1 Vision, scope and constraints**
+* **4.1 What are we building? Vision, scope and constraints**
   * A bounded outcome, a visible boundary, small decision records.
-* **4.2 Wireframes and worked examples**
+* **4.2 Sketching the screens and walking through examples**
   * A wireframe is a question made visible.
-* **4.3 Prioritisation and vertical slicing**
+* **4.3 Prioritisation and vertical slicing: what first, how thin?**
   * Slice by a user outcome, not by technical layer.
-* **4.4 Release outlook and iteration planning**
+* **4.4 What can we really finish? Release outlook and iteration planning**
   * Capacity in person-hours, and why the total is not enough.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **4.5 Team agreements and review workflow**
+* **4.5 How the team works together: agreements and review**
   * How work moves, who reviews, what evidence a reviewer needs.
-* **4.6 Starter build and CI**
+* **4.6 A starter build and CI you can run**
   * One meaningful command, Arrange-Act-Assert, a hosted workflow, a failure you can observe.
-* **4.7 Milestone 1 preparation**
+* **4.7 Getting ready for Milestone 1**
   * An evidence trail, rehearsed from another person's starting point.
-* **4.8 AI in practice: challenge an overambitious plan**
+* **4.8 Challenging an overambitious plan with AI**
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **4.9 Common mistakes**
-* **4.10 Practical activity: prepare the kickoff checkpoint**
-  * Eight steps on your Team project.
-* **4.11 Review questions** and **4.12 Transfer challenge**
+* **4.9 Planning mistakes that look reasonable**
+* **4.10 Try it yourself: prepare for the kickoff**
+  * Eight steps on your team's project.
+* **4.11 Questions to think with** and **4.12 A different setting: the transfer challenge**
   * A clinic appointment-slot system.
-* **Summary and next chapter**
+* **What to take away, and what comes next**
   * Chapter 5 examines responsibilities, extension and substitutability.
 
 ---
@@ -80,11 +80,11 @@ By the end of this chapter, you should be able to:
 
 ## Prerequisites and Route
 
-* **Prerequisites:** the Chapter 2 Java checkpoint; Chapter 3's ordered backlog and Definition of Done; basic Git operations.
+* **Prerequisites:** the Chapter 2 Java version; Chapter 3's ordered backlog and Definition of Done; basic Git operations.
 * **Tools:** a Java 17 JDK, Git and Bash. On Windows, use **Git Bash or WSL**.
 * **Core reading:** 4.1 to 4.7, running the supplied checks while reading 4.6.
-* **Minimum required lab:** steps 1 to 8 of Section 4.10 on your **Team project**. Start steps 6 and 7 (hosted CI) early.
-* **Optional extension:** the AI activity, review questions, transfer challenge and extension.
+* **What you must do:** steps 1 to 8 of Section 4.10 on your team's project. Start steps 6 and 7 (hosted CI) early.
+* **If you want more:** the AI activity, review questions, transfer challenge and extension.
 
 ---
 
@@ -119,8 +119,8 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 4.1 Vision, Scope and Constraints
-### Start with a bounded outcome
+# 4.1 What Are We Building?
+### Vision, scope and constraints
 
 ---
 
@@ -166,13 +166,13 @@ By the end of this chapter, you should be able to:
   * **present capability**,
   * **selected work**,
   * **deferred questions**.
-* The next three slides show the table for the Chapter 4 checkpoint.
+* The next three slides show the table for the Chapter 4 version.
 
 ---
 
-## Scope at the Chapter 4 Checkpoint (1 of 3)
+## Scope at the Chapter 4 Version (1 of 3)
 
-| Area | At the checkpoint | Planning consequence |
+| Area | At the version | Planning consequence |
 |---|---|---|
 | Reservation request | Existing Java accepts eligible, non-conflicting requests | Verify and demonstrate; do not rebuild it for credit |
 | Availability enquiry | Proposed US-02; no query method or interface | Refine and plan a thin next slice |
@@ -180,19 +180,19 @@ By the end of this chapter, you should be able to:
 
 ---
 
-## Scope at the Chapter 4 Checkpoint (2 of 3)
+## Scope at the Chapter 4 Version (2 of 3)
 
-| Area | At the checkpoint | Planning consequence |
+| Area | At the version | Planning consequence |
 |---|---|---|
-| Identity and equipment | Nonblank identifiers; synthetic fixtures | No claim of directory or catalogue validation |
+| Identity and equipment | Nonblank identifiers; synthetic examples | No claim of directory or catalogue validation |
 | Loan period | Whole days; start inclusive, end exclusive | Label dates and test adjacency |
 | Cancellation and completed loans | Not implemented; all stored reservations count as active | Clarify lifecycle before adding those stories |
 
 ---
 
-## Scope at the Chapter 4 Checkpoint (3 of 3)
+## Scope at the Chapter 4 Version (3 of 3)
 
-| Area | At the checkpoint | Planning consequence |
+| Area | At the version | Planning consequence |
 |---|---|---|
 | User interface | Scripted console demonstration; proposed wireframes | No web or mobile implementation required for kickoff |
 | Concurrent use | Sequential teaching example | No claim that a check prevents races across processes |
@@ -203,7 +203,7 @@ By the end of this chapter, you should be able to:
 
 * **Constraint:** Java 17 compatibility is a chosen technical constraint for this starter.
 * **Teaching boundary:** using synthetic borrower identifiers.
-* **Assumption:** an officer can recognise a fixture item (an assumption about the demonstration).
+* **Assumption:** an officer can recognise a sample item (an assumption about the demonstration).
 * **Open question:** the rule about past dates.
 * Labelling all four as "requirements" hides their **different owners and consequences**.
 
@@ -211,7 +211,7 @@ By the end of this chapter, you should be able to:
 
 ## An Assumption Needs a Trigger
 
-* Example: "For the controlled demo, the operator uses CAM1 and MIC1 from a supplied fixture list."
+* Example: "For the controlled demo, the operator uses CAM1 and MIC1 from a supplied list of sample items."
 * Trigger: "Before opening input to arbitrary equipment, clarify the catalogue authority and unknown-item behaviour."
 * The trigger connects a **temporary simplification** to **the point at which it becomes inadequate**.
 
@@ -241,7 +241,7 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 4.2 Wireframes and Worked Examples
+# 4.2 Sketching the Screens and Walking Through Examples
 ### A wireframe is a question made visible
 
 ---
@@ -303,7 +303,7 @@ By the end of this chapter, you should be able to:
 
 | Element | Example or behaviour |
 |---|---|
-| Equipment identifier | CAM1 from the controlled fixture set |
+| Equipment identifier | CAM1 from the controlled set of sample items |
 | Start date | 2026-10-22 |
 | End date, exclusive | 2026-10-23 |
 | Action | Check availability |
@@ -357,7 +357,7 @@ By the end of this chapter, you should be able to:
 ---
 
 # 4.3 Prioritisation and Vertical Slicing
-### Slice by a user outcome
+### What first, how thin?
 
 ---
 
@@ -386,7 +386,7 @@ By the end of this chapter, you should be able to:
 * Order is not an instruction to finish every task of one item before examining another.
 * **EN-01 supports reliable delivery of US-02**, so preparing automation during kickoff is reasonable. Explain that dependency openly.
 * Do not quietly move **every technical improvement** ahead of user feedback.
-* "Low priority" for catalogue validation is defensible **only within the controlled fixture boundary**.
+* "Low priority" for catalogue validation is defensible **only within the controlled set of sample items**.
 
 ---
 
@@ -438,7 +438,7 @@ By the end of this chapter, you should be able to:
 
 ## A First Slice for US-02
 
-> The officer supplies one fixture item and a valid date interval, receives an availability answer based on current reservations, and can verify that the enquiry left every stored reservation unchanged.
+> The officer supplies one sample item and a valid date interval, receives an availability answer based on current reservations, and can verify that the enquiry left every stored reservation unchanged.
 
 ---
 
@@ -457,7 +457,7 @@ By the end of this chapter, you should be able to:
 | AQ-01 | Empty coordinator; CAM1 `[20 Oct, 22 Oct)` | Available; records unchanged |
 | AQ-02 | CAM1 reserved `[20 Oct, 22 Oct)`; enquire `[21 Oct, 23 Oct)` | Unavailable; records unchanged |
 | AQ-03 | Same reservation; enquire `[22 Oct, 23 Oct)` | Available; records unchanged |
-| AQ-04 | Same reservation; fixture MIC1 for `[20 Oct, 22 Oct)` | Available; records unchanged |
+| AQ-04 | Same reservation; example MIC1 for `[20 Oct, 22 Oct)` | Available; records unchanged |
 | AQ-05 | Equal or reversed start and end | Identifiable invalid-input outcome; records unchanged |
 
 ---
@@ -497,8 +497,8 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 4.4 Release Outlook and Iteration Planning
-### Capacity is not the same as feasibility
+# 4.4 What Can We Really Finish?
+### Release outlook and iteration planning
 
 ---
 
@@ -522,7 +522,7 @@ By the end of this chapter, you should be able to:
 
 > **Kickoff goal:** Make the reservation baseline reproducible and reviewable, and prepare a bounded availability slice for the next iteration.
 
-> **Candidate next iteration goal:** Let the officer inspect availability for one fixture item and interval without changing reservations.
+> **Candidate next iteration goal:** Let the officer inspect availability for one sample item and interval without changing reservations.
 
 ---
 
@@ -666,8 +666,8 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 4.5 Team Agreements and Review Workflow
-### How work moves, and who checks it
+# 4.5 How the Team Works Together
+### Agreements and review
 
 ---
 
@@ -796,7 +796,7 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 4.6 Starter Build and CI
+# 4.6 A Starter Build and CI You Can Run
 ### One command that means something
 
 ---
@@ -805,7 +805,7 @@ By the end of this chapter, you should be able to:
 
 * CI needs a check that can run **without relying on one developer's open IDE**.
 * The starter uses **Java 17, Bash and the supplied executable Java checks**. No external Java dependencies.
-* Maven and JUnit remain the planned tools for the fuller testing stage. This checkpoint **keeps the plain-Java checks** so kickoff does not need a test framework first.
+* Maven and JUnit remain the planned tools for the fuller testing stage. This version **keeps the plain-Java checks** so kickoff does not need a test framework first.
 * On Windows, run the script from **Git Bash or WSL**. PowerShell cannot interpret it.
 
 ---
@@ -1126,7 +1126,7 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-# 4.7 Milestone 1 Preparation
+# 4.7 Getting Ready for Milestone 1
 ### An evidence trail that agrees with itself
 
 ---
@@ -1134,8 +1134,8 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 ## Assemble an Evidence Trail
 
 * Milestone 1 connects the project direction to an **executable starting point**.
-* The artefacts should **agree with one another**.
-* A vision promising live inventory, a backlog assuming fixture identifiers and a demo using invented equipment without explanation leave a reviewer **unable to interpret success**.
+* The documents should **agree with one another**.
+* A vision promising live inventory, a backlog assuming sample identifiers and a demo using invented equipment without explanation leave a reviewer **unable to interpret success**.
 * The preparation map is a **navigation aid**, not an extra assessment rubric.
 
 ---
@@ -1196,38 +1196,38 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 * Do not report an unrun command as verified because it looks familiar.
 * If the hosted service is unavailable, **preserve the local evidence and name the missing hosted result as a gap**.
 * A transparent gap gives the team **a concrete next action**.
-* The exit checkpoint: **a bounded plan, inspectable sketches and a repeatable baseline with a delivery gate**.
+* The exit version: **a bounded plan, inspectable sketches and a repeatable baseline with a delivery gate**.
 
 ---
 
-# 4.8 AI in Practice: Challenge an Overambitious Plan
+# 4.8 Challenging an Overambitious Plan with AI
 ### Verdicts, not vibes
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Evaluate a proposed iteration plan against scope, capacity, behaviour and delivery evidence |
-| Input | The Chapter 3 backlog, the capacity figures in 4.4 and the Chapter 4 starter |
-| Permitted scope | Review and replace the plan; do not implement any feature |
+| Your goal | Evaluate a proposed iteration plan against scope, capacity, behaviour and delivery evidence |
+| You start with | The Chapter 3 backlog, the capacity figures in 4.4 and the Chapter 4 starter |
+| What is in bounds | Review and replace the plan; do not implement any feature |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | Your capacity arithmetic; the code (is there a query method? does `reserve` change state?); the actual gate output |
-| Accept or reject | A verdict and reason for each distinct proposal, then a bounded replacement plan |
-| No-account route | The fixture is sufficient |
+| How to check | Your capacity arithmetic; the code (is there a query method? does `reserve` change state?); the actual gate output |
+| How to decide | A verdict and reason for each distinct proposal, then a bounded replacement plan |
+| No AI account? | The ready-made example is enough |
 
 * Chapter 15 collects the recurring AI workflows. This activity is self-contained.
 
 ---
 
-## The Fixture (1 of 3)
+## The Ready-Made Example (1 of 3)
 
 **Author-written fictional AI output**, constructed for this offline exercise. Not a record of an actual model conversation.
 
@@ -1235,13 +1235,13 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-## The Fixture (2 of 3)
+## The Ready-Made Example (2 of 3)
 
 > Convert the three-point availability story into three hours. Show "available" by calling `reserve` and deleting its record afterwards. Skip failure cases until next sprint.
 
 ---
 
-## The Fixture (3 of 3)
+## The Ready-Made Example (3 of 3)
 
 > Mark EN-01 complete when the YAML file is committed; a green badge proves the whole story works.
 
@@ -1253,7 +1253,7 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ## Model Critique (1 of 3)
 
-| Fixture proposal | Verdict | Reason and correction |
+| Proposal | Verdict | Reason and correction |
 |---|---|---|
 | Allocate all 22 hours to features | Reject | Coordination, review and uncertainty consume capacity; use the explicit budget |
 | Deliver query, cancellation, mobile, database and email together | Reject | The selected goal is one query slice; the additions lack agreed requirements |
@@ -1263,7 +1263,7 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ## Model Critique (2 of 3)
 
-| Fixture proposal | Verdict | Reason and correction |
+| Proposal | Verdict | Reason and correction |
 |---|---|---|
 | Convert three story points into three hours | Reject | No valid conversion was established; estimate tasks from real understanding |
 | Call `reserve`, then delete the record | Reject | A query must not change state; deletion is not even a supplied operation; eligibility differs |
@@ -1273,7 +1273,7 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ## Model Critique (3 of 3)
 
-| Fixture proposal | Verdict | Reason and correction |
+| Proposal | Verdict | Reason and correction |
 |---|---|---|
 | Mark EN-01 complete when YAML is committed | Reject | Configuration must execute successfully and detect the intended failure |
 | A green badge proves the whole story | Reject | The gate checks only executed conditions; current checks cover reservation, not US-02 |
@@ -1289,11 +1289,11 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 * Check the **arithmetic**.
 * Inspect the **actual check output**.
 * Asking a second AI model whether the first plan is good does **not** replace those observations.
-* An AI-use record names: the prompt or fixture, claims examined, decisions, evidence, remaining uncertainty.
+* An AI-use record names: the prompt or example, claims examined, decisions, evidence, remaining uncertainty.
 
 ---
 
-# 4.9 Common Mistakes
+# 4.9 Planning Mistakes That Look Reasonable
 ### Eight to avoid
 
 ---
@@ -1327,17 +1327,17 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-# 4.10 Practical Activity: Prepare the Kickoff Checkpoint
-### Steps 1 to 8 on your Team project
+# 4.10 Try It Yourself
+### Prepare for the kickoff
 
 ---
 
 ## Project and Input
 
-* The activity runs on your **Team project**.
+* The activity runs on your team's project.
 * Equipment lending: the supplied listings are your **starting repository**.
 * Another provided domain: apply each step to **that domain's starter codebase**, using the supplied files as the model for layout, script and workflow.
-* **Input:** the Chapter 3 backlog, the current Java baseline and the Chapter 4 repository listings.
+* **You start with:** the Chapter 3 backlog, the current Java baseline and the Chapter 4 repository listings.
 * Do not change domain without following the module's arrangements.
 
 ---
@@ -1391,15 +1391,15 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-## Model Artefact: Vision and Scope
+## Model Document: Vision and Scope
 
 * **Working vision:** help an equipment officer demonstrate clear reservation decisions for a controlled set of student borrowers and equipment, and inspect accepted records without overlapping reservations for the same item in one coordinator.
-* **In scope:** one item per request; inclusive start, exclusive end; the student rules; deterministic synthetic fixtures; sequential calls in one process.
+* **In scope:** one item per request; inclusive start, exclusive end; the student rules; deterministic synthetic examples; sequential calls in one process.
 * **Outside:** persistent storage, real catalogue validation, cancellation, returns, email, concurrency, a polished interface.
 
 ---
 
-## Model Artefact: Open Questions
+## Model Document: Open Questions
 
 * Treatment of **past dates**.
 * **Operational turnaround** between loans.
@@ -1432,9 +1432,9 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-## Model Artefact: The US-02 Contract
+## Model Document: The US-02 Contract
 
-* **Story:** as an equipment officer, I want to inspect whether one fixture item is available for a stated interval, so I can discuss a possible reservation without creating one.
+* **Story:** as an equipment officer, I want to inspect whether one sample item is available for a stated interval, so I can discuss a possible reservation without creating one.
 * **Acceptance:** AQ-01 to AQ-04 report availability for empty state, overlap, adjacency and a different item; AQ-05 reports an identifiable invalid-period outcome; **every enquiry leaves all reservation contents unchanged**.
 * **Still to decide:** the invalid-input representation. Do not present two as simultaneously implemented.
 
@@ -1484,7 +1484,7 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-## Feedback Questions (Not Artefact Counts)
+## Feedback Questions (Not Document Counts)
 
 | Dimension | Useful feedback question |
 |---|---|
@@ -1497,7 +1497,7 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-## Optional Extension
+## If You Want More
 
 * Review whether the query slice should use **duration** or an **exclusive end date** at its interaction boundary.
 * Compare the **input errors** each choice creates. Update the sketch and examples.
@@ -1507,7 +1507,7 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-# 4.11 Review Questions
+# 4.11 Questions to Think with
 ### Concept and diagnosis
 
 ---
@@ -1549,8 +1549,8 @@ Exception in thread "main" java.lang.AssertionError: AC-01 one record
 
 ---
 
-# 4.12 Transfer Challenge
-### A small clinic
+# 4.12 A Different Setting
+### The transfer challenge
 
 ---
 
@@ -1583,7 +1583,7 @@ A small clinic wants reception staff to inspect appointment-slot availability an
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---
@@ -1598,7 +1598,7 @@ A small clinic wants reception staff to inspect appointment-slot availability an
 
 ## Summary: What Changed in the Code
 
-* The Chapter 4 application behaviour **remains the Chapter 2 to 3 reservation checkpoint**.
+* The Chapter 4 application behaviour **remains the Chapter 2 to 3 reservation version**.
 * Additions: **repository organisation**, a **repeatable checking command**, a **scripted demonstration** and a **hosted-workflow template**.
 * **US-02 remains planned.**
 

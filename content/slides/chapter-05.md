@@ -16,37 +16,37 @@ layout: page
 
 ## Chapter Roadmap (1 of 3)
 
-* **5.1 Change pressure in a reservation service**
+* **5.1 Why would this code change? Change pressure on the service**
   * Compiler, your own reading and PMD, side by side. A new staff rule, stated before any design.
-* **5.2 Responsibility and SRP**
+* **5.2 One class, one reason to change? Responsibility and SRP**
   * A reason to change is more useful than a method count.
-* **5.3 OCP and anticipated variation**
+* **5.3 Making room for variation: OCP and anticipated change**
   * Closed against which change? An honest intermediate design.
-* **5.4 Behavioural contracts**
+* **5.4 What can a caller rely on? Behavioural contracts**
   * Preconditions, postconditions, invariants.
 
 ---
 
 ## Chapter Roadmap (2 of 3)
 
-* **5.5 LSP and unsafe inheritance**
+* **5.5 When a subtype breaks its promises: LSP and unsafe inheritance**
   * A subtype that compiles and still breaks a client.
-* **5.6 Small refactorings and regression checks**
+* **5.6 Small refactorings and the checks that guard them**
   * Stage A (refactoring) and Stage B (feature) kept apart.
-* **5.7 Avoiding premature abstraction**
+* **5.7 When is an abstraction too early? Avoiding premature abstraction**
   * Every boundary has a cost.
-* **5.8 AI in practice: review "make this SOLID"**
+* **5.8 Reviewing a “make this SOLID” suggestion with AI**
 
 ---
 
 ## Chapter Roadmap (3 of 3)
 
-* **5.9 Common mistakes**
-* **5.10 Practical activity: a protected design change**
-  * Eight steps; step 8 is on your Team project.
-* **5.11 Review questions** and **5.12 Transfer challenge**
+* **5.9 Design habits that look principled**
+* **5.10 Try it yourself: a protected design change**
+  * Eight steps; step 8 is on your team's project.
+* **5.11 Questions to think with** and **5.12 A different setting: the transfer challenge**
   * A coursework feedback tool.
-* **Summary and next chapter**
+* **What to take away, and what comes next**
   * Chapter 6: client-specific interfaces, dependency direction, manual assembly.
 
 ---
@@ -68,7 +68,7 @@ By the end of this chapter, you should be able to:
 
 ---
 
-## Module Connection and Scope
+## Where This Chapter Fits
 
 * The first **SOLID** chapter. It supports the formative **smell analysis** and does not change assessment arrangements.
 * **Chapter 6:** interface segregation, dependency direction and injection.
@@ -77,9 +77,9 @@ By the end of this chapter, you should be able to:
 
 ---
 
-## Entry Checkpoint and the Two Stages
+## Where You Start and the Two Stages
 
-* **Entry:** Chapter 4's Java 17 reservation starter, its **34 regression checks** and **five acceptance example groups**.
+* **You start with:** Chapter 4's Java 17 reservation starter, its **34 regression checks** and **five acceptance example groups**.
 * US-02 (availability enquiry) **remains planned**.
 * The staff rule is a small, explicitly introduced **teaching variation**, not an approved policy.
 * **Stage A:** extract formatting **without changing existing behaviour**.
@@ -87,13 +87,13 @@ By the end of this chapter, you should be able to:
 
 ---
 
-## Reading Route
+## How to Use This Chapter
 
 * **Core reading:** Sections 5.1 to 5.7.
-* **Minimum required lab:** steps 1 to 8 of Section 5.10, including the review in step 6 (with another person, or labelled a solo self-review).
-  * Steps 1 to 7: **Book project**. Step 8: **Team project**.
+* **What you must do:** steps 1 to 8 of Section 5.10, including the review in step 6 (with another person, or labelled a solo self-review).
+  * Steps 1 to 7: the book's project. Step 8: your team's project.
 * The lab uses **PMD 7.28.0**, which needs a **one-time download** (described in 5.1).
-* **Optional extension:** the AI activity, the extension in 5.10, the review questions and transfer challenge.
+* **If you want more:** the AI activity, the extension in 5.10, the questions and the transfer challenge.
 
 ---
 
@@ -126,8 +126,8 @@ By the end of this chapter, you should be able to:
 
 ---
 
-# 5.1 Change Pressure in a Reservation Service
-### Compiler, your own reading, then the tool
+# 5.1 Why Would This Code Change?
+### Change pressure on the service
 
 ---
 
@@ -192,7 +192,7 @@ By the end of this chapter, you should be able to:
 
 ## The Category Is Trusted, Not Verified
 
-* The example receives the category from a **trusted fixture caller**.
+* The example receives the category from a **trusted caller**.
 * It does **not** authenticate staff status, persist a borrower profile or infer category from an identifier.
 * Passing `STAFF` is **not proof that a person is staff**.
 * A production boundary would need an **authoritative category source**. Adding an enum does not complete that task.
@@ -409,8 +409,8 @@ ReservationCoordinator.java:10:  CyclomaticComplexity: 'reserve(...)' has comple
 
 ---
 
-# 5.2 Responsibility and SRP
-### A reason to change, not a method count
+# 5.2 One Class, One Reason to Change?
+### Responsibility and SRP
 
 ---
 
@@ -514,8 +514,8 @@ public final class ConfirmationFormatter {
 
 ---
 
-# 5.3 OCP and Anticipated Variation
-### Closed against which change?
+# 5.3 Making Room for Variation
+### OCP and anticipated change
 
 ---
 
@@ -601,7 +601,7 @@ public String reserve(String borrowerId, String itemId,
 * Every record for the same borrower identifier contributes to the active count, **whichever overload created it**.
 * There are no separate student and staff buckets, and the borrower's category is **not remembered**.
 * If a caller supplies inconsistent categories, each request uses the supplied category against **all** that borrower's records.
-* A limitation of the **fixture boundary**, not a model of authorised category changes.
+* A limitation of the **example boundary**, not a model of authorised category changes.
 
 ---
 
@@ -689,8 +689,8 @@ private BorrowingPolicy policyFor(BorrowerCategory category) {
 
 ---
 
-# 5.4 Behavioural Contracts
-### What a caller may rely on
+# 5.4 What Can a Caller Rely on?
+### Behavioural contracts
 
 ---
 
@@ -784,8 +784,8 @@ private BorrowingPolicy policyFor(BorrowerCategory category) {
 
 ---
 
-# 5.5 LSP and Unsafe Inheritance
-### A subtype that compiles and still breaks a client
+# 5.5 When a Subtype Breaks Its Promises
+### LSP and unsafe inheritance
 
 ---
 
@@ -953,7 +953,7 @@ Separate positive-history contract passed.
 
 ---
 
-# 5.6 Small Refactorings and Regression Checks
+# 5.6 Small Refactorings and the Checks That Guard Them
 ### Structural and behavioural steps kept apart
 
 ---
@@ -1014,7 +1014,7 @@ Separate positive-history contract passed.
 ## Report the Evidence and Its Limits
 
 * Distinguish the **baseline run**, **Stage A's unchanged checks** and **Stage B's additional checks**.
-* Include the command, the revision or checkpoint, the observed output and the limitations.
+* Include the command, the revision or version, the observed output and the limitations.
 * Do **not** claim independent review or hosted CI when only local checks ran.
 * A clean local result **supports review**; it does not replace it or establish production readiness.
 
@@ -1097,8 +1097,8 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 ---
 
-# 5.7 Avoiding Premature Abstraction
-### Every boundary has a cost
+# 5.7 When Is an Abstraction Too Early?
+### Avoiding premature abstraction
 
 ---
 
@@ -1150,32 +1150,32 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 ---
 
-# 5.8 AI in Practice: Review "Make This SOLID"
+# 5.8 Reviewing a “Make This SOLID” Suggestion with AI
 ### Verdicts with concrete reasons
 
 ---
 
-## Activity Frame (1 of 2)
+## Ground Rules for the Activity (1 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Engineering objective | Judge a "make this SOLID" proposal against concrete requirements, contracts and costs |
-| Input | The Chapter 4 source, the staff-rule table in 5.1 and the policy contract in 5.4 |
-| Permitted scope | Review the proposal; do not apply it wholesale |
+| Your goal | Judge a "make this SOLID" proposal against concrete requirements, contracts and costs |
+| You start with | The Chapter 4 source, the staff-rule table in 5.1 and the policy contract in 5.4 |
+| What is in bounds | Review the proposal; do not apply it wholesale |
 
 ---
 
-## Activity Frame (2 of 2)
+## Ground Rules for the Activity (2 of 2)
 
-| Element | For this activity |
+| | For this activity |
 |---|---|
-| Independent checks | Compilation (is `ReservationRules` `final`?), the exact-output checks, the rejection and state checks |
-| Accept or reject | A verdict with a concrete defect or cost for each proposal, then the smallest defensible two-stage change |
-| No-account route | The fixture is sufficient |
+| How to check | Compilation (is `ReservationRules` `final`?), the exact-output checks, the rejection and state checks |
+| How to decide | A verdict with a concrete defect or cost for each proposal, then the smallest defensible two-stage change |
+| No AI account? | The ready-made example is enough |
 
 ---
 
-## The Fixture (1 of 2)
+## The Ready-Made Example (1 of 2)
 
 **Author-written fictional AI output**, not an actual model transcript.
 
@@ -1183,7 +1183,7 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 ---
 
-## The Fixture (2 of 2)
+## The Ready-Made Example (2 of 2)
 
 > Make `StaffReservationRules` extend `ReservationRules` and override the seven-day limit. Remove all category conditionals so no existing file ever changes. While extracting the formatter, shorten the confirmation to "Reserved". The green build proves the design follows SOLID.
 
@@ -1230,7 +1230,7 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 ---
 
-# 5.9 Common Mistakes
+# 5.9 Design Habits That Look Principled
 ### Ten to avoid
 
 ---
@@ -1259,7 +1259,7 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 | Mistake | Counterexample or consequence | Better reasoning |
 |---|---|---|
-| A category parameter verifies authority | A caller can supply `STAFF` without proving identity | Label the trusted-fixture boundary |
+| A category parameter verifies authority | A caller can supply `STAFF` without proving identity | Label the trusted-example boundary |
 | More interfaces mean better design | Unused variations add navigation and decisions | Relate every boundary to a concrete need |
 
 ---
@@ -1273,15 +1273,15 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 ---
 
-# 5.10 Practical Activity: A Protected Design Change
-### Stage A, Stage B, a counterexample and a review
+# 5.10 Try It Yourself
+### A protected design change
 
 ---
 
-## Input and Demonstration
+## What You Start With, and the Demonstration
 
-* **Input:** Chapter 4's source and checks, the staff-rule table and the companion listings. Java 17. Keep the **LSP micro-example separate** from the application.
-* **Steps 1 to 7:** Book project. **Step 8:** Team project.
+* **You start with:** Chapter 4's source and checks, the staff-rule table and the companion listings. Java 17. Keep the **LSP micro-example separate** from the application.
+* **Steps 1 to 7:** the book's project. **Step 8:** your team's project.
 * **Demonstration:** trace the existing operation and identify **three independent change pressures**. Run one valid base-type client against both `IntHistory` and the invalid subtype and explain the difference.
 * **Guided practice:** perform Stage A, reviewing the formatter's input, output and lack of reservation authority.
 
@@ -1306,23 +1306,23 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 ## Independent Work: Steps 7 and 8
 
 7. Write a short **rationale** connecting each new class or interface to a change pressure and naming the **remaining dependency-selection limitation**. Say what PMD reported after Stage A and after Stage B, and why.
-8. On your **Team project**: the same kind of responsibility table for **one class** in your starter codebase; run the compiler, manual and PMD checks on it; name **one change pressure** you can point to in its backlog or history.
+8. On your team's project: the same kind of responsibility table for **one class** in your starter codebase; run the compiler, manual and PMD checks on it; name **one change pressure** you can point to in its backlog or history.
 
 ---
 
 ## Expected Output and Completion
 
-* **Output:** a smell and responsibility diagnosis with the tool findings compared; the step 8 table; before, refactored and extended checkpoints; check results; a **contract table**; a subtype counterexample explanation; a concise **design rationale**.
+* **Output:** a smell and responsibility diagnosis with the tool findings compared; the step 8 table; before, refactored and extended versions; check results; a **contract table**; a subtype counterexample explanation; a concise **design rationale**.
 * **Complete when:** Stage A preserves behaviour; Stage B implements the staff boundaries and keeps student compatibility; **rejections leave records unchanged**; you can explain why the policy interface helps and **why the selector still changes for another category**.
-* The rationale must distinguish a **teaching rule from an approved institutional rule**.
+* The rationale must distinguish a **rule invented for this book from an approved institutional rule**.
 
 ---
 
-## Optional Extension
+## If You Want More
 
 * In a scratch copy of Stage B, **extract two private methods** from `reserve` (one counts a borrower's reservations, one tests whether an item is unavailable). Run the gate, rerun PMD and **explain what changed and what did not**.
 * Then implement the two numeric policies using a **validated limits object** in a separate experiment. Compare files changed, clarity and likely future variation.
-* **Do not merge both alternative designs** into the cumulative application merely to demonstrate them.
+* **Do not merge both alternative designs** into the running application merely to demonstrate them.
 
 ---
 
@@ -1397,7 +1397,7 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 | Evidence | What to record |
 |---|---|
-| Starting point | Actual checkpoint and passing original gate |
+| Starting point | Actual version and passing original gate |
 | Stage A | Relevant diff; original checks with unchanged expectations |
 | Stage B | New rule table; policy contract; compatibility and staff-boundary results |
 | LSP example | Valid base call sequence; subtype outcome; precise violated promise |
@@ -1419,7 +1419,7 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 ---
 
-# 5.11 Review Questions
+# 5.11 Questions to Think with
 ### Concept and diagnosis
 
 ---
@@ -1461,8 +1461,8 @@ System.out.println(coordinator.reserve("B1", "CAM1", day.plusDays(14), 1));
 
 ---
 
-# 5.12 Transfer Challenge
-### A coursework feedback tool
+# 5.12 A Different Setting
+### The transfer challenge
 
 ---
 
@@ -1502,7 +1502,7 @@ A coursework feedback tool accepts a score and produces feedback text. A new req
 
 ---
 
-# Summary and Next Chapter
+# What to Take Away, and What Comes Next
 ### What to carry forward
 
 ---
@@ -1516,7 +1516,7 @@ A coursework feedback tool accepts a score and produces feedback text. A new req
 
 ---
 
-## Where the Checkpoint Stands
+## Where the Project Stands
 
 * A concrete **confirmation formatter**.
 * **Student and staff** count-and-duration policies, with the **original student entry point preserved**.

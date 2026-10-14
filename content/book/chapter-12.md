@@ -136,7 +136,7 @@ xychart-beta
 
 An ideal diagonal burn-down can be a reference for a fixed initial scope. It is not evidence that real work should finish in equal daily increments. Review, integration and acceptance can produce uneven completions. Do not move Done timestamps to make a curve attractive. Ask whether the team can explain the change and whether the remaining work still serves the goal.
 
-## 12.5 How long do things take? Lead time, cycle time, throughput and WIP
+## 12.5 How long do things take? Lead time, cycle time, throughput, WIP
 
 For this history, lead time runs from Accepted to Done; cycle time runs from Started to Done. The difference is the recorded wait before starting. Neither measures hands-on effort. The following calculations use the completion cohort, not every row in the backlog.
 

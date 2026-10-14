@@ -11,7 +11,7 @@ description: "Code explanations and solutions for Appendix B Companion: Code, Ex
 
 This file accompanies Appendix B, Tools and Reproducible Setup. It supplies a complete small starter project, a scripted Git walk-through, explanations of each file and the answers to the activity in B.12.
 
-The starter is an **isolated Book example**, not a lending-project checkpoint. Its only purpose is to show that the toolchain works: a Java 17 release target, Maven with pinned JUnit and Mockito, two Bash scripts and a hosted-check file. It does not change the project and its tests do not belong in the project's test totals.
+The starter is an **isolated Book example**, not a lending-project version. Its only purpose is to show that the toolchain works: a Java 17 release target, Maven with pinned JUnit and Mockito, two Bash scripts and a hosted-check file. It does not change the project and its tests do not belong in the project's test totals.
 
 Save every listing in Section 2 at its path inside one new folder, for example `toolchain-check`. Use a Java 17 or later JDK, Git Bash or a Linux or macOS terminal, and Maven 3.9.11. From that folder:
 

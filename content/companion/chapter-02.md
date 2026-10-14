@@ -26,7 +26,7 @@ Create a new working directory and save these six files in it:
 
 Use a JDK 17 or newer capable of compiling the Java 17 language/API baseline. No preview feature, external library or build-tool installation is required here. Use plain text filenames with the exact capitalisation shown.
 
-For this small checkpoint, the files use Java's unnamed package so they can be compiled together in one directory. This is a teaching setup, not the proposed organisation of the complete application. Later application-structure work will introduce named packages and a standard project layout.
+For this small version, the files use Java's unnamed package so they can be compiled together in one directory. This is a teaching setup, not the proposed organisation of the complete application. Later application-structure work will introduce named packages and a standard project layout.
 
 Compile in that directory:
 
@@ -61,7 +61,7 @@ This is an orientation toolchain, not a complete release process. The later buil
 
 This is exactly the class used in Chapter 1. It has no mutable instance state. Its inputs are the existing active count and requested number of days. The coordinator supplies the count; the rule does not retrieve it.
 
-The staff-policy variation is not implemented in this checkpoint. Applying the same rule to every supplied borrower identifier is intentional and must remain clear when demonstrating the program.
+The staff-policy variation is not implemented in this version. Applying the same rule to every supplied borrower identifier is intentional and must remain clear when demonstrating the program.
 
 ```java
 public final class ReservationRules {
@@ -474,7 +474,7 @@ A useful review record contains the change or commit identifier, reviewer, evide
 
 **Evidence:** original and revised demonstrations print identical output; the supplied 34 checks pass for both versions; the diff changes only the coordinator's internal organisation.
 
-**Limits:** persistence, concurrent booking, lifecycle operations and message delivery remain outside this checkpoint.
+**Limits:** persistence, concurrent booking, lifecycle operations and message delivery remain outside this version.
 
 This is an example of what a review description can contain. Students must record their own observed results and actual review, not copy a claim that they did not verify.
 
@@ -502,7 +502,7 @@ classDiagram
     Reservation "0..*" --> "1" LoanPeriod : refers to
 ```
 
-A local invariant is that a period's end follows its start. The `LoanPeriod` constructor enforces it. The condition that confirmed reservations for the same item do not overlap requires comparing a requested period with existing records; the coordinator performs that check in this sequential checkpoint.
+A local invariant is that a period's end follows its start. The `LoanPeriod` constructor enforces it. The condition that confirmed reservations for the same item do not overlap requires comparing a requested period with existing records; the coordinator performs that check in this sequential version.
 
 The links are associations, not inheritance. A caller can share an immutable `LoanPeriod` between reservations, so the diagram need not assert exclusive ownership through a composition diamond. Other diagrams are acceptable if their labels, direction and multiplicities are explained and agree with the code.
 
@@ -610,7 +610,7 @@ There is no unique answer. The team should contain three or four members as dire
 
 ## 7 AI activity solution
 
-The supplied response is a teaching fixture constructed for this exercise. It is not evidence about the observed performance of a real AI model. The student chapter deliberately does not name the three faulty areas (email delivery, durable storage and concurrency or immutability claims); students should find them by tracing control flow, state changes and side effects.
+The supplied response is a teaching example constructed for this exercise. It is not evidence about the observed performance of a real AI model. The student chapter deliberately does not name the three faulty areas (email delivery, durable storage and concurrency or immutability claims); students should find them by tracing control flow, state changes and side effects.
 
 | Claim | Judgement | Evidence or qualification |
 |---|---|---|
@@ -653,7 +653,7 @@ A review description should identify which commit merely extracts formatting and
 
 ## 10 Additional fault demonstrations
 
-Use disposable copies and never retain the faulty version as your next project checkpoint.
+Use disposable copies and never retain the faulty version as your next project version.
 
 ### 10.1 Exposing the mutable collection
 
@@ -681,7 +681,7 @@ The first confirmation can still look correct, but the checks fail with `one suc
 
 Both faults were actually introduced in separate temporary copies during verification. Neither is present in the complete starting or completed listings above.
 
-## 11 Instructor guidance and checkpoint record
+## 11 Instructor guidance and version record
 
 For the UML work, spend class time on reading before drawing. A useful warm-up is to put Figure 2.1 on screen and have students read one line aloud in both directions, then ask where the code enforces each number. Next let them hand-draw the workshop scenario using the six steps, and compare their drawings with Figure 2.3 by asking why each line differs, not whether it matches. Finish with the flawed Figure 2.4 as a pair exercise. Hand drawing is worth the class time because it makes students decide each relationship deliberately; the module leader has not stated how diagrams are produced in the midterm, so do not tell students that hand drawing, or any particular tool, will be required.
 
@@ -691,7 +691,7 @@ Do not require full understanding of every line in the check runner this week. I
 
 Keep the code change small. Review can reveal further design opportunities, but adding lifecycle states, repositories, factories and notification infrastructure would obscure this chapter's learning goal. Ask students to record those opportunities rather than implement all of them.
 
-The starting state is **Chapter 2 before extraction**. The completed state is **Chapter 2 after confirmation extraction**. They use the same five common files and alternative coordinator versions. Later chapters should continue from the completed version. The isolated faults are teaching experiments, not cumulative project changes.
+The starting state is **Chapter 2 before extraction**. The completed state is **Chapter 2 after confirmation extraction**. They use the same five common files and alternative coordinator versions. Later chapters should continue from the completed version. The isolated faults are teaching experiments, not running project changes.
 
 The original Chapter 1 rule is reused without alteration. The date convention is now explicit. The early system still lacks staff policies, borrower/item catalogues, authentication, cancellation/completion, durable storage, notification delivery and concurrency control. These are scope facts, not hidden promises that the program already meets.
 

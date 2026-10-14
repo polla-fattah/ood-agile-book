@@ -172,7 +172,7 @@ Start by asking students to explain what “the program works” means in the op
 
 Use paper tracing or a short live demonstration for the code. Give students time to predict the output before running it. Ask a second student to review the reason for the answer rather than merely announce agreement.
 
-Complete the AI critique using the supplied teaching response, which is constructed for the exercise and labelled as such in the chapter. Live AI access is optional and unnecessary. Do not present the fixture as evidence about a real model's measured performance. Finish by asking each student for one specific next learning action.
+Complete the AI critique using the supplied teaching response, which is constructed for the exercise and labelled as such in the chapter. Live AI access is optional and unnecessary. Do not present the example data as evidence about a real model's measured performance. Finish by asking each student for one specific next learning action.
 
 Use the Common mistakes table in Section 1.8 of the chapter as a debrief: ask students which row they were closest to making during the diagnostic.
 

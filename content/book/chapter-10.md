@@ -102,7 +102,7 @@ A class does not need an interface merely because it crosses a package boundary.
 
 Likewise, not every domain object needs a repository or a matching service. `LoanPeriod` is constructed and validated as a value-shaped object; storing it through its own repository would obscure its role as part of a reservation. The loan service's internal map remains where it was because this chapter extracts one justified boundary, not a generic storage framework.
 
-## 10.3 What each layer does: presentation, application, domain and infrastructure
+## 10.3 What each layer does: the four layers in practice
 
 ### Presentation translates an interaction
 

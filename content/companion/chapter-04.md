@@ -11,7 +11,7 @@ description: "Code explanations and solutions for Chapter 4 Companion: Code, Exp
 
 This file accompanies Chapter 4, From Requirements to an Iteration. It contains the complete starter listings, build instructions, a hosted-workflow template, explanations, model planning artefacts, exercise solutions and teaching notes. Read the student chapter before using the solutions.
 
-**Checkpoint:** Java 17; Campus Equipment Lending System; unchanged Chapter 2–3 reservation rules. New material organises the starter and makes verification repeatable. **US-02 availability enquiry remains planned and is not implemented here.** No catalogue, persistence, cancellation, email or concurrent reservation protection has been added.
+**Version:** Java 17; Campus Equipment Lending System; unchanged Chapter 2–3 reservation rules. New material organises the starter and makes verification repeatable. **US-02 availability enquiry remains planned and is not implemented here.** No catalogue, persistence, cancellation, email or concurrent reservation protection has been added.
 
 All people, workload figures and review scenarios in the model answers are fictional.
 
@@ -414,7 +414,7 @@ public class Chapter03AcceptanceExamples {
 
 `ReservationRules` permits a request only when the existing count is nonnegative and below three, and the requested duration is one through seven days. `LoanPeriod` rejects invalid bounds and implements half-open overlap. `ReservationCoordinator` checks eligibility and conflict before storing a record, then builds the confirmation through the private method extracted in Chapter 2.
 
-`reservations()` returns an unmodifiable snapshot. The reservation and period objects are immutable at this checkpoint. The checks cover rejection without storage, adjacency, identifier allocation after rejection and snapshot behaviour. The acceptance examples connect those behaviours to US-01.
+`reservations()` returns an unmodifiable snapshot. The reservation and period objects are immutable at this version. The checks cover rejection without storage, adjacency, identifier allocation after rejection and snapshot behaviour. The acceptance examples connect those behaviours to US-01.
 
 The helper methods throw `AssertionError` explicitly when a condition is false. They do not use Java's `assert` keyword, so they do not depend on the `-ea` flag. An uncaught failure makes the Java process return a nonzero exit status. The shell gate must preserve that failure.
 
@@ -625,7 +625,7 @@ The local experiment can also be done in a separate copy if no remote is availab
 
 **What this proves:** the acceptance program runs, its failed condition causes a Java process failure, and the shell gate returns failure instead of hiding it. **What it does not prove:** every defect will be detected, every acceptance criterion is covered, or the hosted workflow has executed. Chapter 7 develops test quality; Chapter 13 develops the delivery pipeline.
 
-## 5. Model kickoff artefacts
+## 5. Model kickoff documents
 
 These are suggested solutions. They are not signed-off stakeholder decisions, a real team's plan or assessed submission evidence. Alternative solutions are valid when their behaviour, scope and trade-offs are coherent.
 
@@ -635,11 +635,11 @@ These are suggested solutions. They are not signed-off stakeholder decisions, a 
 
 **Kickoff goal:** make the existing baseline reproducible and reviewable, and prepare the next availability slice.
 
-**Candidate next iteration goal:** let the officer inspect availability for one fixture item and interval without changing reservations.
+**Candidate next iteration goal:** let the officer inspect availability for one sample item and interval without changing reservations.
 
-**In scope for the demonstration:** one item per request; inclusive start and exclusive end; student rules of fewer than three existing reservations and durations from one to seven days; deterministic synthetic fixtures; sequential calls in one process.
+**In scope for the demonstration:** one item per request; inclusive start and exclusive end; student rules of fewer than three existing reservations and durations from one to seven days; deterministic synthetic examples; sequential calls in one process.
 
-**Outside this checkpoint:** persistent storage, actual directory or catalogue validation, cancellation, return processing, email delivery, multi-user concurrency and a polished web or mobile interface. These boundaries do not settle the production design.
+**Outside this version:** persistent storage, actual directory or catalogue validation, cancellation, return processing, email delivery, multi-user concurrency and a polished web or mobile interface. These boundaries do not settle the production design.
 
 **Open questions:** treatment of past dates; operational turnaround between loans; authority to cancel; definition of an active reservation after cancellation or completion; catalogue source and its failure behaviour. Resolve only those that block the selected next outcome; attach an owner and a review trigger to the others.
 
@@ -671,11 +671,11 @@ The row order retains Chapter 3's backlog order. Scheduling EN-01 during kickoff
 
 ### 5.4 Proposed US-02 contract
 
-**Story:** as an equipment officer, I want to inspect whether one fixture item is available for a stated interval, so I can discuss a possible reservation without creating one.
+**Story:** as an equipment officer, I want to inspect whether one sample item is available for a stated interval, so I can discuss a possible reservation without creating one.
 
-**Acceptance:** AQ-01–AQ-04 report availability correctly for empty state, overlap, adjacency and a different fixture item. AQ-05 reports an identifiable invalid-period outcome for equal or reversed bounds. Every enquiry leaves all reservation contents unchanged.
+**Acceptance:** AQ-01–AQ-04 report availability correctly for empty state, overlap, adjacency and a different sample item. AQ-05 reports an identifiable invalid-period outcome for equal or reversed bounds. Every enquiry leaves all reservation contents unchanged.
 
-**Interface decision still required:** choose and document an invalid-input representation, such as a caught argument exception translated at the interaction boundary, or a result value that distinguishes invalid from unavailable. Do not present both as simultaneously implemented. No new API is supplied in this checkpoint.
+**Interface decision still required:** choose and document an invalid-input representation, such as a caught argument exception translated at the interaction boundary, or a result value that distinguishes invalid from unavailable. Do not present both as simultaneously implemented. No new API is supplied in this version.
 
 **Necessary tasks:** agree the contract; add a read-only operation; add the thin interaction; test results and non-mutation; review and integrate; update instructions and demonstrate. **Deferred tasks:** calendar styling, bulk search, live catalogue integration and persistent storage.
 
@@ -721,7 +721,7 @@ For traceability, link US-01 AC-01 to its block in `Chapter03AcceptanceExamples`
 
 ## 6. AI activity: model critique
 
-The student chapter's fixture is author-written fictional AI output. The following is a model evaluation, not evidence of an actual AI session.
+The student chapter's example is author-written fictional AI output. The following is a model evaluation, not evidence of an actual AI session.
 
 | Fixture proposal | Verdict | Reason and correction |
 |---|---|---|
@@ -738,7 +738,7 @@ A corrected response should state the candidate availability goal, AQ-01–AQ-05
 
 Independent verification includes tracing `reserve` to its `reservations.add` call, observing the absence of a query method, checking the arithmetic, and inspecting actual check output. Asking a second AI model whether the first plan is good does not replace those observations.
 
-An acceptable AI-use record names the prompt or fixture, claims examined, decisions, evidence and remaining uncertainty. A paid service is unnecessary. The offline fixture supports the same critique and correction.
+An acceptable AI-use record names the prompt or example, claims examined, decisions, evidence and remaining uncertainty. A paid service is unnecessary. The offline example supports the same critique and correction.
 
 ## 7. Review-question solutions
 
@@ -762,13 +762,13 @@ Inspect a before-and-after snapshot of record identifiers, borrower/item identif
 
 ## 8. Practical activity: model reasoning and feedback
 
-A satisfactory solution has agreement across its artefacts. The scope identifies controlled fixtures and session-only storage. The sketches label exclusive ends. The backlog separates existing reservation capability from proposed query behaviour. The plan budgets checks and review. The README lets another person run the intended revision. Actual logs and review records support completion claims.
+A satisfactory solution has agreement across its documents. The scope identifies controlled examples and session-only storage. The sketches label exclusive ends. The backlog separates existing reservation capability from proposed query behaviour. The plan budgets checks and review. The README lets another person run the intended revision. Actual logs and review records support completion claims.
 
 A useful walkthrough asks one student to play the equipment officer and another to record ambiguities. For example, the officer may interpret “end date” as the last borrowing day. Correct the label and recheck AQ-03. Record that observation as interface feedback only if the walkthrough actually occurred. The example describes a possible finding, not a pre-filled review record.
 
 For the small repository change, reviewing the build script is enough to practise the workflow. A reviewer could ask why the checks are compiled but not executed, or why success is printed before the second runner. The author must correct any actual defect found. Do not intentionally insert those defects into the shared baseline to manufacture review activity.
 
-Give feedback on these questions rather than counts of artefacts:
+Give feedback on these questions rather than counts of documents:
 
 | Dimension | Useful feedback question |
 |---|---|
@@ -781,7 +781,7 @@ Give feedback on these questions rather than counts of artefacts:
 
 Do not impose an invented numerical rubric or require a specific board product. Use the module leader's assessment criteria. When hosted execution is blocked, the team should preserve useful local evidence and identify the exact missing result; whether an alternative satisfies assessment requirements is the module leader's decision.
 
-**Optional extension solution:** duration matches the current reservation input and can be easier for an officer thinking “two days”. An exclusive end makes overlap boundaries explicit but may be misread as an inclusive last day. Either choice needs labels, conversion rules, invalid-input handling and examples at adjacent boundaries. The appropriate choice follows a user walkthrough, not a universal claim that one representation is always better.
+**If you want more solution:** duration matches the current reservation input and can be easier for an officer thinking “two days”. An exclusive end makes overlap boundaries explicit but may be misread as an inclusive last day. Either choice needs labels, conversion rules, invalid-input handling and examples at adjacent boundaries. The appropriate choice follows a user walkthrough, not a universal claim that one representation is always better.
 
 ## 9. Transfer challenge: one possible clinic plan
 
@@ -803,11 +803,11 @@ This solution illustrates transfer of planning principles while revisiting domai
 
 Martin (2002) and Rubin (2012) are cited in the student chapter; this book treats sprint planning and iteration evidence in Chapter 4, and Scrum in Chapter 3.
 
-The practical activity runs on the Team project with the lending starter as the model. The starter test is introduced in Arrange–Act–Assert terms for Chapter 7, and the Chapter 2 flat directory is mapped onto the conventional source layout. Milestone 1 needs hosted CI evidence, which depends on a repository the whole team can use. Ask teams to create that repository in the first session, so a late access problem does not become the only gap in their evidence.
+The practical activity runs on your team's project with the lending starter as the model. The starter test is introduced in Arrange–Act–Assert terms for Chapter 7, and the Chapter 2 flat directory is mapped onto the conventional source layout. Milestone 1 needs hosted CI evidence, which depends on a repository the whole team can use. Ask teams to create that repository in the first session, so a late access problem does not become the only gap in their evidence.
 
 Keep the chapter centred on planning a believable outcome and making evidence reproducible. Students can run supplied checks before learning TDD. They should understand which behaviours the checks protect, without being required to invent a testing framework.
 
-Do not solve US-02 merely to make the repository look busier. Its refined story is the planning exercise; the cumulative code remains a stable starting point for the design work in Chapters 5–6. Likewise, do not add interfaces solely because the repository now has separate source directories.
+Do not solve US-02 merely to make the repository look busier. Its refined story is the planning exercise; the running code remains a stable starting point for the design work in Chapters 5–6. Likewise, do not add interfaces solely because the repository now has separate source directories.
 
 For a team with stronger tooling experience, adapting the same gate to the institution's CI service is acceptable. Require equivalent observable behaviour: the intended revision is compiled, the checks execute, assertion failures fail the run and restored code passes. Do not confuse sophistication of pipeline configuration with quality of the engineering explanation.
 
@@ -815,10 +815,10 @@ The next chapter, **Responsibilities, Extension and Substitutability**, will use
 
 ## References
 
-The sources below support the referenced process and tool behaviour; the planning artefacts and solutions are author-created examples. Checked 12 October 2026.
+The sources below support the referenced process and tool behaviour; the planning documents and solutions are author-created examples. Checked 12 October 2026.
 
 1. Schwaber, K. and Sutherland, J., [The Scrum Guide](https://scrumguides.org/scrum-guide.html), November 2020.
 2. Oracle, [The `javac` command, Java SE 17](https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html).
-3. GitHub, [Building and testing Java with Maven](https://docs.github.com/en/actions/tutorials/build-and-test-code/java-with-maven). This checkpoint uses its own shell gate; the page supplies CI context rather than a claim that Maven is configured here.
+3. GitHub, [Building and testing Java with Maven](https://docs.github.com/en/actions/tutorials/build-and-test-code/java-with-maven). This version uses its own shell gate; the page supplies CI context rather than a claim that Maven is configured here.
 4. GitHub Actions, [setup-java](https://github.com/actions/setup-java).
 5. GitHub Actions, [checkout](https://github.com/actions/checkout).

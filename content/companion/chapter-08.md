@@ -9,15 +9,15 @@ description: "Code explanations and solutions for Chapter 8 Companion: Code, Exp
 
 ## 1. Scope, starting point and execution
 
-This file accompanies Chapter 8, Creating and Connecting Objects. It contains a complete reconstructable Maven checkpoint, explanations of the added code, focused tests, model answers and instructor guidance.
+This file accompanies Chapter 8, Creating and Connecting Objects. It contains a complete reconstructable Maven version, explanations of the added code, focused tests, model answers and instructor guidance.
 
-**Starting point:** Chapter 7's completed project. Its application classes and tests remain unchanged. **Cumulative addition:** a directory-backed reservation entry point that translates synthetic provider records before calling the existing coordinator. **Separate examples:** the `patterns` package demonstrates Factory Method, Abstract Factory, a fluent Builder and ordered Decorators. Those examples are compiled and tested but are not connected to the lending application.
+**Starting point:** Chapter 7's completed project. Its application classes and tests remain unchanged. **Running addition:** a directory-backed reservation entry point that translates synthetic provider records before calling the existing coordinator. **Separate examples:** the `patterns` package demonstrates Factory Method, Abstract Factory, a fluent Builder and ordered Decorators. Those examples are compiled and tested but are not connected to the lending application.
 
-### 1.1 Reconstruct the complete checkpoint
+### 1.1 Reconstruct the complete version
 
 Create a directory named `after`. Copy the contents of each labelled file listing to the indicated path, preserving case and creating intermediate directories. Sections 3–5 contain every application, test, build and documentation file. Do not copy Markdown fence markers. The README listing uses four backticks because its content includes ordinary fenced commands.
 
-Alternatively, copy Chapter 7's completed `after` directory and add the eight new main-source files and two new test files listed in Section 2. Replace `pom.xml` and `README.md` with this checkpoint's versions. Existing sources, test resources and the check script are unchanged. The Maven project version becomes 0.8.0; dependency versions do not change.
+Alternatively, copy Chapter 7's completed `after` directory and add the eight new main-source files and two new test files listed in Section 2. Replace `pom.xml` and `README.md` with this version's versions. Existing sources, test resources and the check script are unchanged. The Maven project version becomes 0.8.0; dependency versions do not change.
 
 | Tool | Configuration |
 |---|---|
@@ -53,13 +53,13 @@ Reservations: 1
 Notices: 1
 ```
 
-The staff fixture B2 is allowed ten days under the inherited staff rule. Student B1's ten-day request is rejected. The missing identifier also creates no record. Only the accepted request creates a notice. These outcomes use a map-backed provider fixture, not real directory access.
+The staff example B2 is allowed ten days under the inherited staff rule. Student B1's ten-day request is rejected. The missing identifier also creates no record. Only the accepted request creates a notice. These outcomes use a map-backed provider example, not real directory access.
 
 ## 2. Read the design before the listings
 
 ### 2.1 What changed
 
-| New file | Responsibility | Cumulative? |
+| New file | Responsibility | Part of the running project? |
 |---|---|---|
 | `Borrower.java` | Immutable application identifier/category value | Yes |
 | `BorrowerDirectory.java` | Application-owned presence/absence lookup contract | Yes |
@@ -72,7 +72,7 @@ The staff fixture B2 is allowed ten days under the inherited staff rule. Student
 | `DirectoryAdapterTest.java` | Translation and application-boundary tests | Test source |
 | `patterns/PatternExamplesTest.java` | Construction, immutability and decorator-order tests | Test source |
 
-The main application's earlier classes stay in the unnamed package to preserve the existing checkpoint. The isolated examples use the named `patterns` package and depend only on Java APIs. They do not import the unnamed-package application classes. Package and layer restructuring is deferred to Chapter 10.
+The main application's earlier classes stay in the unnamed package to preserve the existing version. The isolated examples use the named `patterns` package and depend only on Java APIs. They do not import the unnamed-package application classes. Package and layer restructuring is deferred to Chapter 10.
 
 ### 2.2 Adapter contract and error precedence
 
@@ -98,13 +98,13 @@ Directory errors happen before coordinator mutation. Once a valid borrower reach
 
 `ReportRequest.Builder` stages configuration and publishes an immutable product. It is the common fluent variant, not a full multiple-representation Director arrangement. Defaults and validation are explicit; the request copies columns at construction. The column labels are sample configuration, not an implemented reporting engine.
 
-`AuditedSender` and `RetryOnceSender` share the `Sender` interface. They preserve the method shape but change observations and attempt behaviour. Their interface is deliberately separate from the cumulative `NotificationSender`. Installing retry in the latter would change its one-attempt contract.
+`AuditedSender` and `RetryOnceSender` share the `Sender` interface. They preserve the method shape but change observations and attempt behaviour. Their interface is deliberately separate from the running `NotificationSender`. Installing retry in the latter would change its one-attempt contract.
 
 The HTML helpers escape ampersand and angle brackets for text-node content. They do not generate attributes, validate arbitrary markup, or claim to be a general HTML sanitiser. Audit events are a mutable in-memory test list, not a durable audit service.
 
 ## 3. Complete application and isolated example sources
 
-All listings in this section belong under `after/src/main/java`. Inherited files are included so the checkpoint is reproducible without reconstructing earlier chapters first.
+All listings in this section belong under `after/src/main/java`. Inherited files are included so the version is reproducible without reconstructing earlier chapters first.
 
 ### 3.1 `after/src/main/java/Borrower.java`
 
@@ -1808,7 +1808,7 @@ class PatternExamplesTest {
 
 ## 5. Build and supporting files
 
-Preserve the test-resource path exactly. Mockito is used by the inherited tests; the new tests use manual fixtures.
+Preserve the test-resource path exactly. Mockito is used by the inherited tests; the new tests use manual examples.
 
 ### 5.1 `after/pom.xml`
 
@@ -1918,7 +1918,7 @@ No real university API, database, hosted CI or production delivery service is us
 
 ### 6.1 Follow one successful directory lookup
 
-For `reserve("B2", "CAM1", 2026-10-20, 10)`, the service first checks the local arguments. The adapter calls `lookup("B2")`. The demo fixture returns `Person("B2", "T", "Y")`. Identity matches, `T` maps to `STAFF`, and `Y` permits a present result. The service passes that category to the unchanged coordinator.
+For `reserve("B2", "CAM1", 2026-10-20, 10)`, the service first checks the local arguments. The adapter calls `lookup("B2")`. The demo example returns `Person("B2", "T", "Y")`. Identity matches, `T` maps to `STAFF`, and `Y` permits a present result. The service passes that category to the unchanged coordinator.
 
 The coordinator applies the staff policy, finds no conflict, stores R1, formats the confirmation and makes its one notification attempt. The adapter neither calculates duration limits nor allocates reservation identifiers. If staff policy changes later, the mapping `T` to `STAFF` need not change.
 
@@ -1975,7 +1975,7 @@ The test `builtValueIsIndependentOfReusableBuilder` verifies both properties. Th
 
 The two date arguments are checked for null before the builder changes either date field. Cross-field ordering is checked at `build()`. This lets the builder temporarily hold reversed dates while configuring, but prevents publication of an invalid request. There is no partially valid request object returned to the caller.
 
-The optional interval uses null for both omitted dates inside this small configuration object. The product makes that convention explicit; it does not make every optional application field nullable. A separate interval value could be a reasonable alternative if reporting becomes real cumulative behaviour.
+The optional interval uses null for both omitted dates inside this small configuration object. The product makes that convention explicit; it does not make every optional application field nullable. A separate interval value could be a reasonable alternative if reporting becomes real running behaviour.
 
 ### 6.6 Decorator order and the failure path
 
@@ -1985,9 +1985,9 @@ The optional interval uses null for both omitted dates inside this small configu
 
 After a second declared failure, the second exception escapes. The retry implementation does not recursively invoke itself. If the first error is an unexpected `IllegalArgumentException`, it escapes immediately and the counter remains one. These outcomes are tested separately from eventual success.
 
-The audit wrapper only labels the declared delivery failure. Unexpected exceptions propagate without a `failed` audit event in this deliberately narrow implementation. The fixture's ordinary mutable ArrayList is assumed to accept events. A real audit sink would require a reviewed contract for recording failures, especially if both audit and delivery fail.
+The audit wrapper only labels the declared delivery failure. Unexpected exceptions propagate without a `failed` audit event in this deliberately narrow implementation. The example's ordinary mutable ArrayList is assumed to accept events. A real audit sink would require a reviewed contract for recording failures, especially if both audit and delivery fail.
 
-Do not copy the retry example into `ReservationApplication.create` as an exercise shortcut. The cumulative sender interface accepts a `Reservation`, and its existing contract specifies one attempt. Changing both the type and policy is a feature change requiring reviewed outcomes, not merely adaptation of syntax.
+Do not copy the retry example into `ReservationApplication.create` as an exercise shortcut. The running sender interface accepts a `Reservation`, and its existing contract specifies one attempt. Changing both the type and policy is a feature change requiring reviewed outcomes, not merely adaptation of syntax.
 
 ## 7. Intentionally wrong candidates for diagnosis
 
@@ -2043,7 +2043,7 @@ A different design can still be valid. For example, an application may return a 
 
 **Solution:** introduce the application-owned `BorrowerDirectory` interface and an object adapter. A separate application service looks up a borrower before invoking the coordinator with the mapped category. Keep the earlier assembly function.
 
-**Consequences:** translation is located in one tested boundary. Provider changes have a clear first location for review. The design adds several small types and mapping tests, and local fixtures cannot establish real-provider compatibility. Authentication, retries and lifecycle changes remain separate requirements.
+**Consequences:** translation is located in one tested boundary. Provider changes have a clear first location for review. The design adds several small types and mapping tests, and local examples cannot establish real-provider compatibility. Authentication, retries and lifecycle changes remain separate requirements.
 
 **Alternatives declined:** a creator hierarchy is unnecessary for the existing assembly; there is no provider product family requiring Abstract Factory; core values have small constructors; installing retry would alter the established notification policy.
 
@@ -2125,7 +2125,7 @@ The prediction is the point of the exercise. With one failure followed by succes
 
 With these three tests added, the class `PatternExamplesTest` runs 14 tests and all pass. Accept other designs that preserve the stated behaviour. A sentinel such as `0` meaning “no limit” is a weaker design here, because it makes “zero rows” unrepresentable and ambiguous; ask students to justify it if they choose it.
 
-**Team project step (practical step 9).** There is no single answer. A strong note names a concrete external or mismatched interface in the team's code, shows the problem–solution–consequence reasoning, and says what the team would decline to build. Reject answers that propose an adapter where two components already share the same contract and meaning.
+**Your team's project step (practical step 9).** There is no single answer. A strong note names a concrete external or mismatched interface in the team's code, shows the problem–solution–consequence reasoning, and says what the team would decline to build. Reject answers that propose an adapter where two components already share the same contract and meaning.
 
 ## 9. AI activity solution
 
@@ -2134,13 +2134,13 @@ With these three tests added, the class `PatternExamplesTest` runs 14 tests and 
 | Renaming static `create` makes Factory Method | Names do not create a subclass hook | Compare `simpleExporter` with `ExportJob.createExporter` |
 | One product role requires Abstract Factory | No related set has been established | Retain simple assembly until a family requirement exists |
 | Catch every exception and return staff | Hides failure and grants an unsupported category | Unknown-code and exception-cause tests |
-| Wrap all senders with retry | Changes the one-attempt cumulative contract | Keep retry isolated; review any proposed policy change |
+| Wrap all senders with retry | Changes the one-attempt running contract | Keep retry isolated; review any proposed policy change |
 | Decorator order does not matter | Changes which layer observes each attempt | The two exact audit-history tests |
 | A builder guarantees immutable products | Mutable aliases can remain after build | Snapshot and unmodifiable-list tests |
 
 Pattern classification needs source inspection as well as output tests. A test cannot prove that a static function became a subclass-based Factory Method because the function was renamed. Conversely, finding an appropriate structure does not establish correct error handling. Check both design reasoning and behaviour.
 
-For a live AI exchange, retain only an actual transcript or relevant excerpts. Record which claims you checked and which you rejected. The fictional fixture is sufficient for learners without an AI account and should never be presented as output from a real service.
+For a live AI exchange, retain only an actual transcript or relevant excerpts. Record which claims you checked and which you rejected. The fictional example is sufficient for learners without an AI account and should never be presented as output from a real service.
 
 ## 10. Review answers and transfer solution
 

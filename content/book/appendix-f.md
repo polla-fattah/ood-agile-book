@@ -323,7 +323,7 @@ Be clear about what a flag does not do. It switches which component decides. It 
 
 ## F.7 Practical exercise: wrap a scoring service
 
-**Book project.** Work on the risk lab. **Team project.** Apply the same steps to a model or data service in your own system, or to the model-serving mapping suggested in Appendix D, Section D.5.
+**The book's project.** Work on the risk lab. **Your team's project.** Apply the same steps to a model or data service in your own system, or to the model-serving mapping suggested in Appendix D, Section D.5.
 
 The companion supplies the starting class `UnsafeRiskScorer`, the probe that runs it, and the lab's tests. The tests are the acceptance tests for the exercise. The companion also lists a model solution; attempt each part before reading it.
 
@@ -337,7 +337,7 @@ The companion supplies the starting class `UnsafeRiskScorer`, the probe that run
 | F | Write `ResilientRiskAssessor`. Make its tests pass. Then remove the limit in a scratch copy and read what fails | The failure, and what it told you |
 | G | Write `RolloutAssessor`, `RolloutMode` and the provenance types. Make the rollout tests pass | The test result |
 
-**Exit artefact.** A short note: your list of flaws from part A, the number of tests that pass, one fault you introduced and the test that caught it, and one thing the tests do not show. A transfer note for a team on another domain: replace “borrower” and “item” by the entities of your system, and keep the contract, the stub, the bound and the fallback policy.
+**Closing note.** A short note: your list of flaws from part A, the number of tests that pass, one fault you introduced and the test that caught it, and one thing the tests do not show. A transfer note for a team on another domain: replace “borrower” and “item” by the entities of your system, and keep the contract, the stub, the bound and the fallback policy.
 
 ## F.8 Sources
 

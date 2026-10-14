@@ -11,9 +11,9 @@ description: "Code explanations and solutions for Appendix A Companion: Code, Ex
 
 This file accompanies Appendix A, Programming Readiness and Notation. It supplies a small standalone Java 17 lab, explanations, the D1–D10 answers and the offline activity solution. Attempt the diagnostic before reading Section 4.
 
-The lab is an **isolated Book example**, not a replacement for any lending-project checkpoint. `StudentRules` repeats the initial student numeric rule to demonstrate interface calls. It deliberately does not add staff or visitor policy, reservation storage or a directory.
+The lab is an **isolated Book example**, not a replacement for any lending-project version. `StudentRules` repeats the initial student numeric rule to demonstrate interface calls. It deliberately does not add staff or visitor policy, reservation storage or a directory.
 
-Save the four complete listings in Section 2 into one new directory. They use the unnamed package to keep this syntax exercise small; the cumulative application uses named packages. No Maven, JUnit or external dependency is needed.
+Save the four complete listings in Section 2 into one new directory. They use the unnamed package to keep this syntax exercise small; the running application uses named packages. No Maven, JUnit or external dependency is needed.
 
 From that directory, using a full Java 17 JDK:
 
@@ -233,7 +233,7 @@ public final class ReadinessLab {
 
 ## 3. Worked explanation
 
-The lab keeps each observation small. `check` reports a mismatch immediately. `expect` runs an operation that should throw a particular run-time exception, verifies the type, and fails if no exception occurs. The `Runnable` parameter and method reference are small functional examples; Chapter 7 introduces the testing framework used by the cumulative project.
+The lab keeps each observation small. `check` reports a mismatch immediately. `expect` runs an operation that should throw a particular run-time exception, verifies the type, and fails if no exception occurs. The `Runnable` parameter and method reference are small functional examples; Chapter 7 introduces the testing framework used by the running project.
 
 The missing-file check catches `IOException` specifically because its purpose is to observe a declared file-reading failure. It does not convert an outage into a successful domain lookup. The `finally` block cleans up this example's temporary files. The `try`-with-resources statement inside `readFirstLine` closes the reader before that cleanup.
 
@@ -330,7 +330,7 @@ Ask learners to predict a result before running it. When a prediction differs fr
 
 D10 consolidates Chapter 2's notation lesson. It should not become a requirement to study all UML before starting the book. Generalisation, realisation, association, aggregation, composition and multiplicity are reference topics here; the approved assessment material determines examination scope.
 
-Do not add these checks to the cumulative project's test totals. Keep setup-tool details in Appendix B and checkpoint reconciliation in Appendix D. The lab's fixed dates are example inputs, not a reading of the machine's current date.
+Do not add these checks to the running project's test totals. Keep setup-tool details in Appendix B and version reconciliation in Appendix D. The lab's fixed dates are example inputs, not a reading of the machine's current date.
 
 ## References
 
