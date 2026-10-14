@@ -545,26 +545,13 @@ async def render_pdfs():
     # Extra settle time for fonts and layout reflow
     await asyncio.sleep(2)
 
-    header_template = """
-    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 7.5pt; color: #64748b; width: 100%; padding: 0 20mm; display: flex; justify-content: space-between; border-bottom: 0.5pt solid #cbd5e1; padding-bottom: 3px;">
-      <span>Object Oriented Development and Agile Practices</span>
-      <span>Dr. Polla Abdulhamid Fattah</span>
-    </div>
-    """
-
-    footer_template = """
-    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 7.5pt; color: #64748b; width: 100%; padding: 0 20mm; display: flex; justify-content: flex-end; border-top: 0.5pt solid #cbd5e1; padding-top: 3px;">
-      <span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
-    </div>
-    """
-
+    # Render Content pages cleanly without browser headers/footers
+    # Precision running headers and footers are dynamically applied by PyMuPDF during assembly
     await page.pdf({
         "path": CONTENT_PDF,
         "format": "A4",
         "printBackground": True,
-        "displayHeaderFooter": True,
-        "headerTemplate": header_template,
-        "footerTemplate": footer_template,
+        "displayHeaderFooter": False,
         "margin": {
             "top": "22mm",
             "bottom": "22mm",
@@ -603,8 +590,68 @@ def assemble_final_pdf():
     title_doc.close()
 
     # 3. Main Content Pages (TOC + Chapters 1-15 + Appendices A-F)
-    print(f"Inserting Book Content pages ({CONTENT_PDF})...")
+    print(f"Applying publication running headers and footers to content pages ({CONTENT_PDF})...")
     content_doc = pymupdf.open(CONTENT_PDF)
+
+    # Extract starting page for each chapter from TOC links on page 0
+    chapter_map = {}
+    p0_src = content_doc[0]
+    for link in p0_src.get_links():
+        if link.get("kind") == 4 or link.get("nameddest"):
+            src_target = link.get("page")
+            if src_target is not None and src_target >= 0:
+                rect = pymupdf.Rect(link["from"])
+                title_text = p0_src.get_text("text", clip=rect).strip().replace("\n", " ")
+                if title_text and src_target not in chapter_map:
+                    chapter_map[src_target] = title_text
+
+    # Apply headers and footers across all content pages
+    p_ref = content_doc[0]
+    c_width = p_ref.rect.width
+    c_height = p_ref.rect.height
+    left_x = 56.7  # 20mm
+    right_x = c_width - 56.7  # page width minus 20mm
+    y_header_line = 46.0
+    y_header_text = 41.0
+    y_footer_line = c_height - 46.0
+    y_footer_text = c_height - 34.0
+
+    line_color = (203 / 255.0, 213 / 255.0, 225 / 255.0)
+    text_color = (100 / 255.0, 116 / 255.0, 139 / 255.0)
+    author_name = "Dr. Polla Abdulhamid Fattah"
+    book_title = "Object Oriented Development and Agile Practices"
+
+    curr_chapter = "Table of Contents"
+
+    for pno in range(len(content_doc)):
+        page = content_doc[pno]
+        page_num = pno + 1  # 1-based page number within content
+        if pno in chapter_map:
+            curr_chapter = chapter_map[pno]
+
+        is_even = (page_num % 2 == 0)
+
+        # Header: alternate book name (even pages) and chapter name (odd pages)
+        if is_even:
+            header_text = book_title
+            page.insert_text(pymupdf.Point(left_x, y_header_text), header_text, fontname="helv", fontsize=8, color=text_color)
+        else:
+            header_text = curr_chapter
+            tw = pymupdf.get_text_length(header_text, fontname="helv", fontsize=8)
+            page.insert_text(pymupdf.Point(right_x - tw, y_header_text), header_text, fontname="helv", fontsize=8, color=text_color)
+
+        page.draw_line(pymupdf.Point(left_x, y_header_line), pymupdf.Point(right_x, y_header_line), color=line_color, width=0.5)
+
+        # Footer: author on bottom-left, page number on bottom-right
+        page.insert_text(pymupdf.Point(left_x, y_footer_text), author_name, fontname="helv", fontsize=8, color=text_color)
+
+        page_str = str(page_num)
+        pw = pymupdf.get_text_length(page_str, fontname="helv", fontsize=8)
+        page.insert_text(pymupdf.Point(right_x - pw, y_footer_text), page_str, fontname="helv", fontsize=8, color=text_color)
+
+        page.draw_line(pymupdf.Point(left_x, y_footer_line), pymupdf.Point(right_x, y_footer_line), color=line_color, width=0.5)
+
+    print("Inserting Book Content pages into final publication...")
     final_doc.insert_pdf(content_doc)
 
     # 4. Back Cover (Full Bleed)
