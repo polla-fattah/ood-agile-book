@@ -7,34 +7,19 @@ weight: 40
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+By now the team has a backlog of six items and a working Java reservation coordinator, and it is time for the kickoff meeting. Everyone arrives with an idea. One member wants a mobile interface. Another proposes a database. A third would rather finish every story before anyone outside the team sees a line of it. Everyone is busy and everyone is keen, and yet nobody in the room can say what the equipment officer will actually be able to see at the end of the next iteration.
 
-The team arrives at its kickoff meeting with six backlog items and a working Java reservation coordinator. One member wants a mobile interface. Another proposes a database. A third suggests completing every story before inviting feedback. Everyone is busy, yet nobody can describe what an equipment officer will be able to demonstrate at the end of the next iteration.
+The trouble is not a shortage of ideas. It is that the team has no shared boundary and no credible route from an idea to evidence. A backlog says what might be valuable; an iteration plan has to say what the team will try to achieve, what it can realistically finish, and how another person will know that it worked.
 
-The difficulty is not a shortage of ideas. It is the absence of a shared boundary and a credible route from an idea to evidence. A backlog tells the team what might be valuable. An iteration plan must also explain what it will try to achieve, what it can reasonably finish, and how another person will know that it worked.
+This chapter builds that route. You will start by writing a project vision with explicit scope, assumptions and constraints, and by slicing one feature into a small increment that gives a user something observable. You will turn the slice into an iteration plan that pays for implementation, review and verification out of realistic capacity, and you will agree how the team shares a repository and reviews each other's changes. Then you will make it concrete: run a starter build and its checks, see for yourself that the checking process notices a deliberate failure, and gather traceable evidence for the kickoff milestone.
 
-This chapter turns Chapter 3’s backlog into a bounded project vision, a thin user journey, a capacity-aware plan and a repository that runs supplied checks. The running project remains the **Campus Equipment Lending System**. The existing reservation behaviour is preserved; availability enquiry remains proposed work. Preparing delivery evidence is useful progress, but it must not be reported as newly implementing behaviour already present in the starter.
+The running project remains the **Campus Equipment Lending System**, and its reservation behaviour is preserved. Availability enquiry is still proposed work. Preparing delivery evidence is real progress, but it must not be reported as newly implementing behaviour that the starter already has.
 
-## Learning outcomes and reading route
+The chapter corresponds to **Week 3** and supports LO5 and LO6, as preparation for Milestone 1. The descriptor's term **Sprint 0** is used here as the local kickoff label; it is not a formal Scrum event. The chapter gives preparation guidance and creates no new assessment weights, submission rules or module wording. It supports the Week 3 readings: the planning and testing chapters of Martin [6] and the sprint-planning chapters of Rubin [7].
 
-By the end of this chapter, you should be able to:
+You will need the Chapter 2 Java checkpoint, Chapter 3's ordered backlog and Definition of Done, and basic Git operations, plus a Java 17 JDK, Git and Bash (on Windows, use Git Bash or WSL). You do not need prior TDD experience. The separate companion supplies all Java listings, repository files, commands, model answers and an offline AI exercise solution.
 
-1. Define a project vision with explicit scope, assumptions and constraints.
-2. Slice a feature into a small increment that supports an observable user outcome.
-3. Form an iteration plan that includes implementation, review, verification and realistic capacity.
-4. Apply a shared repository workflow with clear review responsibilities.
-5. Run a starter build and checks, and demonstrate that the checking process detects a deliberate failure.
-6. Assemble traceable evidence for the kickoff milestone.
-
-**Module connection:** Week 3; LO5 and LO6; preparation for Milestone 1. The descriptor’s term **Sprint 0** is used here as the local kickoff label. It is not a formal Scrum event. This chapter supplies preparation guidance, not new assessment weights, submission rules or approved module wording. It supports the Week 3 readings: the planning and testing chapters of Martin [6] and the sprint-planning chapters of Rubin [7].
-
-**Prerequisites:** the Chapter 2 Java checkpoint, Chapter 3’s ordered backlog and Definition of Done, and basic Git operations. You need a Java 17 JDK, Git and Bash; on Windows, use Git Bash or WSL. You do not need prior TDD experience. The separate companion for this chapter supplies all Java listings, repository files, commands, model answers and an offline AI exercise solution.
-
-**Core reading.** Read Sections 4.1–4.7 in order and run the supplied checks while reading 4.6.
-
-**Minimum required lab.** Complete steps 1–8 of the practical activity in Section 4.10 on your **Team project**; together they produce the Milestone 1 evidence. The supplied lending repository is the worked model and a starting point, not evidence of your team's own work: your team's availability, board, review record and hosted CI runs are what count. Hosted CI needs a repository your team can use, so start steps 6 and 7 early.
-
-**Optional extension.** Do the Section 4.8 AI activity, the review questions, the transfer challenge and the optional extension in Section 4.10.
+Read Sections 4.1 to 4.7 in order and run the supplied checks while reading 4.6. The minimum lab is steps 1 to 8 of the practical activity in Section 4.10, done on your **Team project**; together they produce the Milestone 1 evidence. The supplied lending repository is a worked model and a starting point, not evidence of your team's own work: your team's availability, board, review record and hosted CI runs are what count. Hosted CI needs a repository your team can use, so start steps 6 and 7 early. The Section 4.8 AI activity, the review questions, the transfer challenge and the optional extension in Section 4.10 are there for those who want to go further.
 
 ## 4.1 Vision, scope and constraints
 

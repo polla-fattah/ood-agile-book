@@ -7,36 +7,15 @@ weight: 30
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+The demonstration goes well. The team shows the reservation coordinator from Chapter 2: a student request succeeds, a conflicting request is rejected, and a booking can begin on the day another one ends. The program does what its developers expected. Then the equipment officer asks a question nobody had planned for: “Can I check whether a camera is available before I create a reservation?”
 
-The team demonstrates the reservation coordinator from Chapter 2. A student request succeeds, a conflicting request is rejected, and a booking can begin on the exclusive end date of another booking. The program behaves as its developers expected.
+The team can look inside the stored list, but the application has no such query. That one question has exposed a gap between checking a rule during a request and supporting the officer's real workflow, and the conversation does not stop there. Next come cancellation, a view of one borrower's reservations, and rejecting an equipment identifier that does not exist.
 
-The equipment officer then asks, “Can I check whether a camera is available before I create a reservation?”
+The team cannot do all of it at once, and it should not try. It needs a way to clarify what is being asked, compare the value of each request, be honest about what it does not yet know, and decide what useful work to finish next. That is what agile development is for: not speed for its own sake, but learning quickly while there is still little to undo. In this chapter you will watch that process work on the same small codebase. You will separate iteration from increment, explain the Agile values through concrete project decisions, and compare Scrum's framework with Kanban's attention to flow. You will write small user stories and test them with INVEST, write acceptance criteria and tell them apart from a Definition of Done, and talk about estimates and uncertainty without treating a number as a promise. What you end up with is an ordered backlog, testable stories, shared completion conditions and a visible workflow.
 
-The team can inspect the stored list, but the application has no dedicated availability query. The demonstration has revealed a useful distinction between checking a rule during a request and supporting the officer's actual workflow. The next conversation raises cancellation, displaying one borrower's reservations and rejecting an equipment identifier that does not exist.
+This chapter corresponds to **Week 2** and supports LO5. It assumes you understand Chapter 2's objects, date convention and basic review workflow, and it needs no project-management platform and no new Java framework. It supports the Week 2 readings: the Agile practices and planning chapters of Martin [7], the Scrum Guide [3] and the selected chapters of Rubin [8]. The cumulative application stays at Chapter 2's completed checkpoint, because this chapter plans future work and does not claim that those features already exist. The companion has worked backlog items, board policies, exercise solutions and an optional executable bridge from acceptance examples to the existing Java implementation.
 
-The team cannot implement every suggestion immediately. It needs a way to clarify requests, compare their value, expose uncertainty and decide what useful work to finish next. This chapter develops that process using the same small codebase. The main outputs are an ordered backlog, testable stories, shared completion conditions and a visible workflow.
-
-## Learning outcomes and reading route
-
-After completing this chapter, you should be able to:
-
-1. Distinguish iterative development from incremental delivery.
-2. Explain Agile values through concrete project decisions.
-3. Compare Scrum's framework with Kanban's attention to workflow and flow.
-4. Develop small user stories and evaluate them using INVEST.
-5. Write acceptance criteria and distinguish them from a Definition of Done.
-6. Discuss relative estimates and uncertainty without treating estimates as guarantees.
-
-This chapter corresponds to **Week 2** and supports LO5. It assumes that you understand Chapter 2's objects, date convention and basic review workflow. It does not require a project-management platform or a new Java framework. It supports the Week 2 readings: the Agile practices and planning chapters of Martin [7], the Scrum Guide [3] and the selected chapters of Rubin [8].
-
-**Core reading.** Read Sections 3.1–3.9.
-
-**Minimum required lab.** Complete Parts A–C of the practical activity in Section 3.10 on your **Team project**; the equipment-lending backlog in this chapter is the worked model, not your evidence. The retained evidence listed at the end of Section 3.10 (backlog, story cards, Definition of Done, workflow policy, process note, estimates and AI decision log) is produced by these three parts and needs no code or tools beyond a text editor or a board.
-
-**Optional extension.** Write the plain-Java acceptance check described at the end of Section 3.10, then answer the review questions and the transfer challenge.
-
-The companion for this chapter contains worked backlog items, board policies, exercise solutions and an optional executable bridge from acceptance examples to the existing Java implementation. The cumulative application remains at Chapter 2's completed checkpoint; this chapter plans future work rather than claiming those features have already been implemented.
+Sections 3.1 to 3.9 are the core reading. The minimum lab is Parts A to C of the practical activity in Section 3.10, done on your **Team project**; the equipment-lending backlog in this chapter is the worked model, not your evidence. The evidence listed at the end of Section 3.10 (backlog, story cards, Definition of Done, workflow policy, process note, estimates and AI decision log) comes out of those three parts and needs nothing more than a text editor or a board. If you want to go further, write the plain-Java acceptance check described at the end of Section 3.10, then answer the review questions and the transfer challenge.
 
 ## 3.1 Uncertainty and feedback
 

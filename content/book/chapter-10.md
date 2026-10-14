@@ -7,31 +7,15 @@ weight: 100
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+The equipment application has come a long way. It has borrowing policies, a directory adapter, notification collaborators, loan operations and several demonstrations, and each class has a responsibility you can explain. Yet most of the production code still sits in Java's unnamed package, and that organisation says nothing to a newcomer. May a borrowing policy depend on a directory client? Where should a storage implementation be constructed? The code cannot tell you.
 
-The equipment application now has borrowing policies, a directory adapter, notification collaborators, loan operations and several demonstrations. Individual classes have understandable responsibilities, but the production code still sits largely in Java's unnamed package. Nothing in that organisation tells a new developer whether a borrowing policy may depend on a directory client or where a storage implementation should be constructed.
+The next change request is deliberately modest: make those boundaries visible while keeping the demonstrated reservation behaviour exactly as it is. To do that the team has to decide which classes express domain rules, which coordinate operations, which talk to the outside world and which assemble the application. Moving files around will not answer those questions by itself.
 
-The next change request is deliberately modest: make those boundaries visible while preserving the demonstrated reservation behaviour. The team must decide which classes express domain rules, which coordinate operations, which communicate with external mechanisms and which assemble the application. Moving files alone will not answer those questions.
+This chapter reorganises the existing single-process program and shows how to check the result. It introduces a small storage contract for reservations, moves concrete storage out of the coordinator, and writes down dependency rules that a test can check against compiled code. There is no database, web framework or distributed system in sight. Along the way you will learn to assign responsibilities to presentation, application, domain and infrastructure code, and to tell runtime calls from the direction of source-code dependencies. You will see the difference between an entity's identity, its immutability and its value equality, locate a focused repository contract and its implementation, and restructure a use case while checking its observable behaviour and its compatibility limits. You will compare two package designs by cohesion, coupling and stability, reading the counts without mistaking them for a measure of quality, and you will finish by recording an architecture decision and preparing evidence for peer review and Milestone 3.
 
-This chapter reorganises the existing single-process program. It introduces a small reservation storage contract, moves concrete storage outside the coordinator and documents dependency rules that can be checked against compiled code. It does not introduce a database, web framework or distributed system.
+This is Week 9, supporting LO2 and LO6 and preparing Milestone 3. The weekly readings are Martin's principles of package design [7] and selected chapters of Evans's domain-driven design [8]; use the Moodle links for the exact pages. The approved module requirements remain authoritative, and the chapter creates no new deadlines, weights or marking rules.
 
-## Learning outcomes and reading route
-
-By the end of this chapter, you should be able to:
-
-1. Assign existing responsibilities to presentation, application, domain and infrastructure code.
-2. Distinguish runtime calls from source-code dependency direction.
-3. Explain entity identity, immutability and value equality without conflating them.
-4. Locate a focused repository contract and its implementation.
-5. Restructure a use case while checking its observable behaviour and compatibility limits.
-6. Record an architecture decision and prepare evidence for peer review and Milestone 3.
-7. Compare two package designs using cohesion, coupling and stability, and read dependency counts without treating them as a measure of quality.
-
-**Module connection:** Week 9; LO2 and LO6; Milestone 3 preparation. The weekly readings are Martin's principles of package design [7] and selected chapters of Evans's domain-driven design [8]; use the Moodle links for the exact pages. The approved module requirements remain authoritative. This chapter creates no new deadlines, weights or marking rules.
-
-**Starting point:** Chapter 9's tested Java 17 project, including the stronger assertions added when that chapter was reviewed (the companion lists them in Section 2.5). The completed checkpoint preserves its existing use-case results and earlier demonstrations. Package names, imports, launcher names and direct coordinator construction change, so this is not a claim of Java source or binary compatibility.
-
-**Milestone 3 checklist: use it from the start.** Milestone 3 falls in this week and covers design patterns and layered architecture, with a demonstration and a retrospective. Do not wait until the end of the chapter. By your demonstration you should be able to show, on your **Team project**:
+Milestone 3 covers design patterns and layered architecture, with a demonstration and a retrospective. Do not wait until the end of the chapter: use this checklist from the start. By your demonstration you should be able to show, on your **Team project**:
 
 1. at least one design pattern from Chapters 8–9 used where it removes a real problem, and one place where you declined to use one;
 2. a compact package diagram saying which packages may depend on which;
@@ -44,15 +28,9 @@ By the end of this chapter, you should be able to:
 
 Section 10.9 explains each item. Start with items 2 and 5, which need no code. The approved Milestone 3 instructions decide what is submitted; this list is preparation, not a rubric.
 
-**Core reading.** Sections 10.1–10.5 (except the Ports and Adapters comparison at the end of 10.4), 10.7, 10.8 and 10.9.
+You start from Chapter 9's tested Java 17 project, including the stronger assertions added when that chapter was reviewed (the companion lists them in Section 2.5). The completed checkpoint preserves its existing use-case results and earlier demonstrations, but package names, imports, launcher names and direct coordinator construction change, so no Java source or binary compatibility is claimed. The separate code-and-solutions file contains the complete checkpoint, tests, migration guidance and worked answers.
 
-**Working-knowledge reading.** Section 10.6 (entities and value objects). Understand the difference between identity and value meaning, and why Java equality is a separate decision. You do not implement either one.
-
-**Minimum required lab.** Steps B1–B3 and T1–T5 of the practical activity in Section 10.12. Steps B1–B3 run on the **Book project** and are reading, tracing and diagnosis: the migrated checkpoint is supplied, and there is nothing to rebuild. Steps T1–T5 run on your **Team project** and produce your Milestone 3 evidence.
-
-**Optional extension.** The Ports and Adapters comparison, the Section 10.10 AI activity, steps B4–B6 (break the dependency rules on purpose, and reproduce the migration yourself), the review questions, the transfer challenge and the optional extension in Section 10.12.
-
-Sections 10.1–10.5 establish the structural model, including package design. Sections 10.6–10.7 examine domain semantics and storage. Sections 10.8–10.9 connect the implementation to an architecture decision and review. The separate code-and-solutions file contains the complete checkpoint, tests, migration guidance and worked answers.
+Sections 10.1 to 10.5 establish the structural model, including package design; 10.6 and 10.7 examine domain semantics and storage; and 10.8 and 10.9 connect the implementation to an architecture decision and review. Read 10.1 to 10.5, 10.7, 10.8 and 10.9 as the core, leaving the Ports and Adapters comparison at the end of 10.4 for later. Section 10.6 (entities and value objects) is working knowledge: understand the difference between identity and value meaning, and why Java equality is a separate decision. You do not implement either one. The minimum lab is steps B1 to B3 and T1 to T5 of the practical activity in Section 10.12. Steps B1 to B3 run on the **Book project** and are reading, tracing and diagnosis, because the migrated checkpoint is supplied and there is nothing to rebuild; steps T1 to T5 run on your **Team project** and produce your Milestone 3 evidence. The Ports and Adapters comparison, the Section 10.10 AI activity, steps B4 to B6 (break the dependency rules on purpose, and reproduce the migration yourself), the review questions, the transfer challenge and the optional extension in Section 10.12 are optional.
 
 ## 10.1 Why class-level design is insufficient
 

@@ -7,38 +7,19 @@ weight: 110
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
-
 The records office has an old overdue report. It lists every unreturned loan that is past its due date and adds a fine. This week two things go wrong. A student points out that a laptop two days late shows a fine of 0.00 yet still counts as overdue. A colleague on another machine sees amounts printed as `0,50` where everyone else sees `0.50`. Then the office asks for a small change: staff should get seven days of grace instead of five.
 
 You open the code. It is one method of about forty lines. The staff rule appears in one branch, the student rule in another, and a third branch handles anyone else. The grace number, five, appears twice in the staff branch, once in a comparison and once in a subtraction, and a change to only one of them would be a bug. The same literal 5 also stands for the staff cap, so a search-and-replace would change the wrong thing as well. The method reads today's date from the system clock, so its output changes every day. Nobody wrote tests, and the author has left.
 
 There is a second reason for care. A colleague once tidied a report like this one, and the new version was shorter. It also listed fewer loans. Nobody could say whether a defect had been repaired or a promise had been broken, because nobody had recorded what the old report promised. What do you change first? Not the staff grace period. Before changing a rule you need to know what the code does today, so that you can tell afterwards whether you changed only what you meant to change. This chapter is about that situation: **changing code you do not yet understand, without tests that protect it**. The method is to observe, to pin what you observe, to reshape the structure in small checked steps, and to keep every correction of behaviour separate from every improvement of structure.
 
-## Learning outcomes and reading route
+Along the way you will learn to diagnose a smell from a concrete difficulty of change instead of treating it as a verdict, to tell a refactoring from a behaviour change and say what must stay the same, and to write characterisation tests that record current behaviour, including behaviour that looks wrong. You will create a seam that removes a hidden dependency so that the code can be tested, apply small refactorings (Extract Method, Extract Class, Move Method, Rename) with a check after each step and a way back, and record uncertainties, suspected defects and technical debt separately, with evidence.
 
-By the end of this chapter, you should be able to:
+This is Week 10, supporting LO3 and LO4. The weekly reading is the refactoring chapter of Martin [13]; Feathers [14] is the recommended companion on legacy code. The Week 10 lab is refactoring untested legacy code with regression tests. The chapter creates no new deadlines, weights or marking rules. Quiz 2 is held in Week 10 and covers dependency injection, TDD and test doubles, design patterns and layered architecture (Weeks 5 to 9); the legacy lab in this chapter is separate from that scope, and Section 11.11 gives revision pointers for the quiz.
 
-1. Diagnose a smell from a concrete difficulty of change, instead of treating it as a verdict.
-2. Distinguish a refactoring from a behaviour change, and state what must stay the same.
-3. Write characterisation tests that record current behaviour, including behaviour that looks wrong.
-4. Create a seam that removes a hidden dependency, so that code can be tested.
-5. Apply small refactorings (Extract Method, Extract Class, Move Method, Rename) with a check after each step and a way back.
-6. Record uncertainties, suspected defects and technical debt separately, with evidence.
+You start from Chapter 10's Java 17 project and its package structure. This chapter adds one isolated package, `legacy`, which stands for the old records system's overdue report. It is not part of the lending layers: production code must not refer to it, just as it must not refer to `patterns` or `behaviour`, and the dependency test from Chapter 10 now checks that. Only bootstrap launches it or feeds it rows. The companion holds the complete checkpoint, every refactoring stage, the tests, model answers and teaching notes.
 
-**Module connection:** Week 10; LO3 and LO4. The weekly reading is the refactoring chapter of Martin [13]; Feathers [14] is the recommended companion on legacy code. The Week 10 lab is refactoring untested legacy code with regression tests. This chapter creates no new deadlines, weights or marking rules. Quiz 2 is held in Week 10 and covers dependency injection, TDD and test doubles, design patterns and layered architecture (Weeks 5–9); the legacy lab in this chapter is separate from that scope, and Section 11.11 gives revision pointers for the quiz.
-
-**Entry checkpoint:** Chapter 10's Java 17 project, and its package structure. This chapter adds one isolated package, `legacy`, which stands for the old records system's overdue report. It is not part of the lending layers: production code must not refer to it, just as it must not refer to `patterns` or `behaviour`, and the dependency test from Chapter 10 now checks that. Only bootstrap launches it or feeds it rows.
-
-**Core reading.** Sections 11.1–11.6.
-
-**Working-knowledge reading.** Section 11.7 (technical debt and evidence). Learn to describe debt with evidence, and to separate defects from preferences. You do not manage a debt register for a real project.
-
-**Minimum required lab.** Steps B1–B3 and T1–T4 of the practical activity in Section 11.10. Steps B1–B3 run on the **Book project**: the legacy report and its tests are supplied, and you extend the tests and take the first refactoring steps. Steps T1–T4 run on your **Team project**, whose provided starter codebase contains intentional smells: you characterise one untested method and refactor it in small commits.
-
-**Optional extension.** Steps B4–B7 (break the boundary on purpose, make the separate functional correction, do the AI activity, and connect the report to the live loans), the review questions, the transfer challenge and the optional extension.
-
-The separate companion for this chapter contains the complete checkpoint, every refactoring stage, the tests, model answers and teaching notes.
+Sections 11.1 to 11.6 are the core reading. Section 11.7 (technical debt and evidence) is working knowledge: learn to describe debt with evidence and to separate defects from preferences; you do not manage a debt register for a real project. The minimum lab is steps B1 to B3 and T1 to T4 of the practical activity in Section 11.10. Steps B1 to B3 run on the **Book project**, where the legacy report and its tests are supplied and you extend the tests and take the first refactoring steps; steps T1 to T4 run on your **Team project**, whose provided starter codebase contains intentional smells, so that you characterise one untested method and refactor it in small commits. Steps B4 to B7 (break the boundary on purpose, make the separate functional correction, do the AI activity, and connect the report to the live loans), the review questions, the transfer challenge and the optional extension are optional.
 
 ## 11.1 Working with unfamiliar code
 

@@ -270,3 +270,10 @@ One entry per chapter: what was removed or rewritten, where the evidence went, a
 - Edited: `content/book/chapter-01.md` to `chapter-15.md`, `appendix-d.md`, `appendix-e.md`, `appendix-b.md`, `content/companion/chapter-10.md`, `chapter-12.md`, `chapter-13.md`, `chapter-14.md`, `appendix-c.md`, `content/slides/chapter-04.md`, `05`, `06`, `07`, `08`, `09`, `10`, `11`, `12`, `14`, `content/slides/_index.md` (slide counts), `meta/Lecture_Slides_Todo.md`, and `meta/internal_not_for_publishing/dg_ch10.py`.
 - Section numbering changed in Chapter 10 (10.4 split; 10.5 to 10.12 became 10.6 to 10.13) and Chapter 14 (14.3 split; 14.4 to 14.10 became 14.5 to 14.11); every reference found in the book, the companions, the appendices and the decks was updated.
 - Checked: full-site build (135 pages, no error or warning), reference scripts (no broken reference), 31 Mermaid diagrams render, and the changed decks measured at 1280 x 720 with no overflowing slide.
+
+## Chapter openings rewritten as continuous prose (14 October 2026, later)
+
+- Request from the owner: the "Opening scenario" followed by "Learning outcomes and reading route" felt mechanical.
+- In all 15 chapters those two headings are gone. Each chapter now opens directly under its title with a short story or problem, then the learning outcomes as flowing prose ("You will learn to ..."), then the practical notes (week, readings, prerequisites, checkpoint, core reading, minimum lab, optional extension) in plain paragraphs. The Milestone 2 and 3 checklists stay as numbered lists inside that prose.
+- Nothing was dropped: every section reference, week, reading, checkpoint and lab step in the old openings is in the new text. Chapter 7's reference to "checklist item 6" was stale and now says item 7. Chapter 15 keeps its "Before you start: five rules" section.
+- Lecture decks were not changed (slides keep their own "Learning Outcomes" and "Reading Route" slides).

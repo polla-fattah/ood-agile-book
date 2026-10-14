@@ -7,38 +7,17 @@ weight: 90
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+Three requests land on the equipment team in the same week. Borrowing limits should vary with the borrower's category. A reservation should be cancellable before checkout but not once the item is on loan. And a successful reservation should tell several local observers about it, even if one expected notification attempt fails.
 
-The equipment team receives three requests. Borrowing limits may vary by borrower category. A proposed reservation workflow should allow cancellation before checkout but reject cancellation after the item is on loan. A successful reservation should inform several local observers, even when one expected notification attempt fails.
+All three are about changing behaviour, but they change for different reasons. Category selects a rule. Lifecycle history decides which action is legal. Subscribers decide who reacts when a reservation is accepted. One big conditional method could tangle them together, and a single vague idea of a “behaviour pattern” would hide how different they are.
 
-All three requests involve changing behaviour, but they vary for different reasons. Category selects a rule. Lifecycle history determines which action is legal. Subscribers determine who reacts to an accepted reservation. One large conditional method could combine them; one generic “behaviour pattern” would conceal their differences.
+Then comes a fourth wish: the team would like to represent a reservation request as an object that a caller can run later. That raises a question of its own, namely when the request is captured and when its side effects happen. This chapter pulls the four apart. You will learn to tell an interchangeable policy from lifecycle-dependent behaviour; to explain and test Strategy using the borrowing policies you already have; to define a transition table and implement a small State-based lifecycle; to specify what Observer promises about order, subscription changes and failure; and to represent a request with Command and explain why its side effects belong to execution time. Each time you will compare the pattern with a simpler alternative, and justify adopting or declining it with a concrete change and some evidence.
 
-The team also wants to represent a reservation request as an object that a caller can execute later. That adds a fourth question: when is a request captured, and when do its side effects happen? This chapter separates these decisions, protects them with examples and compares each pattern with a simpler alternative.
+This is Week 8, supporting LO2 and LO4, with Chapters 7 and 8 as the entry. The module descriptor is not changed and no assessment rules are invented here. The Week 8 readings are the Strategy, Command, Observer and State chapters of Martin [6] and the behavioural patterns in Gamma et al. [1]. The same week carries the individual critical book review: follow the module leader's approved instructions and reading list, see [Section 9.12](#reading-checkpoint) and [Appendix E]({{< relref "appendix-e" >}}), and remember that evidence must come from the selected book and verified sources, not from an AI summary of an unread text.
 
-## Learning outcomes and reading route
+You start from Chapter 8's Java 17 application, its directory adapter and its complete Maven test suite. The code-and-solutions file supplies a complete new checkpoint. The original borrowing policies already demonstrate Strategy; a notification publisher is an optional cumulative collaborator; and the proposed lifecycle is a separate exercise that does not replace the running project's reservation or loan rules.
 
-By the end of this chapter, you should be able to:
-
-1. Distinguish an interchangeable policy from lifecycle-dependent behaviour.
-2. Explain and test Strategy selection using the existing borrowing policies.
-3. Define a transition table and implement a small State-based lifecycle.
-4. Specify Observer ordering, subscription changes and failure behaviour.
-5. Represent a request with Command and explain execution-time side effects.
-6. Justify adopting or declining a pattern using a concrete change and evidence.
-
-**Module connection:** Week 8; LO2 and LO4. Entry: Chapters 7–8. Strategy and State are the core reading; Observer and Command are working-knowledge topics with smaller executable examples. This chapter does not change the module descriptor or invent assessment rules. It supports the Week 8 readings: the Strategy, Command, Observer and State chapters of Martin [6] and the behavioural patterns in Gamma et al. [1].
-
-**Core reading.** Read Sections 9.1–9.3, 9.6 and 9.7 (Strategy, State, testing and selection).
-
-**Working-knowledge reading.** Read Sections 9.4 and 9.5 (Observer and Command). They require limited depth: understand the structure, the ordering and failure rules, and the cost, and see each pattern work in the supplied examples, but you do not implement either on your own.
-
-**Minimum required lab.** Complete steps 1–4 and 6 of the practical activity in Section 9.10. Steps 1–2 cover State, step 3 covers Observer and Command, step 4 covers Strategy and the choice among patterns. Steps 1–4 run on the **Book project**; step 6 runs on your **Team project**.
-
-**Optional extension.** Do the Section 9.8 AI activity (step 5), the review questions and the transfer challenge.
-
-**Starting checkpoint:** Chapter 8's Java 17 application, directory adapter and complete Maven test suite. The code-and-solutions file supplies a complete new checkpoint. The original borrowing policies already demonstrate Strategy. A notification publisher is an optional cumulative collaborator. The proposed lifecycle is a separate exercise; it does not replace the running project's reservation or loan rules.
-
-**Reading reminder:** the module descriptor places the individual critical book review in Week 8. Follow the module leader's approved instructions and reading list. See the [Section 9.12](#reading-checkpoint) below and [Appendix E]({{< relref "appendix-e" >}}); evidence must come from the selected book and verified sources, not an AI summary of an unread text.
+Strategy and State are the core reading (Sections 9.1 to 9.3, 9.6 and 9.7: Strategy, State, testing and selection). Observer and Command (Sections 9.4 and 9.5) are working-knowledge topics: understand the structure, the ordering and failure rules and the cost, and see each pattern work in the supplied examples, but you do not implement either on your own. The minimum lab is steps 1 to 4 and 6 of the practical activity in Section 9.10: steps 1 and 2 cover State, step 3 covers Observer and Command, and step 4 covers Strategy and the choice among patterns. Steps 1 to 4 run on the **Book project** and step 6 on your **Team project**. The Section 9.8 AI activity (step 5), the review questions and the transfer challenge are optional.
 
 ## 9.1 Variation in behaviour
 

@@ -7,40 +7,19 @@ weight: 20
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+Chapter 1 ended with a rule that fits inside a single method: a few numbers, a few conditions, a Boolean answer. Real programs do not stay like that for long. Soon something has to remember which reservations exist, something has to decide whether a new one clashes with an old one, and something has to tell the user what happened.
 
-The equipment officer can now try a small reservation application. It checks a borrower's limit, looks for a conflicting reservation, records a successful request and returns a confirmation message. A demonstration works. However, the developer who wrote it is absent when another team member is asked to change the message.
+Picture the equipment officer trying a first small reservation application. It checks a borrower's limit, looks for a conflicting reservation, records a successful request and returns a confirmation message. The demonstration works. Then the developer who wrote it is away, and another team member is asked to change the wording of the message.
 
-The new developer opens `ReservationCoordinator`. The same method counts reservations, applies a borrowing rule, searches for date conflicts, creates a record and assembles the confirmation text. Which lines may be changed safely? Why is the conflict check concerned with an equipment item while the count is concerned with a borrower? Could the list of stored reservations be changed from outside the class?
+They open `ReservationCoordinator` and find one method that counts reservations, applies a borrowing rule, searches for date conflicts, creates a record and assembles the confirmation text. Which lines can they change safely? Why does the conflict check concern an equipment item when the count concerns a borrower? Could somebody outside the class empty the list of stored reservations?
 
-These questions concern the design of collaborating objects. Knowing how to declare a class is necessary, but it does not tell us which responsibilities should belong together or how other code should be allowed to use them. This chapter develops that reasoning through a small, executable system.
+Knowing how to declare a class does not answer any of that. These are questions about design: which responsibilities belong together, which state a class must protect, and how much other code should be allowed to know. This chapter answers them through a small system you can run. You will assign responsibilities to objects and explain the state each one protects, and you will see why private fields and getters are not the same thing as encapsulation. You will diagnose cohesion and coupling from concrete change scenarios, weigh composition against inheritance, and learn to read, draw and check a small UML class diagram so that it matches the code. You will finish by making one behaviour-preserving improvement and presenting it as a reviewed Git change.
 
-## Learning outcomes and reading route
+The chapter corresponds to **Week 1** and supports LO1 and LO6. It builds on Chapter 1's reservation rule, so you should be comfortable tracing conditions, calling methods and explaining a returned value; Java's official class tutorial [1] and Appendix A are there if you need to revise syntax. The examples use a Java 17 language and API baseline with no preview features or external dependencies, and you need a JDK to compile them. JUnit, Maven and automated CI are not prerequisites for this first design exercise; they arrive with the later work that needs them, and Appendix B records the toolchain and commands for the whole book.
 
-By the end of the chapter, you should be able to:
+The checkpoint you start from is the Chapter 2 starter in the companion file, and the checkpoint you finish with is the same code after the confirmation extraction. It becomes the cumulative baseline for later chapters. The fault demonstrations and the notation examples in Section 2.6 are separate teaching material and do not join the project. The companion holds every complete source file, a starting version, the completed refactoring, the checks and suggested answers: use its starting listings and execution instructions first, and look at the solutions only after you have attempted the activity. Java excerpts in this chapter are labelled where they leave out surrounding code.
 
-1. Assign responsibilities to objects and explain the state they protect.
-2. Distinguish encapsulation and information hiding from mechanically adding getters and setters.
-3. Diagnose cohesion and coupling problems using concrete change scenarios.
-4. Compare composition with inheritance and justify a modest design choice.
-5. Draw and interpret a small UML class diagram that matches the code, using associations, multiplicity, aggregation, composition, inheritance and interface realisation appropriately.
-6. Make a behaviour-preserving improvement and present it as a reviewed Git change.
-
-This chapter corresponds to **Week 1** and supports LO1 and LO6. It builds on Chapter 1's reservation-rule example. You should be able to trace conditions, call methods and explain a returned value. Java's official class tutorial provides targeted syntax revision [1]; Appendix A has a short refresher.
-
-The companion file for this chapter contains every complete source file, a starting version, a completed refactoring, checks and suggested answers. Use its starting listings and execution instructions first; consult solutions after attempting the activity. Java excerpts in this chapter are labelled where they omit surrounding code.
-
-The examples use a Java 17 language and API baseline, with no preview features or external dependencies. A JDK is required to compile them. JUnit, Maven and automated CI configuration are not prerequisites for this first design exercise; they will be introduced with the relevant later work, and Appendix B records the toolchain and commands for the whole book.
-
-**Core reading.** Read Sections 2.1–2.9. Section 2.6 (UML class diagrams) is the notation that the midterm assesses, so give it the most time.
-
-**Minimum required lab.** Complete the Section 2.8 AI activity and Parts A–D of the practical activity in Section 2.10: the annotated diagram and scenario model, the responsibility diagnosis, the checked extraction commit with its review, and your team's issue board and branch policy. Parts A–C run on the **Book project**; Part D concerns your **Team project**.
-
-**Optional extension.** Do the optional investigation at the end of Section 2.10, then the review questions and the transfer challenge.
-
-**Weekly reading.** The module's Week 1 reading is Martin [10], the Part I introduction and the object-oriented design fundamentals; Sections 2.1–2.5 are the practical counterpart. Use the Moodle links for the exact pages.
-
-**Project checkpoint.** The starting checkpoint is the Chapter 2 starter in the companion file. The resulting checkpoint is the same code after the confirmation extraction. It becomes the cumulative baseline for later chapters. The fault demonstrations and the notation examples in Section 2.6 are separate teaching material and do not join the project.
+Read Sections 2.1 to 2.9 as the core, and give the most time to Section 2.6 on UML class diagrams, because that is the notation the midterm assesses. The module's Week 1 reading is Martin [10], the Part I introduction and the object-oriented design fundamentals, with Sections 2.1 to 2.5 as its practical counterpart; use the Moodle links for the exact pages. The minimum lab is the Section 2.8 AI activity and Parts A to D of the practical activity in Section 2.10: the annotated diagram and scenario model, the responsibility diagnosis, the checked extraction commit with its review, and your team's issue board and branch policy. Parts A to C run on the **Book project**, and Part D concerns your **Team project**. The optional extension is the investigation at the end of Section 2.10, followed by the review questions and the transfer challenge.
 
 ## 2.1 Objects, identity, state and behaviour
 

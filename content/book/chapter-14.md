@@ -7,38 +7,17 @@ weight: 140
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+It is the morning of the final presentation. A classmate who was not on your team opens your repository link to see what you built. The README says to run one command, and the command fails, because the classmate's machine has no `mvn` on its path and the error says only “command not found”. The README promises one number of passing tests; the build reports another. The requirements table points at a test that was renamed last week. A reviewer asks which of the three of you wrote the approval-file adapter, and the commit log says it was whoever has the most commits. It was not.
 
-It is the morning of the final presentation. A classmate who was not in your team opens your repository link to see what you built. The README says to run one command. It fails, because the classmate's machine has no `mvn` on its path, and the error says only “command not found”. The README promises one number of passing tests, and the build reports another. The requirements table points at a test that was renamed last week. A reviewer asks which of the three of you wrote the approval-file adapter, and the commit log says the person with the most commits wrote it. They did not.
+None of these is a defect in the software. Each is a defect in the **handover**: the material that lets someone else set the project up, trust what it says and understand who did what. This chapter finishes the project the way Chapter 13 started the change, with evidence. It is not a new feature sprint: the change began in Week 11 and was implemented in Chapter 13, so here we add no behaviour. The one fix in the worked project is to the setup and the demonstration, and everything else is a decision, a document or a check.
 
-None of these is a defect in the software. Each is a defect in the **handover**: the material that lets someone else set the project up, trust what it says, and understand who did what. This chapter finishes the project the way Chapter 13 started the change: with evidence. It reviews how the design accommodated the change, decides what to fix and what to leave, writes the documents that a stranger needs, checks them by following them, and prepares an honest account of the work, including each person's part in it.
+You will review how the design accommodated the change, using the affected responsibilities, the test failures, the revised assumptions and the review feedback, and see why a small diff is not automatically a better design. You will decide what remains to fix, defer or accept; write the documents a stranger needs and check them by following them in a fresh copy; and trace requirements to implementation and tests in a way that a check can keep true. You will support your retrospective with evidence and write an individual reflection that explains your own contribution, and you will prepare a final submission that does not claim evidence that does not exist.
 
-It is **not** a new feature sprint. The change began in Week 11 and was implemented in Chapter 13. Here we add no behaviour. The one fix in the worked project is to the setup and the demonstration, and everything else is a decision, a document or a check.
+This is Week 13, the final sprint and retrospective, and it touches all learning outcomes, LO1 to LO6. The required reading is Martin (2002), a review of the chapters relevant to your project [10]; the recommended reading is whatever is relevant to your own team's project. Week 13 has a final-sprint workshop with formative feedback, Week 14 has no classes and is for independent project work with optional team consultations, and the final demonstration, presentation and submission are in Weeks 15 and 16. The descriptor says teams submit a repository link, a technical report and an individual reflection, and give a demonstration and presentation, and that marks are moderated by individual contribution. This chapter creates no new deadlines, weights or marking rules: the approved final-project instructions decide what you submit.
 
-## Learning outcomes and reading route
+You start from the Chapter 13 checkpoint (the visitor change, version 0.13.1) or, for your Team project, from a Milestone 4 outcome with its remaining defects named. The checkpoint you finish with is version 0.14.0, and its production code is unchanged. The companion lists only the new and changed files, with the model answers, the experiments and teaching notes.
 
-By the end of this chapter, you should be able to:
-
-1. Evaluate how a design accommodated a change, using the affected responsibilities, the test failures, the revised assumptions and review feedback, and explain why a small diff is not automatically a better design.
-2. Prioritise remaining release work, and choose between fixing, deferring and accepting a known issue.
-3. Produce reproducible handover instructions and check them by following them in a fresh copy.
-4. Trace requirements to implementation and tests, and keep that trace true with a check.
-5. Support retrospective conclusions with evidence, and write an individual reflection that explains your own contribution.
-6. Prepare a final submission without claiming evidence that does not exist.
-
-**Module connection:** Week 13, the final sprint and retrospective; all learning outcomes, LO1–LO6. The required reading is Martin (2002), a review of the chapters relevant to your project [10], and the recommended reading is the readings relevant to your own team's project. Week 13 has a final-sprint workshop with formative feedback. Week 14 has no classes and is for independent project work, with optional team consultations. The final demonstration and presentation, and the final submission, are in Weeks 15 and 16. The descriptor says that teams submit a repository link, a technical report and an individual reflection, and give a demonstration and presentation, and that marks are moderated by individual contribution. This chapter creates no new deadlines, weights or marking rules. The approved final-project instructions decide what you submit.
-
-**Entry checkpoint:** the Chapter 13 checkpoint (the visitor change, version 0.13.1), or, for your Team project, a Milestone 4 outcome with its remaining defects named. The completed checkpoint of this chapter is version 0.14.0. Its production code is unchanged. The companion lists only the new and changed files.
-
-**Core reading.** Sections 14.1–14.5 and 14.7.
-
-**Working-knowledge reading.** Section 14.6 on contribution evidence. You are not asked to measure anyone. You are asked to know what each kind of evidence can and cannot show.
-
-**Minimum required lab.** Steps B1–B4 and T1–T5 of the practical activity in Section 14.10. Steps B1–B4 run on the **Book project** and are running, tracing and diagnosis: the finished checkpoint is supplied. Steps T1–T5 run on your **Team project** and produce your handover bundle, retrospective and individual reflection.
-
-**Optional extension.** Steps B5–B8 (rehearse removing the flag, validate an AI-drafted README, read a contribution fixture, and close the gap that the one-line experiment found), the review questions, the transfer challenge and the optional extension.
-
-The separate companion for this chapter contains the new and changed files, the model answers, the experiments and teaching notes.
+Sections 14.1 to 14.5 and 14.7 are the core reading. Section 14.6 on contribution evidence is working knowledge: you are not asked to measure anyone, you are asked to know what each kind of evidence can and cannot show. The minimum lab is steps B1 to B4 and T1 to T5 of the practical activity in Section 14.10. Steps B1 to B4 run on the **Book project** and are running, tracing and diagnosis, since the finished checkpoint is supplied; steps T1 to T5 run on your **Team project** and produce your handover bundle, retrospective and individual reflection. Steps B5 to B8 (rehearse removing the flag, validate an AI-drafted README, read a contribution fixture, and close the gap that the one-line experiment found), the review questions, the transfer challenge and the optional extension are optional.
 
 ## 14.1 Reviewing the change outcome
 

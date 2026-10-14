@@ -7,37 +7,21 @@ weight: 10
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+Imagine a university that lends cameras, microphones and other equipment to its students. Your team has written a small program that decides whether a student may request another reservation. It looks at two things, the number of reservations the student already holds and the length of the loan requested, and every example you have tried gives the answer you expected. The program works, and for a little while that feels like the end of the story.
 
-A university lends cameras, microphones and other equipment to students. Your team has written a small program that decides whether a student may request another reservation. It checks the number of active reservations and the requested duration. The examples you tried produce the expected answers.
-
-Then the equipment officer asks for a change:
+Then the equipment officer walks in with a change:
 
 > Staff should also be able to borrow equipment, but their reservation limits will be different. The existing student limits should stay the same.
 
-The change sounds simple. Perhaps it requires another condition and two new numbers. However, the team now needs to answer several questions. Where do the current limits appear? How will the program know whether a borrower is a student or a staff member? Which existing behaviours must be preserved? What evidence will show that the new rule works?
+It sounds small: another condition, two new numbers, an afternoon's work. But the moment you try to start, questions arrive faster than answers. Where do the current limits live in the code? How will the program know whether a borrower is a student or a member of staff? Which of today's behaviours must not change? And when you are finished, what will convince anyone, including you, that the new rule works?
 
-These questions are the starting point of this book. We will build software, but we will also examine how it is understood, tested, reviewed and changed. The goal is to make decisions that another developer can inspect and that the team can revise when requirements develop.
+Those questions are the real subject of this book. Writing code that works is the beginning of software engineering, not the end of it. Over the next fifteen chapters we will build a small lending system, but we will spend just as much effort on how software is understood, tested, reviewed and changed, because change is where software spends most of its life. The aim is to make decisions that another developer can inspect and that your team can revise when the requirements move.
 
-## Learning outcomes and reading route
+This first chapter is an orientation, and it works the way the rest of the book will. You will read one small Java class closely enough to say what it does and, just as importantly, what it does not do. You will see why a program that works can still be hard to change, and how object-oriented design, iterative delivery, testing and review each help make a change controlled instead of risky. You will meet an AI assistant's explanation of that class and learn to separate the claims the code supports from the ones it does not. And you will finish with a short readiness diagnostic that tells you where to spend your effort in the chapters ahead.
 
-After working through this chapter, you should be able to:
+A few practical words before you begin. This is an orientation chapter for Week 1. It adds no teaching week of its own and previews ideas that later chapters teach in full, so do not expect it to be complete on any one topic. Its code, `ReservationRules`, is a **Book project** example that stays outside the cumulative Campus Equipment Lending code, which starts with the Chapter 2 starter. You need only basic familiarity with variables, conditions, methods and classes; you do not yet need design patterns, a testing framework or an Agile project-management tool. If Java syntax is unfamiliar, read the explanation that accompanies each example and use the Java reading in the source list [1]; Appendix A has a short Java refresher and a readiness diagnostic.
 
-1. Explain why a functioning program may still be difficult to maintain.
-2. Describe how object-oriented design, iterative delivery, testing and review contribute to a controlled change.
-3. Read a small Java class and distinguish its actual behaviour from assumptions about the larger system.
-4. Identify evidence needed to evaluate a proposed change or an AI-generated explanation.
-5. Use the book’s learning route and a readiness diagnostic to plan your study.
-
-This is an orientation chapter for Week 1. It adds no teaching week and previews ideas that later chapters teach in full. Its code is a **Book project** orientation example: `ReservationRules` stays outside the cumulative Campus Equipment Lending code, which starts with the Chapter 2 starter.
-
-**Prerequisites.** You need basic familiarity with variables, conditions, methods and classes. You do not yet need design patterns, a testing framework or an Agile project-management tool. If Java syntax is unfamiliar, read the explanation that accompanies each example, then use the Java reading in the source list [1]; Appendix A has a short Java refresher and a readiness diagnostic.
-
-**Core reading.** Read Sections 1.1–1.8.
-
-**Minimum required lab.** Complete Task A, Task B (the paper part: find one input that separates the original rule from the changed one), Task C and Activity 1A. Together they produce every item in “What to produce”: the prediction table, the fault-revealing input, the change note with its evidence statement, the AI claim analysis and the readiness checklist. Everything needed is in this chapter, and you can do all of it by tracing the code on paper.
-
-**Optional extension.** Run the program and the deliberate fault (the optional execution exercise in Task B, which needs a Java Development Kit), then answer the review questions and the transfer challenge. Section 15.1 gives a longer introduction to assistance and accountability, but Activity 1A does not depend on it.
+Sections 1.1 to 1.8 are the core reading. The minimum lab is Task A, the paper part of Task B (find one input that separates the original rule from the changed one), Task C and Activity 1A. Together they produce everything listed under “What to produce”: the prediction table, the fault-revealing input, the change note with its evidence statement, the AI claim analysis and the readiness checklist. Everything needed is in this chapter, and you can do all of it by tracing the code on paper. If you have a Java Development Kit, the optional extension is to run the program and the deliberate fault from Task B and then answer the review questions and the transfer challenge. Section 15.1 gives a longer introduction to assistance and accountability, but Activity 1A does not depend on it.
 
 ## 1.1 A working program meets a new requirement
 

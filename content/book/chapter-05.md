@@ -7,35 +7,17 @@ weight: 50
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+The equipment officer asks for a different confirmation layout. In the same week the team is asked to demonstrate a second borrowing policy for staff. One developer proposes a subclass of the reservation coordinator. Another asks an AI assistant to “make the code SOLID” and gets back interfaces for almost every class and a rejection turned into an exception.
 
-The equipment officer asks for a different confirmation layout. At the same time, the team is asked to demonstrate a second borrowing policy for staff. One developer proposes a subclass of the reservation coordinator. Another asks an AI assistant to “make the code SOLID”. The assistant returns interfaces for almost every class and changes a rejection into an exception.
+The code certainly looks more elaborate. But the team has not yet answered the questions that matter. Which parts of this program change for different reasons? Which behaviour is meant to vary? What may existing callers keep relying on? And how will anyone tell an internal improvement from a new feature?
 
-The code looks more elaborate, but the team has not yet answered the important questions. Which parts change for different reasons? Which behaviour should vary? What may existing callers continue to rely on? How will the team distinguish an internal improvement from a new feature?
+Three old principles help with those questions: the **Single Responsibility Principle (SRP)**, the **Open–Closed Principle (OCP)** and the **Liskov Substitution Principle (LSP)**. Treat them as ways to reason about change and about contracts, not as a checklist to satisfy; a design is not better merely because it has more classes, interfaces or principle names in it. In this chapter you will learn to find the independent reasons a class has to change, to apply SRP to separate one responsibility and weigh the cost of the new boundary, and to justify an extension point for a variation you have actually observed, without pretending that existing code must never change. You will describe a behavioural contract and diagnose a subtype that breaks what its clients expect. And you will make a small, protected refactoring, show that it is not a feature change, and report the evidence.
 
-This chapter uses three principles to make those questions concrete: the **Single Responsibility Principle (SRP)**, the **Open–Closed Principle (OCP)** and the **Liskov Substitution Principle (LSP)**. Treat them as ways to reason about changes and contracts. A design is not improved merely because it contains more classes, interfaces or principle names.
+This is the first SOLID chapter. It sits in Week 4, supports LO1 and LO4 and the formative smell analysis, and does not change the module's assessment arrangements. Chapter 6 covers interface segregation, dependency direction and injection, Chapter 7 develops testing practice, and Chapter 11 gives a systematic treatment of smells and legacy refactoring. The Week 4 readings are the SRP, OCP and LSP chapters of Martin [6] and “Bad Smells in Code” from Fowler [7].
 
-## Learning outcomes and reading route
+You start from Chapter 4's Java 17 reservation starter, its 34 regression checks and its five acceptance example groups. The availability enquiry (US-02) is still planned. The staff rule in this chapter is a small, explicitly introduced teaching variation: it does not mean US-02 is done, and it is not an approved university policy. The companion holds complete listings, intermediate versions, commands, model answers, teaching notes and verification results. Follow the two stages separately: **A, extract formatting without changing existing behaviour; B, add the documented staff variation while preserving the old student entry point.**
 
-By the end of this chapter, you should be able to:
-
-1. Identify independent reasons for a class to change using concrete requirements.
-2. Apply SRP to separate a responsibility and explain the cost of the new boundary.
-3. Justify an extension point for an observed variation without claiming that existing code must never change.
-4. Describe a behavioural contract and diagnose a subtype that breaks a client's expectations.
-5. Make a small protected refactoring, distinguish it from a feature change, and report the supporting evidence.
-
-**Module connection:** Week 4; LO1 and LO4. This is the first SOLID chapter and supports the formative smell analysis. It does not change the module's assessment arrangements. Chapter 6 covers interface segregation, dependency direction and injection; Chapter 7 develops testing practice; Chapter 11 provides a systematic treatment of smells and legacy refactoring. It supports the Week 4 readings: the SRP, OCP and LSP chapters of Martin [6] and “Bad Smells in Code” from Fowler [7].
-
-**Entry checkpoint:** Chapter 4's Java 17 reservation starter, its 34 regression checks and five acceptance example groups. The availability enquiry from US-02 remains planned. This chapter's staff rule is a small, explicitly introduced teaching variation, not a claim that US-02 was completed or that a university policy has been approved.
-
-The separate companion for this chapter contains complete listings, intermediate versions, commands, model answers, teaching notes and verification results. Follow the two stages separately: **A: extract formatting without changing existing behaviour; B: add the documented staff variation while preserving the old student entry point.**
-
-**Core reading.** Read Sections 5.1–5.7.
-
-**Minimum required lab.** Complete steps 1–8 of the practical activity in Section 5.10, including the review in step 6 (with another person, or labelled as a solo self-review). Steps 1–7 run on the **Book project**; step 8 applies the diagnosis to your **Team project**. The Week 4 lab uses a static-analysis tool, PMD (version 7.28.0 in this edition), which needs a one-time download described in Section 5.1. Comparing its findings with your own reading is part of the required lab.
-
-**Optional extension.** Do the Section 5.8 AI activity, the optional extension in Section 5.10, the review questions and the transfer challenge.
+Sections 5.1 to 5.7 are the core reading. The minimum lab is steps 1 to 8 of the practical activity in Section 5.10, including the review in step 6 (with another person, or labelled honestly as a solo self-review). Steps 1 to 7 run on the **Book project** and step 8 applies the diagnosis to your **Team project**. The Week 4 lab uses a static-analysis tool, PMD (version 7.28.0 in this edition), which needs a one-time download described in Section 5.1, and comparing its findings with your own reading is part of the lab. The Section 5.8 AI activity, the optional extension in Section 5.10, the review questions and the transfer challenge are optional.
 
 ## 5.1 Change pressure in a reservation service
 

@@ -7,32 +7,17 @@ weight: 120
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*  
 
-## Opening scenario
+The lending team has completed several changes, and yet the line that shows remaining work has gone up. One item spent two days waiting for a directory decision. Another was removed from scope. One team member says that more commits prove the team is getting faster; an AI summary says the blocked item proves the architecture is poor. Who is right?
 
-The lending team has completed several changes, yet the remaining-work line has risen. One item spent two days waiting for a directory decision. Another was removed from scope. A team member says that more commits prove the team is faster; an AI summary says the blocked item proves the architecture is poor.
+Before anyone can answer, a new request arrives. The equipment officer would like visiting researchers to reserve selected equipment after sponsor approval, with a shorter loan limit. Can the team finish that next iteration? Which existing rules will it touch? And what evidence would justify starting at once instead of first resolving an uncertainty?
 
-Now the equipment officer requests a new capability: visiting researchers should be able to reserve selected equipment after sponsor approval, with a shorter loan limit. Can the team finish it next iteration? Which existing rules will it affect? What evidence would justify starting immediately rather than resolving an uncertainty first?
+A metric cannot make these decisions for us. What it can do is make part of the situation visible, provided its unit, its boundary and its limits are clear. This chapter follows a small issue history, checks the arithmetic behind it and uses it to plan the next change; the history is **synthetic teaching data**, not recovered history from the earlier chapters and not evidence about any real student team. You will learn to define a measurement boundary and to calculate lead time, cycle time, throughput, work in progress and work-item age; to tell velocity from item throughput and to see why neither ranks anyone's contribution; and to reconcile burn-down and burn-up charts with additions, removals and completed work. You will frame a forecast as a conditional statement from a small body of evidence and say what is missing, and you will assess a claim about technical health or debt without confusing activity with quality or with cause. Finally you will prepare acceptance examples, an impact analysis and an ordered response to a changed requirement.
 
-A metric cannot make these decisions for us. It can make part of the situation visible, provided its unit, boundary and limitations are clear. This chapter follows a small issue history, checks its arithmetic and uses it to plan the next change. The issue history is **synthetic teaching data**, not recovered history from the preceding chapters or evidence about a real student team.
+This is Week 11, supporting LO5 and LO6. The required reading is the descriptor's Martin (2002), planning review; the recommended reading is selected chapters of *Accelerate* [7–8]. The required practical activity includes repository-metrics analysis. The requirement change is introduced in this chapter, implemented and verified in Chapter 13 for Milestone 4, and evaluated during handover in Chapter 14. The module leader releases your team's assessed variant, and the book's worked change does not replace it.
 
-## Learning outcomes and reading route
+You need the backlog and Definition of Done from Chapters 3 and 4, the tested boundaries and structure of Chapter 10, and Chapter 11's distinction between refactoring, suspected defects and changed behaviour. The cumulative application stays at Chapter 11's verified Java checkpoint: this chapter adds an isolated metrics exercise and planning records, and it does not implement the visiting-researcher feature. The companion contains all the calculator code, data, commands, worked answers and templates, so there is no need to copy another full cumulative application for this process chapter.
 
-After this chapter, you should be able to:
-
-1. Define a measurement boundary and calculate lead time, cycle time, throughput, work in progress and work-item age.
-2. Distinguish velocity from item throughput and explain why neither ranks individual contribution.
-3. Reconcile burn-down and burn-up observations with additions, removals and completed work.
-4. Use a small body of evidence to frame a conditional forecast and identify missing information.
-5. Evaluate a technical-health or debt claim without confusing activity with quality or causation.
-6. Prepare acceptance examples, an impact analysis and an ordered response to a changed requirement.
-
-**Module connection:** Week 11; LO5 and LO6. Required reading is the descriptor's Martin (2002), planning review; recommended reading is selected chapters of *Accelerate* [7–8]. The required practical activity includes repository-metrics analysis. The requirement change is introduced this week, implemented and verified in Chapter 13 for Milestone 4, and evaluated during handover in Chapter 14. The module leader releases the team's assessed variant; the book's worked change does not replace it.
-
-**Prerequisites:** the backlog and Definition of Done from Chapters 3–4; tested boundaries and the Chapter 10 structure; Chapter 11's distinction between refactoring, suspected defects and changed behaviour.
-
-**Core:** Sections 12.1–12.7, with the measurement contract and the worked change specification. **Minimum lab:** reproduce the synthetic calculations, inspect actual repository evidence, challenge the AI summary, and preserve the pre-change checkpoint with a change-impact note. **Working knowledge:** the supplied Java calculator and the repository extraction method. **Optional:** richer visualisation, larger cohorts and probabilistic forecasting after obtaining suitable data.
-
-**Checkpoint:** the cumulative application remains Chapter 11's verified Java checkpoint. Chapter 12 adds an isolated metrics exercise and planning records; it does not implement the visiting-researcher feature. The companion contains all calculator code, data, commands, worked answers and templates. There is no need to copy another full cumulative application for this process chapter.
+Sections 12.1 to 12.7 are the core, with the measurement contract and the worked change specification as the parts to keep. The minimum lab is to reproduce the synthetic calculations, inspect actual repository evidence, challenge the AI summary, and preserve the pre-change checkpoint with a change-impact note. The supplied Java calculator and the repository extraction method are working knowledge. Richer visualisation, larger cohorts and probabilistic forecasting, once you have suitable data, are optional.
 
 ## 12.1 What decision needs a measure?
 

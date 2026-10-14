@@ -7,13 +7,17 @@ weight: 150
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+It is late, and you ask an assistant for a small method. It returns tidy code with a confident note: “I tested this with Java 17 and it works.” It compiles on your laptop. You ask for tests as well, and they pass. You commit. The next morning the pipeline fails to compile, because one call exists only from Java 21. A reviewer asks why the tests agree with the code when your teammate's examples do not. Another reviewer asks where a dependency named in a `pom.xml` snippet came from, because nobody can find it.
 
-It is late. You ask an assistant for a small method, and it returns tidy code with a confident note: “I tested this with Java 17 and it works.” It compiles on your laptop. You also ask it for tests, and they pass. You commit. The next morning the pipeline fails to compile, because one call exists only from Java 21. A reviewer asks why the tests agree with the code when your teammate's examples do not. Another reviewer asks where a dependency named in a `pom.xml` snippet came from, because nobody can find it.
+None of this needs a bad assistant. It needs only an ordinary one and a missing habit: the habit of treating the output as a **candidate** that someone else's evidence must accept or reject. You have already practised that habit in the “AI in practice” activities of Chapters 1 to 14. This chapter collects it into a few workflows, shows them end to end on one small task, and says what to write down so that the work can be reviewed.
 
-None of these needs a bad assistant. Each needs only an ordinary one and a missing habit: the habit of treating the output as a **candidate** that someone else's evidence must accept or reject. This chapter collects that habit into a few workflows you have already practised in Chapters 1 to 14, shows them end to end on one small task, and says what to write down so that the work can be reviewed.
+It is vendor-neutral: it does not teach prompt tricks, model internals, retrieval or agents. It is about AI-**assisted** development, where an assistant helps you build software. Software that contains an AI or data component, such as the borrower directory of Chapters 6 to 8 and 13, is a different topic, treated where it arises and, for a model, in Appendix F. By the end of this chapter you will be able to give an assistant bounded context (what the task is, what it may use, what it must not do, and what counts as done); to evaluate candidate explanations, code and tests against evidence, claim by claim; and to recognise unsupported APIs, invented methods, unnecessary abstractions and tests that repeat the code's mistakes. You will record useful provenance and verification evidence, and you will be able to do every exercise without a live AI service.
 
-The chapter is vendor-neutral. It does not teach prompt tricks, model internals, retrieval or agents. It is about AI-**assisted** development, where an assistant helps you build software. Software that contains an AI or data component, such as the borrower directory of Chapters 6 to 8 and 13, is a different topic and is treated where it arises and, for a model, in Appendix F.
+This is a reference chapter that belongs to no teaching week. It supports the module's outcomes wherever an assistant is used and adds no separate assessed AI outcome. It creates no new deadlines, weights or marking rules, and whether and how AI tools may be used in an assessment follows the module leader's current rules.
+
+No entry checkpoint is required. The worked example is a small separate project (the **lab**) that stands alone, compiles for Java 17 and needs only the pinned Maven toolchain of the earlier chapters; the lending project is not changed, and its handover version 0.14.0 stays as Chapter 14 left it. The companion contains the lab, the constructed outputs, the experiments, the model answers and teaching notes.
+
+Sections 15.1, 15.2, 15.4, 15.6 and 15.8 are the core reading; 15.3, 15.5 and 15.7 are working knowledge, where you learn the method and need not memorise tools. The minimum lab is steps B1 to B4 and T1 to T3 of the practical activity in Section 15.11. Steps B1 to B4 run on the **Book project** (the lab) and are running, tracing and diagnosis, with everything supplied; steps T1 to T3 apply the method to your **Team project**. Because this chapter has no teaching week, these steps are not a separate weekly task: they consolidate what the “AI in practice” activities of Chapters 1 to 14 already ask. Do B1 to B4 once, at the point where you first need them, alongside the first AI activity you do or before your final handover (Chapter 14), and satisfy T1 to T3 with the AI-assisted work your team actually does, recorded as described here. They create no additional submission and no new assessed item unless your approved instructions say otherwise. Steps B5 to B7 and T4, the review questions and the transfer challenge are optional. Section 15.9 explains how to do every AI activity in this book without a live service, and nothing required depends on a paid account.
 
 ## Before you start: five rules
 
@@ -24,30 +28,6 @@ Read these with Chapter 1. They are the short version of everything below.
 3. **Keep the evidence independent.** Check the output against something the assistant did not write: the requirement, examples you wrote first, the compiler, a trace by hand. Another assistant's opinion is not independent evidence.
 4. **Share the minimum.** No secrets and no personal data. Use synthetic data.
 5. **Follow the current rules.** Whether a given tool may be used on coursework or in an assessment is decided by the module leader's current rules, not by this book.
-
-## Learning outcomes and reading route
-
-By the end of this chapter, you should be able to:
-
-1. Provide bounded context for an AI-assisted task: what it is, what it may use, what it must not do, and what counts as done.
-2. Evaluate candidate explanations, code and tests against evidence, claim by claim.
-3. Recognise unsupported APIs, invented methods, unnecessary abstractions and tests that repeat the code's mistakes.
-4. Record useful provenance and verification evidence.
-5. Complete an equivalent exercise without live AI access.
-
-**Module connection:** this is a reference chapter that belongs to no teaching week. It supports the module's outcomes wherever an assistant is used and adds no separate assessed AI outcome. It creates no new deadlines, weights or marking rules. Whether, and how, AI tools may be used in an assessment follows the module leader's current rules.
-
-**Entry checkpoint:** none is required. The worked example is a small separate project (the **lab**) that stands alone, compiles for Java 17 and needs only the pinned Maven toolchain of the earlier chapters. The lending project is not changed: its handover version 0.14.0 stays as Chapter 14 left it.
-
-**Core reading.** Sections 15.1, 15.2, 15.4, 15.6 and 15.8.
-
-**Working-knowledge reading.** Sections 15.3, 15.5 and 15.7. Learn the method. You do not need to memorise tools.
-
-**Minimum required lab.** Steps B1–B4 and T1–T3 of the practical activity in Section 15.11. Steps B1–B4 run on the **Book project** (the lab) and are running, tracing and diagnosis: everything is supplied. Steps T1–T3 apply the method to your **Team project**. This chapter has no teaching week, so these steps are not a separate weekly task. They consolidate what the “AI in practice” activities of Chapters 1 to 14 already ask. Do B1–B4 once, at the point where you first need them: alongside the first AI activity you do, or before your final handover (Chapter 14). Satisfy T1–T3 with the AI-assisted work your team actually does, recorded as described here. They create no additional submission and no new assessed item unless your approved instructions say otherwise.
-
-**Optional extension.** Steps B5–B7 and T4, the review questions and the transfer challenge. Section 15.9 explains how to do every AI activity in this book without a live service. Nothing required depends on a paid account.
-
-The separate companion for this chapter contains the lab, the constructed outputs, the experiments, the model answers and teaching notes.
 
 ## 15.1 Assistance and accountability
 

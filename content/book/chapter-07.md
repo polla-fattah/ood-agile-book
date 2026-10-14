@@ -7,28 +7,15 @@ weight: 70
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+A developer adds availability enquiry to the equipment system and reports that the build is green. During the demonstration, the officer asks about a camera that is clearly reserved and the system answers “available”. The test behind that green build had checked only that the method returned a boolean without throwing.
 
-A developer adds availability enquiry to the equipment system and reports that the build is green. During the demonstration, the officer enquires about a reserved camera and receives “available”. The test had checked only that the method returned a boolean without throwing.
+It is not hard to imagine that test's neighbours. Another one rejects every enquiry and still passes the overlap example. A third accepts adjacent dates incorrectly, because it treats the end of the earlier reservation as inclusive. Every one of these implementations can look plausible when its tests ask incomplete questions.
 
-Another test rejects every enquiry and passes the overlap example. A third accepts adjacent dates incorrectly because it treats the earlier reservation's end as inclusive. Each implementation can look plausible when its tests ask incomplete questions.
+So what are tests for? Not for collecting green indicators. They are there to create evidence about specific behaviour, to expose misunderstandings and to support changes in design. In this chapter you turn the availability examples from Chapters 3 and 4 into executable tests, moving from an acceptance example to a focused test with a meaningful expected outcome. You will go through a complete red–green–refactor cycle and learn why the first failure has to be the intended one. You will make data, time and collaborators controllable so that tests are repeatable, choose a useful test double, and tell state checks from interaction checks. You will learn to recognise weak or brittle tests and to say what a passing result does not show. Along the way you assemble the evidence for Milestone 2: a working MVP, its tests, a demonstration and a retrospective.
 
-The purpose of testing is not to accumulate green indicators. It is to create evidence about specific behaviour, reveal misunderstandings and support changes in design. This chapter turns the availability examples from Chapters 3–4 into executable tests, demonstrates a complete red–green–refactor cycle and uses controlled collaborators to examine notification and lending behaviour.
+This is Week 6, supporting LO3 and preparing Milestone 2. The midterm practice near the end draws on Chapters 2 to 7, corresponding to Weeks 1 to 6. The chapter adds no assessment weights, deadlines or marking rules. The Week 6 readings are the testing chapter and “A Programming Episode” in Martin [9], and Part I of Beck [10].
 
-## Learning outcomes and reading route
-
-By the end of this chapter, you should be able to:
-
-1. Translate acceptance examples into focused tests with meaningful expected outcomes.
-2. Demonstrate red–green–refactor and explain why the first failure is the intended one.
-3. Control data, time and collaborators to make tests repeatable.
-4. Choose a useful test double and distinguish state checks from interaction checks.
-5. Diagnose weak or brittle tests and explain the limits of passing evidence.
-6. Assemble MVP, testing, demonstration and retrospective evidence for Milestone 2.
-
-**Module connection:** Week 6; LO3; Milestone 2 preparation. The midterm practice near the end draws on Chapters 2–7, corresponding to Weeks 1–6. This chapter does not add assessment weights, deadlines or marking rules. It supports the Week 6 readings: the testing chapter and “A Programming Episode” in Martin [9], and Part I of Beck [10].
-
-**Milestone 2 checklist: use it from the start.** Milestone 2 falls in this week, so do not wait until the end of the chapter. By your demonstration you need:
+Because Milestone 2 falls in this week, its checklist comes up front rather than at the end. Use it from the start; do not wait until the end of the chapter. By your demonstration you need:
 
 1. a working MVP flow that someone else can run from written instructions;
 2. acceptance examples mapped to named tests;
@@ -41,14 +28,9 @@ By the end of this chapter, you should be able to:
 
 Section 7.8 explains each item. Start with items 1 and 3.
 
-**Entry checkpoint:** Chapter 6's Java 17 application, explicit collaborator construction, student/staff policies and local notification outputs. The previous executable checks remain available. We now introduce **Maven, JUnit Jupiter and Mockito**, with an explicitly versioned configuration in the separate code file.
+You start from Chapter 6's Java 17 application, with its explicit collaborator construction, student and staff policies and local notification outputs; the previous executable checks remain available. This chapter introduces **Maven, JUnit Jupiter and Mockito**, with an explicitly versioned configuration in the separate code file. Appendix B records the setup (B.4 and B.5), and the companion's `pom.xml` and commands are the exact reference. The companion also contains the full cumulative source, test listings, three TDD stages, solutions and observed verification results.
 
-**Core reading.** Read Sections 7.1–7.8. Section 7.5 introduces hand-written doubles before Mockito.
-
-**Minimum required lab.** Complete steps 1–6, 8 and 9 of the practical activity in Section 7.11. Steps 1–6 run on the **Book project**; steps 8 and 9 run on your **Team project**, which is where your Milestone 2 evidence comes from, including the demonstration rehearsal, real review feedback and retrospective in checklist item 6.
-
-**Optional extension.** Do step 7 (the same demonstration rehearsal on the book's project), the Section 7.9 AI activity, the review questions and the transfer challenge. The midterm practice set in Section 7.12 is optional but recommended: it practises the class-diagram, refactoring and unit-test work the midterm covers. Appendix B records the Maven, JUnit and Mockito setup (B.4 and B.5); the companion's `pom.xml` and commands are the exact reference for this chapter.
- The companion for this chapter contains the full cumulative source, test listings, three TDD stages, solutions and observed verification results.
+Sections 7.1 to 7.8 are the core reading, and Section 7.5 introduces hand-written doubles before Mockito. The minimum lab is steps 1 to 6, 8 and 9 of the practical activity in Section 7.11. Steps 1 to 6 run on the **Book project**; steps 8 and 9 run on your **Team project**, which is where your Milestone 2 evidence comes from, including the demonstration rehearsal, real review feedback and retrospective in checklist item 7. Step 7 (the same demonstration rehearsal on the book's project), the Section 7.9 AI activity, the review questions and the transfer challenge are optional. So is the midterm practice set in Section 7.12, though it is recommended: it practises the class-diagram, refactoring and unit-test work the midterm covers.
 
 ## 7.1 Behaviour and test evidence
 

@@ -7,35 +7,17 @@ weight: 60
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+The reservation coordinator now uses separate borrowing policies and a confirmation formatter, and a new demonstration requirement arrives: each accepted reservation must be passed to a notification output. One team member simply creates a console sender inside the coordinator. It works. But another member cannot inspect the notifications without watching the console, and swapping the output means editing the reservation workflow itself.
 
-The reservation coordinator now uses separate borrowing policies and a confirmation formatter. A new demonstration requirement asks it to pass each accepted reservation to a notification output. One team member creates a console sender inside the coordinator. It works, but another member cannot inspect notifications without watching console output. Replacing the output also requires editing the reservation workflow.
+An AI assistant offers a tidy-looking fix: introduce an interface. The coordinator's field becomes a `NotificationSender`. Yet the constructor still creates one particular sender and reads provider settings. The diagram looks different; the code still chooses its own environment.
 
-An AI assistant proposes an interface. The coordinator's field becomes `NotificationSender`, but its constructor still creates a particular sender and reads provider settings. The diagram looks different. The code still chooses its own environment.
+That gap, between naming an abstraction, depending on a useful contract and having a collaborator supplied from outside, is what this chapter is about. You will learn to design an interface around what one particular client needs and to see, through a concrete dependency, what the **Interface Segregation Principle (ISP)** warns against. You will separate the **Dependency Inversion Principle (DIP)** from dependency injection and from inversion of control, which are easy to blur. You will build a small object graph with constructor injection and an explicit composition root, and a tiny container walkthrough will make object lifetime visible without installing a framework. And you will weigh what an interface costs and what it does and does not guarantee.
 
-This chapter examines the difference between naming an abstraction, depending on a useful contract and supplying a collaborator from outside. It introduces the **Interface Segregation Principle (ISP)** and **Dependency Inversion Principle (DIP)**, then uses constructor injection and a composition root to assemble the running application. A small container walkthrough makes object lifetime visible without requiring a framework installation.
+The chapter belongs to Week 5 and supports LO1 and LO4. Quiz 1 revision points appear later and refer to Chapters 2 to 5, matching its stated Weeks 1 to 4 coverage; this chapter's new material is not silently added to it. The Week 5 readings are the DIP and ISP chapters of Martin [8] and, for dependency injection, the articles listed on Moodle, of which Fowler's [3] is one standard source.
 
-## Learning outcomes and reading route
+You start from Chapter 5's Java 17 code: the student and illustrative staff policies, the extracted formatter, the original 34 checks, the five acceptance example groups and the 44 Chapter 5 checks. Formatting a string has never meant sending email; notification output is a new, explicitly bounded teaching feature here. The companion supplies complete code, the deliberately coupled intermediate version, the checks, solutions and teaching notes. Testing terminology and frameworks receive fuller treatment in Chapter 7.
 
-By the end of this chapter, you should be able to:
-
-1. Design an interface around what a particular client needs.
-2. Explain ISP through a concrete dependency that is unnecessarily broad.
-3. Distinguish DIP, dependency injection and inversion of control.
-4. Construct a small object graph using constructor injection and an explicit composition root.
-5. Explain the benefits and costs of an interface, including the limits of what it guarantees.
-
-**Module connection:** Week 5; LO1 and LO4. Quiz 1 revision points appear later and refer to Chapters 2–5, matching its stated Weeks 1–4 coverage. This week's new material is not silently added to that coverage.
-
-**Entry checkpoint:** Chapter 5's Java 17 code, student and illustrative staff policies, extracted formatter, original 34 checks, five acceptance example groups and 44 Chapter 5 checks. Formatting a string has never meant sending email. Notification output is a new, explicitly bounded teaching feature in this chapter.
-
-**Core reading.** Read Sections 6.1–6.6. Section 6.6 compares manual assembly with a small educational container.
-
-**Minimum required lab.** Complete steps 1–9 of the practical activity in Section 6.10, including step 7 (the container walkthrough). Steps 1–8 run on the **Book project**; step 9 applies the same analysis to your **Team project**.
-
-**Optional extension.** Do the Section 6.8 AI activity, the optional extension in Section 6.10, the review questions and the transfer challenge.
-
-This chapter supports the Week 5 readings: the DIP and ISP chapters of Martin [8] and, for dependency injection, the articles listed on Moodle, of which Fowler's [3] is one standard source. The companion for this chapter supplies complete code, the deliberately coupled intermediate version, checks, solutions and teaching notes. Testing terminology and frameworks receive fuller treatment in Chapter 7.
+Read Sections 6.1 to 6.6 as the core; Section 6.6 compares manual assembly with a small educational container. The minimum lab is steps 1 to 9 of the practical activity in Section 6.10, including the container walkthrough in step 7. Steps 1 to 8 run on the **Book project** and step 9 applies the same analysis to your **Team project**. The Section 6.8 AI activity, the optional extension in Section 6.10, the review questions and the transfer challenge are optional.
 
 ## 6.1 Dependencies that make change difficult
 

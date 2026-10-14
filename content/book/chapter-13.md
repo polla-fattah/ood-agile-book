@@ -7,38 +7,17 @@ weight: 130
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+The visiting-researcher rule passes every unit test, and the demonstration works on the developer's laptop. Then comes the morning of the Milestone 4 demonstration, and three things go wrong. The sponsor register exported by the office has a stray column, so a visitor request ends in an exception. The borrower directory takes eleven seconds to answer, and the officer's screen freezes. And the new flag, switched on for the demonstration, is off in the build: the build is green and the demonstration fails.
 
-The visiting-researcher rule passes every unit test, and the demonstration works on the developer's laptop. On the morning of the Milestone 4 demonstration three things go wrong. The sponsor register exported by the office has a stray column, so a visitor request ends in an exception. The borrower directory takes eleven seconds to answer, and the officer's screen freezes. And the new flag is switched on for the demonstration but is off in the build, so the build is green and the demonstration fails.
+Not one of these is a mistake in the rule. Each lives at a **boundary** between our code and something we do not control: a file, a network service, a setting. A unit test that builds its own objects by hand cannot see a boundary, because the boundary is exactly what the test has replaced. This chapter is about checking the places where our code meets something else, putting those checks into a pipeline that runs them in the right order, and releasing a change in a way that can be undone.
 
-None of these is a mistake in the rule. Each lives at the **boundary** between our code and something it does not control: a file, a network service, a setting. A unit test that builds its own objects by hand cannot see a boundary, because the boundary is exactly what the test has replaced. This chapter is about checking the places where our code meets something else, putting those checks into a pipeline that runs them in the right order, and releasing a change in a way that can be undone.
+The worked change is CR-12 from Chapter 12: visiting researchers, with sponsor approval, behind one flag. It is a **teaching contract**, not an institutional policy, and your team applies its own released variant. You will start by choosing unit, integration and end-to-end checks for different risks, saying what each of them cannot show, and by writing a contract test that several implementations must pass. You will implement the changed requirement with regression protection and a clear separation between expected rejections and operational failures, then configure a modest delivery pipeline, run it and learn to read a failure in it. You will distinguish continuous delivery from continuous deployment and label a simulated deployment honestly. And you will evaluate a feature flag and a rollback plan, including what rollback does not undo.
 
-The worked change is CR-12 from Chapter 12: visiting researchers, with sponsor approval, behind one flag. It is a **teaching contract**, not an institutional policy, and your team applies its own released variant. The chapter builds on the Chapter 11 checkpoint and on Chapter 12's change specification and plan.
+This is Week 12, supporting LO3 and LO6 and Milestone 4 (Sprint 3: the change absorbed, with integration tests and CI/CD). The required reading is Martin (2002), *Testing* (review) [11]; the recommended reading is selected chapters of Humble and Farley, *Continuous Delivery* [12]. The Week 12 lab is an automated build, test and integration pipeline. The chapter creates no new deadlines, weights or marking rules, and the approved Milestone 4 instructions decide what you submit.
 
-## Learning outcomes and reading route
+You start from the Chapter 11 project and Chapter 12's change specification CR-12, its acceptance matrix (examples AC1 to AC18) and its ordered backlog. This chapter implements the change. The Chapter 11 listings are not repeated, and the companion lists only the files that are new or changed, along with the tests, the scripts, the model answers and teaching notes.
 
-By the end of this chapter, you should be able to:
-
-1. Choose unit, integration and end-to-end checks for different risks, and say what each cannot show.
-2. Explain the scope of a contract test and write one that several implementations must pass.
-3. Implement a changed requirement with regression protection and a clear separation between expected rejections and operational failures.
-4. Configure a modest delivery pipeline, run it and read a failure in it.
-5. Distinguish continuous delivery from continuous deployment, and label a simulated deployment as one.
-6. Evaluate a feature flag and a rollback plan, including what rollback does not undo.
-
-**Module connection:** Week 12; LO3 and LO6; Milestone 4 (Sprint 3: the change absorbed, with integration tests and CI/CD). The required reading is Martin (2002), *Testing* (review) [11]; the recommended reading is selected chapters of Humble and Farley, *Continuous Delivery* [12]. The Week 12 lab is an automated build, test and integration pipeline. This chapter creates no new deadlines, weights or marking rules, and the approved Milestone 4 instructions decide what you submit.
-
-**Entry checkpoint:** the Chapter 11 project and Chapter 12's change specification CR-12, its acceptance matrix (examples AC1–AC18) and its ordered backlog. This chapter implements the change. The Chapter 11 listings are not repeated: the companion lists only the files that are new or changed.
-
-**Core reading.** Sections 13.1–13.5 and 13.7–13.8.
-
-**Working-knowledge reading.** Section 13.6 (feature flags, configuration and rollback). Learn to run one flag safely. You do not build a flag platform.
-
-**Minimum required lab.** Steps B1–B4 and T1–T5 of the practical activity in Section 13.11. Steps B1–B4 run on the **Book project** and are running, tracing and diagnosis: the finished checkpoint is supplied and there is nothing to rebuild. Steps T1–T5 run on your **Team project** and produce your Milestone 4 evidence.
-
-**Optional extension.** Steps B5–B7 (deliver and roll back a simulated release, do the AI activity, break a boundary on purpose), the review questions, the transfer challenge and the optional extension.
-
-The separate companion for this chapter contains the new and changed code, the tests, the scripts, the model answers and teaching notes.
+Sections 13.1 to 13.5, 13.7 and 13.8 are the core reading. Section 13.6 (feature flags, configuration and rollback) is working knowledge: learn to run one flag safely; you do not build a flag platform. The minimum lab is steps B1 to B4 and T1 to T5 of the practical activity in Section 13.11. Steps B1 to B4 run on the **Book project** and are running, tracing and diagnosis, because the finished checkpoint is supplied and there is nothing to rebuild; steps T1 to T5 run on your **Team project** and produce your Milestone 4 evidence. Steps B5 to B7 (deliver and roll back a simulated release, do the AI activity, break a boundary on purpose), the review questions, the transfer challenge and the optional extension are optional.
 
 ## 13.1 Boundary risks and test scope
 

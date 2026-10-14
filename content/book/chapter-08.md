@@ -7,40 +7,17 @@ weight: 80
 *OO Development and Agile Practices*  
 *Designing, Testing and Evolving Software with AI Assistance*
 
-## Opening scenario
+The equipment office can now reserve, check out and return equipment, and it wants to take the next step: borrower categories should come from the university directory instead of being supplied by whatever code makes the call. There is a catch. The proposed directory answers in codes (`S`, `T`, `Y` and `N`), returns null when a person is missing and throws its own exception when a lookup fails.
 
-The equipment office can reserve, check out and return equipment. Now it wants borrower categories to come from a university directory rather than from a category supplied by the calling code. Unfortunately, the proposed directory returns records containing `S`, `T`, `Y` and `N`; it returns null when a person is missing and throws its own exception when lookup fails.
+One developer proposes to put all of this inside `ReservationCoordinator`. Another proposes a factory, a builder, an adapter and a decorator around every class. Both proposals need a better argument. The first spreads an outside system's conventions through the reservation rules. The second adds structure before anyone has said what actually varies.
 
-One developer proposes putting these details inside `ReservationCoordinator`. Another proposes a factory, builder, adapter and decorator around every class. Both proposals need a better argument. The first spreads external conventions into reservation behaviour. The second introduces structures before identifying what must vary.
+This chapter asks the more useful question: **which responsibility needs a boundary, and what is the smallest design that makes that boundary clear?** For the directory the answer is one justified Adapter, and the cumulative project gains exactly that. Along the way you will meet the creational and structural patterns through small separate examples, so that you can identify a concrete construction or compatibility problem and say which pattern, if any, answers it. You will tell Factory Method, a simple factory and Abstract Factory apart by their responsibilities, build a validated immutable request through a staged builder, translate provider records, absence and failures into a contract the application owns, and compose decorators while predicting what order and exception handling do. Most of all you will practise justifying either adopting or declining a pattern, using tests and the cost of change as evidence.
 
-This chapter asks a more useful question: **which responsibility needs a boundary, and what is the smallest design that makes that boundary clear?** The answer adds one justified Adapter to the cumulative project. Separate examples explore construction and optional behaviour without forcing every pattern into the lending system.
+The chapter belongs to Week 7 and supports LO2. The midterm remains on Weeks 1 to 6, corresponding to Chapters 2 to 7, and these new patterns are not added to that scope; assessment rules and the module descriptor stay under the module leader's control. The Week 7 readings are the Factory and Adapter chapters of Martin [7] and the creational and structural patterns in Gamma et al. [1].
 
-## Learning outcomes and reading route
+You will need Chapters 5 to 7 (contracts, interfaces, constructor injection, composition and meaningful tests), Java 17 and the Maven/JUnit configuration from Chapter 7. All provider records are synthetic; no real university directory, network service or personal data is used. A second Markdown file holds the complete source listings, tests, reconstruction commands, solutions and teaching notes.
 
-By the end of this chapter, you should be able to:
-
-1. Identify a concrete construction or interface-compatibility problem.
-2. Distinguish Factory Method, a simple factory and Abstract Factory by their responsibilities.
-3. Build a validated immutable request through a staged construction interface.
-4. Adapt provider records, absence and failures into an application-owned contract.
-5. Compose decorators and predict the effects of order and exception handling.
-6. Justify adopting or declining a pattern using tests and change costs.
-
-**Module connection:** Week 7; LO2. The midterm remains on Weeks 1–6, corresponding to Chapters 2–7. These new patterns are not added to that scope. Assessment rules and the module descriptor remain under the module leader's control.
-
-**Prerequisites:** Chapters 5–7: contracts, interfaces, constructor injection, composition and meaningful tests. Use Java 17 and the Maven/JUnit configuration from Chapter 7.
-
-**Core reading.** Sections 8.1, 8.2, 8.5 and 8.7. Factory Method and Adapter are the two suggested live demonstrations.
-
-**Working-knowledge reading.** Sections 8.3 (Abstract Factory), 8.4 (Builder) and 8.6 (Decorator) give limited, required depth through runnable guided examples: read each, run its example and, for the decorator, predict both audit histories before you run the tests. Working knowledge is not an optional extra, but it asks for understanding, not independent implementation. Their implementations remain separate from the cumulative application.
-
-**Minimum required lab.** Complete steps 1–3, 5 and 9 of the practical activity in Section 8.10. Steps 1–3 and 5 run on the **Book project**; step 9 runs on your **Team project**. This is midterm week, and the midterm does not cover this chapter, so do the minimum lab first.
-
-**Optional extension.** Do steps 4, 6, 7 and 8 (the second-scenario comparison, the Section 8.8 AI activity and the Builder and Decorator exercises), the review questions and the transfer challenge. The Builder and Decorator exercise solutions in the companion's Section 8.4 are a separate checkpoint outside the 63-invocation baseline.
-
-This chapter supports the Week 7 readings: the Factory and Adapter chapters of Martin [7] and the creational and structural patterns in Gamma et al. [1].
-
-The second Markdown file contains complete source listings, tests, reconstruction commands, solutions and teaching notes. All provider records are synthetic. No real university directory, network service or personal data is used.
+Sections 8.1, 8.2, 8.5 and 8.7 are the core reading, with Factory Method and Adapter as the two suggested live demonstrations. Sections 8.3 (Abstract Factory), 8.4 (Builder) and 8.6 (Decorator) are working knowledge: they give limited but required depth through runnable guided examples. Read each, run its example and, for the decorator, predict both audit histories before you run the tests. Working knowledge is not an optional extra, but it asks for understanding rather than independent implementation, and those implementations remain separate from the cumulative application. The minimum lab is steps 1 to 3, 5 and 9 of the practical activity in Section 8.10. Steps 1 to 3 and 5 run on the **Book project** and step 9 on your **Team project**. This is midterm week and the midterm does not cover this chapter, so do the minimum lab first. Steps 4, 6, 7 and 8 (the second-scenario comparison, the Section 8.8 AI activity and the Builder and Decorator exercises), the review questions and the transfer challenge are optional; the solutions to the Builder and Decorator exercises sit in the companion's Section 8.4 as a separate checkpoint outside the 63-invocation baseline.
 
 ## 8.1 Why object creation can become a design problem
 
